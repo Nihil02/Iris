@@ -1,4 +1,5 @@
 const { app, BrowserWindow } = require('electron')
+const {sequelize} = require('../database/database.js')
 const path = require('path')
 
 const createWindow = () => {
