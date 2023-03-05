@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require('electron')
 const {sequelize} = require('../database/database.js')
 const path = require('path')
+const {paciente} = require("../database/models.js")
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -48,3 +49,5 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+paciente.getAll()
