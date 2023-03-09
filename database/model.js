@@ -1,2 +1,5 @@
-exports.paciente = require("./models/pacienteModel.js")
-exports.examen = require("./models/examenModel.js")
+exports.Paciente = require("./models/pacienteModel.js")
+exports.Examen = require("./models/examenModel.js")
+exports.Proveedor = require("./models/proveedorModel.js")
+exports.Empleado = require("./models/empleadoModel.js")
+
