@@ -1,5 +1,5 @@
 const { app, BrowserWindow } = require('electron')
-const {sequelize} = require('../database/database.js')
+const {Empleado, Paciente, Proveedor, Examen} = require('../database/model.js')
 const path = require('path')
 
 const createWindow = () => {
@@ -48,3 +48,5 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+Empleado.put()

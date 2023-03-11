@@ -1,9 +1,5 @@
-require('./dbBootstrap.js').create()
 const { Sequelize } = require("sequelize");
-
-const sequelize = new Sequelize({
-    dialect: "sqlite",
-    storage: "",
-});
-
+const sequelize = new Sequelize('sqlite:./database/iris.db')
 exports.sequelize = sequelize
+
+
