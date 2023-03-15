@@ -27,7 +27,7 @@ const createWindow = () => {
 
   if (isDev) {
     win.loadURL("http://localhost:5173");
-    win.webContents.openDevTools();
+    win.webContents.openDevTools({ mode: 'detach' });
   } else {
     win.loadFile(path.join(__dirname, "build", "index.html"));
   }
@@ -38,18 +38,24 @@ const createWindow = () => {
 app.whenReady().then(() => {
   createWindow();
   app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow();
+    }
   });
 });
 
 app.on("window-all-closed", () => {
   win = null;
-  if (process.platform !== "darwin") app.quit();
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
 });
 
 app.on("second-instance", () => {
   if (win) {
-    if (win.isMinimized()) win.restore();
+    if (win.isMinimized()) {
+      win.restore();
+    }
     win.focus();
   }
 });
@@ -62,5 +68,3 @@ app.on("activate", () => {
     createWindow();
   }
 });
-
-Empleado.put();

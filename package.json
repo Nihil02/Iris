@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "main": "electron/main.js",
-  "authors": "",
+  "authors": "Someone",
   "description": "Sistema gestor de clientes de óptica modelo y agenda de proveedores de lentes y armazones",
   "scripts": {
     "start": "npm run build && npm run electron:start",
