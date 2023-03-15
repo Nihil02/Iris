@@ -1,6 +1,17 @@
-const { app, BrowserWindow } = require('electron')
-const {Empleado, Paciente, Proveedor, Examen} = require('../database/model.js')
-const path = require('path')
+const { app, BrowserWindow } = require("electron");
+const path = require("path");
+const {
+  Empleado,
+  Paciente,
+  Proveedor,
+  Examen,
+} = require("../database/model.js");
+
+if (require('electron-squirrel-startup')) {
+  app.quit();
+}
+
+const isDev = process.env.IS_DEV === 'true';
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -10,43 +21,46 @@ const createWindow = () => {
     width: 1024,
     height: 768,
     webPreferences: {
-      preload: path.join(__dirname, 'electron/preload.js'),
+      preload: path.join(__dirname, "electron/preload.js"),
     },
-  })
+  });
 
-  if (app.isPackaged) {
-    win.loadFile(join(__dirname, '../dist/index.html'))
+  if (isDev) {
+    win.loadURL("http://localhost:5173");
+    win.webContents.openDevTools();
   } else {
-    //The localhost is used for development
-    win.loadURL('http://localhost:3000')
-    //If you want to use the web console
-    //win.webContents.openDevTools()
+    win.loadFile(path.join(__dirname, "build", "index.html"));
   }
-}
+
+  win.setMenu(null);
+};
 
 app.whenReady().then(() => {
-  createWindow()
-})
+  createWindow();
+  app.on('activate', function () {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
+});
 
-app.on('window-all-closed', () => {
-  win = null
-  if (process.platform !== 'darwin') app.quit()
-})
+app.on("window-all-closed", () => {
+  win = null;
+  if (process.platform !== "darwin") app.quit();
+});
 
-app.on('second-instance', () => {
+app.on("second-instance", () => {
   if (win) {
-    if (win.isMinimized()) win.restore()
-    win.focus()
+    if (win.isMinimized()) win.restore();
+    win.focus();
   }
-})
+});
 
-app.on('activate', () => {
-  const allWindows = BrowserWindow.getAllWindows()
+app.on("activate", () => {
+  const allWindows = BrowserWindow.getAllWindows();
   if (allWindows.length) {
-    allWindows[0].focus()
+    allWindows[0].focus();
   } else {
-    createWindow()
+    createWindow();
   }
-})
+});
 
-Empleado.put()
+Empleado.put();

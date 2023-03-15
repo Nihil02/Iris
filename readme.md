@@ -4,13 +4,16 @@ Proyecto de sistema gestor de clientes de óptica modelo y agenda de proveedores
 
 ## Uso
 
-`npm install` para instalar los modulos necesarios
-`npm run dev` para ejecutar en modo desarrollo
+`npm install` para instalar los modulos necesarios  
+`npm run dev` para ejecutar en modo desarrollo  
+`npm run build` para construir los modulos de la aplicación  
+`npm run electron:build` para empaquetar la aplicación  
 
 ## Estructura
 
 ```bash
 ├── database                    # código backend
+│   ├── models                  # modelos de entidades de la base de datos
 │   ├── database.js             # manejador de la base de datos
 │   ├── dbBootstrap.js          # configuración de la base de datos
 ├── electron                    # código necesario para el funcionamiento de electron
@@ -21,6 +24,7 @@ Proyecto de sistema gestor de clientes de óptica modelo y agenda de proveedores
 │   ├── components              # componentes y plantillas
 │   ├── views                   # pantallas de la aplicación
 │   ├── index.css               # archivo de estilos css
+│   ├── main.tsx                # archivo principal de react
 ├── index.html                  # 
 ├── postcss.config.ts           # configuración de postcss para tailwind
 ├── tailwind.config.ts          # configuración de tailwind

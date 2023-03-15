@@ -1,5 +1,6 @@
 *.local
-dist-electron
+out/
+electron/build
 
 # Editor directories and files
 .vscode/*
