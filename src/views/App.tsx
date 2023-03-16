@@ -1,11 +1,11 @@
-import { useState } from "react";
+import Menu from "./../components/Menu";
+import ModuloCliente from "./ModuloCliente";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className="App">
-      <p className="text-center">Hello World</p>
+    <div className="flex flex-row">
+      <Menu />
+      <ModuloCliente />
     </div>
   );
 }
