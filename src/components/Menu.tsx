@@ -13,29 +13,56 @@ function Menu() {
                   bg-gray-50 shadow-lg"
     >
       <div className="content-start">
-        <MenuIcon icon={<FaGlasses size="28" />} tooltip="Clientes" />
-        <MenuIcon icon={<FaBoxOpen size="28" />} tooltip="Proveedores" />
-        <MenuIcon icon={<FaUserAlt size="28" />} tooltip="Usuarios" />
+        <MenuIcon
+          icon={<FaGlasses size="28" />}
+          tooltip="Clientes"
+          route="Clientes"
+        />
+        <MenuIcon
+          icon={<FaBoxOpen size="28" />}
+          tooltip="Proveedores"
+          route="Proveedores"
+        />
+        <MenuIcon
+          icon={<FaUserAlt size="28" />}
+          tooltip="Usuarios"
+          route="Usuarios"
+        />
       </div>
       <div className="content-end">
         <hr className="bg-gray-200 border border-gray-200  rounded-full mx-2" />
         <MenuIcon
           icon={<FaDatabase size="28" />}
           tooltip="Exportar Base de Datos"
+          route="Exportar"
         />
-        <MenuIcon icon={<FaDoorOpen size="28" />} tooltip="Salir" />
+        <MenuIcon
+          icon={<FaDoorOpen size="28" />}
+          tooltip="Salir"
+          route="byebye"
+        />
       </div>
     </nav>
   );
 }
 
-const MenuIcon = ({ icon = {}, tooltip = "" }) => (
-  <>
-    <div className="menu-icon group">
-      {icon}
-      <span className="menu-tooltip group-hover:scale-100">{tooltip}</span>
+const MenuIcon = ({ icon = {}, tooltip = "", route = "" }) => {
+  const menuClick = () => {
+    if (route == "byebye") {
+      alert("Salir");
+    } else if (route != "") {
+      alert(route);
+    }
+  };
+
+  return (
+    <div className="menu-icon group" onClick={menuClick}>
+      <>
+        {icon}
+        <span className="menu-tooltip group-hover:scale-100">{tooltip}</span>
+      </>
     </div>
-  </>
-);
+  );
+};
 
 export default Menu;

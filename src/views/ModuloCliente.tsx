@@ -3,8 +3,9 @@ import SearchBar from "./../components/SearchBar";
 function ModuloCliente() {
   return (
     <div className="content-container">
-      <SearchBar/>
-      <p>Hola Mundo</p>
+      <SearchBar />
+      <hr/>
+      <h1>Modulo Cliente</h1>
     </div>
   );
 }
