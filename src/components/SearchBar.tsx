@@ -2,7 +2,7 @@ import { FaSearch } from "react-icons/fa";
 
 function SearchBar() {
   function search() {
-    console.log("Buscando cosas");
+    alert("Buscando cosas");
   }
 
   return (
@@ -11,6 +11,7 @@ function SearchBar() {
       <button>
         <FaSearch size="24" className="" onClick={search}/>
       </button>
+      
     </div>
   );
 }

@@ -17,6 +17,12 @@ body {
   text-align: center;
 }
 
+@layer base{
+  html{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+}
+
 @layer components {
   .menu-icon {
     @apply relative flex items-center justify-center h-14 w-14 mt-2 mb-2 mx-auto 
@@ -34,20 +40,20 @@ body {
   .search-bar {
     @apply flex items-center justify-start 
     bg-gray-400 text-gray-500
-    px-2 h-9 ml-0 mr-0 rounded-md shadow-md 
+    px-2 py-4 mb-4 h-9 ml-0 mr-0 w-8/12 rounded-md shadow-md 
     transition duration-300 ease-in-out;
   }
 
   .search-input {
-    @apply w-full pl-1 font-sans font-semibold
+    @apply w-full pl-1 font-semibold
     bg-transparent outline-none 
     text-gray-500  placeholder-gray-500
      rounded;
   }
 
-  .content-container {
-    @apply h-screen w-screen m-0 ml-20 
-    bg-gray-200 overflow-hidden 
-    flex flex-col items-center justify-start p-5;
+  .container-content {
+    @apply flex flex-col items-center justify-start 
+    mr-0 ml-10 mx-auto px-6 py-10 w-screen h-screen
+    bg-gray-200 overflow-hidden;
   }
 }

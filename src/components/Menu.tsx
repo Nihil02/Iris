@@ -29,7 +29,7 @@ function Menu() {
           route="Usuarios"
         />
       </div>
-      <div className="content-end">
+      <div className="fixed bottom-0 left-3">
         <hr className="bg-gray-200 border border-gray-200  rounded-full mx-2" />
         <MenuIcon
           icon={<FaDatabase size="28" />}
