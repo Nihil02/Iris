@@ -15,7 +15,6 @@ Proyecto de sistema gestor de clientes de óptica modelo y agenda de proveedores
 ├── database                    # código backend
 │   ├── models                  # modelos de entidades de la base de datos
 │   ├── database.js             # manejador de la base de datos
-│   ├── dbBootstrap.js          # configuración de la base de datos
 ├── electron                    # código necesario para el funcionamiento de electron
 │   ├── main.js                 # punto de entrada de electron
 │   ├── preload.js              # punto de entrada de electron
