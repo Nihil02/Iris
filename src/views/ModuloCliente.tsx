@@ -1,10 +1,12 @@
 import SearchBar from "./../components/SearchBar";
+import Content from "../components/Content";
 
 function ModuloCliente() {
   return (
-    <div className="container-content">
+    <div className="content-container">
       <SearchBar />
-      <h1 className="">Modulo Cliente</h1>
+      <h1 className="text-2xl m-5">Modulo Cliente</h1>
+      <Content/>
     </div>
   );
 }
