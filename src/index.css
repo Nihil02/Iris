@@ -17,6 +17,12 @@ body {
   text-align: center;
 }
 
+@layer utilities{
+  .min-h-10{
+    min-height: 2.5rem;
+  }
+}
+
 @layer base {
   html {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -49,19 +55,19 @@ body {
   .search-input {
     @apply w-full pl-1 font-semibold
     bg-transparent outline-none 
-    text-gray-500  placeholder-gray-500
+    text-gray-800  placeholder-gray-500
     rounded;
   }
 
   .content-container {
-    @apply flex flex-col items-center justify-start 
+    @apply flex flex-col items-center justify-start overflow-y-auto
     mr-0 ml-10 mx-auto px-6 py-10 w-screen h-screen
     bg-gray-200 overflow-hidden;
   }
 
   .card {
     @apply relative isolate flex items-center overflow-hidden 
-    gap-x-6 py-2.5 px-6 h-10 w-3/4 m-1
+    gap-x-6 py-2.5 px-6 h-10 min-h-10 w-3/4 m-1
     rounded-md hover:rounded-lg shadow-sm
     bg-gray-50 border-gray-100 border-2 hover:border-green-400
     transition-all duration-100 ease-in cursor-pointer;
@@ -69,7 +75,7 @@ body {
 
   .add-card {
     @apply relative isolate flex items-center justify-center overflow-hidden 
-    gap-x-6 py-2.5 px-6 h-10 w-3/4 m-1
+    gap-x-6 py-2.5 px-6 h-10 min-h-10 w-3/4 m-1
     rounded-lg
    border-gray-500 border-2 border-dotted hover:border-solid hover:border-green-400
     transition-all duration-100 ease-in cursor-pointer;

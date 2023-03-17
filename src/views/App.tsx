@@ -3,7 +3,7 @@ import ModuloCliente from "./ModuloCliente";
 
 function App() {
   return (
-    <div className="flex flex-no-wrap">
+    <div className="flex overflow-hidden w-screen">
       <Menu />
       <ModuloCliente />
     </div>

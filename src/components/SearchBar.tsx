@@ -6,10 +6,10 @@ function SearchBar() {
   }
 
   return (
-    <form className="search-bar">
+    <form className="search-bar" onSubmit={search}>
       <input type="text" className="search-input" placeholder="Buscar" />
-      <button>
-        <FaSearch size="24" className="" onClick={search}/>
+      <button type="submit">
+        <FaSearch size="24" className=""/>
       </button>
     </form>
   );

@@ -4,7 +4,7 @@ function Content() {
   return (
     <>
       <AddCardButton />
-      <Card name="Alguien" />
+      <Card name="Maria Agustina Concepcion de la Torre Castro y Castro" />
     </>
   );
 }
@@ -30,8 +30,8 @@ const Card = ({ name = "" }) => {
         className="flex flex-wrap items-center w-auto"
         onClick={cardClick}
       >
-        <p className="text-sm leading-6">
-          <strong className="font-semibold">{name}</strong>
+        <p className="text-sm leading-6 max-w-prose">
+          <strong className="font-semibold truncate ...">{name}</strong>
         </p>
       </div>
       <div className="flex flex-wrap absolute items-center gap-y-2 gap-x-4 right-4">
