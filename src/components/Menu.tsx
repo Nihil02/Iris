@@ -5,6 +5,7 @@ import {
   FaDatabase,
   FaDoorOpen,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function Menu() {
   return (
@@ -16,17 +17,17 @@ function Menu() {
         <MenuIcon
           icon={<FaGlasses size="28" />}
           tooltip="Clientes"
-          route="Clientes"
+          route="/cliente"
         />
         <MenuIcon
           icon={<FaBoxOpen size="28" />}
           tooltip="Proveedores"
-          route="Proveedores"
+          route="/proveedor"
         />
         <MenuIcon
           icon={<FaUserAlt size="28" />}
           tooltip="Usuarios"
-          route="Usuarios"
+          route="/usuario"
         />
       </div>
       <div className="fixed bottom-0 left-3">
@@ -34,12 +35,12 @@ function Menu() {
         <MenuIcon
           icon={<FaDatabase size="28" />}
           tooltip="Exportar Base de Datos"
-          route="Exportar"
+          route=""
         />
         <MenuIcon
           icon={<FaDoorOpen size="28" />}
-          tooltip="Salir"
-          route="byebye"
+          tooltip="Cerrar Sesión"
+          route="/"
         />
       </div>
     </nav>
@@ -48,20 +49,27 @@ function Menu() {
 
 const MenuIcon = ({ icon = {}, tooltip = "", route = "" }) => {
   const menuClick = () => {
-    if (route == "byebye") {
-      alert("Salir");
-    } else if (route != "") {
-      alert(route);
-    }
+    console.log(route);
   };
 
+  if (route == "exportar") {
+    return (
+      <div className="menu-icon group" onClick={menuClick}>
+        <>
+          {icon}
+          <span className="menu-tooltip group-hover:scale-100">{tooltip}</span>
+        </>
+      </div>
+    );
+  }
+
   return (
-    <div className="menu-icon group" onClick={menuClick}>
+    <Link to={route} className="menu-icon group" onClick={menuClick}>
       <>
         {icon}
         <span className="menu-tooltip group-hover:scale-100">{tooltip}</span>
       </>
-    </div>
+    </Link>
   );
 };
 
