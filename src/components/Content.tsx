@@ -1,4 +1,4 @@
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaPrint, FaTrash, FaPen } from "react-icons/fa";
 
 function Content() {
   return (
@@ -26,23 +26,20 @@ const Card = ({ name = "" }) => {
 
   return (
     <div className="card">
-      <div
-        className="flex flex-wrap items-center w-auto"
-        onClick={cardClick}
-      >
-        <p className="text-sm leading-6 max-w-prose">
-          <strong className="font-semibold truncate ...">{name}</strong>
+      <div className="flex flex-wrap items-center w-auto" onClick={cardClick}>
+        <p className="text-sm leading-6  max-w-md">
+          <strong className="font-semibold truncate">{name}</strong>
         </p>
       </div>
       <div className="flex flex-wrap absolute items-center gap-y-2 gap-x-4 right-4">
-        <button className="card-button" onClick={cardPrint}>
-          I
+        <button className="card-button bg-yellow-400 border-yellow-400" onClick={cardPrint}>
+          <FaPrint size={16} color="white" />
         </button>
-        <button className="card-button" onClick={cardUpdate}>
-          M
+        <button className="card-button bg-green-400 border-green-400" onClick={cardUpdate}>
+          <FaPen size={16} color="white" />
         </button>
-        <button className="card-button" onClick={cardDelete}>
-          B
+        <button className="card-button bg-red-400 border-red-400" onClick={cardDelete}>
+          <FaTrash size={16} color="white" />
         </button>
       </div>
     </div>
