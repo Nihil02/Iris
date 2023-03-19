@@ -4,6 +4,7 @@ import {
   FaBoxOpen,
   FaDatabase,
   FaDoorOpen,
+  FaUndo,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -35,11 +36,18 @@ function Menu() {
         <MenuIcon
           icon={<FaDatabase size="28" />}
           tooltip="Exportar Base de Datos"
-          route=""
+          route="Exportar"
+          redirect = {false}
+        />
+        <MenuIcon
+          icon={<FaUndo size="28" />}
+          tooltip="Restaurar Base de Datos"
+          route="Restaurar"
+          redirect = {false}
         />
         <MenuIcon
           icon={<FaDoorOpen size="28" />}
-          tooltip="Cerrar Sesión"
+          tooltip="Salir"
           route="/"
         />
       </div>
@@ -47,12 +55,12 @@ function Menu() {
   );
 }
 
-const MenuIcon = ({ icon = {}, tooltip = "", route = "" }) => {
+const MenuIcon = ({ icon = {}, tooltip = "", route = "", redirect = true }) => {
   const menuClick = () => {
     console.log(route);
   };
 
-  if (route == "exportar") {
+  if (!redirect) {
     return (
       <div className="menu-icon group" onClick={menuClick}>
         <>
