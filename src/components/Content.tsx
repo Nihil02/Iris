@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { FaPlus, FaPrint, FaTrash, FaPen } from "react-icons/fa";
+import { FaPrint, FaTrash, FaPen } from "react-icons/fa";
+import AddCliente from "./AddCard";
 
 const cards = [
   {
@@ -11,30 +11,15 @@ const cards = [
 ];
 
 function Content() {
-
-  let [isOpen, setIsOpen] = useState(true);
-  
   function renderCards() {
     return cards.map((card) => {
-      return <Card name={card.nombre}/>;
+      return <Card name={card.nombre} />;
     });
-  }
-
-  function AddCardButton() {
-    const addCard = () => {
-      alert("Añadir registro");
-    };
-  
-    return (
-      <div className="add-card" onClick={addCard}>
-        <FaPlus size={20} color="gray" />
-      </div>
-    );
   }
 
   return (
     <>
-      <AddCardButton />
+      <AddCliente />
       {renderCards()}
     </>
   );

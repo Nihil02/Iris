@@ -1,4 +1,4 @@
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "/logo.svg";
 import { FaLock } from "react-icons/fa";
 
@@ -24,6 +24,7 @@ function Login() {
                   required
                   className="login-input"
                   placeholder="Usuario"
+                  autoFocus
                 />
               </div>
               <div>
@@ -44,7 +45,7 @@ function Login() {
             <div>
               <Link to="/cliente"
                 type="submit"
-                className="group relative flex w-full justify-center rounded-md bg-green-600 py-2 px-3 text-sm font-semibold text-white hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="group btn-primary"
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <FaLock
