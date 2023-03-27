@@ -1,6 +1,7 @@
 import { FaPrint, FaTrash, FaPen } from "react-icons/fa";
 import AddCliente from "./AddCard";
 import DeleteCard from "./DeleteCard";
+import UpdateCard from "./UpdateCard";
 
 const cards = [
   {
@@ -52,12 +53,7 @@ const Card = ({ name = "" }) => {
         >
           <FaPrint size={16} color="white" />
         </button>
-        <button
-          className="card-button bg-green-600 hover:bg-green-500"
-          onClick={cardUpdate}
-        >
-          <FaPen size={16} color="white" />
-        </button>
+        <UpdateCard />
         <DeleteCard />
       </div>
     </div>

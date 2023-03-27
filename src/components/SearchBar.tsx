@@ -5,7 +5,7 @@ function SearchBar() {
   let [keyword, setKeyword] = useState("");
 
   function search() {
-    alert("Buscando " + keyword);
+    console.log("Buscando " + keyword);
   }
 
   return (
