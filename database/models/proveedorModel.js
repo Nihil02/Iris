@@ -1,7 +1,8 @@
 const {Model, DataTypes} = require('sequelize')
 const {sequelize} = require('../database.js')
 
-class Proveedor extends Model {}
+class Proveedor extends Model {
+}
 
 Proveedor.init({
     rfc: {
