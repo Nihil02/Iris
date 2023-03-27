@@ -23,9 +23,8 @@ const createWindow = () => {
     win.webContents.openDevTools({ mode: 'detach' });
   } else {
     win.loadFile(path.join(__dirname, "build", "index.html"));
+    win.setMenu(null);
   }
-
-  //win.setMenu(null);
 };
 
 app.whenReady().then(() => {
