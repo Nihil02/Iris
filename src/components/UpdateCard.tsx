@@ -14,7 +14,7 @@ function UpdateCard() {
   const cardUpdate = () => {
     console.log("Registro actualizado");
 
-    closeModal;
+    closeModal();
   };
 
   return (
