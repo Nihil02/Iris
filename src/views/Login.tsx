@@ -1,10 +1,45 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logo from "/logo.svg";
 import { FaLock } from "react-icons/fa";
-import { useContext, useState } from "react";
+import { Fragment, useState } from "react";
+import { Transition, Dialog } from "@headlessui/react";
 
 function Login() {
-  let [name, setName] = useState("")
+  let [name, setName] = useState("");
+  let [pass, setPass] = useState("");
+  let [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const data = [
+    {
+      id: "1",
+      name: "admin",
+      pass: "12345",
+    },
+    {
+      id: "2",
+      name: "Soraida",
+      pass: "hola1234",
+    },
+  ];
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function validation() {
+    console.log(name, pass);
+
+    data.map((user) => {
+      console.log(user.pass);
+      name == user.name && pass == user.pass
+        ? navigate("/cliente")
+        : openModal();
+    });
+  }
 
   return (
     <div className="content-container ml-0 bg-gray-50">
@@ -14,7 +49,7 @@ function Login() {
             <img src={logo} className=" mx-auto w-48 h-48 m-4" />
           </div>
 
-          <form className="mt-8 space-y-6" action="#">
+          <form className="mt-8 space-y-6">
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
@@ -39,18 +74,20 @@ function Login() {
                 <input
                   id="contraseña"
                   name="contraseña"
-                  type="contraseña"
+                  type="password"
                   required
                   className="login-input"
                   placeholder="Contraseña"
+                  onChange={(e) => setPass(e.target.value)}
                 />
               </div>
             </div>
 
             <div>
-              <Link to="/cliente"
+              <button
                 type="submit"
                 className="group btn-primary"
+                onClick={validation}
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <FaLock
@@ -59,9 +96,49 @@ function Login() {
                   />
                 </span>
                 Entrar
-              </Link>
+              </button>
             </div>
           </form>
+
+          <Transition appear show={isOpen} as={Fragment}>
+            <Dialog as="div" className="relative z-10" onClose={closeModal}>
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <div className="fixed inset-0 bg-black bg-opacity-25" />
+              </Transition.Child>
+
+              <div className="fixed inset-0 overflow-y-auto">
+                <div className="flex min-h-full items-center justify-center p-4 text-center">
+                  <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
+                  >
+                    <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                      <Dialog.Title
+                        as="h3"
+                        className="text-lg font-bold leading-6 py-2 text-red-800"
+                      >
+                        Error
+                      </Dialog.Title>
+                      <p>Datos incorrectos</p>
+                    </Dialog.Panel>
+                  </Transition.Child>
+                </div>
+              </div>
+            </Dialog>
+          </Transition>
         </div>
       </div>
     </div>
