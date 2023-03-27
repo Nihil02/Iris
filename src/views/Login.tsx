@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import logo from "/logo.svg";
 import { FaLock } from "react-icons/fa";
+import { useContext, useState } from "react";
 
 function Login() {
+  let [name, setName] = useState("")
+
   return (
     <div className="content-container ml-0 bg-gray-50">
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -10,7 +13,8 @@ function Login() {
           <div>
             <img src={logo} className=" mx-auto w-48 h-48 m-4" />
           </div>
-          <form className="mt-8 space-y-6" action="#" method="">
+
+          <form className="mt-8 space-y-6" action="#">
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
@@ -24,6 +28,7 @@ function Login() {
                   required
                   className="login-input"
                   placeholder="Usuario"
+                  onChange={(e) => setName(e.target.value)}
                   autoFocus
                 />
               </div>
