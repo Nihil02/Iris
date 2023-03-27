@@ -82,7 +82,8 @@ body {
   }
 
   .card-button {
-    @apply flex justify-center items-center w-8 h-8 rounded-md border-2;
+    @apply flex justify-center items-center w-8 h-8 rounded-md hover:rounded-lg
+    transition-all duration-100 ease-in ;
   }
 
   .login-input {
@@ -91,9 +92,20 @@ body {
     focus:z-10 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6;
   }
 
-  .btn-primary {
+  .btn {
     @apply relative flex w-full justify-center rounded-md py-2 px-3
-    bg-green-600 text-white hover:bg-green-500  
-    text-sm font-semibold;
+    text-white text-sm font-semibold;
+  }
+
+  .btn-primary {
+    @apply btn bg-green-600 hover:bg-green-500 text-white;
+  }
+
+  .btn-danger {
+    @apply btn bg-red-600 hover:bg-red-500 text-white;
+  }
+
+  .btn-warning {
+    @apply btn bg-yellow-500 hover:bg-yellow-400 text-white;
   }
 }

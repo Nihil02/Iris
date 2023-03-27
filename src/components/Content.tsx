@@ -1,5 +1,6 @@
 import { FaPrint, FaTrash, FaPen } from "react-icons/fa";
 import AddCliente from "./AddCard";
+import DeleteCard from "./DeleteCard";
 
 const cards = [
   {
@@ -36,9 +37,6 @@ const Card = ({ name = "" }) => {
   const cardUpdate = () => {
     alert("Modificando la información de " + name);
   };
-  const cardDelete = () => {
-    alert("Eliminando la información de " + name);
-  };
 
   return (
     <div className="card">
@@ -49,23 +47,18 @@ const Card = ({ name = "" }) => {
       </div>
       <div className="flex flex-wrap absolute items-center gap-y-2 gap-x-4 right-4">
         <button
-          className="card-button bg-yellow-400 border-yellow-400"
+          className="card-button bg-yellow-600 hover:bg-yellow-500"
           onClick={cardPrint}
         >
           <FaPrint size={16} color="white" />
         </button>
         <button
-          className="card-button bg-green-400 border-green-400"
+          className="card-button bg-green-600 hover:bg-green-500"
           onClick={cardUpdate}
         >
           <FaPen size={16} color="white" />
         </button>
-        <button
-          className="card-button bg-red-400 border-red-400"
-          onClick={cardDelete}
-        >
-          <FaTrash size={16} color="white" />
-        </button>
+        <DeleteCard />
       </div>
     </div>
   );
