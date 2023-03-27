@@ -1,12 +1,5 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
-const {
-  Empleado,
-  Paciente,
-  Proveedor,
-  Examen,
-} = require("../database/model.js");
-
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
@@ -32,7 +25,7 @@ const createWindow = () => {
     win.loadFile(path.join(__dirname, "build", "index.html"));
   }
 
-  win.setMenu(null);
+  //win.setMenu(null);
 };
 
 app.whenReady().then(() => {
