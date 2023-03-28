@@ -12,6 +12,12 @@ const cards = [
   },
 ];
 
+async function getAllProveedores() {
+  const res = await window.modelAPI.getAllProveedores();
+  return res[0].dataValues;
+}
+
+
 function Content() {
   function renderCards() {
     return cards.map((card) => {

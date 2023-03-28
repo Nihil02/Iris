@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -14,7 +14,7 @@ const createWindow = () => {
     width: 1024,
     height: 768,
     webPreferences: {
-      preload: path.join(__dirname, "electron/preload.js"),
+      preload: path.join(__dirname, "preload.js"),
     },
   });
 
@@ -59,4 +59,9 @@ app.on("activate", () => {
   } else {
     createWindow();
   }
+});
+
+ipcMain.handle('getAllProveedores', async () => {
+  const res = await Proveedor.findAll();
+  return res;
 });
