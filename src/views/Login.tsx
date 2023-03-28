@@ -1,8 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import logo from "/logo.svg";
+import { useNavigate } from "react-router-dom";
 import { FaLock } from "react-icons/fa";
 import { Fragment, useState } from "react";
 import { Transition, Dialog } from "@headlessui/react";
+import { matchSorter } from "match-sorter";
 
 function Login() {
   let [name, setName] = useState("");
@@ -31,12 +32,9 @@ function Login() {
   }
 
   function validation() {
-    data.map((user) => {
-      console.log(user.pass);
-      name == user.name && pass == user.pass
-        ? navigate("/cliente")
-        : openModal();
-    });
+    const res = matchSorter(data, name, { keys: ["name"] });
+
+    pass == res[0].pass ? navigate("/cliente") : openModal();
   }
 
   return (
@@ -47,7 +45,7 @@ function Login() {
             <img src={logo} className=" mx-auto w-48 h-48 m-4" />
           </div>
 
-          <form className="mt-8 space-y-6">
+          <form className="mt-8 space-y-6" onSubmit={validation}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
@@ -82,11 +80,7 @@ function Login() {
             </div>
 
             <div>
-              <button
-                type="submit"
-                className="group btn-primary"
-                onClick={validation}
-              >
+              <button type="submit" className="group btn-primary">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <FaLock
                     className="h-5 w-5 text-green-500 group-hover:text-green-400"

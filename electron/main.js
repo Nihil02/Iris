@@ -65,3 +65,8 @@ ipcMain.handle('getAllProveedores', async () => {
   const res = await Proveedor.findAll();
   return res;
 });
+
+ipcMain.handle('getAllPacientes', async () => {
+  const res = await Paciente.findAll();
+  return res;
+});

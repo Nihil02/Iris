@@ -31,7 +31,7 @@ function Menu() {
         {admin ? (
           <MenuIcon
             icon={<FaUserAlt size="28" />}
-            tooltip="Usuarios"
+            tooltip="Empleados"
             route="/usuario"
           />
         ) : null}
