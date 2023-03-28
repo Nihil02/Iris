@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
   FaGlasses,
   FaUserAlt,
@@ -7,8 +8,11 @@ import {
   FaUndo,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { UserContext } from "../UserContext";
 
 function Menu() {
+  const admin = useContext(UserContext);
+  console.log(admin);
   return (
     <nav
       className="fixed top-0 left-0 h-screen w-20 flex flex-col
@@ -25,11 +29,13 @@ function Menu() {
           tooltip="Proveedores"
           route="/proveedor"
         />
-        <MenuIcon
-          icon={<FaUserAlt size="28" />}
-          tooltip="Usuarios"
-          route="/usuario"
-        />
+        {admin ? (
+          <MenuIcon
+            icon={<FaUserAlt size="28" />}
+            tooltip="Usuarios"
+            route="/usuario"
+          />
+        ) : null}
       </div>
       <div className="fixed bottom-0 left-3">
         <hr className="bg-gray-200 border border-gray-200  rounded-full mx-2" />
@@ -37,19 +43,15 @@ function Menu() {
           icon={<FaDatabase size="28" />}
           tooltip="Exportar Base de Datos"
           route="Exportar"
-          redirect = {false}
+          redirect={false}
         />
         <MenuIcon
           icon={<FaUndo size="28" />}
           tooltip="Restaurar Base de Datos"
           route="Restaurar"
-          redirect = {false}
+          redirect={false}
         />
-        <MenuIcon
-          icon={<FaDoorOpen size="28" />}
-          tooltip="Salir"
-          route="/"
-        />
+        <MenuIcon icon={<FaDoorOpen size="28" />} tooltip="Salir" route="/" />
       </div>
     </nav>
   );
@@ -60,24 +62,28 @@ const MenuIcon = ({ icon = {}, tooltip = "", route = "", redirect = true }) => {
     console.log(route);
   };
 
-  if (!redirect) {
-    return (
-      <div className="menu-icon group" onClick={menuClick}>
-        <>
-          {icon}
-          <span className="menu-tooltip group-hover:scale-100">{tooltip}</span>
-        </>
-      </div>
-    );
-  }
-
   return (
-    <Link to={route} className="menu-icon group" onClick={menuClick}>
-      <>
-        {icon}
-        <span className="menu-tooltip group-hover:scale-100">{tooltip}</span>
-      </>
-    </Link>
+    <>
+      {redirect ? (
+        <Link to={route} className="menu-icon group" onClick={menuClick}>
+          <>
+            {icon}
+            <span className="menu-tooltip group-hover:scale-100">
+              {tooltip}
+            </span>
+          </>
+        </Link>
+      ) : (
+        <div className="menu-icon group" onClick={menuClick}>
+          <>
+            {icon}
+            <span className="menu-tooltip group-hover:scale-100">
+              {tooltip}
+            </span>
+          </>
+        </div>
+      )}
+    </>
   );
 };
 

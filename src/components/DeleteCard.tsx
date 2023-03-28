@@ -14,7 +14,7 @@ function DeleteCard() {
   const cardDelete = () => {
     console.log("Registro eliminado");
 
-    closeModal;
+    closeModal();
   };
 
   return (
