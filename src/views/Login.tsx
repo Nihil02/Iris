@@ -31,8 +31,6 @@ function Login() {
   }
 
   function validation() {
-    console.log(name, pass);
-
     data.map((user) => {
       console.log(user.pass);
       name == user.name && pass == user.pass

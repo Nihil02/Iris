@@ -12,7 +12,6 @@ import { UserContext } from "../UserContext";
 
 function Menu() {
   const admin = useContext(UserContext);
-  console.log(admin);
   return (
     <nav
       className="fixed top-0 left-0 h-screen w-20 flex flex-col
