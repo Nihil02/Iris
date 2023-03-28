@@ -1,5 +1,12 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
+const {
+  Empleado,
+  Paciente,
+  Proveedor,
+  Examen,
+} = require("../database/model.js");
+
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
