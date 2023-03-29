@@ -5,6 +5,9 @@ class API {
      */
     static async getAllSuppliers() {
         const res = await window.modelAPI.getAllProveedores();
+        const costumers = res.map(costumer => {
+            return costumer.dataValues;
+        });
         return res;
     }
 }
