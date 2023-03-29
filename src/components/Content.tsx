@@ -1,5 +1,6 @@
 import AddCliente from "./AddCard";
 import Card from "./Card";
+import API from "../../api/api";
 
 const data = [
   {
@@ -11,11 +12,6 @@ const data = [
     nombre: "Mario Augusto Gómez Apellido",
   },
 ];
-
-async function getAllProveedores() {
-  const res = await window.modelAPI.getAllProveedores();
-  return res[0].dataValues;
-}
 
 
 function Content() {
