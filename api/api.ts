@@ -3,14 +3,14 @@ interface Data {
 }
 class API {
     /**
-     * @returns Promise with JSON array costumers
+     * @returns Promise with JSON array suppliers
      */
     static async getAllSuppliers():Promise<Object[]> {
-        const res:Array<Data> = await window.modelAPI.getAllProveedores();
-        const costumers = res.map(costumer => {
-            return costumer.dataValues;
+        const res:Array<Data> = await window.modelAPI.getAllSuppliers();
+        const suppliers = res.map(supplier => {
+            return supplier.dataValues;
         });
-        return costumers;
+        return suppliers;
     }
 }
 
