@@ -1,10 +1,10 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const {
-  Empleado,
-  Paciente,
-  Proveedor,
-  Examen,
+  Employee,
+  Costumer,
+  Exam,
+  Supplier,
 } = require("../database/model.js");
 
 if (require('electron-squirrel-startup')) {
@@ -68,7 +68,7 @@ app.on("activate", () => {
   }
 });
 
-ipcMain.handle('getAllProveedores', async () => {
-  const res = await Proveedor.findAll();
+ipcMain.handle('getAllSuppliers', async () => {
+  const res = await Supplier.findAll();
   return res;
 });
