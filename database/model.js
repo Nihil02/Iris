@@ -1,5 +1,5 @@
-exports.Paciente = require("./models/pacienteModel.js")
-exports.Examen = require("./models/examenModel.js")
-exports.Proveedor = require("./models/proveedorModel.js")
-exports.Empleado = require("./models/empleadoModel.js")
+exports.Costumer = require("./models/costumerModel.js")
+exports.Exam = require("./models/examModel.js")
+exports.Supplier = require("./models/supplierModel.js")
+exports.Employee = require("./models/employeeModel.js")
 

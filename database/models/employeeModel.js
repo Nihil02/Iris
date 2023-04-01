@@ -1,9 +1,9 @@
 const {Model, DataTypes} = require('sequelize')
 const { sequelize } = require('../database.js')
 
-class Empleado extends Model {}
+class Employee extends Model {}
 
-Empleado.init({
+Employee.init({
 
     id: {
         type: DataTypes.INTEGER,
@@ -30,7 +30,7 @@ Empleado.init({
 
 // TODO: Methods for handling data
 
-Empleado.sync()
+Employee.sync()
 
 // Instead of export the class itself try exporting an instance of the class
-module.exports = Empleado
+module.exports = Employee

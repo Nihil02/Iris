@@ -1,9 +1,9 @@
 const {Model, DataTypes} = require('sequelize')
 const {sequelize} = require('../database.js')
-const Paciente = require('./pacienteModel.js')
-class Examen extends Model {}
+const Paciente = require('./costumerModel.js')
+class Exam extends Model {}
 
-Examen.init({
+Exam.init({
     cliente: {
         type: DataTypes.STRING(18),
         references: {
@@ -73,5 +73,5 @@ Examen.init({
 }, {sequelize, modelName: "Examen", tableName: "EXAMEN", timestamps: false})
 
 // TODO: Methods for data handling
-Examen.sync()
-module.exports = Examen
+Exam.sync()
+module.exports = Exam

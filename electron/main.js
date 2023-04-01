@@ -1,10 +1,10 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const {
-  Empleado,
-  Paciente,
-  Proveedor,
-  Examen,
+  Employee,
+  Costumer,
+  Exam,
+  Supplier,
 } = require("../database/model.js");
 
 if (require('electron-squirrel-startup')) {
@@ -13,7 +13,7 @@ if (require('electron-squirrel-startup')) {
 
 const isDev = process.env.IS_DEV === 'true';
 
-const createWindow = () => {
+const createWindow = async () => {
   const win = new BrowserWindow({
     title: "Iris",
     minWidth: 800,
@@ -26,7 +26,7 @@ const createWindow = () => {
   });
 
   if (isDev) {
-    win.loadURL("http://localhost:5173");
+    await win.loadURL("http://localhost:5173");
     win.webContents.openDevTools({ mode: 'detach' });
   } else {
     win.loadFile(path.join(__dirname, "build", "index.html"));
@@ -68,8 +68,8 @@ app.on("activate", () => {
   }
 });
 
-ipcMain.handle('getAllProveedores', async () => {
-  const res = await Proveedor.findAll();
+ipcMain.handle('getAllSuppliers', async () => {
+  const res = await Supplier.findAll();
   return res;
 });
 
