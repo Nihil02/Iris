@@ -1,9 +1,9 @@
 const {DataTypes, Model} = require('sequelize')
 const { sequelize } = require('../database.js')
 
-class Paciente extends Model {}
+class Costumer extends Model {}
 
-Paciente.init({
+Costumer.init({
     CURP: {
         type: DataTypes.STRING(50), 
         primaryKey: true
@@ -53,6 +53,6 @@ Paciente.init({
 }, {sequelize, modelName: 'Paciente', tableName: "PACIENTE", timestamps: false})
 
 // TODO: Methods for handle the data of paciente
-Paciente.sync()
-module.exports = Paciente
+Costumer.sync()
+module.exports = Costumer
 

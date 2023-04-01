@@ -1,10 +1,10 @@
 const {Model, DataTypes} = require('sequelize')
 const {sequelize} = require('../database.js')
 
-class Proveedor extends Model {
+class Supplier extends Model {
 }
 
-Proveedor.init({
+Supplier.init({
     rfc: {
         type: DataTypes.STRING(13),
         primaryKey: true
@@ -26,5 +26,5 @@ Proveedor.init({
         allowNull: false
     }
 }, {sequelize, modelName:"Proveedor", tableName: "PROVEEDOR", timestamps: false})
-Proveedor.sync()
-module.exports = Proveedor
+Supplier.sync()
+module.exports = Supplier
