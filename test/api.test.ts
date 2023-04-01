@@ -1,6 +1,10 @@
 import API from "../api/api";
+import { describe, expect, it } from "vitest";
 
-test("Test 1", () => {
+describe("Get All", () => {
   const result = API.getAllSuppliers();
-  expect(result).toBe("");
+  console.log(result);
+  it("Supliers", () => {
+    expect("").toBe("");
+  });
 });

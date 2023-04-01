@@ -13,7 +13,7 @@ if (require('electron-squirrel-startup')) {
 
 const isDev = process.env.IS_DEV === 'true';
 
-const createWindow = () => {
+const createWindow = async () => {
   const win = new BrowserWindow({
     title: "Iris",
     minWidth: 800,
@@ -26,7 +26,7 @@ const createWindow = () => {
   });
 
   if (isDev) {
-    win.loadURL("http://localhost:5173");
+    await win.loadURL("http://localhost:5173");
     win.webContents.openDevTools({ mode: 'detach' });
   } else {
     win.loadFile(path.join(__dirname, "build", "index.html"));
