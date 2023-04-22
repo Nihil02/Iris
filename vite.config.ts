@@ -5,12 +5,8 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: process.env.IS_DEV !== 'true' ? './' : '/',
   build: {
+    target: "ESnext",
     outDir: 'electron/build',
-  },
-  esbuild: {
-    supported: {
-      'top-level-await': true //browsers can handle top-level-await features
-    },
   },
   plugins: [react()],
 })

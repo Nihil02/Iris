@@ -1,4 +1,4 @@
-import AddCliente from "./AddCard";
+import AddCliente from "./AddCardCliente";
 import Card from "./Card";
 import API from "../../api/api";
 
