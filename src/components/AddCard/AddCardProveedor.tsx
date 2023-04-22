@@ -2,7 +2,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 
-function AddCliente() {
+function AddProveedor() {
   let [proveedor, setProveedor] = useState({
     rfc: "",
     razon: "",
@@ -156,4 +156,4 @@ function AddCliente() {
   );
 }
 
-export default AddCliente;
+export default AddProveedor;

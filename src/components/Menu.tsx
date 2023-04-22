@@ -57,14 +57,12 @@ function Menu() {
 }
 
 const MenuIcon = ({ icon = {}, tooltip = "", route = "", redirect = true }) => {
-  const menuClick = () => {
-    console.log(route);
-  };
+  const menuClick = () => {};
 
   return (
     <>
       {redirect ? (
-        <Link to={route} className="menu-icon group" onClick={menuClick}>
+        <Link to={route} className="menu-icon group">
           <>
             {icon}
             <span className="menu-tooltip group-hover:scale-100">
