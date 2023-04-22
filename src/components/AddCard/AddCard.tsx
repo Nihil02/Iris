@@ -1,6 +1,8 @@
 import { useLocation } from "react-router";
-import AddCliente from "./AddCardCliente";
-import AddProveedor from "./AddCardProveedor";
+import AddCliente from "./AddCliente";
+import AddProveedor from "./AddProveedor";
+import AddEmpleado from "./AddEmpleado";
+import AddExamen from "./AddExamen";
 
 function AddCard() {
   const location = useLocation();
@@ -17,7 +19,19 @@ function AddCard() {
         <AddProveedor />
       </>
     );
-  } else {
+  } else if (location.pathname == "/usuario") {
+    return (
+      <>
+        <AddEmpleado />
+      </>
+    );
+  } else if (location.pathname == "/examen") {
+    return (
+      <>
+        <AddExamen />
+      </>
+    );
+  }  else {
     return (
       <>
         <h1>Fallo</h1>
