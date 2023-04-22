@@ -2,22 +2,12 @@ import AddCliente from "./AddCard";
 import Card from "./Card";
 import API from "../../api/api";
 
-const data = [
-  {
-    id: "1",
-    nombre: "María Agustina Carmona Rosas",
-  },
-  {
-    id: "2",
-    nombre: "Mario Augusto Gómez Apellido",
-  },
-];
-
+const data = await API.getAllSuppliers();
 
 function Content() {
   function renderCards() {
     return data.map((card) => {
-      return <Card key={card.id} name={card.nombre} />;
+      return <Card key={card.rfc} name={card.razon_social} />;
     });
   }
 
