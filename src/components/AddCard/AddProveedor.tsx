@@ -2,13 +2,15 @@ import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 
-function AddCliente() {
-  let [rfc, setRFC] = useState("");
-  let [razon_social, setRazon] = useState("");
-  let [domicilio, setDomicilio] = useState("");
-  let [telefono, setTelefono] = useState("");
-  let [correo, setCorreo] = useState("");
-  let [cuenta, setCuenta] = useState("");
+function AddProveedor() {
+  let [proveedor, setProveedor] = useState({
+    rfc: "",
+    razon: "",
+    domicilio: "",
+    telefono: "",
+    correo: "",
+    cuenta: "",
+  });
 
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
@@ -65,7 +67,7 @@ function AddCliente() {
                         name=""
                         className="text-input"
                         placeholder="RFC"
-                        onChange={(e) => setRFC(e.target.value)}
+                        onChange={(e) => setProveedor({...proveedor, rfc:e.target.value})}
                         required
                       />
                     </div>
@@ -78,7 +80,7 @@ function AddCliente() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Razon Social"
-                        onChange={(e) => setRazon(e.target.value)}
+                        onChange={(e) => setProveedor({...proveedor, razon:e.target.value})}
                         required
                       />
                     </div>
@@ -91,7 +93,7 @@ function AddCliente() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Domicilio"
-                        onChange={(e) => setDomicilio(e.target.value)}
+                        onChange={(e) => setProveedor({...proveedor, domicilio:e.target.value})}
                         required
                       />
                     </div>
@@ -104,7 +106,7 @@ function AddCliente() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Telefono"
-                        onChange={(e) => setTelefono(e.target.value)}
+                        onChange={(e) => setProveedor({...proveedor, telefono:e.target.value})}
                         required
                       />
                     </div>
@@ -117,7 +119,7 @@ function AddCliente() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Correo"
-                        onChange={(e) => setCorreo(e.target.value)}
+                        onChange={(e) => setProveedor({...proveedor, correo:e.target.value})}
                         required
                       />
                     </div>
@@ -130,7 +132,7 @@ function AddCliente() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Cuenta"
-                        onChange={(e) => setCuenta(e.target.value)}
+                        onChange={(e) => setProveedor({...proveedor, cuenta:e.target.value})}
                         required
                       />
                     </div>
@@ -154,4 +156,4 @@ function AddCliente() {
   );
 }
 
-export default AddCliente;
+export default AddProveedor;

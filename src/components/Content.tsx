@@ -1,6 +1,6 @@
-import AddCliente from "./AddCard";
 import Card from "./Card";
 import API from "../../api/api";
+import AddCard from "./AddCard/AddCard";
 
 const data = await API.getAllSuppliers();
 
@@ -13,7 +13,7 @@ function Content() {
 
   return (
     <>
-      <AddCliente />
+      <AddCard />
       {renderCards()}
     </>
   );

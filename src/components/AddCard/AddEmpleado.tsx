@@ -2,15 +2,16 @@ import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 
-function AddCliente() {
-  let [curp, setCURP] = useState("");
-  let [nombre, setNombre] = useState("");
-  let [apellido1, setApellido1] = useState("");
-  let [apellido2, setApellido2] = useState("");
-  let [fecha, setFecha] = useState("");
-  let [estado, setEstado] = useState("");
-  let [municipio, setMunicipio] = useState("");
-  let [locacion, setLocacion] = useState("");
+function AddEmpleado() {
+  let [empleado, setEmpleado] = useState({
+    rfc: "",
+    nombre: "",
+    apellido1: "",
+    apellido2: "",
+    privilegios: 1,
+    usuario: "",
+    pass: "",
+  });
 
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
@@ -22,6 +23,7 @@ function AddCliente() {
 
   const addCard = () => {
     console.log("Registro agregado");
+    console.log(empleado);
 
     closeModal();
   };
@@ -60,15 +62,16 @@ function AddCliente() {
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <form className="m-4" onSubmit={addCard}>
                     <div className="mb-6">
-                      <label htmlFor="">CURP</label>
+                      <label htmlFor="">RFC</label>
                       <input
                         type="text"
                         id=""
                         name=""
                         className="text-input"
-                        placeholder="CURP"
-                        onChange={(e) => setCURP(e.target.value)}
-                        pattern="[A-Za-z]{4}[\d]{6}[H|M][A-Za-z]{5}[A-Za-z\d]{2}$"
+                        placeholder="RFC"
+                        onChange={(e) =>
+                          setEmpleado({ ...empleado, rfc: e.target.value })
+                        }
                         required
                       />
                     </div>
@@ -81,7 +84,9 @@ function AddCliente() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Nombre"
-                        onChange={(e) => setNombre(e.target.value)}
+                        onChange={(e) =>
+                          setEmpleado({ ...empleado, nombre: e.target.value })
+                        }
                         required
                       />
                     </div>
@@ -94,7 +99,9 @@ function AddCliente() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Primer Apellido"
-                        onChange={(e) => setApellido1(e.target.value)}
+                        onChange={(e) =>
+                          setEmpleado({ ...empleado, apellido1: e.target.value })
+                        }
                         required
                       />
                     </div>
@@ -107,95 +114,77 @@ function AddCliente() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Segundo Apellido"
-                        onChange={(e) => setApellido2(e.target.value)}
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Fecha de Nacimiento</label>
-                      <input
-                        type="date"
-                        id=""
-                        name=""
-                        className="text-input"
-                        required
+                        onChange={(e) =>
+                          setEmpleado({ ...empleado, apellido2: e.target.value })
+                        }
                       />
                     </div>
                     <div className="mb-6">
                       <fieldset>
-                        <legend className="text-gray-900 text-sm leading-6">
-                          Sexo
+                        <legend className="text-gray-900 text-md leading-6">
+                          Privilegios
                         </legend>
                         <div className="mt-6 space-y-6">
                           <div className="flex items-center gap-x-3">
                             <input
-                              id="sexo_h"
-                              name="hombre"
+                              id="priv1"
+                              name="comun"
                               type="radio"
                               className="h-4 w-4 "
                             />
                             <label
-                              htmlFor="sexo_h"
+                              htmlFor="priv1"
                               className="block leading-6 text-gray-900 text-sm"
                             >
-                              Hombre
+                              Común
                             </label>
                           </div>
                           <div className="flex items-center gap-x-3">
                             <input
-                              id="sexo_m"
-                              name="mujer"
+                              id="priv2"
+                              name="admin"
                               type="radio"
                               className="h-4 w-4 "
                             />
                             <label
-                              htmlFor="sexo_m"
+                              htmlFor="priv2"
                               className="block leading-6 text-gray-900 text-sm"
                             >
-                              Mujer
+                              Administrador
                             </label>
                           </div>
                         </div>
                       </fieldset>
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Estado</label>
+                      <label htmlFor="">Usuario</label>
                       <input
-                        type="number"
+                        type="text"
                         id=""
                         name=""
+                        maxLength={50}
                         className="text-input"
-                        placeholder="Estado"
-                        onChange={(e) => setEstado(e.target.value)}
-                        min={1}
-                        max={32}
+                        placeholder="Usuario"
+                        onChange={(e) =>
+                          setEmpleado({ ...empleado, usuario: e.target.value })
+                        }
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Municipio</label>
+                      <label htmlFor="">Contraseña</label>
                       <input
-                        type="number"
+                        type="text"
                         id=""
                         name=""
+                        maxLength={50}
                         className="text-input"
-                        placeholder="Municipio"
-                        onChange={(e) => setMunicipio(e.target.value)}
-                        min={1}
-                        max={999}
+                        placeholder="Contraseña"
+                        onChange={(e) =>
+                          setEmpleado({ ...empleado, pass: e.target.value })
+                        }
                       />
                     </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Locación</label>
-                      <input
-                        type="number"
-                        id=""
-                        name=""
-                        className="text-input"
-                        placeholder="Locación"
-                        onChange={(e) => setLocacion(e.target.value)}
-                        min={1}
-                        max={9999}
-                      />
-                    </div>
+
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
                       <button type="submit" className="btn-primary">
@@ -216,4 +205,4 @@ function AddCliente() {
   );
 }
 
-export default AddCliente;
+export default AddEmpleado;

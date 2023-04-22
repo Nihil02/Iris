@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: process.env.IS_DEV !== 'true' ? './' : '/',
   build: {
+    target: "ESnext",
     outDir: 'electron/build',
   },
   plugins: [react()],
