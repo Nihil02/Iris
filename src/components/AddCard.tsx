@@ -3,14 +3,16 @@ import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 
 function AddCliente() {
-  let [curp, setCURP] = useState("");
-  let [nombre, setNombre] = useState("");
-  let [apellido1, setApellido1] = useState("");
-  let [apellido2, setApellido2] = useState("");
-  let [fecha, setFecha] = useState("");
-  let [estado, setEstado] = useState("");
-  let [municipio, setMunicipio] = useState("");
-  let [locacion, setLocacion] = useState("");
+  let [cliente, setCliente] = useState({
+    curp: "",
+    nombre: "",
+    apellido1: "",
+    apellido2: "",
+    fecha: "",
+    estado: "",
+    municipio: "",
+    locacion: "",
+  });
 
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
@@ -22,6 +24,7 @@ function AddCliente() {
 
   const addCard = () => {
     console.log("Registro agregado");
+    console.log(cliente);
 
     closeModal();
   };
@@ -67,7 +70,9 @@ function AddCliente() {
                         name=""
                         className="text-input"
                         placeholder="CURP"
-                        onChange={(e) => setCURP(e.target.value)}
+                        onChange={(e) =>
+                          setCliente({ ...cliente, curp: e.target.value })
+                        }
                         pattern="[A-Za-z]{4}[\d]{6}[H|M][A-Za-z]{5}[A-Za-z\d]{2}$"
                         required
                       />
@@ -81,7 +86,9 @@ function AddCliente() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Nombre"
-                        onChange={(e) => setNombre(e.target.value)}
+                        onChange={(e) =>
+                          setCliente({ ...cliente, nombre: e.target.value })
+                        }
                         required
                       />
                     </div>
@@ -94,7 +101,9 @@ function AddCliente() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Primer Apellido"
-                        onChange={(e) => setApellido1(e.target.value)}
+                        onChange={(e) =>
+                          setCliente({ ...cliente, apellido1: e.target.value })
+                        }
                         required
                       />
                     </div>
@@ -107,7 +116,9 @@ function AddCliente() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Segundo Apellido"
-                        onChange={(e) => setApellido2(e.target.value)}
+                        onChange={(e) =>
+                          setCliente({ ...cliente, apellido2: e.target.value })
+                        }
                       />
                     </div>
                     <div className="mb-6">
@@ -165,7 +176,9 @@ function AddCliente() {
                         name=""
                         className="text-input"
                         placeholder="Estado"
-                        onChange={(e) => setEstado(e.target.value)}
+                        onChange={(e) =>
+                          setCliente({ ...cliente, estado: e.target.value })
+                        }
                         min={1}
                         max={32}
                       />
@@ -178,7 +191,9 @@ function AddCliente() {
                         name=""
                         className="text-input"
                         placeholder="Municipio"
-                        onChange={(e) => setMunicipio(e.target.value)}
+                        onChange={(e) =>
+                          setCliente({ ...cliente, municipio: e.target.value })
+                        }
                         min={1}
                         max={999}
                       />
@@ -191,7 +206,9 @@ function AddCliente() {
                         name=""
                         className="text-input"
                         placeholder="Locación"
-                        onChange={(e) => setLocacion(e.target.value)}
+                        onChange={(e) =>
+                          setCliente({ ...cliente, locacion: e.target.value })
+                        }
                         min={1}
                         max={9999}
                       />
