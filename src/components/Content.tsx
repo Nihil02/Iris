@@ -1,5 +1,5 @@
 import Card from "./Card";
-import API from "../../api/api";
+import API from "./../../backend/api/api";
 import AddCard from "./AddCard/AddCard";
 
 const data = await API.getAllSuppliers();
