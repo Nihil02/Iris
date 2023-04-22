@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const EmployeeRepository = require("../repository/employeeRepository.js");
+const CostumerRepository = require("../repository/costumerRepository.js");
 
 if (require("electron-squirrel-startup")) {
   app.quit();
@@ -71,8 +72,7 @@ ipcMain.handle("getAllSuppliers", async () => {
 
 // Costumer
 ipcMain.handle("getAllCostumers", async () => {
-  const res = await Costumer.findAll();
-  return res;
+  CostumerRepository.getAllCostumers();
 });
 
 // Employee

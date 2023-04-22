@@ -7,9 +7,23 @@ class CostumerRepository {
         return res;
     }
 
-    static async getCostumerById() {
-        const res = Costumer.findByPk();
+    static async getCostumerById(id) {
+        const res = Costumer.findByPk(id);
         return res;
+    }
+
+    static async createCostumer() {
+
+    }
+
+    static async updateCostumer() {
+
+    }
+
+    static async deleteCostumer() {
+
     }
     
 }
+
+module.exports = CostumerRepository
