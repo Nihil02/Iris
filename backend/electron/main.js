@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
+const Supplier = require("../model/supplier.js");
 const EmployeeRepository = require("../repository/employeeRepository.js");
 const CostumerRepository = require("../repository/costumerRepository.js");
 
