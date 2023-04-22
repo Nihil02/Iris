@@ -4,6 +4,7 @@ import Login from "./Login";
 import ModuloCliente from "./ModuloCliente";
 import ModuloProveedor from "./ModuloProveedor";
 import ModuloUsuario from "./ModuloUsuario";
+import ModuloExamen from "./ModuloExamen";
 
 function App() {
   return (
@@ -33,6 +34,15 @@ function App() {
           <div className="flex overflow-hidden w-screen">
             <Menu />
             <ModuloUsuario />
+          </div>
+        }
+      />
+      <Route
+        path="/examen"
+        element={
+          <div className="flex overflow-hidden w-screen">
+            <Menu />
+            <ModuloExamen />
           </div>
         }
       />
