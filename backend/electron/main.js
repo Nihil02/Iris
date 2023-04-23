@@ -82,20 +82,20 @@ ipcMain.handle("getAllCostumers", async () => {
 ipcMain.handle("getAllUsers", async () => {
   EmployeeRepository.getAllEmployees();
 });
-// Get user by id
-ipcMain.handle("getUserByID", async (employeeId) => {
-  EmployeeRepository.getEmployeeById(employeeId);
+// Get user by rfc
+ipcMain.handle("getUserByRFC", async (emplooyeRFC) => {
+  EmployeeRepository.getEmployeeById(emplooyeRFC);
 });
 
 // Create user
-ipcMain.handle("createUser", async (newEmployee) => {
-  EmployeeRepository.createEmployee(newEmployee);
+ipcMain.handle("createUser", async (employee) => {
+  EmployeeRepository.createEmployee(employee);
 });
 
 ipcMain.handle("editUser", async (employee) => {
   EmployeeRepository.updateEmployee(employee);
 });
 
-ipcMain.handle("deleteUser", async (employeeId) => {
-  EmployeeRepository.deleteEmployee(employeeId);
+ipcMain.handle("deleteUser", async (employeeRFC) => {
+  EmployeeRepository.deleteEmployee(employeeRFC);
 });

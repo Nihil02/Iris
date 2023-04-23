@@ -6,4 +6,8 @@ contextBridge.exposeInMainWorld("supplierAPI", {
 
 contextBridge.exposeInMainWorld("userAPI", {
   getAllUsers: () => ipcRenderer.invoke("getAllUsers"),
+  getUserByRFC: (rfc) => ipcRenderer.invoke("getUserById"),
+  createUser: (user) => ipcRenderer.invoke("createUser"),
+  editUser: (user) => ipcRenderer.invoke("editUser"),
+  deleteUser: (rfc) => ipcRenderer.invoke("deleteUser")
 });

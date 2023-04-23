@@ -5,8 +5,8 @@ class Employee extends Model {}
 
 Employee.init(
   {
-    id: {
-      type: DataTypes.INTEGER,
+    rfc: {
+      type: DataTypes.STRING(13),
       primaryKey: true,
     },
     nombre: {

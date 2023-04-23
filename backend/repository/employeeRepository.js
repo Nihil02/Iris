@@ -12,11 +12,11 @@ class EmployeeRepository {
   }
 
   /**
-   * Finds an employee by his ID.
+   * Finds an employee by his RFC.
    * @returns An Employee (Object)
   */
-  static async getEmployeeById(id) {
-    const res = Employee.findByPk(id);
+  static async getEmpleeByRFC(rfc) {
+    const res = Employee.findByPk(rfc);
     return res;
   }
 
@@ -24,22 +24,23 @@ class EmployeeRepository {
    * Creates an Employee in the database
    * @returns true if the emplooye was created.
    */
-  static async createEmployee({id, name, firstLastName, secondLastName, pasword}) {
-    const employee = {
-      id: id,
+  static async createEmployee(emplooye){
+    const [rfc, name, firstLastName, secondLastName, password] = Object.values(emplooye);
+    await Employee.create({
+      rfc: rfc,
       nombre: name,
       primer_apellido: firstLastName,
       segundo_apellido: secondLastName,
-      contrasenna: pasword
-    }
-    await Employee.create(employee);
+      contrasenna: password
+    });
     return true;
   }
 
   /**
    * Update employee information
   */
-  static async updateEmployee({id, name, firstLastName, secondLastName, password}) {
+  static async updateEmployee(emplooye) {
+    const [rfc, name, firstLastName, secondLastName, password] = Object.values(emplooye);
     await Employee.update(
       {
         nombre: name,
@@ -49,17 +50,18 @@ class EmployeeRepository {
       },
       {
         where: {
-          id: id,
+          rfc: rfc,
         },
       }
     );
+    return true;
   }
 
   /**
-   * Finds an employee by his id and deletes him.
+   * Finds an employee by his rfc and deletes him.
   */
-  static async deleteEmployee(id) {
-    const employee = await Employee.findByPk(id);
+  static async deleteEmployee(rfc) {
+    const employee = await Employee.findByPk(rfc);
     await employee.destroy();
     return true;
   }

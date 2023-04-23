@@ -1,6 +1,3 @@
-interface Data {
-  dataValues: Object;
-}
 class API {
   /**
    * @returns Promise with JSON array suppliers
