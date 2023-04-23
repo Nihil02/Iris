@@ -1,6 +1,6 @@
 *.local
 out/
-electron/build
+backend/electron/build
 
 # Editor directories and files
 .vscode/*
