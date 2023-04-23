@@ -1,10 +1,19 @@
+import { useLocation, useNavigate } from "react-router";
 import DeleteCard from "./DeleteCard";
 import UpdateCard from "./UpdateCard";
 import { FaPrint } from "react-icons/fa";
 
 const Card = ({ name = "" }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const cardClick = () => {
-    alert("Viendo la información de " + name);
+    if (location.pathname == "/cliente") {
+      alert("Viendo examenes");
+      navigate("/examen");
+    } else {
+      alert("Viendo la información de " + name);
+    }
   };
 
   const cardPrint = () => {
