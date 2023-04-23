@@ -23,7 +23,7 @@ function AddCliente() {
   }
 
   const addCard = () => {
-    console.log("Registro agregado");
+    setCliente({ ...cliente, fecha: cliente.fecha.replace("-", "") });
     console.log(cliente);
 
     closeModal();
@@ -85,6 +85,7 @@ function AddCliente() {
                         name=""
                         maxLength={50}
                         className="text-input"
+                        pattern="[\w]+$"
                         placeholder="Nombre"
                         onChange={(e) =>
                           setCliente({ ...cliente, nombre: e.target.value })
@@ -128,6 +129,9 @@ function AddCliente() {
                         id=""
                         name=""
                         className="text-input"
+                        onChange={(e) =>
+                          setCliente({ ...cliente, fecha: e.target.value })
+                        }
                         required
                       />
                     </div>

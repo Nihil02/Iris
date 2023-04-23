@@ -3,13 +3,25 @@ import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 
 function AddExamen() {
-  let [proveedor, setProveedor] = useState({
-    rfc: "",
-    razon: "",
-    domicilio: "",
-    telefono: "",
-    correo: "",
-    cuenta: "",
+  let [examen, setExamen] = useState({
+    cliente: "",
+    fecha: "",
+    rx: "",
+
+    lejos_od_esferico: "",
+    lejos_od_cilindrico: "",
+    lejos_od_eje: "",
+    lejos_od_agudeza: "",
+    adicion_od_esferico: "",
+
+    lejos_oi_esferico: "",
+    lejos_oi_cilindrico: "",
+    lejos_oi_eje: "",
+    lejos_oi_agudeza: "",
+    adicion_oi_esferico: "",
+
+    tipo_lentes: "",
+    observaciones: "",
   });
 
   let [isOpen, setIsOpen] = useState(false);
@@ -21,7 +33,8 @@ function AddExamen() {
   }
 
   const addCard = () => {
-    console.log("Registro agregado");
+    setExamen({ ...examen, fecha: examen.fecha.replace("-", "") });
+    console.log(examen);
 
     closeModal();
   };
@@ -60,79 +73,74 @@ function AddExamen() {
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <form className="m-4" onSubmit={addCard}>
                     <div className="mb-6">
-                      <label htmlFor="">RFC</label>
+                      <label htmlFor="">Cliente</label>
                       <input
                         type="text"
                         id=""
                         name=""
                         className="text-input"
-                        placeholder="RFC"
-                        onChange={(e) => setProveedor({...proveedor, rfc:e.target.value})}
+                        readOnly
+                        placeholder="Cliente"
                         required
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Razon Social</label>
+                      <label htmlFor="">RX</label>
                       <input
                         type="text"
                         id=""
                         name=""
                         maxLength={50}
                         className="text-input"
-                        placeholder="Razon Social"
-                        onChange={(e) => setProveedor({...proveedor, razon:e.target.value})}
+                        placeholder="RX"
+                        onChange={(e) =>
+                          setExamen({ ...examen, rx: e.target.value })
+                        }
                         required
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Domicilio</label>
+                      <label htmlFor="">Fecha de Nacimiento</label>
+                      <input
+                        type="date"
+                        id=""
+                        name=""
+                        className="text-input"
+                        onChange={(e) =>
+                          setExamen({ ...examen, fecha: e.target.value })
+                        }
+                        required
+                      />
+                    </div>
+                    <div className="mb-6">
+                      <label htmlFor="">Tipo de Lentes</label>
                       <input
                         type="text"
                         id=""
                         name=""
                         maxLength={50}
                         className="text-input"
-                        placeholder="Domicilio"
-                        onChange={(e) => setProveedor({...proveedor, domicilio:e.target.value})}
+                        placeholder="Tipo de Lentes"
+                        onChange={(e) =>
+                          setExamen({ ...examen, tipo_lentes: e.target.value })
+                        }
                         required
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Telefono</label>
+                      <label htmlFor="">Observaciones</label>
                       <input
                         type="text"
                         id=""
                         name=""
-                        maxLength={50}
                         className="text-input"
-                        placeholder="Telefono"
-                        onChange={(e) => setProveedor({...proveedor, telefono:e.target.value})}
-                        required
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Correo</label>
-                      <input
-                        type="text"
-                        id=""
-                        name=""
-                        maxLength={50}
-                        className="text-input"
-                        placeholder="Correo"
-                        onChange={(e) => setProveedor({...proveedor, correo:e.target.value})}
-                        required
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Cuenta</label>
-                      <input
-                        type="text"
-                        id=""
-                        name=""
-                        maxLength={50}
-                        className="text-input"
-                        placeholder="Cuenta"
-                        onChange={(e) => setProveedor({...proveedor, cuenta:e.target.value})}
+                        placeholder="Observaciones"
+                        onChange={(e) =>
+                          setExamen({
+                            ...examen,
+                            observaciones: e.target.value,
+                          })
+                        }
                         required
                       />
                     </div>
