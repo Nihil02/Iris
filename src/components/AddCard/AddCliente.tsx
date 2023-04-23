@@ -183,8 +183,10 @@ function AddCliente() {
                         onChange={(e) =>
                           setCliente({ ...cliente, estado: e.target.value })
                         }
+                        defaultValue={28} //Tamaulipas
                         min={1}
                         max={32}
+                        required
                       />
                     </div>
                     <div className="mb-6">
@@ -198,8 +200,10 @@ function AddCliente() {
                         onChange={(e) =>
                           setCliente({ ...cliente, municipio: e.target.value })
                         }
+                        defaultValue={38} //C.d. Madero
                         min={1}
                         max={999}
+                        required
                       />
                     </div>
                     <div className="mb-6">
