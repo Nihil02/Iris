@@ -54,6 +54,7 @@ class EmployeeRepository {
         },
       }
     );
+    return true;
   }
 
   /**
