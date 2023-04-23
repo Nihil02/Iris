@@ -68,7 +68,7 @@ app.on("activate", () => {
 
 // Supplier
 ipcMain.handle("getAllSuppliers", async () => {
-  const res = await Supplier.findAll();
+  const res = await SupplierRepository.getAllSuppliers();
   return res;
 });
 
