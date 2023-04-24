@@ -9,23 +9,25 @@ class ExamRepository {
     const res = Exam.findAll();
     return res;
   }
-
   /**
-   * Finds all exams of a Customer by his CURP.
-   * @returns Array of Exams of a customer (Object)
-   */
-  static async getExamsOfId(curp) {
-    const res = Exam.findAll({ where: { cliente: curp } });
-    return res;
-  }
-
-  /**
-   * Finds an exams of a Customer by his CURP and Date.
+   * Finds all exams of a costumer by his `CURP` or finds an specific exam of a costumer in function of the `Date` and `CURP`.
+   * @param curp - The curp of a costumer
+   * @param date - The date of application of exam, this parameter is optional
    * @returns An Exam of a customer (Object)
    */
-  static async getExamOfId(curp, fecha) {
-    const res = Exam.findAll({ where: { cliente: curp, fecha: fecha } });
-    return res;
+  static async getExamOfCostumer(curp, date) {
+    if (arguments.length == 0 || arguments.length > 2) {
+      throw Error("Invalid arguments");
+    }
+    if (arguments.length == 1) {
+      const res = Exam.findAll({ where: { cliente: curp } });
+      return res;
+    }
+
+    if (arguments.length == 2) {
+      const res = Exam.findAll({ where: { cliente: curp, fecha: date } });
+      return res;
+    }
   }
 
   static async createExam(exam) {
