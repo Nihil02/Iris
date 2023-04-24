@@ -2,7 +2,7 @@
   "name": "iris",
   "private": true,
   "version": "1.0.0",
-  "main": "backend/electron/main.js",
+  "main": "core/electron/main.js",
   "authors": "Someone",
   "description": "Sistema gestor de clientes de óptica modelo y agenda de proveedores de lentes y armazones",
   "scripts": {

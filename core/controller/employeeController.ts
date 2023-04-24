@@ -1,36 +1,12 @@
-class Employee {
-  rfc: string;
-  name: string;
-  firstLastName: string;
-  secondLastName: string;
-  password: string;
+import EmployeeService from "../service/employeeService";
 
-  constructor(
-    rfc: string,
-    name: string,
-    firstLastName: string,
-    secondLastName: string,
-    password: string
-  ) {
-    this.rfc = rfc;
-    this.name = name;
-    this.firstLastName = firstLastName;
-    this.secondLastName = secondLastName;
-    this.password = password;
-  }
-}
-class EmployeeAPI {
+class EmployeeController {
   /**
    * @returns Promise with JSON array employees
    */
   static async getAllEmployees() {
     const res: Array<Data> = await window.userAPI.getAllEmployees();
-
-    const employees = res.map((employee) => {
-      return employee.dataValues;
-    });
-
-    return employees;
+    return res;
   }
 
   /**
@@ -40,8 +16,18 @@ class EmployeeAPI {
    */
   static async getEmployeeByRFC(rfc: string) {
     const res: Data = await window.userAPI.getEmployeeByRFC(rfc);
-    return res.dataValues;
+    return res;
   }
+
+  /*static createEmployeeFromData(data: any): Employee {
+    const { rfc, name, firstLastName, secondLastName, password } = data;
+
+    if (!rfc || !name || !firstLastName || !secondLastName || !password) {
+      throw new Error("Missing employee data");
+    }
+
+    return new Employee(rfc, name, firstLastName, secondLastName, password);
+  }*/
 
   /**
    * Creates a new Employee.
@@ -50,8 +36,11 @@ class EmployeeAPI {
    */
 
   static async createEmployee(employee: Employee) {
-    const res: Boolean = await window.userAPI.createEmployee(user);
+    const res: Boolean = await window.userAPI.createEmployee(employee);
     return res;
+  }
+
+  static async authEmployee(rfc: string, password: string) {
   }
 
   /**
@@ -66,4 +55,4 @@ class EmployeeAPI {
   }
 }
 
-export { EmployeeAPI, Employee };
+export { EmployeeController };

@@ -1,5 +1,5 @@
 import Card from "./Card";
-import API from "./../../backend/api/api";
+import API from "../../core/controller/api";
 import AddCard from "./AddCard/AddCard";
 import { useLocation } from "react-router";
 

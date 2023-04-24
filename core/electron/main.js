@@ -1,9 +1,9 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
-const ExamRepository = require("../repository/examRepository.js");
-const SupplierRepository = require("../repository/supplierRepository.js")
-const EmployeeRepository = require("../repository/employeeRepository.js");
-const CostumerRepository = require("../repository/costumerRepository.js");
+const EmployeeService = require("../service/employeeService.js");
+const SupplierService = require("../service/supplierService.js");
+const ExamService = require("../service/examService.js");
+const CostumerService = require("../service/costumerService.js");
 
 if (require("electron-squirrel-startup")) {
   app.quit();
@@ -67,36 +67,31 @@ app.on("activate", () => {
 });
 
 // Supplier
-ipcMain.handle("getAllSuppliers", async () => {
-  const res = await SupplierRepository.getAllSuppliers();
-  return res;
-});
+ipcMain.handle("getAllSuppliers", async () => {});
 
 // Costumer
-ipcMain.handle("getAllCostumers", async () => {
-  CostumerRepository.getAllCostumers();
-});
+ipcMain.handle("getAllCostumers", async () => {});
 
 // Employee
 
 // Get all users
 ipcMain.handle("getAllUsers", async () => {
-  EmployeeRepository.getAllEmployees();
+  EmployeeService.getAllEmployees();
 });
 // Get user by rfc
 ipcMain.handle("getUserByRFC", async (emplooyeRFC) => {
-  EmployeeRepository.getEmployeeById(emplooyeRFC);
+  EmployeeService.getEmployeeById(emplooyeRFC);
 });
 
 // Create user
 ipcMain.handle("createUser", async (employee) => {
-  EmployeeRepository.createEmployee(employee);
+  EmployeeService.createEmployee(employee);
 });
 
 ipcMain.handle("editUser", async (employee) => {
-  EmployeeRepository.updateEmployee(employee);
+  EmployeeService.updateEmployee(employee);
 });
 
 ipcMain.handle("deleteUser", async (employeeRFC) => {
-  EmployeeRepository.deleteEmployee(employeeRFC);
+  EmployeeService.deleteEmployee(employeeRFC);
 });
