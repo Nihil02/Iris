@@ -1,16 +1,15 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
-function ShowCliente({ name = ""}) {
-  let [cliente, setCliente] = useState({
-    curp: "",
+function AddEmpleado({ name = "" }) {
+  let [empleado, setEmpleado] = useState({
+    rfc: "",
     nombre: "",
     apellido1: "",
     apellido2: "",
-    fecha: "",
-    estado: "",
-    municipio: "",
-    locacion: "",
+    privilegios: "",
+    usuario: "",
+    pass: "",
   });
 
   let [isOpen, setIsOpen] = useState(false);
@@ -57,13 +56,13 @@ function ShowCliente({ name = ""}) {
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <form className="m-4">
                     <div className="mb-6">
-                      <label htmlFor="">CURP</label>
+                      <label htmlFor="">RFC</label>
                       <input
                         type="text"
                         id=""
                         name=""
                         className="text-input"
-                        value={cliente.curp}
+                        value={empleado.rfc}
                         readOnly
                       />
                     </div>
@@ -73,9 +72,8 @@ function ShowCliente({ name = ""}) {
                         type="text"
                         id=""
                         name=""
-                        maxLength={50}
                         className="text-input"
-                        value={cliente.nombre}
+                        value={empleado.nombre}
                         readOnly
                       />
                     </div>
@@ -85,9 +83,8 @@ function ShowCliente({ name = ""}) {
                         type="text"
                         id=""
                         name=""
-                        maxLength={50}
                         className="text-input"
-                        value={cliente.apellido1}
+                        value={empleado.apellido1}
                         readOnly
                       />
                     </div>
@@ -97,94 +94,42 @@ function ShowCliente({ name = ""}) {
                         type="text"
                         id=""
                         name=""
-                        maxLength={50}
                         className="text-input"
-                        placeholder="Segundo Apellido"
-                        value={cliente.apellido2}
+                        value={empleado.apellido2}
+                        readOnly
+                      />
+                    </div>
+
+                    <div className="mb-6">
+                      <label htmlFor="priv">Privilegios</label>
+                      <input
+                        type="text"
+                        id=""
+                        name=""
+                        className="text-input"
+                        value={empleado.privilegios}
                         readOnly
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Fecha de Nacimiento</label>
+                      <label htmlFor="">Usuario</label>
                       <input
-                        type="date"
+                        type="text"
                         id=""
                         name=""
                         className="text-input"
-                        value={cliente.fecha}
+                        value={empleado.usuario}
                         readOnly
                       />
                     </div>
                     <div className="mb-6">
-                      <fieldset>
-                        <legend className="text-gray-900 text-sm leading-6">
-                          Sexo
-                        </legend>
-                        <div className="mt-6 space-y-6">
-                          <div className="flex items-center gap-x-3">
-                            <input
-                              id="sexo_h"
-                              name="hombre"
-                              type="radio"
-                              className="h-4 w-4 "
-                            />
-                            <label
-                              htmlFor="sexo_h"
-                              className="block leading-6 text-gray-900 text-sm"
-                            >
-                              Hombre
-                            </label>
-                          </div>
-                          <div className="flex items-center gap-x-3">
-                            <input
-                              id="sexo_m"
-                              name="mujer"
-                              type="radio"
-                              className="h-4 w-4 "
-                            />
-                            <label
-                              htmlFor="sexo_m"
-                              className="block leading-6 text-gray-900 text-sm"
-                            >
-                              Mujer
-                            </label>
-                          </div>
-                        </div>
-                      </fieldset>
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Estado</label>
+                      <label htmlFor="">Contraseña</label>
                       <input
-                        type="number"
+                        type="text"
                         id=""
                         name=""
                         className="text-input"
-                        placeholder="Estado"
-                        value={cliente.estado}
-                        readOnly
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Municipio</label>
-                      <input
-                        type="number"
-                        id=""
-                        name=""
-                        className="text-input"
-                        placeholder="Municipio"
-                        value={cliente.municipio}
-                        readOnly
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Locación</label>
-                      <input
-                        type="number"
-                        id=""
-                        name=""
-                        className="text-input"
-                        placeholder="Locación"
-                        value={cliente.locacion}
+                        value={empleado.pass}
                         readOnly
                       />
                     </div>
@@ -205,4 +150,4 @@ function ShowCliente({ name = ""}) {
   );
 }
 
-export default ShowCliente;
+export default AddEmpleado;
