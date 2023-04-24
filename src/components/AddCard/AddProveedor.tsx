@@ -20,9 +20,9 @@ function AddProveedor() {
     setIsOpen(true);
   }
 
-  const addCard = () => {
-    console.log("Registro agregado");
-
+  const addCard = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    console.log(proveedor);
     closeModal();
   };
 

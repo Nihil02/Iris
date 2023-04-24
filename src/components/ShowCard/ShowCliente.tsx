@@ -1,8 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import { FaPlus } from "react-icons/fa";
 
-function ShowCliente() {
+function ShowCliente({ name = "" }) {
   let [cliente, setCliente] = useState({
     curp: "",
     nombre: "",
@@ -24,9 +23,11 @@ function ShowCliente() {
 
   return (
     <>
-      <div className="add-card" onClick={openModal}>
-        <FaPlus size={20} color="gray" />
-      </div>
+      <div className="flex flex-wrap items-center w-auto" onClick={openModal}>
+          <p className="text-sm leading-6  max-w-md">
+            <strong className="font-semibold truncate">{name}</strong>
+          </p>
+        </div>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>

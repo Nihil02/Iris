@@ -22,10 +22,10 @@ function AddCliente() {
     setIsOpen(true);
   }
 
-  const addCard = () => {
+  const addCard = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
     setCliente({ ...cliente, fecha: cliente.fecha.replace("-", "") });
     console.log(cliente);
-
     closeModal();
   };
 

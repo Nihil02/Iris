@@ -8,7 +8,7 @@ function AddEmpleado() {
     nombre: "",
     apellido1: "",
     apellido2: "",
-    privilegios: 1,
+    privilegios: "",
     usuario: "",
     pass: "",
   });
@@ -21,7 +21,8 @@ function AddEmpleado() {
     setIsOpen(true);
   }
 
-  const addCard = () => {
+  const addCard = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
     console.log("Registro agregado");
     console.log(empleado);
 
@@ -125,42 +126,23 @@ function AddEmpleado() {
                         }
                       />
                     </div>
+
                     <div className="mb-6">
-                      <fieldset>
-                        <legend className="text-gray-900 text-md leading-6">
-                          Privilegios
-                        </legend>
-                        <div className="mt-6 space-y-6">
-                          <div className="flex items-center gap-x-3">
-                            <input
-                              id="priv1"
-                              name="comun"
-                              type="radio"
-                              className="h-4 w-4 "
-                            />
-                            <label
-                              htmlFor="priv1"
-                              className="block leading-6 text-gray-900 text-sm"
-                            >
-                              Común
-                            </label>
-                          </div>
-                          <div className="flex items-center gap-x-3">
-                            <input
-                              id="priv2"
-                              name="admin"
-                              type="radio"
-                              className="h-4 w-4 "
-                            />
-                            <label
-                              htmlFor="priv2"
-                              className="block leading-6 text-gray-900 text-sm"
-                            >
-                              Administrador
-                            </label>
-                          </div>
-                        </div>
-                      </fieldset>
+                      <label htmlFor="priv">Privilegios</label>
+                      <select
+                        className="text-input"
+                        name="priv"
+                        id="priv"
+                        onChange={(e) =>
+                          setEmpleado({
+                            ...empleado,
+                            privilegios: e.target.value,
+                          })
+                        }
+                      >
+                        <option value="1">Común</option>
+                        <option value="2">Administrador</option>
+                      </select>
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Usuario</label>
