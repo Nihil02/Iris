@@ -1,5 +1,3 @@
-import EmployeeService from "../service/employeeService";
-
 class EmployeeController {
   /**
    * @returns Promise with JSON array employees

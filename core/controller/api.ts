@@ -4,12 +4,7 @@ class API {
    */
   static async getAllSuppliers() {
     const res: Array<Data> = await window.supplierAPI.getAllSuppliers();
-
-    const suppliers = res.map((supplier) => {
-      return supplier.dataValues;
-    });
-    
-    return suppliers;
+    return res;
   }
 }
 
