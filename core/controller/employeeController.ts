@@ -1,9 +1,9 @@
 interface IEmployeeAPI {
   getAllEmployees: () => Array<Data>,
-  getEmployeeByRFC: (rfc) => Data,
-  createEmployee: (employee) => Boolean,
-  authEmployee: (username, password) => Boolean,
-  deleteEmployee: (rfc) => Boolean
+  getEmployeeByRFC: (rfc: any) => Data,
+  createEmployee: (employee: any) => Boolean,
+  authEmployee: (username: any, password: any) => Boolean,
+  deleteEmployee: (rfc: any) => Boolean
 }
 
 declare global {

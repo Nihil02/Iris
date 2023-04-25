@@ -1,8 +1,9 @@
 import { useLocation } from "react-router";
 import ShowCliente from "./ShowCliente";
 import ShowProveedor from "./ShowProveedor";
+import ShowEmpleado from "./ShowEmpleado";
 
-function AddCard({ name = "" }) {
+function ShowCard({ name = "" }) {
   const location = useLocation();
 
   switch (location.pathname) {
@@ -23,7 +24,7 @@ function AddCard({ name = "" }) {
     case "/usuario":
       return (
         <>
-          <ShowProveedor name={name} />
+          <ShowEmpleado name={name} />
         </>
       );
 
@@ -45,4 +46,4 @@ function AddCard({ name = "" }) {
   }
 }
 
-export default AddCard;
+export default ShowCard;

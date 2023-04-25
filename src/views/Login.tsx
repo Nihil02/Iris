@@ -4,7 +4,7 @@ import { FaLock } from "react-icons/fa";
 import { Fragment, useState } from "react";
 import { Transition, Dialog } from "@headlessui/react";
 import { matchSorter } from "match-sorter";
-
+import { isAdmin } from "./../util";
 function Login() {
   let [name, setName] = useState("");
   let [pass, setPass] = useState("");
@@ -16,11 +16,13 @@ function Login() {
       id: "1",
       name: "admin",
       pass: "12345",
+      priv: true,
     },
     {
       id: "2",
       name: "Soraida",
       pass: "hola1234",
+      priv: false
     },
   ];
 
@@ -34,6 +36,8 @@ function Login() {
   const validation = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     const res = matchSorter(data, name, { keys: ["name"] });
+
+    isAdmin(res[0].priv)
 
     pass == res[0].pass ? navigate("/cliente") : openModal();
   }

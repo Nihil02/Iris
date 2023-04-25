@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
-function AddProveedor({ name = "" }) {
+function ShowProveedor({ name = "" }) {
   let [proveedor, setProveedor] = useState({
     rfc: "",
     razon: "",
@@ -137,4 +137,4 @@ function AddProveedor({ name = "" }) {
   );
 }
 
-export default AddProveedor;
+export default ShowProveedor;

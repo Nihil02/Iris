@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
-function AddEmpleado({ name = "" }) {
+function ShowEmpleado({ name = "" }) {
   let [empleado, setEmpleado] = useState({
     rfc: "",
     nombre: "",
@@ -150,4 +150,4 @@ function AddEmpleado({ name = "" }) {
   );
 }
 
-export default AddEmpleado;
+export default ShowEmpleado;

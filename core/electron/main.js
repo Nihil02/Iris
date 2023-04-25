@@ -75,23 +75,23 @@ ipcMain.handle("getAllCostumers", async () => {});
 // Employee
 
 // Get all users
-ipcMain.handle("getAllEmployees", async () => {
-  EmployeeService.getAllEmployees();
+ipcMain.handle("getAllUsers", async () => {
+  return await EmployeeService.getAllEmployees();
 });
 // Get user by rfc
-ipcMain.handle("getEmployeeByRFC", async (emplooyeRFC) => {
-  EmployeeService.getEmployeeById(emplooyeRFC);
+ipcMain.handle("getUserByRFC", async (emplooyeRFC) => {
+  return await EmployeeService.getEmployeeById(emplooyeRFC);
 });
 
 // Create user
-ipcMain.handle("createEmployee", async (employee) => {
-  EmployeeService.createEmployee(employee);
+ipcMain.handle("createUser", async (employee) => {
+  return await EmployeeService.createEmployee(employee);
 });
 
-ipcMain.handle("editEmployee", async (employee) => {
-  EmployeeService.updateEmployee(employee);
+ipcMain.handle("editUser", async (employee) => {
+  return await EmployeeService.updateEmployee(employee);
 });
 
-ipcMain.handle("deleteEmployee", async (employeeRFC) => {
-  EmployeeService.deleteEmployee(employeeRFC);
+ipcMain.handle("deleteUser", async (employeeRFC) => {
+  return await EmployeeService.deleteEmployee(employeeRFC);
 });
