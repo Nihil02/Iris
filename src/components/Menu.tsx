@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import {
   FaGlasses,
   FaUserAlt,
@@ -8,10 +7,9 @@ import {
   FaUndo,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { UserContext } from "../UserContext";
+import { admin } from "../util";
 
 function Menu() {
-  const admin = useContext(UserContext);
   return (
     <nav
       className="fixed top-0 left-0 h-screen w-20 flex flex-col
@@ -38,18 +36,23 @@ function Menu() {
       </div>
       <div className="fixed bottom-0 left-3">
         <hr className="bg-gray-200 border border-gray-200  rounded-full mx-2" />
-        <MenuIcon
-          icon={<FaDatabase size="28" />}
-          tooltip="Exportar Base de Datos"
-          route="Exportar"
-          redirect={false}
-        />
-        <MenuIcon
-          icon={<FaUndo size="28" />}
-          tooltip="Restaurar Base de Datos"
-          route="Restaurar"
-          redirect={false}
-        />
+
+        {admin ? (
+          <>
+            <MenuIcon
+              icon={<FaDatabase size="28" />}
+              tooltip="Exportar Base de Datos"
+              route="Exportar"
+              redirect={false}
+            />
+            <MenuIcon
+              icon={<FaUndo size="28" />}
+              tooltip="Restaurar Base de Datos"
+              route="Restaurar"
+              redirect={false}
+            />
+          </>
+        ) : null}
         <MenuIcon icon={<FaDoorOpen size="28" />} tooltip="Salir" route="/" />
       </div>
     </nav>

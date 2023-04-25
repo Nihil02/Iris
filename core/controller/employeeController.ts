@@ -18,8 +18,6 @@ class EmployeeController {
    */
   static async getAllEmployees() {
     const res: Array<Data> = await window.userAPI.getAllUsers();
-    console.log(res);
-    
     return res;
   }
 
