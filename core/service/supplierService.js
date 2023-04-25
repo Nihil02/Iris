@@ -21,7 +21,7 @@ class SupplierService {
             if (!Validator.isRFC(sanitizedRFC)) {
                 throw Error("Invalid RFC");
             }
-            const supplier = await SupplierRepository.getSupplierById(rfc);
+            const supplier = await SupplierRepository.getSupplierById(sanitizedRFC);
             return supplier[0].dataValues;
         } catch (error) {
             console.error(error);
