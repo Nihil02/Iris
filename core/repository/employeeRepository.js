@@ -14,9 +14,24 @@ class EmployeeRepository {
    * Finds an employee by his RFC.
    * @returns An Employee (Object)
    */
-  static async getEmpleeByRFC(rfc) {
+  static async getEmployeeByRFC(rfc) {
     try {
       const res = await Employee.findByPk(rfc);
+      console.log(res);
+      return res;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
+
+  /**
+   * Finds an employee by his username
+   * @returns An object representing the employee
+   */
+  static async getEmployeeByUsername(user) {
+    try {
+      const res = await Employee.findAll({ where: { usuario: user } });
       return res;
     } catch (error) {
       console.error(error);
@@ -28,29 +43,52 @@ class EmployeeRepository {
    * @returns true if the emplooye was created.
    */
   static async createEmployee(emplooye) {
-    const [rfc, name, firstLastName, secondLastName, password] =
-      Object.values(emplooye);
-    await Employee.create({
-      rfc: rfc,
-      nombre: name,
-      primer_apellido: firstLastName,
-      segundo_apellido: secondLastName,
-      contrasenna: password,
-    });
-    return true;
+    try {
+      const [
+        rfc,
+        name,
+        firstLastName,
+        secondLastName,
+        privileges,
+        user,
+        password,
+      ] = Object.values(emplooye);
+      await Employee.create({
+        rfc: rfc,
+        nombre: name,
+        primer_apellido: firstLastName,
+        segundo_apellido: secondLastName,
+        privilegios: privileges,
+        usuario: user,
+        contrasenna: password,
+      });
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   }
 
   /**
    * Update employee information
    */
   static async updateEmployee(emplooye) {
-    const [rfc, name, firstLastName, secondLastName, password] =
-      Object.values(emplooye);
+    const [
+      rfc,
+      name,
+      firstLastName,
+      secondLastName,
+      privileges,
+      user,
+      password,
+    ] = Object.values(emplooye);
     await Employee.update(
       {
         nombre: name,
         primer_apellido: firstLastName,
         segundo_apellido: secondLastName,
+        privilegios: privileges,
+        usuario: user,
         contrasenna: password,
       },
       {
