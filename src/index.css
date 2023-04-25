@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+:not(input):not(textarea),
+:not(input):not(textarea)::after,
+:not(input):not(textarea)::before {
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+input, button, textarea, :focus {
+    outline: none;
+}
+
 body {
   margin: 0;
   display: flex;
@@ -49,6 +60,7 @@ body {
     bg-gray-50 text-gray-500
     px-2 py-4 mb-4 h-9 ml-0 mr-0 w-8/12 
     rounded-md shadow-md 
+    focus:z-10 focus:ring-2 focus:ring-inset focus:ring-green-600
     transition duration-300 ease-in-out;
   }
 
@@ -93,8 +105,9 @@ body {
   }
 
   .text-input {
-    @apply bg-gray-50 border-green-400 text-gray-900 text-sm
-    block w-full p-2.5 rounded-lg my-2;
+    @apply bg-gray-50 hover:border-green-400 text-gray-900 text-sm
+    block w-full p-2.5 rounded-lg my-2
+    focus:z-10 focus:ring-2 focus:ring-inset focus:ring-green-600;
   }
 
   .btn {

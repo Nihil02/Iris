@@ -31,7 +31,8 @@ function Login() {
     setIsOpen(true);
   }
 
-  function validation() {
+  const validation = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
     const res = matchSorter(data, name, { keys: ["name"] });
 
     pass == res[0].pass ? navigate("/cliente") : openModal();

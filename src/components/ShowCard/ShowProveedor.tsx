@@ -1,16 +1,14 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import { FaPlus } from "react-icons/fa";
 
-function AddEmpleado() {
-  let [empleado, setEmpleado] = useState({
+function AddProveedor({ name = "" }) {
+  let [proveedor, setProveedor] = useState({
     rfc: "",
-    nombre: "",
-    apellido1: "",
-    apellido2: "",
-    privilegios: "",
-    usuario: "",
-    pass: "",
+    razon: "",
+    domicilio: "",
+    telefono: "",
+    correo: "",
+    cuenta: "",
   });
 
   let [isOpen, setIsOpen] = useState(false);
@@ -21,18 +19,12 @@ function AddEmpleado() {
     setIsOpen(true);
   }
 
-  const addCard = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    console.log("Registro agregado");
-    console.log(empleado);
-
-    closeModal();
-  };
-
   return (
     <>
-      <div className="add-card" onClick={openModal}>
-        <FaPlus size={20} color="gray" />
+      <div className="flex flex-wrap items-center w-auto" onClick={openModal}>
+        <p className="text-sm leading-6  max-w-md">
+          <strong className="font-semibold truncate">{name}</strong>
+        </p>
       </div>
 
       <Transition appear show={isOpen} as={Fragment}>
@@ -61,7 +53,7 @@ function AddEmpleado() {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <form className="m-4" onSubmit={addCard}>
+                  <form className="m-4">
                     <div className="mb-6">
                       <label htmlFor="">RFC</label>
                       <input
@@ -69,116 +61,69 @@ function AddEmpleado() {
                         id=""
                         name=""
                         className="text-input"
-                        placeholder="RFC"
-                        onChange={(e) =>
-                          setEmpleado({ ...empleado, rfc: e.target.value })
-                        }
-                        required
+                        value={proveedor.rfc}
+                        readOnly
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Nombre</label>
+                      <label htmlFor="">Razon Social</label>
                       <input
                         type="text"
                         id=""
                         name=""
-                        maxLength={50}
                         className="text-input"
-                        placeholder="Nombre"
-                        onChange={(e) =>
-                          setEmpleado({ ...empleado, nombre: e.target.value })
-                        }
-                        required
+                        value={proveedor.razon}
+                        readOnly
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Primer Apellido</label>
+                      <label htmlFor="">Domicilio</label>
                       <input
                         type="text"
                         id=""
                         name=""
-                        maxLength={50}
                         className="text-input"
-                        placeholder="Primer Apellido"
-                        onChange={(e) =>
-                          setEmpleado({
-                            ...empleado,
-                            apellido1: e.target.value,
-                          })
-                        }
-                        required
+                        value={proveedor.domicilio}
+                        readOnly
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Segundo Apellido</label>
+                      <label htmlFor="">Telefono</label>
                       <input
                         type="text"
                         id=""
                         name=""
-                        maxLength={50}
                         className="text-input"
-                        placeholder="Segundo Apellido"
-                        onChange={(e) =>
-                          setEmpleado({
-                            ...empleado,
-                            apellido2: e.target.value,
-                          })
-                        }
+                        value={proveedor.telefono}
+                        readOnly
                       />
                     </div>
-
                     <div className="mb-6">
-                      <label htmlFor="priv">Privilegios</label>
-                      <select
-                        className="text-input"
-                        name="priv"
-                        id="priv"
-                        onChange={(e) =>
-                          setEmpleado({
-                            ...empleado,
-                            privilegios: e.target.value,
-                          })
-                        }
-                      >
-                        <option value="1">Común</option>
-                        <option value="2">Administrador</option>
-                      </select>
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Usuario</label>
+                      <label htmlFor="">Correo</label>
                       <input
                         type="text"
                         id=""
                         name=""
-                        maxLength={50}
                         className="text-input"
-                        placeholder="Usuario"
-                        onChange={(e) =>
-                          setEmpleado({ ...empleado, usuario: e.target.value })
-                        }
+                        value={proveedor.correo}
+                        readOnly
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Contraseña</label>
+                      <label htmlFor="">Cuenta</label>
                       <input
                         type="text"
                         id=""
                         name=""
-                        maxLength={50}
                         className="text-input"
-                        placeholder="Contraseña"
-                        onChange={(e) =>
-                          setEmpleado({ ...empleado, pass: e.target.value })
-                        }
+                        value={proveedor.cuenta}
+                        readOnly
                       />
                     </div>
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
-                      <button type="submit" className="btn-primary">
-                        Agregar
-                      </button>
                       <button className="btn-danger" onClick={closeModal}>
-                        Cancelar
+                        Regresar
                       </button>
                     </div>
                   </form>
@@ -192,4 +137,4 @@ function AddEmpleado() {
   );
 }
 
-export default AddEmpleado;
+export default AddProveedor;

@@ -1,8 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import { FaPlus } from "react-icons/fa";
 
-function ShowCliente() {
+function ShowCliente({ name = ""}) {
   let [cliente, setCliente] = useState({
     curp: "",
     nombre: "",
@@ -24,8 +23,10 @@ function ShowCliente() {
 
   return (
     <>
-      <div className="add-card" onClick={openModal}>
-        <FaPlus size={20} color="gray" />
+      <div className="flex flex-wrap items-center w-auto" onClick={openModal}>
+        <p className="text-sm leading-6  max-w-md">
+          <strong className="font-semibold truncate">{name}</strong>
+        </p>
       </div>
 
       <Transition appear show={isOpen} as={Fragment}>
@@ -86,11 +87,8 @@ function ShowCliente() {
                         name=""
                         maxLength={50}
                         className="text-input"
-                        placeholder="Primer Apellido"
-                        onChange={(e) =>
-                          setCliente({ ...cliente, apellido1: e.target.value })
-                        }
-                        required
+                        value={cliente.apellido1}
+                        readOnly
                       />
                     </div>
                     <div className="mb-6">
@@ -102,9 +100,8 @@ function ShowCliente() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Segundo Apellido"
-                        onChange={(e) =>
-                          setCliente({ ...cliente, apellido2: e.target.value })
-                        }
+                        value={cliente.apellido2}
+                        readOnly
                       />
                     </div>
                     <div className="mb-6">
@@ -114,10 +111,8 @@ function ShowCliente() {
                         id=""
                         name=""
                         className="text-input"
-                        onChange={(e) =>
-                          setCliente({ ...cliente, fecha: e.target.value })
-                        }
-                        required
+                        value={cliente.fecha}
+                        readOnly
                       />
                     </div>
                     <div className="mb-6">
@@ -165,11 +160,8 @@ function ShowCliente() {
                         name=""
                         className="text-input"
                         placeholder="Estado"
-                        onChange={(e) =>
-                          setCliente({ ...cliente, estado: e.target.value })
-                        }
-                        min={1}
-                        max={32}
+                        value={cliente.estado}
+                        readOnly
                       />
                     </div>
                     <div className="mb-6">
@@ -180,11 +172,8 @@ function ShowCliente() {
                         name=""
                         className="text-input"
                         placeholder="Municipio"
-                        onChange={(e) =>
-                          setCliente({ ...cliente, municipio: e.target.value })
-                        }
-                        min={1}
-                        max={999}
+                        value={cliente.municipio}
+                        readOnly
                       />
                     </div>
                     <div className="mb-6">
@@ -195,11 +184,8 @@ function ShowCliente() {
                         name=""
                         className="text-input"
                         placeholder="Locación"
-                        onChange={(e) =>
-                          setCliente({ ...cliente, locacion: e.target.value })
-                        }
-                        min={1}
-                        max={9999}
+                        value={cliente.locacion}
+                        readOnly
                       />
                     </div>
 

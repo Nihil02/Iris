@@ -32,10 +32,10 @@ function AddExamen() {
     setIsOpen(true);
   }
 
-  const addCard = () => {
+  const addCard = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
     setExamen({ ...examen, fecha: examen.fecha.replace("-", "") });
     console.log(examen);
-
     closeModal();
   };
 
