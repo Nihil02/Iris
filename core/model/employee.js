@@ -21,6 +21,14 @@ Employee.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    usuario: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    privilegios: {
+      type: DataTypes.ENUM("Administrador", "Normal"),
+      allowNull: false
+    },
     contrasenna: {
       type: DataTypes.STRING,
       allowNull: false,
