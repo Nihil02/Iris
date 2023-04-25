@@ -1,9 +1,25 @@
+interface IEmployeeAPI {
+  getAllEmployees: () => Array<Data>,
+  getEmployeeByRFC: (rfc: any) => Data,
+  createEmployee: (employee: any) => Boolean,
+  authEmployee: (username: any, password: any) => Boolean,
+  deleteEmployee: (rfc: any) => Boolean
+}
+
+declare global {
+  interface Window {
+    employeeAPI: IEmployeeAPI
+  }
+}
+
 class EmployeeController {
   /**
    * @returns Promise with JSON array employees
    */
   static async getAllEmployees() {
-    const res: Array<Data> = await window.userAPI.getAllEmployees();
+    const res: Array<Data> = await window.userAPI.getAllUsers();
+    console.log(res);
+    
     return res;
   }
 

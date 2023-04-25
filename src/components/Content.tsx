@@ -1,24 +1,51 @@
 import Card from "./Card";
-import API from "../../core/controller/api";
 import AddCard from "./AddCard/AddCard";
 import { useLocation } from "react-router";
+import { EmployeeController } from "../../core/controller/employeeController";
 
-const data = await API.getAllSuppliers();
+let data: any[];
+
+async function getData(path: string) {
+  switch (path) {
+    case "/usuario":
+      data = await EmployeeController.getAllEmployees();
+
+      console.log(data);
+      break;
+
+    default:
+      data = [
+        {
+          rfc: "1",
+          razon_social: "Lentes",
+        },
+        {
+          rfc: "2",
+          razon_social: "Lentes2",
+        },
+      ];
+      break;
+  }
+}
 
 function Content() {
-  const location = useLocation();
+  const location = useLocation().pathname;
+  getData(location)
+
   function renderCards() {
     return data.map((card) => {
-      if (location.pathname == "/cliente") {
-        return <h1>cliente</h1>;
-      } else if (location.pathname == "/proveedor") {
-        return <Card key={card.rfc} name={card.razon_social} />;
-      } else if (location.pathname == "/usuario") {
-        return <h1>usuario</h1>;
-      } else if (location.pathname == "/examen") {
-        return <h1>examen</h1>;
-      } else {
-        <h1>Error</h1>;
+      switch (location) {
+        case "/cliente":
+          return <h1>cliente</h1>;
+        case "/proveedor":
+          return <Card key={card.rfc} name={card.razon_social} />;
+        case "/usuario":
+          return <Card key={card.rfc} name={card.nombre} />;
+        case "/examen":
+          return <h1>examen</h1>;
+
+        default:
+          return <h1>Error</h1>;
       }
     });
   }
