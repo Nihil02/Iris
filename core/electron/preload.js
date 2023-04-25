@@ -4,10 +4,11 @@ contextBridge.exposeInMainWorld("supplierAPI", {
   getAllSuppliers: () => ipcRenderer.invoke("getAllSuppliers"),
 });
 
-contextBridge.exposeInMainWorld("userAPI", {
-  getAllUsers: () => ipcRenderer.invoke("getAllUsers"),
-  getUserByRFC: (rfc) => ipcRenderer.invoke("getUserById"),
-  createUser: (user) => ipcRenderer.invoke("createUser"),
-  editUser: (user) => ipcRenderer.invoke("editUser"),
-  deleteUser: (rfc) => ipcRenderer.invoke("deleteUser")
+contextBridge.exposeInMainWorld("employeeAPI", {
+  getAllEmployees: () => ipcRenderer.invoke("getAllEmployees"),
+  getEmployeeByRFC: (rfc) => ipcRenderer.invoke("getEmployeeById"),
+  createEmployee: (user) => ipcRenderer.invoke("createEmployee"),
+  editEmployee: (user) => ipcRenderer.invoke("editEmployee"),
+  deleteEmployee: (rfc) => ipcRenderer.invoke("deleteEmployee"),
+  authEmployee: (username, password) => ipcRenderer.invoke("authEmployee")
 });
