@@ -7,7 +7,7 @@
   "description": "Sistema gestor de clientes de óptica modelo y agenda de proveedores de lentes y armazones",
   "scripts": {
     "dev": "concurrently -k \"vite\" \"npm run electron:dev\"",
-    "test": "vitest",
+    "test": "jest",
     "build": "vite build",
     "preview": "vite preview",
     "electron:dev": "cross-env IS_DEV=true electron-forge start",
