@@ -9,8 +9,6 @@ async function getData(path: string) {
   switch (path) {
     case "/usuario":
       data = await EmployeeController.getAllEmployees();
-
-      console.log(data);
       break;
 
     default:

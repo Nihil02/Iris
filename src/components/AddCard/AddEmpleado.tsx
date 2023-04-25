@@ -8,7 +8,7 @@ function AddEmpleado() {
     nombre: "",
     apellido1: "",
     apellido2: "",
-    privilegios: "",
+    privilegios: "1",
     usuario: "",
     pass: "",
   });
@@ -156,6 +156,7 @@ function AddEmpleado() {
                         onChange={(e) =>
                           setEmpleado({ ...empleado, usuario: e.target.value })
                         }
+                        required
                       />
                     </div>
                     <div className="mb-6">
@@ -170,6 +171,7 @@ function AddEmpleado() {
                         onChange={(e) =>
                           setEmpleado({ ...empleado, pass: e.target.value })
                         }
+                        required
                       />
                     </div>
 
