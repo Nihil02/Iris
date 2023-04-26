@@ -43,7 +43,6 @@ class EmployeeRepository {
    * @returns true if the emplooye was created.
    */
   static async createEmployee(emplooye) {
-    console.log('Aquí ' + emplooye);
     try {
       const [
         rfc,
