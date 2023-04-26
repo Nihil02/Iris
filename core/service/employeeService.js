@@ -1,5 +1,6 @@
 const EmployeeRepository = require("../repository/employeeRepository.js");
 const Validator = require("../validation/validator.js");
+const crypto = require("crypto");
 
 class EmployeeService {
   static async getAllEmployees() {
@@ -24,7 +25,7 @@ class EmployeeService {
       const employee = await EmployeeRepository.getEmployeeByRFC(rfc);
       return employee[0].dataValues;
     } catch (error) {
-      console.error(error);
+      console.error(`For RFC: ${error}`);
       // If the employee don't exists
       return false;
     }
@@ -76,12 +77,11 @@ class EmployeeService {
   static async authEmployee({ user, password }) {
     try {
       const employee = await EmployeeRepository.getEmployeeByUsername(user);
-      /* Hashing goes here */
       password = this.hashPassword(password);
       return employee[0].dataValues.contrasenna === password;
     } catch (e) {
       // Error at search the employee
-      console.error(e);
+      // console.log(`For user(${user}): ${error}`);
       return false;
     }
   }
@@ -117,6 +117,7 @@ class EmployeeService {
   }
 
   static hashPassword(password) {
+    password = crypto.createHash("sha256").update(password).digest("hex");
     return password;
   }
 
