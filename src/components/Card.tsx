@@ -8,13 +8,11 @@ const Card = ({ id = "", name = "" }) => {
   const cardPrint = () => {
     alert("Imprimiendo la información de " + name);
   };
-
-  console.log(id);
   
   return (
     <>
       <div className="card">
-        <ShowCard name = {name}/>
+        <ShowCard name = {name} id = {id}/>
         <div className="flex flex-wrap absolute items-center gap-y-2 gap-x-4 right-4">
           <button
             className="card-button bg-yellow-600 hover:bg-yellow-500"

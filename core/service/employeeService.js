@@ -23,6 +23,7 @@ class EmployeeService {
         throw Error("Invalid RFC");
       }
       const employee = await EmployeeRepository.getEmployeeByRFC(rfc);
+      console.log(employee);
       return employee[0].dataValues;
     } catch (error) {
       console.error(`For RFC: ${error}`);

@@ -1,7 +1,8 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import { EmployeeController } from "./../../../core/controller/employeeController";
 
-function ShowEmpleado({ name = "" }) {
+function ShowEmpleado({ id = "", name = "" }) {
   let [empleado, setEmpleado] = useState({
     rfc: "",
     nombre: "",
@@ -9,15 +10,21 @@ function ShowEmpleado({ name = "" }) {
     apellido2: "",
     privilegios: "",
     usuario: "",
-    pass: "",
   });
 
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
     setIsOpen(false);
   }
-  function openModal() {
+  function openModal(e: { preventDefault: () => void }) {
+    e.preventDefault();
+    getData();
     setIsOpen(true);
+  }
+
+  async function getData() {
+    const data = await EmployeeController.getEmployeeByRFC(id);
+    console.log(data);
   }
 
   return (
@@ -119,17 +126,6 @@ function ShowEmpleado({ name = "" }) {
                         name=""
                         className="text-input"
                         value={empleado.usuario}
-                        readOnly
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Contraseña</label>
-                      <input
-                        type="text"
-                        id=""
-                        name=""
-                        className="text-input"
-                        value={empleado.pass}
                         readOnly
                       />
                     </div>

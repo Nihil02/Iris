@@ -3,7 +3,7 @@ import ShowCliente from "./ShowCliente";
 import ShowProveedor from "./ShowProveedor";
 import ShowEmpleado from "./ShowEmpleado";
 
-function ShowCard({ name = "" }) {
+function ShowCard({ name = "", id = "" }) {
   const location = useLocation();
 
   switch (location.pathname) {
@@ -24,7 +24,7 @@ function ShowCard({ name = "" }) {
     case "/usuario":
       return (
         <>
-          <ShowEmpleado name={name} />
+          <ShowEmpleado id={id} name={name} />
         </>
       );
 

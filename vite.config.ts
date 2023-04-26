@@ -6,7 +6,7 @@ export default defineConfig({
   base: process.env.IS_DEV !== 'true' ? './' : '/',
   build: {
     target: "ESnext",
-    outDir: 'backend/electron/build',
+    outDir: 'core/electron/build',
   },
   plugins: [react()],
 })
