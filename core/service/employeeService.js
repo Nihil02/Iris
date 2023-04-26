@@ -23,8 +23,7 @@ class EmployeeService {
         throw Error("Invalid RFC");
       }
       const employee = await EmployeeRepository.getEmployeeByRFC(rfc);
-      console.log(employee);
-      return employee[0].dataValues;
+      return employee.dataValues;
     } catch (error) {
       console.error(`For RFC: ${error}`);
       // If the employee don't exists
