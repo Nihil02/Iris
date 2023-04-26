@@ -4,13 +4,16 @@ const { QueryTypes } = require("sequelize");
 
 beforeAll(async () => {
   try {
-    await sequelize.query(
-      "INSERT INTO EMPLEADO VALUES (?, ?, ?, ?, ?, ?, ?)",
-      {
-        type: QueryTypes.INSERT,
-        replacements: ['GOMP020121E52', 'Mr.Mock', 'Data', 'Alabama', 'mock', 'Administrador', '12345']
-      }
-    );
+    const employee = {
+        rfc: "GOMP020121E52",
+        name: 'Mrmock',
+        firstLastName: "Data",
+        secondLastName: "Alabama",
+        username: "mock",
+        privileges: "Administrador",
+        password: "12345"
+    }
+    await  EmplooyeeService.createEmployee(employee);
   } catch (error) {
     console.log(error);
   }
