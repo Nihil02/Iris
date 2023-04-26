@@ -36,6 +36,21 @@ test("Test 4 - Invalid first last name", async () => {});
 
 test("Test 5 - Invalid second last name", async () => {});
 
+test("Test 6 - Null password", async () => {
+  const employee = {
+    rfc: "GOMP020121E52",
+    name: "Luis",
+    firstLastName: "Verdugo",
+    secondLastName: "Santos",
+    username: "mock-pepote",
+    privileges: "Normal",
+    password: "",
+  };
+
+  const res = await EmployeeService.createEmployee(employee);
+  expect(res).toBe(true);
+})
+
 afterAll(async () => {
   try {
     await sequelize.query("DELETE FROM EMPLEADO WHERE usuario LIKE 'mock%'", {
