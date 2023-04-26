@@ -1,4 +1,6 @@
 const EmployeeService = require("../core/service/employeeService.js");
+const { sequelize } = require("../core/database/connection.js");
+const { QueryTypes } = require("sequelize");
 
 test("Test 1 - Invalid RFC", async () => {
   const employee = {
@@ -20,7 +22,7 @@ test("Test 2 - Valid employee", async () => {
     name: "Luis",
     firstLastName: "Verdugo",
     secondLastName: "Santos",
-    username: "pepito",
+    username: "mock-pepito",
     privileges: "Administrador",
     password: "12345",
   };
@@ -28,4 +30,18 @@ test("Test 2 - Valid employee", async () => {
   expect(res).toBe(true);
 });
 
-// TODO: Create a method for delete mock users
+test("Test 3 - Invalid name", async () => {});
+
+test("Test 4 - Invalid first last name", async () => {});
+
+test("Test 5 - Invalid second last name", async () => {});
+
+afterAll(async () => {
+  try {
+    await sequelize.query("DELETE FROM EMPLEADO WHERE usuario LIKE 'mock%'", {
+      type: QueryTypes.DELETE,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
