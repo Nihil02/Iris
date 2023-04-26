@@ -1,8 +1,11 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { useState, Fragment } from "react";
 import { FaTrash } from "react-icons/fa";
+import { EmployeeController } from "./../../core/controller/employeeController";
+import { useLocation } from "react-router-dom";
 
-function DeleteCard() {
+function DeleteCard({cardID = ""}) {
+  const path = useLocation().pathname;
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
     setIsOpen(false);
@@ -11,11 +14,25 @@ function DeleteCard() {
     setIsOpen(true);
   }
 
-  const cardDelete = () => {
-    console.log("Registro eliminado");
+  async function deleteCard(e: { preventDefault: () => void }) {
+    e.preventDefault();
+    
+    switch (path) {
+      case "/usuario":
+        const condition = await EmployeeController.deleteEmployee(cardID)
+        if (condition) {
+          console.log("eliminado registro " + cardID);
+        } else {
+          console.log("error");
+        }
+        break;
+
+      default:
+        break;
+    }
 
     closeModal();
-  };
+  }
 
   return (
     <>
@@ -65,7 +82,7 @@ function DeleteCard() {
                   </div>
 
                   <div className="flex items-center justify-center gap-x-6 mt-4">
-                    <button onClick={cardDelete} className="btn-danger">
+                    <button onClick={deleteCard} className="btn-danger">
                       Borrar
                     </button>
                     <button onClick={closeModal} className="btn-primary">

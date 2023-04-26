@@ -36,9 +36,9 @@ function Content() {
         case "/cliente":
           return <h1>cliente</h1>;
         case "/proveedor":
-          return <Card key={card.rfc} name={card.razon_social} />;
+          return <Card key={card.rfc} id={card.rfc} name={card.razon_social} />;
         case "/usuario":
-          return <Card key={card.rfc} name={card.nombre} />;
+          return <Card key={card.rfc} id={card.rfc} name={card.nombre} />;
         case "/examen":
           return <h1>examen</h1>;
 

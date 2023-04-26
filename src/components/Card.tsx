@@ -3,12 +3,14 @@ import UpdateCard from "./UpdateCard";
 import { FaPrint } from "react-icons/fa";
 import ShowCard from "./ShowCard/ShowCard";
 
-const Card = ({ name = "" }) => {
+const Card = ({ id = "", name = "" }) => {
 
   const cardPrint = () => {
     alert("Imprimiendo la información de " + name);
   };
 
+  console.log(id);
+  
   return (
     <>
       <div className="card">
@@ -21,7 +23,7 @@ const Card = ({ name = "" }) => {
             <FaPrint size={16} color="white" />
           </button>
           <UpdateCard />
-          <DeleteCard />
+          <DeleteCard cardID={id}/>
         </div>
       </div>
     </>
