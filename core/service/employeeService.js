@@ -38,9 +38,7 @@ class EmployeeService {
   static async createEmployee(employee) {
     try {
       const sanitizedEmployee = this.sanitizeEmployee(employee);
-      console.log(sanitizedEmployee);
       const validation = this.isValidEmployee(sanitizedEmployee);
-      console.log(validation);
 
       if (typeof validation === "object") {
         throw validation;
@@ -89,33 +87,38 @@ class EmployeeService {
   }
 
   static sanitizeEmployee(employee) {
-    let {
-      rfc,
-      name,
-      firstLastName,
-      secondLastName,
-      username,
-      privileges,
-      password,
-    } = employee;
+    try {
 
-    rfc = rfc.trim();
-    name = name.trim();
-    firstLastName = firstLastName.trim();
-    secondLastName = secondLastName.trim();
-    username = username.trim();
-    privileges = privileges.trim();
-    password = this.hashPassword(password);
+      let {
+        rfc,
+        name,
+        firstLastName,
+        secondLastName,
+        username,
+        privileges,
+        password,
+      } = employee;
 
-    return {
-      rfc: rfc,
-      name: name,
-      firstLastName: firstLastName,
-      secondLastName: secondLastName,
-      privileges: privileges,
-      user: username,
-      password: password,
-    };
+      rfc = rfc.trim();
+      name = name.trim();
+      firstLastName = firstLastName.trim();
+      secondLastName = secondLastName.trim();
+      username = username.trim();
+      privileges = privileges.trim();
+      password = this.hashPassword(password);
+
+      return {
+        rfc: rfc,
+        name: name,
+        firstLastName: firstLastName,
+        secondLastName: secondLastName,
+        privileges: privileges,
+        user: username,
+        password: password,
+      };
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   static hashPassword(password) {
