@@ -2,6 +2,7 @@ interface IEmployeeAPI {
   getAllEmployees: () => Array<Data>,
   getEmployeeByRFC: (rfc: any) => Data,
   createEmployee: (employee: any) => Boolean,
+  updateEmployee: (employee: any) => Boolean,
   authEmployee: (username: any, password: any) => Boolean,
   deleteEmployee: (rfc: any) => Boolean
 }
@@ -54,13 +55,18 @@ class EmployeeController {
     return res;
   }
 
-  static async authEmployee(username: string, password: string) {
-    const res: Boolean = await window.employeeAPI.authEmployee(username, password);
+  static async deleteEmployee(rfc: string) {
+    const res: Boolean = await window.employeeAPI.deleteEmployee(rfc);
     return res;
   }
 
-  static async deleteEmployee(rfc: string) {
-    const res: Boolean = await window.employeeAPI.deleteEmployee(rfc);
+  static async updateEmployee(employee: Employee) {
+    const res: Boolean = await window.employeeAPI.updateEmployee(employee);
+    return res;
+  }
+
+  static async authEmployee(username: string, password: string) {
+    const res: Boolean = await window.employeeAPI.authEmployee(username, password);
     return res;
   }
 }

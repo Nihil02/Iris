@@ -3,7 +3,7 @@ class K {
     getAllEmployees: "getAllEmployees",
     getEmployeeByRFC: "getEmployeeByRFC",
     createEmployee: "createEmployee",
-    editEmployee: "editEmployee",
+    updateEmployee: "updateEmployee",
     deleteEmployee: "deleteEmployee",
     authEmployee: "authEmployee"
   };
