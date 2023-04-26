@@ -29,6 +29,7 @@ class EmployeeController {
 
   static async authEmployee(username: string, password: string) {
     const res: Boolean = await window.employeeAPI.authEmployee(username, password);
+    return res;
   }
 
   static async deleteEmployee(rfc: string) {
