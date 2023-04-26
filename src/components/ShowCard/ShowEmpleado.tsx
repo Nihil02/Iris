@@ -1,5 +1,5 @@
 import { Transition, Dialog } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { EmployeeController } from "./../../../core/controller/employeeController";
 
 function ShowEmpleado({ id = "", name = "" }) {
@@ -12,24 +12,44 @@ function ShowEmpleado({ id = "", name = "" }) {
     usuario: "",
   });
 
+  useEffect(() => {
+    async function getData() {
+      const data = await EmployeeController.getEmployeeByRFC(id);
+      console.log(data);
+      empleado.rfc = data.rfc;
+      empleado.nombre = data.nombre;
+      empleado.apellido1 = data.primer_apellido;
+      empleado.apellido2 = data.segundo_apellido;
+      if (data.privilegios == 1){
+        empleado.privilegios = "Común"
+      }else{
+        empleado.privilegios = "Administrador"
+      }
+      empleado.usuario = data.usuario;
+      console.log(empleado);
+    };
+    getData();
+  }, []);
+
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
     setIsOpen(false);
   }
-  function openModal(e: { preventDefault: () => void }) {
-    e.preventDefault();
-    getData();
+  async function openModal() {
     setIsOpen(true);
   }
 
-  async function getData() {
-    const data = await EmployeeController.getEmployeeByRFC(id);
-    console.log(data);
+  async function showEmpleado(e: { preventDefault: () => void }) {
+    e.preventDefault();
+    openModal();
   }
 
   return (
     <>
-      <div className="flex flex-wrap items-center w-auto" onClick={openModal}>
+      <div
+        className="flex flex-wrap items-center w-auto"
+        onClick={showEmpleado}
+      >
         <p className="text-sm leading-6  max-w-md">
           <strong className="font-semibold truncate">{name}</strong>
         </p>
