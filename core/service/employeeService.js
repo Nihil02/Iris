@@ -38,7 +38,9 @@ class EmployeeService {
   static async createEmployee(employee) {
     try {
       const sanitizedEmployee = this.sanitizeEmployee(employee);
+      console.log(sanitizedEmployee);
       const validation = this.isValidEmployee(sanitizedEmployee);
+      console.log(validation);
 
       if (typeof validation === "object") {
         throw validation;

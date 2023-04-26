@@ -1,8 +1,8 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { useState, Fragment } from "react";
 import { FaTrash } from "react-icons/fa";
-import { EmployeeController } from "./../../core/controller/employeeController";
 import { useLocation } from "react-router-dom";
+import { EmployeeController } from "./../../core/controller/employeeController";
 
 function DeleteCard({cardID = ""}) {
   const path = useLocation().pathname;

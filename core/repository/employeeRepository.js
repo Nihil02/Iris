@@ -43,6 +43,7 @@ class EmployeeRepository {
    * @returns true if the emplooye was created.
    */
   static async createEmployee(emplooye) {
+    console.log('Aquí ' + emplooye);
     try {
       const [
         rfc,
@@ -53,7 +54,7 @@ class EmployeeRepository {
         user,
         password,
       ] = Object.values(emplooye);
-      await Employee.create({
+      const emp = await Employee.create({
         rfc: rfc,
         nombre: name,
         primer_apellido: firstLastName,
