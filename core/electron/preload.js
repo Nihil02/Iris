@@ -3,10 +3,10 @@ const K = require("./constants.js");
 
 const employeeAPI = {
   getAllEmployees: () => ipcRenderer.invoke(K.Employee.getAllEmployees),
-  getEmployeeByRFC: (rfc) => ipcRenderer.invoke(K.Employee.getEmployeeByRFC),
-  createEmployee: (user) => ipcRenderer.invoke(K.Employee.createEmployee),
-  editEmployee: (user) => ipcRenderer.invoke(K.Employee.editEmployee),
-  deleteEmployee: (rfc) => ipcRenderer.invoke(K.Employee.deleteEmployee),
+  getEmployeeByRFC: (rfc) => ipcRenderer.invoke(K.Employee.getEmployeeByRFC, rfc),
+  createEmployee: (user) => ipcRenderer.invoke(K.Employee.createEmployee, user),
+  editEmployee: (user) => ipcRenderer.invoke(K.Employee.editEmployee, user),
+  deleteEmployee: (rfc) => ipcRenderer.invoke(K.Employee.deleteEmployee, rfc),
   authEmployee: (username, password) =>
     ipcRenderer.invoke(K.Employee.authEmployee),
 };

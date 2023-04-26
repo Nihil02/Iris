@@ -81,21 +81,21 @@ ipcMain.handle(K.Employee.getAllEmployees, async () => {
   return await EmployeeService.getAllEmployees();
 });
 // Get employee by rfc
-ipcMain.handle(K.Employee.getEmployeeByRFC, async (emplooyeRFC) => {
+ipcMain.handle(K.Employee.getEmployeeByRFC, async (event, emplooyeRFC) => {
   return await EmployeeService.getEmployeeById(emplooyeRFC);
 });
 
 // Create employee
-ipcMain.handle(K.Employee.createEmployee, async (employee) => {
+ipcMain.handle(K.Employee.createEmployee, async (event, employee) => {
   return await EmployeeService.createEmployee(employee);
 });
 
 // Edit employee
-ipcMain.handle(K.Employee.editEmployee, async (employee) => {
+ipcMain.handle(K.Employee.editEmployee, async (event, employee) => {
   return await EmployeeService.updateEmployee(employee);
 });
 
 // Delete employee
-ipcMain.handle(K.Employee.deleteEmployee, async (employeeRFC) => {
+ipcMain.handle(K.Employee.deleteEmployee, async (event, employeeRFC) => {
   return await EmployeeService.deleteEmployee(employeeRFC);
 });
