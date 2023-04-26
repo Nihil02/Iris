@@ -74,6 +74,5 @@ Exam.init(
   { sequelize, modelName: "Examen", tableName: "EXAMEN", timestamps: false }
 );
 
-// TODO: Methods for data handling
 Exam.sync();
 module.exports = Exam;

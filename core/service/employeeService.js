@@ -21,10 +21,12 @@ class EmployeeService {
       if (!Validator.isRFC(sanitizedRFC)) {
         throw Error("Invalid RFC");
       }
-      const employee = await EmployeeRepository.getEmpleeByRFC(rfc);
+      const employee = await EmployeeRepository.getEmployeeByRFC(rfc);
       return employee[0].dataValues;
     } catch (error) {
       console.error(error);
+      // If the employee don't exists
+      return false;
     }
   }
 
@@ -37,14 +39,13 @@ class EmployeeService {
       const sanitizedEmployee = this.sanitizeEmployee(employee);
       const validation = this.isValidEmployee(sanitizedEmployee);
 
-      if(typeof validation === 'object') {
+      if (typeof validation === "object") {
         throw validation;
       }
       const findEmployee = await this.getEmployeeByRFC(sanitizedEmployee.rfc);
-      if(findEmployee) {
+      if (findEmployee) {
         throw new Error("Employee already exists");
       }
-
       return await EmployeeRepository.createEmployee(sanitizedEmployee);
     } catch (error) {
       return error;
@@ -72,23 +73,36 @@ class EmployeeService {
     }
   }
 
-  static async authEmployee({ rfc, password }) {
+  static async authEmployee({ user, password }) {
     try {
-      const employee = EmployeeRepository.getEmpleeByRFC(rfc);
+      const employee = await EmployeeRepository.getEmployeeByUsername(user);
       /* Hashing goes here */
-      return employee.password === password;
+      password = this.hashPassword(password);
+      return employee[0].dataValues.contrasenna === password;
     } catch (e) {
+      // Error at search the employee
       console.error(e);
       return false;
     }
   }
 
   static sanitizeEmployee(employee) {
-    let { rfc, name, firstLastName, secondLastName, password } = employee;
+    let {
+      rfc,
+      name,
+      firstLastName,
+      secondLastName,
+      username,
+      privileges,
+      password,
+    } = employee;
+
     rfc = rfc.trim();
     name = name.trim();
     firstLastName = firstLastName.trim();
     secondLastName = secondLastName.trim();
+    username = username.trim();
+    privileges = privileges.trim();
     password = this.hashPassword(password);
 
     return {
@@ -96,6 +110,8 @@ class EmployeeService {
       name: name,
       firstLastName: firstLastName,
       secondLastName: secondLastName,
+      privileges: privileges,
+      user: username,
       password: password,
     };
   }
@@ -105,7 +121,7 @@ class EmployeeService {
   }
 
   static isValidEmployee(employee) {
-    const { rfc, name, firstLastName, secondLastName, password } = employee;
+    const { rfc, name, firstLastName, secondLastName } = employee;
     if (!Validator.isName(name)) {
       return new Error("Invalid name");
     }

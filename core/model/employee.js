@@ -23,21 +23,26 @@ Employee.init(
     },
     usuario: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true,
     },
     privilegios: {
       type: DataTypes.ENUM("Administrador", "Normal"),
-      allowNull: false
+      allowNull: false,
     },
     contrasenna: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   },
-  { sequelize, modelName: "Empleado", tableName: "EMPLEADO", timestamps: false }
+  {
+    sequelize,
+    modelName: "Empleado",
+    tableName: "EMPLEADO",
+    timestamps: false,
+  }
 );
 
 Employee.sync();
 
-// Instead of export the class itself try exporting an instance of the class
 module.exports = Employee;

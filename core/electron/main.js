@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
+const K = require("./constants.js");
 const EmployeeService = require("../service/employeeService.js");
 const SupplierService = require("../service/supplierService.js");
 const ExamService = require("../service/examService.js");
@@ -66,32 +67,34 @@ app.on("activate", () => {
   }
 });
 
-// Supplier
-ipcMain.handle("getAllSuppliers", async () => {});
+// Supplier handlers
+ipcMain.handle(K.Supplier.getAllSuppliers, async () => {});
 
-// Costumer
-ipcMain.handle("getAllCostumers", async () => {});
+// Costumer handlers
+ipcMain.handle(K.Costumer.getAllCostumers, async () => {});
 
-// Employee
+// Employee handlers
 
-// Get all users
-ipcMain.handle("getAllUsers", async () => {
+// Get all employees
+ipcMain.handle(K.Employee.getAllEmployees, async () => {
   return await EmployeeService.getAllEmployees();
 });
-// Get user by rfc
-ipcMain.handle("getUserByRFC", async (emplooyeRFC) => {
+// Get employee by rfc
+ipcMain.handle(K.Employee.getEmployeeByRFC, async (emplooyeRFC) => {
   return await EmployeeService.getEmployeeById(emplooyeRFC);
 });
 
-// Create user
-ipcMain.handle("createUser", async (employee) => {
+// Create employee
+ipcMain.handle(K.Employee.createEmployee, async (employee) => {
   return await EmployeeService.createEmployee(employee);
 });
 
-ipcMain.handle("editUser", async (employee) => {
+// Edit employee
+ipcMain.handle(K.Employee.editEmployee, async (employee) => {
   return await EmployeeService.updateEmployee(employee);
 });
 
-ipcMain.handle("deleteUser", async (employeeRFC) => {
+// Delete employee
+ipcMain.handle(K.Employee.deleteEmployee, async (employeeRFC) => {
   return await EmployeeService.deleteEmployee(employeeRFC);
 });
