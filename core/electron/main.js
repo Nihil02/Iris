@@ -82,7 +82,7 @@ ipcMain.handle(K.Employee.getAllEmployees, async () => {
 });
 // Get employee by rfc
 ipcMain.handle(K.Employee.getEmployeeByRFC, async (event, emplooyeRFC) => {
-  return await EmployeeService.getEmployeeById(emplooyeRFC);
+  return await EmployeeService.getEmployeeByRFC(emplooyeRFC);
 });
 
 // Create employee

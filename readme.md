@@ -6,7 +6,7 @@ Proyecto de sistema gestor de clientes de óptica modelo y agenda de proveedores
 
 `npm install` para instalar los modulos necesarios  
 `npm run dev` para ejecutar en modo desarrollo  
-`npm run dev` para ejecutar en modo producción  
+`npm run prod` para ejecutar en modo producción  
 `npm run build` para construir los modulos de la aplicación  
 `npm run electron:build` para empaquetar la aplicación  
 
