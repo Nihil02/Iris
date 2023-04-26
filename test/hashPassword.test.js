@@ -17,3 +17,9 @@ test("Test 2 - Compare a password", () => {
   const isEqual = hash === myHashedPassword;
   expect(isEqual).toBe(true);
 });
+
+test("Test 3 - Hash empty string", () => {
+  const password = "";
+  const res = EmplooyeeService.hashPassword(password);
+  expect(typeof res).toBe("string");
+});

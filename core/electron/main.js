@@ -91,7 +91,7 @@ ipcMain.handle(K.Employee.createEmployee, async (event, employee) => {
 });
 
 // Edit employee
-ipcMain.handle(K.Employee.editEmployee, async (event, employee) => {
+ipcMain.handle(K.Employee.updateEmployee, async (event, employee) => {
   return await EmployeeService.updateEmployee(employee);
 });
 
