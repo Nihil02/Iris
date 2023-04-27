@@ -17,7 +17,6 @@ class EmployeeRepository {
   static async getEmployeeByRFC(rfc) {
     try {
       const res = await Employee.findByPk(rfc);
-      console.log(res);
       return res;
     } catch (error) {
       console.error(error);

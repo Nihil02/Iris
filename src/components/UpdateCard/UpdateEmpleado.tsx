@@ -21,14 +21,12 @@ function UpdateEmpleado({ id = "" }) {
   useEffect(() => {
     async function getData() {
       const data = await EmployeeController.getEmployeeByRFC(id);
-      console.log(data);
       empleado.rfc = data.rfc;
       empleado.nombre = data.nombre;
       empleado.apellido1 = data.primer_apellido;
       empleado.apellido2 = data.segundo_apellido;
       empleado.privilegios = data.privilegios;
       empleado.usuario = data.usuario;
-      console.log(empleado);
     }
     getData();
   }, []);
@@ -38,7 +36,8 @@ function UpdateEmpleado({ id = "" }) {
   function closeModal() {
     setIsOpen(false);
   }
-  function openModal() {
+  function openModal(e: { preventDefault: () => void }) {
+    e.preventDefault();
     setIsOpen(true);
   }
 

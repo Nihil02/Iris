@@ -4,7 +4,7 @@ import { FaTrash } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import { EmployeeController } from "./../../core/controller/employeeController";
 
-function DeleteCard({cardID = ""}) {
+function DeleteCard({ cardID = "" }) {
   const path = useLocation().pathname;
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
@@ -16,10 +16,10 @@ function DeleteCard({cardID = ""}) {
 
   async function deleteCard(e: { preventDefault: () => void }) {
     e.preventDefault();
-    
+
     switch (path) {
       case "/usuario":
-        const condition = await EmployeeController.deleteEmployee(cardID)
+        const condition = await EmployeeController.deleteEmployee(cardID);
         if (condition) {
           console.log("eliminado registro " + cardID);
         } else {

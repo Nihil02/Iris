@@ -4,7 +4,8 @@ import { FaSearch } from "react-icons/fa";
 function SearchBar() {
   let [keyword, setKeyword] = useState("");
 
-  function search() {
+  function search(e: { preventDefault: () => void }) {
+    e.preventDefault();
     console.log("Buscando " + keyword);
   }
 

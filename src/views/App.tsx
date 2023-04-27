@@ -38,7 +38,7 @@ function App() {
         }
       />
       <Route
-        path="/examen"
+        path="/examen:cliente"
         element={
           <div className="flex overflow-hidden w-screen">
             <Menu />
