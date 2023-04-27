@@ -151,7 +151,7 @@ class EmployeeService {
    * Creates a hashed password.
   */
   static createPassword(password) {
-    return hashPassword(password.trim());
+    return this.hashPassword(password.trim());
   }
   /**
    * Recives a password an hashes him.

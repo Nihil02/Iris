@@ -1,7 +1,10 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { EmployeeController, Employee } from "./../../../core/controller/employeeController";
+import {
+  EmployeeController,
+  Employee,
+} from "./../../../core/controller/employeeController";
 
 function AddEmpleado() {
   let [empleado, setEmpleado] = useState({
@@ -24,7 +27,15 @@ function AddEmpleado() {
 
   const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const emp = new Employee(empleado.rfc, empleado.nombre, empleado.apellido1, empleado.apellido2, empleado.usuario, empleado.pass, empleado.privilegios);
+    const emp = new Employee(
+      empleado.rfc,
+      empleado.nombre,
+      empleado.apellido1,
+      empleado.apellido2,
+      empleado.usuario,
+      empleado.pass,
+      empleado.privilegios
+    );
     if (await EmployeeController.createEmployee(emp)) {
       console.log("Insertando registro ");
       console.log(empleado);

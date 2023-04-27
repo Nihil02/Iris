@@ -1,7 +1,10 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { useState, Fragment, useEffect } from "react";
 import { FaPen } from "react-icons/fa";
-import { Employee, EmployeeController } from "../../../core/controller/employeeController";
+import {
+  Employee,
+  EmployeeController,
+} from "../../../core/controller/employeeController";
 
 function UpdateEmpleado({ id = "" }) {
   let [empleado, setEmpleado] = useState({
@@ -23,11 +26,7 @@ function UpdateEmpleado({ id = "" }) {
       empleado.nombre = data.nombre;
       empleado.apellido1 = data.primer_apellido;
       empleado.apellido2 = data.segundo_apellido;
-      if (data.privilegios == 1) {
-        empleado.privilegios = "Común";
-      } else {
-        empleado.privilegios = "Administrador";
-      }
+      empleado.privilegios = data.privilegios;
       empleado.usuario = data.usuario;
       console.log(empleado);
     }
@@ -43,19 +42,27 @@ function UpdateEmpleado({ id = "" }) {
     setIsOpen(true);
   }
 
-  const cancel = (e: { preventDefault: () => void; }) => {
+  const cancel = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     closeModal();
-  }
+  };
 
   const updateCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     console.log("Registro actualizado");
-    
-    const emp = new Employee(empleado.rfc, empleado.nombre, empleado.apellido1, empleado.apellido2, empleado.usuario, empleado.pass, empleado.privilegios);
+
+    const emp = new Employee(
+      empleado.rfc,
+      empleado.nombre,
+      empleado.apellido1,
+      empleado.apellido2,
+      empleado.usuario,
+      empleado.pass,
+      empleado.privilegios
+    );
     if (await EmployeeController.updateEmployee(emp)) {
       console.log("Modificando registro ");
-      console.log(empleado);
+      console.log(emp);
     } else {
       console.log("error");
     }
@@ -65,7 +72,7 @@ function UpdateEmpleado({ id = "" }) {
 
   return (
     <>
-    {/* Button in the card */}
+      {/* Button in the card */}
       <button
         className="card-button bg-green-600 hover:bg-green-500"
         onClick={openModal}
@@ -73,7 +80,7 @@ function UpdateEmpleado({ id = "" }) {
         <FaPen size={16} color="white" />
       </button>
 
-    {/* Modal */}
+      {/* Modal */}
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
@@ -216,7 +223,6 @@ function UpdateEmpleado({ id = "" }) {
                         onChange={(e) =>
                           setEmpleado({ ...empleado, pass: e.target.value })
                         }
-                        required
                       />
                     </div>
 
