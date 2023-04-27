@@ -7,7 +7,7 @@ import {
   FaUndo,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { admin } from "../util/util";
+import { getAdmin } from "../util";
 
 function Menu() {
   return (
@@ -26,7 +26,7 @@ function Menu() {
           tooltip="Proveedores"
           route="/proveedor"
         />
-        {admin ? (
+        {getAdmin() ? (
           <MenuIcon
             icon={<FaUserAlt size="28" />}
             tooltip="Empleados"
@@ -37,7 +37,7 @@ function Menu() {
       <div className="fixed bottom-0 left-3">
         <hr className="bg-gray-200 border border-gray-200  rounded-full mx-2" />
 
-        {admin ? (
+        {getAdmin() ? (
           <>
             <MenuIcon
               icon={<FaDatabase size="28" />}

@@ -31,6 +31,7 @@ function DeleteCard({ cardID = "" }) {
         break;
     }
 
+    window.location.reload();
     closeModal();
   }
 

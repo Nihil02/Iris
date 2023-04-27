@@ -1,6 +1,6 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
-import { EmployeeController } from "./../../../core/controller/employeeController";
+import { EmployeeController } from "../../util";
 
 function ShowEmpleado({ id = "", name = "" }) {
   let [empleado, setEmpleado] = useState({
@@ -40,7 +40,7 @@ function ShowEmpleado({ id = "", name = "" }) {
     closeModal();
   };
 
-  async function showEmpleado(e: { preventDefault: () => void }) {
+  async function showCard(e: { preventDefault: () => void }) {
     e.preventDefault();
     openModal();
   }
@@ -49,7 +49,7 @@ function ShowEmpleado({ id = "", name = "" }) {
     <>
       <div
         className="flex flex-wrap items-center w-auto"
-        onClick={showEmpleado}
+        onClick={showCard}
       >
         <p className="text-sm leading-6  max-w-md">
           <strong className="font-semibold truncate">{name}</strong>

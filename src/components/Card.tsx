@@ -1,7 +1,7 @@
 import { FaPrint } from "react-icons/fa";
 import DeleteCard from "./DeleteCard";
-import UpdateCard from "./UpdateCard/UpdateCard";
-import ShowCard from "./ShowCard/ShowCard";
+import UpdateCard from "./UpdateCard";
+import ShowCard from "./ShowCard";
 
 const Card = ({ id = "", name = "" }) => {
   const cardPrint = () => {

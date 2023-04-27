@@ -4,7 +4,7 @@ import { FaLock } from "react-icons/fa";
 import { Fragment, useState } from "react";
 import { Transition, Dialog } from "@headlessui/react";
 import { matchSorter } from "match-sorter";
-import { isAdmin } from "../util/util";
+import { isAdmin } from "../util";
 function Login() {
   let [name, setName] = useState("");
   let [pass, setPass] = useState("");

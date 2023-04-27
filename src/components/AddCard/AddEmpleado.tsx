@@ -1,10 +1,8 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import {
-  EmployeeController,
-  Employee,
-} from "./../../../core/controller/employeeController";
+import { EmployeeController, Employee } from "../../util";
+import { useNavigate } from "react-router-dom";
 
 function AddEmpleado() {
   let [empleado, setEmpleado] = useState({
@@ -16,6 +14,8 @@ function AddEmpleado() {
     usuario: "",
     pass: "",
   });
+
+  const navigate = useNavigate();
 
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
@@ -44,6 +44,7 @@ function AddEmpleado() {
     }
 
     closeModal();
+    window.location.reload();
   };
 
   return (

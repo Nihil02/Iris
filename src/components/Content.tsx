@@ -1,10 +1,11 @@
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router";
+import { EmployeeController } from "./../util";
 import Card from "./Card";
 import AddCard from "./AddCard/AddCard";
-import { useLocation } from "react-router";
-import { EmployeeController } from "../../core/controller/employeeController";
-import { useEffect, useState } from "react";
+import SearchBar from "./SearchBar";
 
-function Content() {
+function Content({ title = "" }) {
   let [data, setData] = useState([{}]);
 
   /* Get the current location */
@@ -55,6 +56,8 @@ function Content() {
 
   return (
     <>
+      <SearchBar />
+      <h1 className="text-2xl m-5">{title}</h1>
       <AddCard />
       {renderCards()}
     </>

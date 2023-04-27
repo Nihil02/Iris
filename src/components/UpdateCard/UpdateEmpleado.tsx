@@ -1,10 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { useState, Fragment, useEffect } from "react";
 import { FaPen } from "react-icons/fa";
-import {
-  Employee,
-  EmployeeController,
-} from "../../../core/controller/employeeController";
+import { Employee, EmployeeController } from "../../util";
 
 function UpdateEmpleado({ id = "" }) {
   let [empleado, setEmpleado] = useState({
@@ -67,6 +64,7 @@ function UpdateEmpleado({ id = "" }) {
     }
 
     closeModal();
+    window.location.reload();
   };
 
   return (

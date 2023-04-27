@@ -1,1 +1,2 @@
-export * from './UpdateCard'
+import UpdateCard from "./UpdateCard";
+export default UpdateCard;
