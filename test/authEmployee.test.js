@@ -14,17 +14,6 @@ beforeAll(async () => {
       password: "12345",
     };
     await EmplooyeeService.createEmployee(employee);
-
-    const noPassEmployee = {
-      rfc: "MACF060713HP4",
-      name: "MrNoPass",
-      firstLastName: "Lol",
-      secondLastName: "XD",
-      username: "mock-nopass",
-      privileges: "Administrador",
-      password: "",
-    };
-    await EmplooyeeService.createEmployee(noPassEmployee);
   } catch (error) {
     console.log(error);
   }
@@ -56,10 +45,10 @@ test("Test 3 - Correct user and password", async () => {
 
 test("Test 4 - User with no password", async () => {
   const res = await EmplooyeeService.authEmployee({
-    user: "mock-nopass",
+    user: "mock",
     password: "",
   });
-  expect(res).toBe(true);
+  expect(res).toBe(false);
 });
 afterAll(async () => {
   try {

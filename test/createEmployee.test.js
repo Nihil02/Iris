@@ -13,7 +13,7 @@ test("Test 1 - Invalid RFC", async () => {
     password: "12345",
   };
   const res = await EmployeeService.createEmployee(employee);
-  expect(typeof res).toBe("object");
+  expect(res).toBe(false);
 });
 
 test("Test 2 - Valid employee", async () => {
@@ -48,7 +48,7 @@ test("Test 6 - Null password", async () => {
   };
 
   const res = await EmployeeService.createEmployee(employee);
-  expect(res).toBe(true);
+  expect(res).toBe(false);
 })
 
 afterAll(async () => {

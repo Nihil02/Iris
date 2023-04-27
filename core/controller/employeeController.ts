@@ -18,7 +18,7 @@ class Employee {
   firstLastName: string;
   secondLastName: string;
   username: string;
-  password: string;
+  password?: string;
   privileges: string;
 
   constructor(

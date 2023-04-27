@@ -27,7 +27,7 @@ class EmployeeRepository {
 
   /**
    * Finds an employee by his username
-   * @returns An object representing the employee
+   * @returns An array of objects representing with the coincidences (in this case only 1).
    */
   static async getEmployeeByUsername(user) {
     try {
@@ -53,7 +53,7 @@ class EmployeeRepository {
         user,
         password,
       ] = Object.values(emplooye);
-      const emp = await Employee.create({
+      await Employee.create({
         rfc: rfc,
         nombre: name,
         primer_apellido: firstLastName,
