@@ -25,7 +25,7 @@ function AddCard() {
         <AddEmpleado />
       </>
     );
-  } else if (location.pathname == "/examen") {
+  } else if (location.pathname == "/examen:cliente") {
     return (
       <>
         <AddExamen />

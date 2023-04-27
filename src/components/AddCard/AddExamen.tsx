@@ -81,6 +81,7 @@ function AddExamen() {
                         className="text-input"
                         readOnly
                         placeholder="Cliente"
+                        value={examen.cliente}
                         required
                       />
                     </div>
@@ -100,7 +101,7 @@ function AddExamen() {
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Fecha de Nacimiento</label>
+                      <label htmlFor="">Fecha de Captura</label>
                       <input
                         type="date"
                         id=""
@@ -111,6 +112,12 @@ function AddExamen() {
                         }
                         required
                       />
+                    </div>
+                    <div className="mb-6">
+                      <label htmlFor="">Graduaciones</label>
+                      <div className="mb-6">
+                        <input type="text" name="" id="" />
+                      </div>
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Tipo de Lentes</label>
@@ -129,12 +136,12 @@ function AddExamen() {
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Observaciones</label>
-                      <input
-                        type="text"
+                      <textarea
                         id=""
                         name=""
                         className="text-input"
                         placeholder="Observaciones"
+                        rows={3}
                         onChange={(e) =>
                           setExamen({
                             ...examen,

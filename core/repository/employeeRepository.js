@@ -79,7 +79,6 @@ class EmployeeRepository {
       secondLastName,
       privileges,
       user,
-      password,
     ] = Object.values(emplooye);
     await Employee.update(
       {
@@ -88,7 +87,6 @@ class EmployeeRepository {
         segundo_apellido: secondLastName,
         privilegios: privileges,
         usuario: user,
-        contrasenna: password,
       },
       {
         where: {

@@ -39,7 +39,7 @@ function Login() {
 
     isAdmin(res[0].priv)
 
-    pass == res[0].pass ? navigate("/cliente") : openModal();
+    pass == res[0].pass ? navigate("/examen:cliente") : openModal();
   }
 
   return (
