@@ -7,7 +7,7 @@ import {
   FaUndo,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { admin } from "../util";
+import { admin } from "../util/util";
 
 function Menu() {
   return (

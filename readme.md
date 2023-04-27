@@ -31,7 +31,9 @@ Proyecto de sistema gestor de clientes de óptica modelo y agenda de proveedores
 │   ├── index.css               # archivo de estilos css
 │   ├── main.tsx                # archivo principal de react
 │   ├── util.ts                 # utilidades varias
+├── test                        # pruebas varias
 ├── index.html                  # 
+├── jest.config.js              # configuración de pruebas con jest
 ├── postcss.config.ts           # configuración de postcss para tailwind
 ├── tailwind.config.ts          # configuración de tailwind
 ├── vite.config.ts              # configuración de vite
