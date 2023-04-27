@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { useState, Fragment, useEffect } from "react";
 import { FaPen } from "react-icons/fa";
-import { EmployeeController } from "../../../core/controller/employeeController";
+import { Employee, EmployeeController } from "../../../core/controller/employeeController";
 
 function UpdateEmpleado({ id = "" }) {
   let [empleado, setEmpleado] = useState({
@@ -14,6 +14,7 @@ function UpdateEmpleado({ id = "" }) {
     pass: "",
   });
 
+  /* Fetch data from the api to the component */
   useEffect(() => {
     async function getData() {
       const data = await EmployeeController.getEmployeeByRFC(id);
@@ -32,6 +33,8 @@ function UpdateEmpleado({ id = "" }) {
     }
     getData();
   }, []);
+
+  /* Controls modal state */
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
     setIsOpen(false);
@@ -45,15 +48,24 @@ function UpdateEmpleado({ id = "" }) {
     closeModal();
   }
 
-  const updateCard = (e: { preventDefault: () => void }) => {
+  const updateCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     console.log("Registro actualizado");
+    
+    const emp = new Employee(empleado.rfc, empleado.nombre, empleado.apellido1, empleado.apellido2, empleado.usuario, empleado.pass, empleado.privilegios);
+    if (await EmployeeController.updateEmployee(emp)) {
+      console.log("Modificando registro ");
+      console.log(empleado);
+    } else {
+      console.log("error");
+    }
 
     closeModal();
   };
 
   return (
     <>
+    {/* Button in the card */}
       <button
         className="card-button bg-green-600 hover:bg-green-500"
         onClick={openModal}
@@ -61,6 +73,7 @@ function UpdateEmpleado({ id = "" }) {
         <FaPen size={16} color="white" />
       </button>
 
+    {/* Modal */}
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
@@ -99,6 +112,7 @@ function UpdateEmpleado({ id = "" }) {
                         onChange={(e) =>
                           setEmpleado({ ...empleado, rfc: e.target.value })
                         }
+                        value={empleado.rfc}
                         required
                       />
                     </div>
@@ -111,6 +125,7 @@ function UpdateEmpleado({ id = "" }) {
                         maxLength={50}
                         className="text-input"
                         placeholder="Nombre"
+                        value={empleado.nombre}
                         onChange={(e) =>
                           setEmpleado({ ...empleado, nombre: e.target.value })
                         }
@@ -126,6 +141,7 @@ function UpdateEmpleado({ id = "" }) {
                         maxLength={50}
                         className="text-input"
                         placeholder="Primer Apellido"
+                        value={empleado.apellido1}
                         onChange={(e) =>
                           setEmpleado({
                             ...empleado,
@@ -144,6 +160,7 @@ function UpdateEmpleado({ id = "" }) {
                         maxLength={50}
                         className="text-input"
                         placeholder="Segundo Apellido"
+                        value={empleado.apellido2}
                         onChange={(e) =>
                           setEmpleado({
                             ...empleado,
@@ -159,6 +176,7 @@ function UpdateEmpleado({ id = "" }) {
                         className="text-input"
                         name="priv"
                         id="priv"
+                        value={empleado.privilegios}
                         onChange={(e) =>
                           setEmpleado({
                             ...empleado,
@@ -179,6 +197,7 @@ function UpdateEmpleado({ id = "" }) {
                         maxLength={50}
                         className="text-input"
                         placeholder="Usuario"
+                        value={empleado.usuario}
                         onChange={(e) =>
                           setEmpleado({ ...empleado, usuario: e.target.value })
                         }
