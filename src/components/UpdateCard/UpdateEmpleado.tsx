@@ -1,8 +1,9 @@
 import { Transition, Dialog } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react";
-import { EmployeeController } from "./../../../core/controller/employeeController";
+import { useState, Fragment, useEffect } from "react";
+import { FaPen } from "react-icons/fa";
+import { EmployeeController } from "../../../core/controller/employeeController";
 
-function ShowEmpleado({ id = "", name = "" }) {
+function UpdateEmpleado({ id = "" }) {
   let [empleado, setEmpleado] = useState({
     rfc: "",
     nombre: "",
@@ -10,6 +11,7 @@ function ShowEmpleado({ id = "", name = "" }) {
     apellido2: "",
     privilegios: "",
     usuario: "",
+    pass: "",
   });
 
   useEffect(() => {
@@ -20,17 +22,16 @@ function ShowEmpleado({ id = "", name = "" }) {
       empleado.nombre = data.nombre;
       empleado.apellido1 = data.primer_apellido;
       empleado.apellido2 = data.segundo_apellido;
-      if (data.privilegios == 1){
-        empleado.privilegios = "Común"
-      }else{
-        empleado.privilegios = "Administrador"
+      if (data.privilegios == 1) {
+        empleado.privilegios = "Común";
+      } else {
+        empleado.privilegios = "Administrador";
       }
       empleado.usuario = data.usuario;
       console.log(empleado);
-    };
+    }
     getData();
   }, []);
-
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
     setIsOpen(false);
@@ -44,21 +45,21 @@ function ShowEmpleado({ id = "", name = "" }) {
     closeModal();
   }
 
-  async function showEmpleado(e: { preventDefault: () => void }) {
+  const updateCard = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    openModal();
-  }
+    console.log("Registro actualizado");
+
+    closeModal();
+  };
 
   return (
     <>
-      <div
-        className="flex flex-wrap items-center w-auto"
-        onClick={showEmpleado}
+      <button
+        className="card-button bg-green-600 hover:bg-green-500"
+        onClick={openModal}
       >
-        <p className="text-sm leading-6  max-w-md">
-          <strong className="font-semibold truncate">{name}</strong>
-        </p>
-      </div>
+        <FaPen size={16} color="white" />
+      </button>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -86,7 +87,7 @@ function ShowEmpleado({ id = "", name = "" }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <form className="m-4">
+                  <form className="m-4" onSubmit={updateCard}>
                     <div className="mb-6">
                       <label htmlFor="">RFC</label>
                       <input
@@ -94,8 +95,11 @@ function ShowEmpleado({ id = "", name = "" }) {
                         id=""
                         name=""
                         className="text-input"
-                        value={empleado.rfc}
-                        readOnly
+                        placeholder="RFC"
+                        onChange={(e) =>
+                          setEmpleado({ ...empleado, rfc: e.target.value })
+                        }
+                        required
                       />
                     </div>
                     <div className="mb-6">
@@ -104,9 +108,13 @@ function ShowEmpleado({ id = "", name = "" }) {
                         type="text"
                         id=""
                         name=""
+                        maxLength={50}
                         className="text-input"
-                        value={empleado.nombre}
-                        readOnly
+                        placeholder="Nombre"
+                        onChange={(e) =>
+                          setEmpleado({ ...empleado, nombre: e.target.value })
+                        }
+                        required
                       />
                     </div>
                     <div className="mb-6">
@@ -115,9 +123,16 @@ function ShowEmpleado({ id = "", name = "" }) {
                         type="text"
                         id=""
                         name=""
+                        maxLength={50}
                         className="text-input"
-                        value={empleado.apellido1}
-                        readOnly
+                        placeholder="Primer Apellido"
+                        onChange={(e) =>
+                          setEmpleado({
+                            ...empleado,
+                            apellido1: e.target.value,
+                          })
+                        }
+                        required
                       />
                     </div>
                     <div className="mb-6">
@@ -126,22 +141,34 @@ function ShowEmpleado({ id = "", name = "" }) {
                         type="text"
                         id=""
                         name=""
+                        maxLength={50}
                         className="text-input"
-                        value={empleado.apellido2}
-                        readOnly
+                        placeholder="Segundo Apellido"
+                        onChange={(e) =>
+                          setEmpleado({
+                            ...empleado,
+                            apellido2: e.target.value,
+                          })
+                        }
                       />
                     </div>
 
                     <div className="mb-6">
                       <label htmlFor="priv">Privilegios</label>
-                      <input
-                        type="text"
-                        id=""
-                        name=""
+                      <select
                         className="text-input"
-                        value={empleado.privilegios}
-                        readOnly
-                      />
+                        name="priv"
+                        id="priv"
+                        onChange={(e) =>
+                          setEmpleado({
+                            ...empleado,
+                            privilegios: e.target.value,
+                          })
+                        }
+                      >
+                        <option value="1">Común</option>
+                        <option value="2">Administrador</option>
+                      </select>
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Usuario</label>
@@ -149,13 +176,35 @@ function ShowEmpleado({ id = "", name = "" }) {
                         type="text"
                         id=""
                         name=""
+                        maxLength={50}
                         className="text-input"
-                        value={empleado.usuario}
-                        readOnly
+                        placeholder="Usuario"
+                        onChange={(e) =>
+                          setEmpleado({ ...empleado, usuario: e.target.value })
+                        }
+                        required
+                      />
+                    </div>
+                    <div className="mb-6">
+                      <label htmlFor="">Contraseña</label>
+                      <input
+                        type="text"
+                        id=""
+                        name=""
+                        maxLength={50}
+                        className="text-input"
+                        placeholder="Contraseña"
+                        onChange={(e) =>
+                          setEmpleado({ ...empleado, pass: e.target.value })
+                        }
+                        required
                       />
                     </div>
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
+                      <button type="submit" className="btn-primary">
+                        Agregar
+                      </button>
                       <button className="btn-danger" onClick={cancel}>
                         Cancelar
                       </button>
@@ -171,4 +220,4 @@ function ShowEmpleado({ id = "", name = "" }) {
   );
 }
 
-export default ShowEmpleado;
+export default UpdateEmpleado;
