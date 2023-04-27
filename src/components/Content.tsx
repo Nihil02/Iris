@@ -11,6 +11,9 @@ function Content({ title = "" }) {
   /* Get the current location */
   const location = useLocation().pathname;
 
+  let nombre:string;
+  let id: string;
+
   /* Fetch data from the api to the component */
   useEffect(() => {
     async function getData() {
@@ -44,7 +47,9 @@ function Content({ title = "" }) {
         case "/proveedor":
           return <Card key={card.rfc} id={card.rfc} name={card.razon_social} />;
         case "/usuario":
-          return <Card key={card.rfc} id={card.rfc} name={card.nombre} />;
+          {nombre = card.nombre + " " + card.primer_apellido + " " + card.segundo_apellido}
+          {id = card.rfc}
+          return <Card key={id} id={id} name={nombre} />;
         case "/examen":
           return <h1 key={card.rfc}>examen</h1>;
 

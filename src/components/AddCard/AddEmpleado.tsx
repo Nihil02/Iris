@@ -27,24 +27,27 @@ function AddEmpleado() {
 
   const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const emp = new Employee(
-      empleado.rfc,
-      empleado.nombre,
-      empleado.apellido1,
-      empleado.apellido2,
-      empleado.usuario,
-      empleado.pass,
-      empleado.privilegios
-    );
-    if (await EmployeeController.createEmployee(emp)) {
-      console.log("Insertando registro ");
-      console.log(empleado);
-    } else {
-      console.log("error");
-    }
 
-    closeModal();
-    window.location.reload();
+    if (isOpen) {
+      const emp = new Employee(
+        empleado.rfc,
+        empleado.nombre,
+        empleado.apellido1,
+        empleado.apellido2,
+        empleado.usuario,
+        empleado.pass,
+        empleado.privilegios
+      );
+      if (await EmployeeController.createEmployee(emp)) {
+        console.log("Insertando registro ");
+        console.log(empleado);
+      } else {
+        console.log("error");
+      }
+
+      closeModal();
+      window.location.reload();
+    }
   };
 
   return (
@@ -78,7 +81,7 @@ function AddEmpleado() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="modal-panel">
                   <form className="m-4" onSubmit={addCard}>
                     <div className="mb-6">
                       <label htmlFor="">RFC</label>

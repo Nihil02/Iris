@@ -17,22 +17,24 @@ function DeleteCard({ cardID = "" }) {
   async function deleteCard(e: { preventDefault: () => void }) {
     e.preventDefault();
 
-    switch (path) {
-      case "/usuario":
-        const condition = await EmployeeController.deleteEmployee(cardID);
-        if (condition) {
-          console.log("eliminado registro " + cardID);
-        } else {
-          console.log("error");
-        }
-        break;
+    if (isOpen) {
+      switch (path) {
+        case "/usuario":
+          const condition = await EmployeeController.deleteEmployee(cardID);
+          if (condition) {
+            console.log("eliminado registro " + cardID);
+          } else {
+            console.log("error");
+          }
+          break;
 
-      default:
-        break;
+        default:
+          break;
+      }
+
+      window.location.reload();
+      closeModal();
     }
-
-    window.location.reload();
-    closeModal();
   }
 
   return (

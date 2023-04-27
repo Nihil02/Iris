@@ -5,12 +5,15 @@
 :not(input):not(textarea),
 :not(input):not(textarea)::after,
 :not(input):not(textarea)::before {
-    -webkit-user-select: none;
-    user-select: none;
-    cursor: default;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
 }
-input, button, textarea, :focus {
-    outline: none;
+input,
+button,
+textarea,
+:focus {
+  outline: none;
 }
 
 body {
@@ -125,5 +128,11 @@ body {
 
   .btn-warning {
     @apply btn bg-yellow-500 hover:bg-yellow-400 text-white;
+  }
+
+  .modal-panel {
+    @apply w-full max-w-lg transform overflow-hidden rounded-2xl align-middle shadow-xl
+    p-6 text-left bg-white
+    transition-all;
   }
 }

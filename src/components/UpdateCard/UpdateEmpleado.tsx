@@ -45,26 +45,28 @@ function UpdateEmpleado({ id = "" }) {
 
   const updateCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    console.log("Registro actualizado");
 
-    const emp = new Employee(
-      empleado.rfc,
-      empleado.nombre,
-      empleado.apellido1,
-      empleado.apellido2,
-      empleado.usuario,
-      empleado.pass,
-      empleado.privilegios
-    );
-    if (await EmployeeController.updateEmployee(emp)) {
-      console.log("Modificando registro ");
-      console.log(emp);
-    } else {
-      console.log("error");
+    if (isOpen) {
+      const emp = new Employee(
+        empleado.rfc,
+        empleado.nombre,
+        empleado.apellido1,
+        empleado.apellido2,
+        empleado.usuario,
+        empleado.pass,
+        empleado.privilegios
+      );
+      if (await EmployeeController.updateEmployee(emp)) {
+        console.log("Modificando registro ");
+        console.log(emp);
+      } else {
+        console.log("error");
+        alert("Error");
+      }
+
+      closeModal();
+      window.location.reload();
     }
-
-    closeModal();
-    window.location.reload();
   };
 
   return (
@@ -103,7 +105,7 @@ function UpdateEmpleado({ id = "" }) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="modal-panel">
                   <form className="m-4" onSubmit={updateCard}>
                     <div className="mb-6">
                       <label htmlFor="">RFC</label>
