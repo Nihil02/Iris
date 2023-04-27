@@ -32,7 +32,7 @@ Employee.init(
     },
     contrasenna: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
   },
   {
