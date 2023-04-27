@@ -15,7 +15,7 @@ class SupplierService {
    * @param RFC - The RFC of the Supplier.
    * @returns An object with the supplier data.
    */
-    static async getSupplierByRFX(rfc = "") {
+    static async getSupplierByRFC(rfc = "") {
         try {
             const sanitizedRFC = rfc.trim();
             if (!Validator.isRFC(sanitizedRFC)) {
@@ -73,10 +73,11 @@ static async updateSupplier(supplier) {
   }
 
 static sanitizeSupplier(supplier) {
-    let {rfc, razon_social, domicilio, telefono, cuenta_bancaria} = supplier;
+    let {rfc, razon_social, domicilio, correo, telefono, cuenta_bancaria} = supplier;
     rfc = rfc.trim();
     razon_social = razon_social.trim();
     domicilio = domicilio.trim();
+    correo = correo.trim();
     telefono = telefono.trim();
     cuenta_bancaria = cuenta_bancaria.trim();
 
@@ -84,17 +85,23 @@ static sanitizeSupplier(supplier) {
         rfc: rfc,
         razon_social: razon_social,
         domicilio: domicilio,
+        correo_electronico: correo,
         telefono: telefono,
         cuenta_bancaria: cuenta_bancaria,
     };
   }
 
   static isValidSupplier(supplier) {
-    let {rfc, razon_social, domicilio, telefono, cuenta_bancaria} = supplier;
+    let {rfc, razon_social, domicilio, correo, telefono, cuenta_bancaria} = supplier;
 
     if (!Validator.isRFC(rfc)) {
       return new Error("Invalid RFC");
     }
+
+    if (!Validator.isEmail(correo)) {
+      return new Error("Invalid Email");
+    }
+
     return true;
   }
 

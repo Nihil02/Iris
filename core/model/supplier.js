@@ -17,6 +17,10 @@ Supplier.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    correo_electronico: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     telefono: {
       type: DataTypes.STRING,
       allowNull: false,

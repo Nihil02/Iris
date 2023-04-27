@@ -11,7 +11,11 @@ class K {
   static Exam = {};
 
   static Supplier = {
-    getAllSuppliers: "getAllSuppliers"
+    getAllSuppliers: "getAllSuppliers",
+    getSupplierByRFC: "getSupplierByRFC",
+    createSupplier: "createSupplier",
+    updateSupplier: "updateSupplier",
+    deleteSupplier: "deleteSupplier"
   };
 
   static Costumer = {

@@ -10,8 +10,15 @@ const employeeAPI = {
   authEmployee: (username, password) =>
     ipcRenderer.invoke(K.Employee.authEmployee),
 };
-contextBridge.exposeInMainWorld("supplierAPI", {
+
+const supplierAPI = {
   getAllSuppliers: () => ipcRenderer.invoke(K.Supplier.getAllSuppliers),
-});
+  getSupplierByRFC: (rfc) => ipcRenderer.invoke(K.Supplier.getSupplierByRFC, rfc),
+  createSupplier: (supplier) => ipcRenderer.invoke(K.Supplier.createSupplier, supplier),
+  updateSupplier: (supplier) => ipcRenderer.invoke(K.Supplier.updateSupplier, supplier),
+  deleteSupplier: (rfc) => ipcRenderer.invoke(K.Supplier.createSupplier, rfc),
+}
+
+contextBridge.exposeInMainWorld("supplierAPI", supplierAPI);
 
 contextBridge.exposeInMainWorld("employeeAPI", employeeAPI);
