@@ -20,13 +20,14 @@ class SupplierRepository {
   }
 
   static async createSupplier(supplier) {
-    const [rfc, razon_social, domicilio, telefono, cuenta_bancaria] =
+    const [rfc, razon_social, domicilio, correo, telefono, cuenta_bancaria] =
       Object.values(supplier);
 
     await Supplier.create({
       rfc: rfc,
       razon_social: razon_social,
       domicilio: domicilio,
+      correo_electronico: correo,
       telefono: telefono,
       cuenta_bancaria: cuenta_bancaria,
     });
@@ -37,16 +38,17 @@ class SupplierRepository {
    * Update supplier information
    */
   static async updateSupplier(supplier) {
-    const [rfc, razon_social, domicilio, telefono, cuenta_bancaria] =
+    const [rfc, razon_social, domicilio, correo, telefono, cuenta_bancaria] =
       Object.values(supplier);
 
     await Supplier.update(
       {
-        rfc: rfc,
-        razon_social: razon_social,
-        domicilio: domicilio,
-        telefono: telefono,
-        cuenta_bancaria: cuenta_bancaria,
+      rfc: rfc,
+      razon_social: razon_social,
+      domicilio: domicilio,
+      correo_electronico: correo,
+      telefono: telefono,
+      cuenta_bancaria: cuenta_bancaria,
       },
       {
         where: {

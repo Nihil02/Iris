@@ -69,7 +69,31 @@ app.on("activate", () => {
 });
 
 // Supplier handlers
-ipcMain.handle(K.Supplier.getAllSuppliers, async () => {});
+
+// Get all suppliers
+ipcMain.handle(K.Supplier.getAllSuppliers, async () => {
+    return await SupplierService.getAllSuppliers();
+});
+
+// Get supplier by RFC
+ipcMain.handle(K.Supplier.getSupplierByRFC, async (event, rfc) => {
+    return await SupplierService.getSupplierByRFC(rfc);
+});
+
+// Create a supplier
+ipcMain.handle(K.Supplier.createSupplier, async (event, supplier) => {
+    return await SupplierService.createSupplier(supplier);
+});
+
+// Update a supplier
+ipcMain.handle(K.Supplier.updateSupplier, async (event, supplier) => {
+    return await SupplierService.updateSupplier(supplier);
+});
+
+// Delete a supplier
+ipcMain.handle(K.Supplier.deleteSupplier, async (event, rfc) => {
+    return await SupplierService.deleteSupplier(rfc);
+});
 
 // Costumer handlers
 ipcMain.handle(K.Costumer.getAllCostumers, async () => {});
