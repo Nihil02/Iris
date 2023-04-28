@@ -50,6 +50,11 @@ Costumer.init(
       type: DataTypes.STRING(4),
       allowNull: false,
     },
+    compaqi_id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+    },
   },
   { sequelize, modelName: "Paciente", tableName: "PACIENTE", timestamps: false }
 );

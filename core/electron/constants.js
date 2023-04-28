@@ -19,7 +19,11 @@ class K {
   };
 
   static Costumer = {
-    getAllCostumers: "getAllCostumers"
+    getAllCostumers: "getAllCostumers",
+    getCostumerById: "getCostumerById",
+    createCostumer: "createCostumer",
+    updateCostumer: "updateCostumer",
+    deleteCostumer: "deleteCostumer"
   };
 }
 
