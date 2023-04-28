@@ -1,4 +1,4 @@
-const EmployeeService = require("../core/service/employeeService.js");
+const EmployeeService = require("../../core/service/employeeService.js");
 
 beforeAll(async () => {
   const employee = {

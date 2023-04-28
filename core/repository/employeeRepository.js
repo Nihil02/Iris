@@ -97,6 +97,16 @@ class EmployeeRepository {
     return true;
   }
 
+  static async updatePassword({ username, password }) {
+    try {
+      await Employee.update({contrasenna: password}, {where: {usuario: username}});
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
   /**
    * Finds an employee by his rfc and deletes him.
    */

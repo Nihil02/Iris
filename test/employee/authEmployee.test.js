@@ -1,5 +1,5 @@
-const EmplooyeeService = require("../core/service/employeeService.js");
-const { sequelize } = require("../core/database/connection.js");
+const EmplooyeeService = require("../../core/service/employeeService.js");
+const { sequelize } = require("../../core/database/connection.js");
 const { QueryTypes } = require("sequelize");
 
 beforeAll(async () => {

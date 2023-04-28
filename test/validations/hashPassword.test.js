@@ -1,4 +1,4 @@
-const EmplooyeeService = require("../core/service/employeeService.js");
+const EmplooyeeService = require("../../core/service/employeeService.js");
 
 test("Test 1 - Expect hash", () => {
   const mySuperSecretPasswordOhMyGod = "12345";
