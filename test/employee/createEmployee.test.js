@@ -1,5 +1,5 @@
-const EmployeeService = require("../core/service/employeeService.js");
-const { sequelize } = require("../core/database/connection.js");
+const EmployeeService = require("../../core/service/employeeService.js");
+const { sequelize } = require("../../core/database/connection.js");
 const { QueryTypes } = require("sequelize");
 
 test("Test 1 - Invalid RFC", async () => {

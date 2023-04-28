@@ -1,4 +1,4 @@
-const Validator = require("../core/validation/validator.js");
+const Validator = require("../../core/validation/validator.js");
 
 test("Test 1 - Only numbers", () => {
   const name = "1245";

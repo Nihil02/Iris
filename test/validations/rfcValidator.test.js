@@ -1,4 +1,4 @@
-const validator = require("../core/validation/validator.js");
+const validator = require("../../core/validation/validator.js");
 
 test("Test 1 - None", () => {
   const rfc = "";

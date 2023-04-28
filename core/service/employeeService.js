@@ -22,16 +22,27 @@ class EmployeeService {
   static async getEmployeeByRFC(rfc = "") {
     try {
       const sanitizedRFC = rfc.trim();
+      if (await this.areNoEmployees()) {
+        throw Error("There is no employee in the database");
+      }
       if (!Validator.isRFC(sanitizedRFC)) {
         throw Error("Invalid RFC");
       }
       const employee = await EmployeeRepository.getEmployeeByRFC(rfc);
       return employee.dataValues;
     } catch (error) {
-      console.error(`For RFC: ${error}`);
+      console.log(error);
       // If the employee don't exists
       return false;
     }
+  }
+
+  /**
+   * Returns true if not exists employees in the database.
+   */
+  static async areNoEmployees() {
+    const res = await this.getAllEmployees();
+    return res.length === 0;
   }
 
   /**
@@ -71,6 +82,12 @@ class EmployeeService {
         throw res.error;
       }
       await EmployeeRepository.updateEmployee(res.employee);
+      if (employee.password !== undefined || employee.password.trim() !== "") {
+        await this.updatePassword({
+          username: employee.username,
+          password: employee.password,
+        });
+      }
       return true;
     } catch (error) {
       console.error(error);
@@ -80,10 +97,11 @@ class EmployeeService {
 
   /**
    * Updates the password of a user.
-  */
+   */
 
-  static async updatePassword({username, rfc, oldPassword, newPassword}) {
-    // TODO: Implement the method for update the password.
+  static async updatePassword({ username, password }) {
+    password = this.createPassword(password);
+    return await EmployeeRepository.updatePassword({username: username, password: password});
   }
 
   /**
@@ -131,9 +149,9 @@ class EmployeeService {
       privileges = "",
     } = employee;
 
-    for (const attribute of Object.values(employee)) {
-      if (attribute.trim() === "") {
-        return [false, new Error(`Error: ${attribute} is null`)];
+    for (const [key, value] of Object.entries(employee)) {
+      if (key !== "password" && value.trim() === "") {
+        return [false, new Error(`${key} is null`)];
       }
     }
     const sanitizedEmployee = {
@@ -149,7 +167,7 @@ class EmployeeService {
   }
   /**
    * Creates a hashed password.
-  */
+   */
   static createPassword(password) {
     return this.hashPassword(password.trim());
   }
