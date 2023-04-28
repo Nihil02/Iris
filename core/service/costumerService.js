@@ -73,18 +73,19 @@ class CostumerService {
   }
 
     static sanitizeCostumer(customer) {
-        const { CURP, nombre, primer_apellido, segundo_apellido, fecnac, edonac, sexo, nacorigen, edo, mun, loc } = customer;
-        CURP: CURP.trim();
-        nombre: nombre.trim();
-        primer_apellido: primer_apellido.trim();
-        segundo_apellido: segundo_apellido.trim();
-        fecnac: fecnac.trim();
-        edonac: edonac.trim();
-        sexo: sexo.trim();
-        nacorigen: nacorigen.trim();
-        edo: edo.trim();
-        mun: mun.trim();
-        loc: loc.trim();
+        const { CURP, nombre, primer_apellido, segundo_apellido, fecnac, edonac, sexo, nacorigen, edo, mun, loc, compaqi_id } = customer;
+        CURP = CURP.trim();
+        nombre = nombre.trim();
+        primer_apellido = primer_apellido.trim();
+        segundo_apellido = segundo_apellido.trim();
+        fecnac = fecnac.trim();
+        edonac = edonac.trim();
+        sexo = sexo.trim();
+        nacorigen = nacorigen.trim();
+        edo = edo.trim();
+        mun = mun.trim();
+        loc = loc.trim();
+        compaqi_id = compaqi_id.trim();
 
         return {
             CURP: CURP,
@@ -97,12 +98,13 @@ class CostumerService {
             nacorigen: nacorigen,
             edo: edo,
             mun: mun,
-            loc: loc
+            loc: loc,
+            compaqi_id: compaqi_id
         };
     }
 
   static isValidCostumer(costumer) {
-    const { CURP, nombre, primer_apellido, segundo_apellido, fecnac, edonac, sexo, nacorigen, edo, mun, loc } = employee;
+    const { CURP, nombre, primer_apellido, segundo_apellido, fecnac, edonac, sexo, nacorigen, edo, mun, loc, compaqi_id } = employee;
     if (!Validator.isName(nombre)) {
       return new Error("Invalid name");
     }

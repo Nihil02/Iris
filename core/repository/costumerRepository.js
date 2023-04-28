@@ -21,7 +21,7 @@ class CostumerRepository {
     }
 
     static async createCostumer(customer) {
-        const [CURP, nombre, primer_apellido, segundo_apellido, fecnac, edonac, sexo, nacorigen, edo, mun, loc] = Object.values(customer);
+        const [CURP, nombre, primer_apellido, segundo_apellido, fecnac, edonac, sexo, nacorigen, edo, mun, loc, compaqi_id] = Object.values(customer);
         await Costumer.create({
             CURP: CURP,
             nombre: nombre,
@@ -33,7 +33,8 @@ class CostumerRepository {
             nacorigen: nacorigen,
             edo: edo,
             mun: mun,
-            loc: loc
+            loc: loc,
+            compaqi_id: compaqi_id
         });
         return true;
     }
@@ -54,7 +55,8 @@ class CostumerRepository {
             nacorigen: nacorigen,
             edo: edo,
             mun: mun,
-            loc: loc
+            loc: loc,
+            compaqi_id: compaqi_id
         }, {
             where: {
                 CURP: CURP,

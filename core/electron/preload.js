@@ -19,6 +19,16 @@ const supplierAPI = {
   deleteSupplier: (rfc) => ipcRenderer.invoke(K.Supplier.createSupplier, rfc),
 }
 
+const costumerAPI = {
+  getAllCostumers: () => ipcRenderer.invoke(K.Costumer.getAllCostumers),
+  getCostumerById: (id) => ipcRenderer.invoke(K.Costumer.getCostumerById, id),
+  createCostumer: (costumer) => ipcRenderer.invoke(K.Costumer.createCostumer, costumer),
+  updateCostumer: (costumer) => ipcRenderer.invoke(K.Costumer.updateCostumer, costumer),
+  deleteCostumer: (id) => ipcRenderer.invoke(K.Costumer.createCostumer, id),
+}
+
 contextBridge.exposeInMainWorld("supplierAPI", supplierAPI);
 
 contextBridge.exposeInMainWorld("employeeAPI", employeeAPI);
+
+contextBridge.exposeInMainWorld("costumerAPI", costumerAPI);
