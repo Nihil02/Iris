@@ -1,5 +1,6 @@
 *.local
 out/
+backup
 core/electron/build
 
 # Editor directories and files
