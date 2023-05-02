@@ -96,7 +96,31 @@ ipcMain.handle(K.Supplier.deleteSupplier, async (event, rfc) => {
 });
 
 // Costumer handlers
-ipcMain.handle(K.Costumer.getAllCostumers, async () => {});
+
+// get all costumers
+ipcMain.handle(K.Costumer.getAllCostumers, async () => {
+    return await CostumerService.getAllCostumers();
+});
+
+// get costumber by id
+ipcMain.handle(K.Costumer.getCostumerById, async (event, id) => {
+    return await CostumerService.getCostumerById(id);
+});
+
+// create Costumer
+ipcMain.handle(K.Costumer.createCostumer, async (event, costumer) => {
+    return await CostumerService.createCostumber(costumer);
+});
+
+// update Costumer
+ipcMain.handle(K.Costumer.updateCostumer, async (event, costumer) => {
+    return await CostumerService.updateCostumber(costumer);
+});
+
+// delete Costumer
+ipcMain.handle(K.Costumer.deleteCostumer, async (event, id) => {
+    return await CostumerService.deleteCostumber(id);
+});
 
 // Employee handlers
 
