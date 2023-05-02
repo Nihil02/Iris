@@ -101,7 +101,10 @@ class EmployeeService {
 
   static async updatePassword({ username, password }) {
     password = this.createPassword(password);
-    return await EmployeeRepository.updatePassword({username: username, password: password});
+    return await EmployeeRepository.updatePassword({
+      username: username,
+      password: password,
+    });
   }
 
   /**
@@ -169,6 +172,10 @@ class EmployeeService {
    * Creates a hashed password.
    */
   static createPassword(password) {
+    if (password.trim() === "") {
+      throw new Error("Null password");
+    }
+    console.log(password);
     return this.hashPassword(password.trim());
   }
   /**
@@ -203,7 +210,6 @@ class EmployeeService {
     for (const rule of validationRules) {
       const { field, validator } = rule;
       const value = result[field];
-      console.log(value);
 
       if (!validator(value)) {
         return { isValid: false, error: new Error(`Invalid ${field}`) };
