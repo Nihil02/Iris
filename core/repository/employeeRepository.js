@@ -72,14 +72,8 @@ class EmployeeRepository {
    * Update employee information
    */
   static async updateEmployee(emplooye) {
-    const [
-      rfc,
-      name,
-      firstLastName,
-      secondLastName,
-      privileges,
-      user,
-    ] = Object.values(emplooye);
+    const [rfc, name, firstLastName, secondLastName, privileges, user] =
+      Object.values(emplooye);
     await Employee.update(
       {
         nombre: name,
@@ -99,7 +93,10 @@ class EmployeeRepository {
 
   static async updatePassword({ username, password }) {
     try {
-      await Employee.update({contrasenna: password}, {where: {usuario: username}});
+      await Employee.update(
+        { contrasenna: password },
+        { where: { usuario: username } }
+      );
       return true;
     } catch (error) {
       console.log(error);

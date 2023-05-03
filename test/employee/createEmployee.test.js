@@ -24,7 +24,7 @@ test("Test 2 - Valid employee", async () => {
     secondLastName: "Santos",
     username: "mock-pepito",
     privileges: "Administrador",
-    password: "12345",
+    password: "carlos",
   };
   const res = await EmployeeService.createEmployee(employee);
   expect(res).toBe(true);
@@ -39,9 +39,9 @@ test("Test 5 - Invalid second last name", async () => {});
 test("Test 6 - Null password", async () => {
   const employee = {
     rfc: "GOMP020121E52",
-    name: "Luis",
-    firstLastName: "Verdugo",
-    secondLastName: "Santos",
+    name: "Carlos",
+    firstLastName: "Reyes",
+    secondLastName: "Correa",
     username: "mock-pepote",
     privileges: "Normal",
     password: "",
@@ -49,7 +49,7 @@ test("Test 6 - Null password", async () => {
 
   const res = await EmployeeService.createEmployee(employee);
   expect(res).toBe(false);
-})
+});
 
 afterAll(async () => {
   try {

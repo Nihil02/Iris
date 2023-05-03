@@ -6,7 +6,7 @@ class Costumer extends Model {}
 Costumer.init(
   {
     CURP: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(18),
       primaryKey: true,
     },
     nombre: {
@@ -37,6 +37,7 @@ Costumer.init(
     nacorigen: {
       type: DataTypes.STRING(4),
       allowNull: false,
+      defaultValue: "NND"
     },
     edo: {
       type: DataTypes.STRING(2),
@@ -46,12 +47,15 @@ Costumer.init(
       type: DataTypes.STRING(3),
       allowNull: false,
     },
+    // Clave de la localidad existente en el catálogo de la INGEGI
+    // El código postal, pues
     loc: {
       type: DataTypes.STRING(4),
       allowNull: false,
+      defaultValue:   "0000"
     },
-    compaqi_id: {
-      type: DataTypes.INTEGER,
+    contpaq_id: {
+      type: DataTypes.STRING(20),
       autoIncrement: true,
       allowNull: false,
     },

@@ -23,7 +23,7 @@ class Costumer {
   edo: string;
   mun: string;
   loc: string;
-  compaqi_id: number;
+  contpaq_id: number;
 
   constructor(
       curp: string,
@@ -37,7 +37,7 @@ class Costumer {
       edo: string,
       mun: string,
       loc: string,
-      compaqi_id: number
+      contpaq_id: number
   ) {
   this.curp = curp;
   this.name = name;
@@ -50,7 +50,7 @@ class Costumer {
   this.edo = edo;
   this.mun = mun;
   this.loc = loc;
-  this.compaqi_id = compaqi_id;
+  this.contpaq_id = contpaq_id;
 
   }
 }
