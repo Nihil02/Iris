@@ -18,12 +18,12 @@ class K {
     deleteSupplier: "deleteSupplier"
   };
 
-  static Costumer = {
-    getAllCostumers: "getAllCostumers",
-    getCostumerById: "getCostumerById",
-    createCostumer: "createCostumer",
-    updateCostumer: "updateCostumer",
-    deleteCostumer: "deleteCostumer"
+  static Customer = {
+    getAllCustomers: "getAllCustomers",
+    getCustomerById: "getCustomerById",
+    createCustomer: "createCustomer",
+    updateCustomer: "updateCustomer",
+    deleteCustomer: "deleteCustomer"
   };
 }
 

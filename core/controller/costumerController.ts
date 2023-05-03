@@ -1,17 +1,17 @@
-interface ICostumerAPI {
-  getAllCostumers: () => Array<Data>,
-  getCostumerById: (id: any) => Data,
-  createCostumer: (costumer: any) => Boolean,
-  updateCostumer: (costumer: any) => Boolean,
-  deleteCostumer: (id: any) => Boolean
+interface ICustomerAPI {
+  getAllCustomers: () => Array<Data>,
+  getCustomerById: (id: any) => Data,
+  createCustomer: (costumer: any) => Boolean,
+  updateCustomer: (costumer: any) => Boolean,
+  deleteCustomer: (id: any) => Boolean
 }
 
 declare global {
   interface Window {
-    costumerAPI: ICostumerAPI
+    customerAPI: ICustomerAPI
   }
 }
-class Costumer {
+class Customer {
   curp: string;
   name: string;
   firstLastName: string;
@@ -54,31 +54,31 @@ class Costumer {
 
   }
 }
-class CostumerController {
-  static async getAllCustomers() {
-    const res: Array<Data> = await window.costumerAPI.getAllCostumers();
+class customerController {
+  static async getAllcustomers() {
+    const res: Array<Data> = await window.customerAPI.getAllCustomers();
     return res;
   }
 
-  static async getCustomerById(curp: string) {
+  static async getcustomerById(curp: string) {
     const res: Data = await window.customerAPI.getCustomerById(curp);
     return res;
   }
 
-  static async createCustomer(customer: Customer) {
+  static async createcustomer(customer: Customer) {
     const res: Boolean = await window.customerAPI.createCustomer(customer);
     return res;
   }
 
-  static async deleteCustomer(curp: string) {
+  static async deletecustomer(curp: string) {
     const res: Boolean = await window.customerAPI.deleteCustomer(curp);
     return res;
   }
 
-  static async updateCustomer(customer: Customer) {
+  static async updatecustomer(customer: Customer) {
     const res: Boolean = await window.customerAPI.updateCustomer(customer);
     return res;
   }
 }
 
-export { CostumerController, Costumer };
+export { customerController, Customer };
