@@ -17,10 +17,10 @@ import {
 export { Employee, EmployeeController };
 
 import {
-  Costumer,
-  CostumerController,
-} from "../../core/controller/costumerController";
-export { Costumer, CostumerController };
+  Customer,
+  CustomerController,
+} from "../../core/controller/customerController";
+export { Customer, CustomerController };
 
 import {
   Supplier,
