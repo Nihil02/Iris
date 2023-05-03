@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
-import { EmployeeController } from "./../util";
+import {
+  CostumerController,
+  SupplierController,
+  EmployeeController,
+} from "./../util";
 import Card from "./Card";
 import AddCard from "./AddCard/AddCard";
 import SearchBar from "./SearchBar";
@@ -11,13 +15,27 @@ function Content({ title = "" }) {
   /* Get the current location */
   const location = useLocation().pathname;
 
-  let nombre:string;
+  let nombre: string;
   let id: string;
 
   /* Fetch data from the api to the component */
   useEffect(() => {
     async function getData() {
       switch (location) {
+        case "/cliente":
+          const cliente = await CostumerController.getAllCustomers();
+          setData(cliente);
+          console.log(cliente);
+
+          break;
+
+        case "/proveedor":
+          const sup = await SupplierController.getAllSuppliers();
+          setData(sup);
+          console.log(sup);
+
+          break;
+
         case "/usuario":
           const emp = await EmployeeController.getAllEmployees();
           setData(emp);
@@ -43,13 +61,39 @@ function Content({ title = "" }) {
     return data.map((card) => {
       switch (location) {
         case "/cliente":
-          return <h1 key={card.rfc}>cliente</h1>;
-        case "/proveedor":
-          return <Card key={card.rfc} id={card.rfc} name={card.razon_social} />;
-        case "/usuario":
-          {nombre = card.nombre + " " + card.primer_apellido + " " + card.segundo_apellido}
-          {id = card.rfc}
+          {
+            nombre =
+              card.nombre +
+              " " +
+              card.primer_apellido +
+              " " +
+              card.segundo_apellido;
+          }
+          {
+            id = card.curp;
+          }
           return <Card key={id} id={id} name={nombre} />;
+
+        case "/proveedor":
+          {
+            id = card.rfc;
+          }
+          return <Card key={card.rfc} id={card.rfc} name={card.razon_social} />;
+
+        case "/usuario":
+          {
+            nombre =
+              card.nombre +
+              " " +
+              card.primer_apellido +
+              " " +
+              card.segundo_apellido;
+          }
+          {
+            id = card.rfc;
+          }
+          return <Card key={id} id={id} name={nombre} />;
+          
         case "/examen":
           return <h1 key={card.rfc}>examen</h1>;
 
