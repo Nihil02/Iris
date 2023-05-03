@@ -4,7 +4,7 @@ const K = require("./constants.js");
 const EmployeeService = require("../service/employeeService.js");
 const SupplierService = require("../service/supplierService.js");
 const ExamService = require("../service/examService.js");
-const CostumerService = require("../service/costumerService.js");
+const CustomerService = require("../service/customerService.js");
 
 if (require("electron-squirrel-startup")) {
   app.quit();
@@ -95,31 +95,31 @@ ipcMain.handle(K.Supplier.deleteSupplier, async (event, rfc) => {
     return await SupplierService.deleteSupplier(rfc);
 });
 
-// Costumer handlers
+// Customer handlers
 
-// get all costumers
-ipcMain.handle(K.Costumer.getAllCostumers, async () => {
-    return await CostumerService.getAllCostumers();
+// get all customers
+ipcMain.handle(K.Customer.getAllCustomers, async () => {
+    return await CustomerService.getAllCustomers();
 });
 
 // get costumber by id
-ipcMain.handle(K.Costumer.getCostumerById, async (event, id) => {
-    return await CostumerService.getCostumerById(id);
+ipcMain.handle(K.Customer.getCustomerById, async (event, id) => {
+    return await CustomerService.getCustomerById(id);
 });
 
-// create Costumer
-ipcMain.handle(K.Costumer.createCostumer, async (event, costumer) => {
-    return await CostumerService.createCostumber(costumer);
+// create Customer
+ipcMain.handle(K.Customer.createCustomer, async (event, customer) => {
+    return await CustomerService.createCustomer(customer);
 });
 
-// update Costumer
-ipcMain.handle(K.Costumer.updateCostumer, async (event, costumer) => {
-    return await CostumerService.updateCostumber(costumer);
+// update Customer
+ipcMain.handle(K.Customer.updateCustomer, async (event, customer) => {
+    return await CustomerService.updateCustomer(customer);
 });
 
-// delete Costumer
-ipcMain.handle(K.Costumer.deleteCostumer, async (event, id) => {
-    return await CostumerService.deleteCostumber(id);
+// delete Customer
+ipcMain.handle(K.Customer.deleteCustomer, async (event, id) => {
+    return await CustomerService.deleteCustomer(id);
 });
 
 // Employee handlers
