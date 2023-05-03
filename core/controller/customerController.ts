@@ -54,8 +54,8 @@ class Customer {
 
   }
 }
-class customerController {
-  static async getAllcustomers() {
+class CustomerController {
+  static async getAllCustomers() {
     const res: Array<Data> = await window.customerAPI.getAllCustomers();
     return res;
   }
@@ -81,4 +81,4 @@ class customerController {
   }
 }
 
-export { customerController, Customer };
+export { CustomerController, Customer };

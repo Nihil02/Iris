@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import {
-  customerController,
+  CustomerController,
   SupplierController,
   EmployeeController,
 } from "./../util";
@@ -25,7 +25,7 @@ function Content({ title = "" }) {
     async function getData() {
       switch (location) {
         case "/cliente":
-          const cliente = await customerController.getAllcustomers();
+          const cliente = await CustomerController.getAllCustomers();
           setData(cliente);
           console.log(cliente);
 

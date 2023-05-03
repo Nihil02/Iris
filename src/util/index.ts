@@ -18,9 +18,9 @@ export { Employee, EmployeeController };
 
 import {
   Customer,
-  customerController
-} from "../../core/controller/costumerController";
-export { Customer, customerController };
+  CustomerController
+} from "../../core/controller/customerController";
+export { Customer, CustomerController };
 
 import {
   Supplier,
