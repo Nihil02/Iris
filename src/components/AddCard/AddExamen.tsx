@@ -113,11 +113,189 @@ function AddExamen() {
                         required
                       />
                     </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Graduaciones</label>
-                      <div className="mb-6">
-                        <input type="text" name="" id="" />
-                      </div>
+                    <div className="mb-6 w-full justify-center items-center">
+                      <table className="table-fixed">
+                        <thead className="text-center text-sm">
+                          <tr>
+                            <th></th>
+                            <th>Esférico</th>
+                            <th>Cilíndrico</th>
+                            <th>Eje</th>
+                            <th>Agudeza</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {/* Ojo Derecho Lejos */}
+                          <tr>
+                            <td className="pr-6">Lejos</td>
+                            <td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                step={0.25}
+                                max={12.0}
+                                min={-12.0}
+                                placeholder="0.00"
+                                onChange={(e) =>
+                                  setExamen({ ...examen, lejos_od_esferico: e.target.value })
+                                }
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                step={0.25}
+                                max={12.0}
+                                min={-12.0}
+                                placeholder="0.00"
+                                onChange={(e) =>
+                                  setExamen({ ...examen, lejos_od_cilindrico: e.target.value })
+                                }
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                step={0.25}
+                                max={12.0}
+                                min={-12.0}
+                                placeholder="0.00"
+                                onChange={(e) =>
+                                  setExamen({ ...examen, lejos_od_eje: e.target.value })
+                                }
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                step={0.25}
+                                max={12.0}
+                                min={-12.0}
+                                placeholder="0.00"
+                                onChange={(e) =>
+                                  setExamen({ ...examen, lejos_od_agudeza: e.target.value })
+                                }
+                              />
+                            </td>
+                          </tr>
+                          
+                          {/* Ojo Izquierdo Lejos */}
+                          <tr>
+                            <td></td>
+                            <td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                step={0.25}
+                                max={12.0}
+                                min={-12.0}
+                                placeholder="0.00"
+                                onChange={(e) =>
+                                  setExamen({ ...examen, lejos_oi_esferico: e.target.value })
+                                }
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                step={0.25}
+                                max={12.0}
+                                min={-12.0}
+                                placeholder="0.00"
+                                onChange={(e) =>
+                                  setExamen({ ...examen, lejos_oi_cilindrico: e.target.value })
+                                }
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                step={0.25}
+                                max={12.0}
+                                min={-12.0}
+                                placeholder="0.00"
+                                onChange={(e) =>
+                                  setExamen({ ...examen, lejos_oi_eje: e.target.value })
+                                }
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                step={0.25}
+                                max={12.0}
+                                min={-12.0}
+                                placeholder="0.00"
+                                onChange={(e) =>
+                                  setExamen({ ...examen, lejos_oi_agudeza: e.target.value })
+                                }
+                              />
+                            </td>
+                          </tr>
+
+                          {/* Ojo Derecho Adición */}
+                          <tr>
+                            <td className="pr-6">Adición</td>
+                            <td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                step={0.25}
+                                max={12.0}
+                                min={-12.0}
+                                placeholder="0.00"
+                                onChange={(e) =>
+                                  setExamen({ ...examen, adicion_od_esferico: e.target.value })
+                                }
+                              />
+                            </td>
+                          </tr>
+                          
+                          {/* Ojo Izquierdo Adición */}
+                          <tr>
+                            <td></td>
+                            <td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                step={0.25}
+                                max={12.0}
+                                min={-12.0}
+                                placeholder="0.00"
+                                onChange={(e) =>
+                                  setExamen({ ...examen, adicion_oi_esferico: e.target.value })
+                                }
+                              />
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Tipo de Lentes</label>
