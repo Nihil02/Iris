@@ -1,10 +1,12 @@
 import { useLocation } from "react-router";
+import { useParams } from "react-router-dom";
 import ShowCliente from "./ShowCliente";
 import ShowProveedor from "./ShowProveedor";
 import ShowEmpleado from "./ShowEmpleado";
 
 function ShowCard({ name = "", id = "" }) {
   const location = useLocation();
+  let param = useParams();
 
   switch (location.pathname) {
     case "/cliente":
@@ -28,7 +30,7 @@ function ShowCard({ name = "", id = "" }) {
         </>
       );
 
-    case "/examen":
+    case "/examen/" + param.cliente:
       return (
         <>
           <h1>Examen</h1>

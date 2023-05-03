@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import {
-  CostumerController,
+  customerController,
   SupplierController,
   EmployeeController,
 } from "./../util";
 import Card from "./Card";
 import AddCard from "./AddCard/AddCard";
 import SearchBar from "./SearchBar";
+import { useParams } from "react-router-dom";
 
 function Content({ title = "" }) {
   let [data, setData] = useState([{}]);
 
   /* Get the current location */
   const location = useLocation().pathname;
+  let param = useParams();
 
   let nombre: string;
   let id: string;
@@ -23,7 +25,7 @@ function Content({ title = "" }) {
     async function getData() {
       switch (location) {
         case "/cliente":
-          const cliente = await CostumerController.getAllCustomers();
+          const cliente = await customerController.getAllcustomers();
           setData(cliente);
           console.log(cliente);
 
@@ -93,9 +95,12 @@ function Content({ title = "" }) {
             id = card.rfc;
           }
           return <Card key={id} id={id} name={nombre} />;
-          
-        case "/examen":
-          return <h1 key={card.rfc}>examen</h1>;
+
+        case "/examen/" + param.cliente:
+          {
+            id = card.rfc;
+          }
+          return <Card key={card.rfc} id={card.rfc} name={card.razon_social} />;
 
         default:
           return <h1>Error</h1>;
