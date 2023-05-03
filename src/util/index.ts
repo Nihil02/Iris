@@ -5,9 +5,9 @@ function isAdmin(priv: boolean) {
   admin = priv;
 }
 function getAdmin() {
-  return admin
+  return admin;
 }
-export {getAdmin, isAdmin}
+export { getAdmin, isAdmin };
 
 /* Controllers */
 import {
@@ -15,3 +15,15 @@ import {
   EmployeeController,
 } from "../../core/controller/employeeController";
 export { Employee, EmployeeController };
+
+import {
+  Costumer,
+  CostumerController,
+} from "../../core/controller/costumerController";
+export { Costumer, CostumerController };
+
+import {
+  Supplier,
+  SupplierController,
+} from "../../core/controller/supplierController";
+export { Supplier, SupplierController };

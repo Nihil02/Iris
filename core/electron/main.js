@@ -4,7 +4,7 @@ const K = require("./constants.js");
 const EmployeeService = require("../service/employeeService.js");
 const SupplierService = require("../service/supplierService.js");
 const ExamService = require("../service/examService.js");
-const CostumerService = require("../service/costumerService.js");
+const CustomerService = require("../service/customerService.js");
 
 if (require("electron-squirrel-startup")) {
   app.quit();
@@ -99,27 +99,27 @@ ipcMain.handle(K.Supplier.deleteSupplier, async (event, rfc) => {
 
 // get all costumers
 ipcMain.handle(K.Costumer.getAllCostumers, async () => {
-    return await CostumerService.getAllCostumers();
+    return await CustomerService.getAllCostumers();
 });
 
 // get costumber by id
 ipcMain.handle(K.Costumer.getCostumerById, async (event, id) => {
-    return await CostumerService.getCostumerById(id);
+    return await CustomerService.getCostumerById(id);
 });
 
 // create Costumer
 ipcMain.handle(K.Costumer.createCostumer, async (event, costumer) => {
-    return await CostumerService.createCostumber(costumer);
+    return await CustomerService.createCostumber(costumer);
 });
 
 // update Costumer
 ipcMain.handle(K.Costumer.updateCostumer, async (event, costumer) => {
-    return await CostumerService.updateCostumber(costumer);
+    return await CustomerService.updateCostumber(costumer);
 });
 
 // delete Costumer
 ipcMain.handle(K.Costumer.deleteCostumer, async (event, id) => {
-    return await CostumerService.deleteCostumber(id);
+    return await CustomerService.deleteCostumber(id);
 });
 
 // Employee handlers
