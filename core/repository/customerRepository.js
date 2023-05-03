@@ -1,13 +1,13 @@
-const Costumer = require("../model/costumer");
+const Customer = require("../model/customer");
 
-class CostumerRepository {
+class CustomerRepository {
 
   /**
    * Returns all Customers in the database.
    * @returns Array of Customers's
    */
-    static async getAllCostumers() {
-        const res = Costumer.findAll();
+    static async getAllCustomers() {
+        const res = Customer.findAll();
         return res;
     }
 
@@ -15,14 +15,14 @@ class CostumerRepository {
    * Finds a customer by his CURP.
    * @returns A customer (Object)
   */
-    static async getCostumerById(id) {
-        const res = Costumer.findByPk(id);
+    static async getCustomerByCURP(id) {
+        const res = Customer.findByPk(id);
         return res;
     }
 
-    static async createCostumer(customer) {
-        const [CURP, nombre, primer_apellido, segundo_apellido, fecnac, edonac, sexo, nacorigen, edo, mun, loc, compaqi_id] = Object.values(customer);
-        await Costumer.create({
+    static async createCustomer(customer) {
+        const [CURP, nombre, primer_apellido, segundo_apellido, fecnac, edonac, sexo, nacorigen, edo, mun, loc, contpaq_id] = Object.values(customer);
+        await Customer.create({
             CURP: CURP,
             nombre: nombre,
             primer_apellido: primer_apellido,
@@ -34,7 +34,7 @@ class CostumerRepository {
             edo: edo,
             mun: mun,
             loc: loc,
-            compaqi_id: compaqi_id
+            contpaq_id: contpaq_id
         });
         return true;
     }
@@ -42,9 +42,9 @@ class CostumerRepository {
   /**
    * Update customer information
   */
-    static async updateCostumer(customer) {
-        const [CURP, nombre, primer_apellido, segundo_apellido, fecnac, edonac, sexo, nacorigen, edo, mun, loc] = Object.values(customer);
-        await Costumer.update({
+    static async updateCustomer(customer) {
+        const [CURP, nombre, primer_apellido, segundo_apellido, fecnac, edonac, sexo, nacorigen, edo, mun, loc, contpaq_id] = Object.values(customer);
+        await Customer.update({
             CURP: CURP,
             nombre: nombre,
             primer_apellido: primer_apellido,
@@ -56,7 +56,7 @@ class CostumerRepository {
             edo: edo,
             mun: mun,
             loc: loc,
-            compaqi_id: compaqi_id
+            compaqi_id: contpaq_id
         }, {
             where: {
                 CURP: CURP,
@@ -68,12 +68,12 @@ class CostumerRepository {
   /**
    * Finds an customer by his curp and deletes him.
   */
-    static async deleteCostumer(curp) {
-        const customer = await Costumer.findByPk(curp);
+    static async deleteCustomer(curp) {
+        const customer = await Customer.findByPk(curp);
         await customer.destroy();
         return true;
     }
     
 }
 
-module.exports = CostumerRepository
+module.exports = CustomerRepository
