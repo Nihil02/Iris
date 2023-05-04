@@ -2,7 +2,7 @@ const SupplierRepository = require("../repository/supplierRepository.js");
 const Validator = require("../validation/validator.js");
 
 class SupplierService {
-  static async getAllSupliers() {
+  static async getAllSuppliers() {
     const res = await SupplierRepository.getAllSuppliers();
     const suppliers = res.map((supplier) => {
       return supplier.dataValues;

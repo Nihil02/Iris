@@ -10,12 +10,12 @@ class ExamRepository {
     return res;
   }
   /**
-   * Finds all exams of a costumer by his `CURP` or finds an specific exam of a costumer in function of the `Date` and `CURP`.
-   * @param curp - The curp of a costumer
+   * Finds all exams of a Customer by his `CURP` or finds an specific exam of a Customer in function of the `Date` and `CURP`.
+   * @param curp - The curp of a Customer
    * @param date - The date of application of exam, this parameter is optional
    * @returns An Exam of a customer (Object)
    */
-  static async getExamOfCostumer(curp, date) {
+  static async getExamOfCustomer(curp, date) {
     if (arguments.length == 0 || arguments.length > 2) {
       throw Error("Invalid arguments");
     }

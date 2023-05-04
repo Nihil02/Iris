@@ -8,7 +8,7 @@ const employeeAPI = {
   updateEmployee: (user) => ipcRenderer.invoke(K.Employee.updateEmployee, user),
   deleteEmployee: (rfc) => ipcRenderer.invoke(K.Employee.deleteEmployee, rfc),
   authEmployee: (username, password) =>
-    ipcRenderer.invoke(K.Employee.authEmployee),
+    ipcRenderer.invoke(K.Employee.authEmployee, username, password),
 };
 
 const supplierAPI = {
@@ -19,16 +19,16 @@ const supplierAPI = {
   deleteSupplier: (rfc) => ipcRenderer.invoke(K.Supplier.createSupplier, rfc),
 }
 
-const costumerAPI = {
-  getAllCostumers: () => ipcRenderer.invoke(K.Costumer.getAllCostumers),
-  getCostumerById: (id) => ipcRenderer.invoke(K.Costumer.getCostumerById, id),
-  createCostumer: (costumer) => ipcRenderer.invoke(K.Costumer.createCostumer, costumer),
-  updateCostumer: (costumer) => ipcRenderer.invoke(K.Costumer.updateCostumer, costumer),
-  deleteCostumer: (id) => ipcRenderer.invoke(K.Costumer.createCostumer, id),
+const customerAPI = {
+  getAllCustomers: () => ipcRenderer.invoke(K.Customer.getAllCustomers),
+  getCustomerById: (id) => ipcRenderer.invoke(K.Customer.getCustomerById, id),
+  createCustomer: (customer) => ipcRenderer.invoke(K.Customer.createCustomer, customer),
+  updateCustomer: (customer) => ipcRenderer.invoke(K.Customer.updateCustomer, customer),
+  deleteCustomer: (id) => ipcRenderer.invoke(K.Customer.createCustomer, id),
 }
 
 contextBridge.exposeInMainWorld("supplierAPI", supplierAPI);
 
 contextBridge.exposeInMainWorld("employeeAPI", employeeAPI);
 
-contextBridge.exposeInMainWorld("costumerAPI", costumerAPI);
+contextBridge.exposeInMainWorld("customerAPI", customerAPI);

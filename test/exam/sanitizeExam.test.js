@@ -1,6 +1,6 @@
 const ExamService = require("../../core/service/examService.js");
 const CustomerService = require("../../core/service/customerService.js");
-const costumer = {
+const Customer = {
   CURP: "GAMR020521HTSRNFA3",
   nombre: "Rafael",
   primer_apellido: "García",
@@ -16,7 +16,7 @@ const costumer = {
 };
 
 beforeAll(async () => {
-  await CustomerService.createCostumer(costumer);
+  await CustomerService.createCustomer(Customer);
 });
 
 test("Test 1 - Insert an exam", async () => {
@@ -41,6 +41,6 @@ test("Test 1 - Insert an exam", async () => {
     expect(res).toBe(true);
 });
 
-// afterAll(async () => {
-//   await CustomerService.deleteCostumer(costumer.CURP);
-// });
+afterAll(async () => {
+  await CustomerService.deleteCustomer(Customer.CURP);
+});

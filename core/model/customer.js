@@ -1,9 +1,9 @@
 const { DataTypes, Model } = require("sequelize");
 const { sequelize } = require("../database/connection.js");
 
-class Costumer extends Model {}
+class Customer extends Model {}
 
-Costumer.init(
+Customer.init(
   {
     CURP: {
       type: DataTypes.STRING(18),
@@ -63,5 +63,5 @@ Costumer.init(
   { sequelize, modelName: "Paciente", tableName: "PACIENTE", timestamps: false }
 );
 
-Costumer.sync();
-module.exports = Costumer;
+Customer.sync();
+module.exports = Customer;

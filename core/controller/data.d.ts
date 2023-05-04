@@ -19,7 +19,7 @@ interface Supplier {
   cuenta_bancaria: string;
 }
 
-interface Costumer {
+interface Customer {
   curp: string;
   name: string;
   firstLastName: string;

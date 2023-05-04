@@ -1,8 +1,8 @@
 interface ICustomerAPI {
   getAllCustomers: () => Array<Data>,
   getCustomerById: (id: any) => Data,
-  createCustomer: (costumer: any) => Boolean,
-  updateCustomer: (costumer: any) => Boolean,
+  createCustomer: (customer: any) => Boolean,
+  updateCustomer: (customer: any) => Boolean,
   deleteCustomer: (id: any) => Boolean
 }
 
@@ -60,22 +60,22 @@ class CustomerController {
     return res;
   }
 
-  static async getcustomerById(curp: string) {
+  static async getCustomerById(curp: string) {
     const res: Data = await window.customerAPI.getCustomerById(curp);
     return res;
   }
 
-  static async createcustomer(customer: Customer) {
+  static async createCustomer(customer: Customer) {
     const res: Boolean = await window.customerAPI.createCustomer(customer);
     return res;
   }
 
-  static async deletecustomer(curp: string) {
+  static async deleteCustomer(curp: string) {
     const res: Boolean = await window.customerAPI.deleteCustomer(curp);
     return res;
   }
 
-  static async updatecustomer(customer: Customer) {
+  static async updateCustomer(customer: Customer) {
     const res: Boolean = await window.customerAPI.updateCustomer(customer);
     return res;
   }

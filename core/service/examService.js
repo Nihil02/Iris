@@ -26,9 +26,9 @@ class ExamService {
       let exam;
 
       if (date === "") {
-        exam = await ExamRepository.getExamOfCostumer(curp);
+        exam = await ExamRepository.getExamOfCustomer(curp);
       } else {
-        exam = await ExamRepository.getExamOfCostumer(curp, date);
+        exam = await ExamRepository.getExamOfCustomer(curp, date);
       }
       return exam[0].dataValues;
     } catch (error) {
