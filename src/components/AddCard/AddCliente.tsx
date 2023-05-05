@@ -1,6 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
+import { Customer, CustomerController } from "../../util";
 
 function AddCliente() {
   let [cliente, setCliente] = useState({
@@ -9,9 +10,11 @@ function AddCliente() {
     apellido1: "",
     apellido2: "",
     fecha: "",
-    estado: "",
-    municipio: "",
-    locacion: "",
+    estado: "32",
+    municipio: "48",
+    locacion: "0000",
+    sexo: "H",
+    compaq: "",
   });
 
   let [isOpen, setIsOpen] = useState(false);
@@ -22,10 +25,35 @@ function AddCliente() {
     setIsOpen(true);
   }
 
-  const addCard = (e: { preventDefault: () => void }) => {
+  const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setCliente({ ...cliente, fecha: cliente.fecha.replace("-", "") });
-    console.log(cliente);
+
+    if (isOpen) {
+      const cli = new Customer(
+        cliente.curp,
+        cliente.nombre,
+        cliente.apellido1,
+        cliente.apellido2,
+        parseInt(cliente.fecha),
+        "0000",
+        cliente.sexo,
+        "0000",
+        cliente.estado,
+        cliente.municipio,
+        cliente.locacion,
+        parseInt(cliente.compaq)
+      );
+
+      console.log(cli);
+
+      if (await CustomerController.createCustomer(cli)) {
+        console.log("Insertando registro ");
+        console.log(cli);
+      } else {
+        console.log("error");
+      }
+    }
     closeModal();
   };
 
@@ -136,41 +164,21 @@ function AddCliente() {
                       />
                     </div>
                     <div className="mb-6">
-                      <fieldset>
-                        <legend className="text-gray-900 text-sm leading-6">
-                          Sexo
-                        </legend>
-                        <div className="mt-6 space-y-6">
-                          <div className="flex items-center gap-x-3">
-                            <input
-                              id="sexo_h"
-                              name="hombre"
-                              type="radio"
-                              className="h-4 w-4 "
-                            />
-                            <label
-                              htmlFor="sexo_h"
-                              className="block leading-6 text-gray-900 text-sm"
-                            >
-                              Hombre
-                            </label>
-                          </div>
-                          <div className="flex items-center gap-x-3">
-                            <input
-                              id="sexo_m"
-                              name="mujer"
-                              type="radio"
-                              className="h-4 w-4 "
-                            />
-                            <label
-                              htmlFor="sexo_m"
-                              className="block leading-6 text-gray-900 text-sm"
-                            >
-                              Mujer
-                            </label>
-                          </div>
-                        </div>
-                      </fieldset>
+                      <label htmlFor="sexo">Sexo</label>
+                      <select
+                        className="text-input"
+                        name="sexo"
+                        id="sexo"
+                        onChange={(e) =>
+                          setCliente({
+                            ...cliente,
+                            sexo: e.target.value,
+                          })
+                        }
+                      >
+                        <option value="H">Hombre</option>
+                        <option value="M">Administrador</option>
+                      </select>
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Estado</label>
@@ -201,7 +209,7 @@ function AddCliente() {
                           setCliente({ ...cliente, municipio: e.target.value })
                         }
                         defaultValue={38} //C.d. Madero
-                        min={1}
+                        min={0}
                         max={999}
                         required
                       />
@@ -214,8 +222,25 @@ function AddCliente() {
                         name=""
                         className="text-input"
                         placeholder="Locación"
-                        onChange={(e) =>
+                        onChange={(e) =>{
                           setCliente({ ...cliente, locacion: e.target.value })
+                          console.log(cliente.locacion);
+                          }
+                        }
+                        min={0}
+                        max={9999}
+                      />
+                    </div>
+                    <div className="mb-6">
+                      <label htmlFor="">CompaqID</label>
+                      <input
+                        type="number"
+                        id=""
+                        name=""
+                        className="text-input"
+                        placeholder="ID en Compaq"
+                        onChange={(e) =>
+                          setCliente({ ...cliente, compaq: e.target.value })
                         }
                         min={1}
                         max={9999}
