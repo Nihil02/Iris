@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import ShowCliente from "./ShowCliente";
 import ShowProveedor from "./ShowProveedor";
 import ShowEmpleado from "./ShowEmpleado";
+import ShowExamen from "./ShowExamen";
 
 function ShowCard({ name = "", id = "" }) {
   const location = useLocation();
@@ -12,7 +13,7 @@ function ShowCard({ name = "", id = "" }) {
     case "/cliente":
       return (
         <>
-          <ShowCliente name={name} />
+          {<ShowCliente name={name} id={id}/>}
         </>
       );
 
@@ -33,7 +34,7 @@ function ShowCard({ name = "", id = "" }) {
     case "/examen/" + param.cliente:
       return (
         <>
-          <h1>Examen</h1>
+          <ShowExamen name = {name}/>
         </>
       );
 

@@ -177,7 +177,7 @@ function AddCliente() {
                         }
                       >
                         <option value="H">Hombre</option>
-                        <option value="M">Administrador</option>
+                        <option value="M">Mujer</option>
                       </select>
                     </div>
                     <div className="mb-6">

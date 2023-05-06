@@ -142,4 +142,8 @@ body {
     p-6 text-left bg-white
     transition-all;
   }
+
+  .panel {
+    @apply w-3/4 rounded-2xl align-middle p-6 mb-8 text-left bg-white;
+  }
 }

@@ -2,8 +2,13 @@ import { FaPrint } from "react-icons/fa";
 import DeleteCard from "./DeleteCard";
 import UpdateCard from "./UpdateCard";
 import ShowCard from "./ShowCard";
+import { useLocation, useParams } from "react-router-dom";
 
 const Card = ({ id = "", name = "" }) => {
+  /* Get the current location and their params */
+  const location = useLocation().pathname;
+  let param = useParams();
+
   const cardPrint = () => {
     alert("Imprimiendo la información de " + name);
   };
@@ -20,7 +25,9 @@ const Card = ({ id = "", name = "" }) => {
             <FaPrint size={16} color="white" />
           </button>
           <UpdateCard id={id} />
-          <DeleteCard cardID={id} />
+          {location != "/examen/" + param.cliente ? (
+            <DeleteCard cardID={id} />
+          ) : null}
         </div>
       </div>
     </>

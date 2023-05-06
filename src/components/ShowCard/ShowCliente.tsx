@@ -1,8 +1,11 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { CustomerController } from "../../util";
+import { useNavigate } from "react-router-dom";
 
 function ShowCliente({ id = "", name = "" }) {
+  const navigate = useNavigate();
+
   let [cliente, setCliente] = useState({
     curp: "",
     nombre: "",
@@ -13,7 +16,7 @@ function ShowCliente({ id = "", name = "" }) {
     municipio: "48",
     locacion: "0000",
     sexo: "H",
-    compaq: "",
+    compaq: "1",
   });
 
   /* Fetch data from the api to the component */
@@ -40,7 +43,13 @@ function ShowCliente({ id = "", name = "" }) {
 
   async function showCard(e: { preventDefault: () => void }) {
     e.preventDefault();
-    openModal();
+    console.log("/examen/" + id);
+
+    if (id === "") {
+      id = "1";
+    }
+    
+    navigate("/examen/" + id);
   }
 
   return (
@@ -182,6 +191,7 @@ function ShowCliente({ id = "", name = "" }) {
                         type="number"
                         id=""
                         name=""
+                        className="text-input"
                         value={cliente.compaq}
                         readOnly
                       />
@@ -189,7 +199,7 @@ function ShowCliente({ id = "", name = "" }) {
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
                       <button className="btn-danger" onClick={cancel}>
-                        Cancelar
+                        Salir
                       </button>
                     </div>
                   </form>

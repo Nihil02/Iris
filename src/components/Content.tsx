@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom";
 function Content({ title = "" }) {
   let [data, setData] = useState([{}]);
 
-  /* Get the current location */
+  /* Get the current location and their params */
   const location = useLocation().pathname;
   let param = useParams();
 
@@ -28,14 +28,17 @@ function Content({ title = "" }) {
           const cliente = await CustomerController.getAllCustomers();
           setData(cliente);
           console.log(cliente);
-
           break;
+
+          case "/examen/" + param.cliente:
+            const exa = await EmployeeController.getAllEmployees();
+            setData(exa);
+            break;
 
         case "/proveedor":
           const sup = await SupplierController.getAllSuppliers();
           setData(sup);
           console.log(sup);
-
           break;
 
         case "/usuario":
@@ -112,6 +115,32 @@ function Content({ title = "" }) {
     <>
       <SearchBar />
       <h1 className="text-2xl m-5">{title}</h1>
+      {location == "/examen/" + param.cliente ? (
+        <div className="panel">
+          <div className="mb-6">
+            <label htmlFor="nombre">Cliente</label>
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              className="text-input"
+              value="Juan Pérez Pérez"
+              readOnly
+            />
+          </div>
+          <label htmlFor="nombre">Id en Compaq</label>
+          <div className="mb-6">
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              className="text-input"
+              value="01"
+              readOnly
+            />
+          </div>
+        </div>
+      ) : null}
       <AddCard />
       {renderCards()}
     </>
