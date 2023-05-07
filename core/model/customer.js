@@ -65,5 +65,5 @@ Customer.init(
   { sequelize, modelName: "Paciente", tableName: "PACIENTE", timestamps: false }
 );
 
-Customer.sync({force: true}); // TODO: Remove the force option
+Customer.sync(); // TODO: Remove the force option
 module.exports = Customer;

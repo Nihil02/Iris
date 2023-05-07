@@ -24,7 +24,7 @@ const customerAPI = {
   getCustomerById: (id) => ipcRenderer.invoke(K.Customer.getCustomerById, id),
   createCustomer: (customer) => ipcRenderer.invoke(K.Customer.createCustomer, customer),
   updateCustomer: (customer) => ipcRenderer.invoke(K.Customer.updateCustomer, customer),
-  deleteCustomer: (id) => ipcRenderer.invoke(K.Customer.createCustomer, id),
+  deleteCustomer: (id) => ipcRenderer.invoke(K.Customer.deleteCustomer, id),
 }
 
 contextBridge.exposeInMainWorld("supplierAPI", supplierAPI);
