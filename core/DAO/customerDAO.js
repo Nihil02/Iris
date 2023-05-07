@@ -45,7 +45,6 @@ class CustomerDAO {
     static async updateCustomer(customer) {
         const [CURP, nombre, primer_apellido, segundo_apellido, fecnac, edonac, sexo, nacorigen, edo, mun, loc, contpaq_id] = Object.values(customer);
         await Customer.update({
-            CURP: CURP,
             nombre: nombre,
             primer_apellido: primer_apellido,
             segundo_apellido: segundo_apellido,

@@ -53,11 +53,11 @@ class CustomerService {
     }
   }
 
-  static async updateCustomer(curp) {
+  static async updateCustomer(customer) {
     try {
       /* Validations goes here */
-      await CustomerDAO.updateCustomer(curp);
-      return false;
+      await CustomerDAO.updateCustomer(customer);
+      return true;
     } catch (error) {
       console.error(error);
       return false;
