@@ -1,6 +1,6 @@
 const Customer = require("../model/customer");
 
-class CustomerRepository {
+class CustomerDAO {
 
   /**
    * Returns all Customers in the database.
@@ -76,4 +76,4 @@ class CustomerRepository {
     
 }
 
-module.exports = CustomerRepository
+module.exports = CustomerDAO

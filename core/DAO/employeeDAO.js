@@ -1,6 +1,6 @@
 const Employee = require("../model/employee");
 
-class EmployeeRepository {
+class EmployeeDAO {
   /**
    * Returns all emplooyes in the database.
    * @returns Array of Emplooyee's
@@ -114,4 +114,4 @@ class EmployeeRepository {
   }
 }
 
-module.exports = EmployeeRepository;
+module.exports = EmployeeDAO;

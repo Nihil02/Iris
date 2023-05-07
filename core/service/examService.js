@@ -1,9 +1,9 @@
-const ExamRepository = require("../repository/examRepository.js");
+const ExamDAO = require("../DAO/examDAO.js");
 const Validator = require("../validation/validator.js");
 
 class ExamService {
   static async getAllExam() {
-    const res = await ExamRepository.getAllExams();
+    const res = await ExamDAO.getAllExams();
     const exams = res.map((exam) => {
       return exam.dataValues;
     });
@@ -26,9 +26,9 @@ class ExamService {
       let exam;
 
       if (date === "") {
-        exam = await ExamRepository.getExamOfCustomer(curp);
+        exam = await ExamDAO.getExamOfCustomer(curp);
       } else {
-        exam = await ExamRepository.getExamOfCustomer(curp, date);
+        exam = await ExamDAO.getExamOfCustomer(curp, date);
       }
       return exam[0].dataValues;
     } catch (error) {
@@ -56,7 +56,7 @@ class ExamService {
         throw new Error("Exam already exists");
       }
 
-      return await ExamRepository.createExam(sanitizedExam);
+      return await ExamDAO.createExam(sanitizedExam);
     } catch (error) {
       return error;
     }
@@ -65,7 +65,7 @@ class ExamService {
   static async updateExam(exam) {
     try {
       /* Validations goes here */
-      await ExamRepository.updateExam(exam);
+      await ExamDAO.updateExam(exam);
       return false;
     } catch (error) {
       console.error(error);
@@ -75,7 +75,7 @@ class ExamService {
 
   static async deleteExam(exam) {
     try {
-      await ExamRepository.deleteExam(exam);
+      await ExamDAO.deleteExam(exam);
       return true;
     } catch (error) {
       console.error(error);
@@ -84,7 +84,7 @@ class ExamService {
   }
 
   static sanitizeExam(exam) {
-    /*let {
+    let {
       cliente,
       fecha,
       rx,
@@ -115,9 +115,9 @@ class ExamService {
     adicion_od_esferico = adicion_od_esferico.trim();
     adicion_oi_esferico = adicion_oi_esferico.trim();
     tipo_lentes = tipo_lentes.trim();
-    observaciones = observaciones.trim();*/
+    observaciones = observaciones.trim();
 
-    /*return {
+    return {
       cliente: cliente,
       fecha: fecha,
       rx: rx,
@@ -133,7 +133,7 @@ class ExamService {
       adicion_oi_esferico: adicion_oi_esferico,
       tipo_lentes: tipo_lentes,
       observaciones: observaciones,
-    };*/
+    };
   }
 
   static isValidExam(exam) {

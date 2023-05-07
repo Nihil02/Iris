@@ -21,7 +21,7 @@ Proyecto de sistema gestor de clientes de óptica modelo y agenda de proveedores
 │   │   ├── main.js             # punto de entrada de electron
 │   │   ├── preload.js          # punto de entrada de electron
 │   ├──model                    # modelos de la base de datos
-│   ├──repository               # 
+│   ├──DAO               # 
 │   ├──service                  # 
 │   ├──validation               # 
 ├── public                      # archivos de imagenes e iconos
