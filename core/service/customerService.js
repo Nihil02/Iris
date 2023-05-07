@@ -35,18 +35,19 @@ class CustomerService {
    */
   static async createCustomer(customer) {
     try {
-      const sanitizedCustomer = this.sanitizeCustomer(customer);
+      /*const sanitizedCustomer = this.sanitizeCustomer(customer);
       const validation = this.isValidCustomer(sanitizedCustomer);
 
       if (typeof validation === "object") {
         throw validation;
-      }
-      const findCustomer = await this.getCustomerByCURP(sanitizedCustomer.CURP);
+      }*/
+      const findCustomer = await this.getCustomerByCURP(customer.curp);
       if (findCustomer) {
+        console.log("Fue esto otro");
         throw new Error("Customer already exists");
       }
 
-      return await CustomerDAO.createCustomer(sanitizedCustomer);
+      return await CustomerDAO.createCustomer(customer);
     } catch (error) {
       console.error(error);
       return false;
@@ -66,8 +67,8 @@ class CustomerService {
 
   static async deleteCustomer(curp) {
     try {
-      await CustomerDAO.deleteCustomer(curp);
-      return true;
+      const del = await CustomerDAO.deleteCustomer(curp);
+      return del;
     } catch (error) {
       console.error(error);
       return false;

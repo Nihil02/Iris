@@ -30,10 +30,10 @@ function Content({ title = "" }) {
           console.log(cliente);
           break;
 
-          case "/examen/" + param.cliente:
-            const exa = await EmployeeController.getAllEmployees();
-            setData(exa);
-            break;
+        case "/examen/" + param.cliente:
+          const exa = await EmployeeController.getAllEmployees();
+          setData(exa);
+          break;
 
         case "/proveedor":
           const sup = await SupplierController.getAllSuppliers();
@@ -75,7 +75,7 @@ function Content({ title = "" }) {
               card.segundo_apellido;
           }
           {
-            id = card.curp;
+            id = card.CURP;
           }
           return <Card key={id} id={id} name={nombre} />;
 
@@ -83,7 +83,7 @@ function Content({ title = "" }) {
           {
             id = card.rfc;
           }
-          return <Card key={card.rfc} id={card.rfc} name={card.razon_social} />;
+          return <Card key={id} id={id} name={card.razon_social} />;
 
         case "/usuario":
           {

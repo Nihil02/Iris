@@ -2,7 +2,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { useState, Fragment } from "react";
 import { FaTrash } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
-import { EmployeeController } from "./../../core/controller/employeeController";
+import { EmployeeController, CustomerController } from "../util";
 
 function DeleteCard({ cardID = "" }) {
   const path = useLocation().pathname;
@@ -16,11 +16,26 @@ function DeleteCard({ cardID = "" }) {
 
   async function deleteCard(e: { preventDefault: () => void }) {
     e.preventDefault();
+    console.log("Borrando");
+    console.log(cardID);
+    
+    
 
     if (isOpen) {
+      let condition;
+
       switch (path) {
+        case "/cliente":
+          condition = await CustomerController.deleteCustomer(cardID);
+          if (condition) {
+            console.log("eliminado registro " + cardID);
+          } else {
+            console.log("error");
+          }
+          break;
+
         case "/usuario":
-          const condition = await EmployeeController.deleteEmployee(cardID);
+          condition = await EmployeeController.deleteEmployee(cardID);
           if (condition) {
             console.log("eliminado registro " + cardID);
           } else {
@@ -32,7 +47,7 @@ function DeleteCard({ cardID = "" }) {
           break;
       }
 
-      window.location.reload();
+      //window.location.reload();
       closeModal();
     }
   }

@@ -27,7 +27,12 @@ function AddCliente() {
 
   const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    setCliente({ ...cliente, fecha: cliente.fecha.replace("-", "") });
+    let aux = cliente.fecha.replaceAll("-", "");
+    console.log(aux);
+    
+    setCliente({ ...cliente, fecha: aux });
+    console.log(cliente.fecha);
+    
 
     if (isOpen) {
       const cli = new Customer(
@@ -44,9 +49,6 @@ function AddCliente() {
         cliente.locacion,
         parseInt(cliente.compaq)
       );
-
-      console.log(cli);
-
       if (await CustomerController.createCustomer(cli)) {
         console.log("Insertando registro ");
         console.log(cli);
@@ -55,6 +57,7 @@ function AddCliente() {
       }
     }
     closeModal();
+    window.location.reload();
   };
 
   return (
@@ -158,7 +161,9 @@ function AddCliente() {
                         name=""
                         className="text-input"
                         onChange={(e) =>
-                          setCliente({ ...cliente, fecha: e.target.value })
+                          {
+                            let aux = e.target.value.replaceAll("-", "");
+                            setCliente({ ...cliente, fecha: aux })}
                         }
                         required
                       />
@@ -222,10 +227,8 @@ function AddCliente() {
                         name=""
                         className="text-input"
                         placeholder="Locación"
-                        onChange={(e) =>{
+                        onChange={(e) =>
                           setCliente({ ...cliente, locacion: e.target.value })
-                          console.log(cliente.locacion);
-                          }
                         }
                         min={0}
                         max={9999}
