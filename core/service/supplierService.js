@@ -1,9 +1,9 @@
-const SupplierRepository = require("../repository/supplierRepository.js");
+const SupplierDAO = require("../DAO/supplierDAO.js");
 const Validator = require("../validation/validator.js");
 
 class SupplierService {
   static async getAllSuppliers() {
-    const res = await SupplierRepository.getAllSuppliers();
+    const res = await SupplierDAO.getAllSuppliers();
     const suppliers = res.map((supplier) => {
       return supplier.dataValues;
     });
@@ -21,7 +21,7 @@ class SupplierService {
             if (!Validator.isRFC(sanitizedRFC)) {
                 throw Error("Invalid RFC");
             }
-            const supplier = await SupplierRepository.getSupplierById(sanitizedRFC);
+            const supplier = await SupplierDAO.getSupplierById(sanitizedRFC);
             return supplier[0].dataValues;
         } catch (error) {
             console.error(error);
@@ -45,7 +45,7 @@ class SupplierService {
         throw new Error("Supplier already exists");
       }
 
-      return await SupplierRepository.createSupplier(sanitizedSupplier);
+      return await SupplierDAO.createSupplier(sanitizedSupplier);
     } catch (error) {
       return error;
     }
@@ -54,7 +54,7 @@ class SupplierService {
 static async updateSupplier(supplier) {
     try {
       /* Validations goes here */
-      await SupplierRepository.updateSupplier(supplier);
+      await SupplierDAO.updateSupplier(supplier);
       return false;
     } catch (error) {
       console.error(error);
@@ -64,7 +64,7 @@ static async updateSupplier(supplier) {
 
   static async deleteSupplier(rfc) {
     try {
-      await SupplierRepository.deleteSupplier(rfc);
+      await SupplierDAO.deleteSupplier(rfc);
       return true;
     } catch (error) {
       console.error(error);

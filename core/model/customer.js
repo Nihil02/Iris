@@ -28,6 +28,7 @@ Customer.init(
     },
     edonac: {
       type: DataTypes.STRING(2),
+      defaultValue: "00",
       allowNull: false,
     },
     sexo: {
@@ -42,10 +43,12 @@ Customer.init(
     edo: {
       type: DataTypes.STRING(2),
       allowNull: false,
+      defaultValue: "00"
     },
     mun: {
       type: DataTypes.STRING(3),
       allowNull: false,
+      defaultValue: "000"
     },
     // Clave de la localidad existente en el catálogo de la INGEGI
     // El código postal, pues
@@ -55,13 +58,12 @@ Customer.init(
       defaultValue:   "0000"
     },
     contpaq_id: {
-      type: DataTypes.STRING(20),
-      autoIncrement: true,
-      allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   { sequelize, modelName: "Paciente", tableName: "PACIENTE", timestamps: false }
 );
 
-Customer.sync();
+Customer.sync({force: true}); // TODO: Remove the force option
 module.exports = Customer;

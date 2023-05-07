@@ -1,4 +1,4 @@
-const EmployeeRepository = require("../repository/employeeRepository.js");
+const EmployeeDAO = require("../DAO/employeeDAO.js");
 const Validator = require("../validation/validator.js");
 const crypto = require("crypto");
 
@@ -7,7 +7,7 @@ class EmployeeService {
    * Returns all employees in the database.
    */
   static async getAllEmployees() {
-    const res = await EmployeeRepository.getAllEmployees();
+    const res = await EmployeeDAO.getAllEmployees();
     const employees = res.map((employee) => {
       return employee.dataValues;
     });
@@ -28,7 +28,7 @@ class EmployeeService {
       if (!Validator.isRFC(sanitizedRFC)) {
         throw Error("Invalid RFC");
       }
-      const employee = await EmployeeRepository.getEmployeeByRFC(rfc);
+      const employee = await EmployeeDAO.getEmployeeByRFC(rfc);
       return employee.dataValues;
     } catch (error) {
       console.log(error);
@@ -64,7 +64,7 @@ class EmployeeService {
       if (findEmployee) {
         throw new Error("Employee already exists");
       }
-      return await EmployeeRepository.createEmployee(res.employee);
+      return await EmployeeDAO.createEmployee(res.employee);
     } catch (error) {
       console.error(error);
       return false;
@@ -81,7 +81,7 @@ class EmployeeService {
       if (!res.isValid) {
         throw res.error;
       }
-      await EmployeeRepository.updateEmployee(res.employee);
+      await EmployeeDAO.updateEmployee(res.employee);
       if (employee.password !== undefined || employee.password.trim() !== "") {
         await this.updatePassword({
           username: employee.username,
@@ -101,7 +101,7 @@ class EmployeeService {
 
   static async updatePassword({ username, password }) {
     password = this.createPassword(password);
-    return await EmployeeRepository.updatePassword({
+    return await EmployeeDAO.updatePassword({
       username: username,
       password: password,
     });
@@ -113,7 +113,7 @@ class EmployeeService {
    */
   static async deleteEmployee(rfc) {
     try {
-      await EmployeeRepository.deleteEmployee(rfc);
+      await EmployeeDAO.deleteEmployee(rfc);
       return true;
     } catch (error) {
       console.error(error);
@@ -127,7 +127,7 @@ class EmployeeService {
    */
   static async authEmployee({ user, password }) {
     try {
-      const employee = await EmployeeRepository.getEmployeeByUsername(user);
+      const employee = await EmployeeDAO.getEmployeeByUsername(user);
       password = this.hashPassword(password);
       return employee[0].dataValues.contrasenna === password;
     } catch (error) {

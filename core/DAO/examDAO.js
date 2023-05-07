@@ -1,6 +1,6 @@
 const Exam = require("../model/exam");
 
-class ExamRepository {
+class ExamDAO {
   /**
    * Returns all exams in the database.
    * @returns Array of Exams's
@@ -127,4 +127,4 @@ class ExamRepository {
   }
 }
 
-module.exports = ExamRepository;
+module.exports = ExamDAO;

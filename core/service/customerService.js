@@ -1,9 +1,9 @@
-const CustomerRepository = require("../repository/customerRepository.js");
+const CustomerDAO = require("../DAO/customerDAO.js");
 const Validator = require("../validation/validator.js");
 
 class CustomerService {
   static async getAllCustomers() {
-    const res = await CustomerRepository.getAllCustomers();
+    const res = await CustomerDAO.getAllCustomers();
     const customers = res.map((customer) => {
       return customer.dataValues;
     });
@@ -21,7 +21,7 @@ class CustomerService {
       if (!Validator.isCURP(sanitizedCURP)) {
         throw Error("Invalid CURP");
       }
-      const customer = await CustomerRepository.getCustomerByCURP(sanitizedCURP);
+      const customer = await CustomerDAO.getCustomerByCURP(sanitizedCURP);
       return customer.dataValues;
     } catch (error) {
       console.error(error);
@@ -46,18 +46,18 @@ class CustomerService {
         throw new Error("Customer already exists");
       }
 
-      return await CustomerRepository.createCustomer(sanitizedCustomer);
+      return await CustomerDAO.createCustomer(sanitizedCustomer);
     } catch (error) {
       console.error(error);
       return false;
     }
   }
 
-  static async updateCustomer(curp) {
+  static async updateCustomer(customer) {
     try {
       /* Validations goes here */
-      await CustomerRepository.updateCustomer(curp);
-      return false;
+      await CustomerDAO.updateCustomer(customer);
+      return true;
     } catch (error) {
       console.error(error);
       return false;
@@ -66,7 +66,7 @@ class CustomerService {
 
   static async deleteCustomer(curp) {
     try {
-      await CustomerRepository.deleteCustomer(curp);
+      await CustomerDAO.deleteCustomer(curp);
       return true;
     } catch (error) {
       console.error(error);
