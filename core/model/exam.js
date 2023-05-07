@@ -74,5 +74,4 @@ Exam.init(
   { sequelize, modelName: "Examen", tableName: "EXAMEN", timestamps: false }
 );
 
-Exam.sync();
 module.exports = Exam;

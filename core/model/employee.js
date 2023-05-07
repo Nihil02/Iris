@@ -43,6 +43,4 @@ Employee.init(
   }
 );
 
-Employee.sync();
-
 module.exports = Employee;

@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const K = require("./constants.js");
+const { sequelize } = require("../database/connection.js");
 const EmployeeService = require("../service/employeeService.js");
 const SupplierService = require("../service/supplierService.js");
 const ExamService = require("../service/examService.js");
@@ -13,6 +14,7 @@ if (require("electron-squirrel-startup")) {
 const isDev = process.env.IS_DEV === "true";
 
 const createWindow = async () => {
+  await sequelize.sync({alter: true});
   const win = new BrowserWindow({
     title: "Iris",
     minWidth: 800,
@@ -104,7 +106,7 @@ ipcMain.handle(K.Customer.getAllCustomers, async () => {
 
 // get costumber by id
 ipcMain.handle(K.Customer.getCustomerById, async (event, id) => {
-    return await CustomerService.getCustomerById(id);
+    return await CustomerService.getCustomerByCURP(id);
 });
 
 // create Customer
