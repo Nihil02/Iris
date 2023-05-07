@@ -2,6 +2,7 @@ import { useLocation } from "react-router";
 import { useParams } from "react-router-dom";
 import { FaPen } from "react-icons/fa";
 import UpdateEmpleado from "./UpdateEmpleado";
+import UpdateCliente from "./UpdateCliente";
 
 function UpdateCard({ id = "" }) {
   const location = useLocation();
@@ -10,9 +11,9 @@ function UpdateCard({ id = "" }) {
   switch (location.pathname) {
     case "/cliente":
       return (
-        <button className="card-button bg-green-600 hover:bg-green-500">
-          <FaPen size={16} color="white" />
-        </button>
+        <>
+          <UpdateCliente id={id} />
+        </>
       );
 
     case "/proveedor":
