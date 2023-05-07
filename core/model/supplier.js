@@ -37,5 +37,4 @@ Supplier.init(
     timestamps: false,
   }
 );
-Supplier.sync();
 module.exports = Supplier;
