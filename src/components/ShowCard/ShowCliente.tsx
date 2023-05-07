@@ -1,18 +1,33 @@
 import { Transition, Dialog } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { CustomerController } from "../../util";
+import { useNavigate } from "react-router-dom";
 
-function ShowCliente({ name = ""}) {
+function ShowCliente({ id = "", name = "" }) {
+  const navigate = useNavigate();
+
   let [cliente, setCliente] = useState({
     curp: "",
     nombre: "",
     apellido1: "",
     apellido2: "",
     fecha: "",
-    estado: "",
-    municipio: "",
-    locacion: "",
+    estado: "32",
+    municipio: "48",
+    locacion: "0000",
+    sexo: "H",
+    compaq: "1",
   });
 
+  /* Fetch data from the api to the component */
+  useEffect(() => {
+    async function getData() {
+      //const data = await CustomerController.getCustomerById(id);
+    }
+    getData();
+  }, []);
+
+  /* Controls modal state */
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
     setIsOpen(false);
@@ -21,9 +36,25 @@ function ShowCliente({ name = ""}) {
     setIsOpen(true);
   }
 
+  const cancel = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    closeModal();
+  };
+
+  async function showCard(e: { preventDefault: () => void }) {
+    e.preventDefault();
+    console.log("/examen/" + id);
+
+    if (id === "") {
+      id = "1";
+    }
+    
+    navigate("/examen/" + id);
+  }
+
   return (
     <>
-      <div className="flex flex-wrap items-center w-auto" onClick={openModal}>
+      <div className="flex flex-wrap items-center w-auto" onClick={showCard}>
         <p className="text-sm leading-6  max-w-md">
           <strong className="font-semibold truncate">{name}</strong>
         </p>
@@ -99,7 +130,6 @@ function ShowCliente({ name = ""}) {
                         name=""
                         maxLength={50}
                         className="text-input"
-                        placeholder="Segundo Apellido"
                         value={cliente.apellido2}
                         readOnly
                       />
@@ -107,7 +137,7 @@ function ShowCliente({ name = ""}) {
                     <div className="mb-6">
                       <label htmlFor="">Fecha de Nacimiento</label>
                       <input
-                        type="date"
+                        type="text"
                         id=""
                         name=""
                         className="text-input"
@@ -116,41 +146,11 @@ function ShowCliente({ name = ""}) {
                       />
                     </div>
                     <div className="mb-6">
-                      <fieldset>
-                        <legend className="text-gray-900 text-sm leading-6">
-                          Sexo
-                        </legend>
-                        <div className="mt-6 space-y-6">
-                          <div className="flex items-center gap-x-3">
-                            <input
-                              id="sexo_h"
-                              name="hombre"
-                              type="radio"
-                              className="h-4 w-4 "
-                            />
-                            <label
-                              htmlFor="sexo_h"
-                              className="block leading-6 text-gray-900 text-sm"
-                            >
-                              Hombre
-                            </label>
-                          </div>
-                          <div className="flex items-center gap-x-3">
-                            <input
-                              id="sexo_m"
-                              name="mujer"
-                              type="radio"
-                              className="h-4 w-4 "
-                            />
-                            <label
-                              htmlFor="sexo_m"
-                              className="block leading-6 text-gray-900 text-sm"
-                            >
-                              Mujer
-                            </label>
-                          </div>
-                        </div>
-                      </fieldset>
+                      <label htmlFor="sexo">Sexo</label>
+                      <select className="text-input" name="sexo" id="sexo">
+                        <option value="H">Hombre</option>
+                        <option value="M">Administrador</option>
+                      </select>
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Estado</label>
@@ -159,7 +159,6 @@ function ShowCliente({ name = ""}) {
                         id=""
                         name=""
                         className="text-input"
-                        placeholder="Estado"
                         value={cliente.estado}
                         readOnly
                       />
@@ -171,7 +170,6 @@ function ShowCliente({ name = ""}) {
                         id=""
                         name=""
                         className="text-input"
-                        placeholder="Municipio"
                         value={cliente.municipio}
                         readOnly
                       />
@@ -183,15 +181,25 @@ function ShowCliente({ name = ""}) {
                         id=""
                         name=""
                         className="text-input"
-                        placeholder="Locación"
                         value={cliente.locacion}
+                        readOnly
+                      />
+                    </div>
+                    <div className="mb-6">
+                      <label htmlFor="">CompaqID</label>
+                      <input
+                        type="number"
+                        id=""
+                        name=""
+                        className="text-input"
+                        value={cliente.compaq}
                         readOnly
                       />
                     </div>
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
-                      <button className="btn-danger" onClick={closeModal}>
-                        Cancelar
+                      <button className="btn-danger" onClick={cancel}>
+                        Salir
                       </button>
                     </div>
                   </form>

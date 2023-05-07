@@ -72,7 +72,7 @@ app.on("activate", () => {
 
 // Get all suppliers
 ipcMain.handle(K.Supplier.getAllSuppliers, async () => {
-    return await SupplierService.getAllSuppliers();
+  return await SupplierService.getAllSupliers();
 });
 
 // Get supplier by RFC
