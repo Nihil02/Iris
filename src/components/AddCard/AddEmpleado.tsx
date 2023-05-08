@@ -44,7 +44,7 @@ function AddEmpleado() {
       }
 
       closeModal();
-      //window.location.reload();
+      window.location.reload();
     }
   };
 

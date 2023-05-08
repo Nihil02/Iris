@@ -73,7 +73,7 @@ function UpdateCliente({ id = "" }) {
       }
     }
     closeModal();
-    //window.location.reload();
+    window.location.reload();
   };
 
   return (

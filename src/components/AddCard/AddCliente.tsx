@@ -191,7 +191,7 @@ function AddCliente() {
                         onChange={(e) =>
                           setCliente({ ...cliente, estado: e.target.value })
                         }
-                        defaultValue={28} //Tamaulipas
+                        value={cliente.estado} //Tamaulipas
                         min={1}
                         max={32}
                         required
@@ -208,7 +208,7 @@ function AddCliente() {
                         onChange={(e) =>
                           setCliente({ ...cliente, municipio: e.target.value })
                         }
-                        defaultValue={38} //C.d. Madero
+                        value={cliente.municipio} //C.d. Madero
                         min={0}
                         max={999}
                         required
@@ -222,6 +222,7 @@ function AddCliente() {
                         name=""
                         className="text-input"
                         placeholder="Locación"
+                        value={cliente.locacion} 
                         onChange={(e) =>
                           setCliente({ ...cliente, locacion: e.target.value })
                         }
