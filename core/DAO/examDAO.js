@@ -31,41 +31,46 @@ class ExamDAO {
   }
 
   static async createExam(exam) {
-    const [
-      cliente,
-      fecha,
-      rx,
-      lejos_od_esferico,
-      lejos_od_cilindrico,
-      lejos_od_eje,
-      lejos_od_agudeza_visual,
-      lejos_oi_esferico,
-      lejos_oi_cilindrico,
-      lejos_oi_eje,
-      lejos_oi_agudeza_visual,
-      adicion_od_esferico,
-      adicion_oi_esferico,
-      tipo_lentes,
-      observaciones,
-    ] = Object.values(exam);
-    await Exam.create({
-      cliente: cliente,
-      fecha: fecha,
-      rx: rx,
-      lejos_od_esferico: lejos_od_esferico,
-      lejos_od_cilindrico: lejos_od_cilindrico,
-      lejos_od_eje: lejos_od_eje,
-      lejos_od_agudeza_visual: lejos_od_agudeza_visual,
-      lejos_oi_esferico: lejos_oi_esferico,
-      lejos_oi_cilindrico: lejos_oi_cilindrico,
-      lejos_oi_eje: lejos_oi_eje,
-      lejos_oi_agudeza_visual: lejos_oi_agudeza_visual,
-      adicion_od_esferico: adicion_od_esferico,
-      adicion_oi_esferico: adicion_oi_esferico,
-      tipo_lentes: tipo_lentes,
-      observaciones: observaciones,
-    });
-    return true;
+    try {
+      const [
+        cliente,
+        fecha,
+        rx,
+        lejos_od_esferico,
+        lejos_od_cilindrico,
+        lejos_od_eje,
+        lejos_od_agudeza_visual,
+        lejos_oi_esferico,
+        lejos_oi_cilindrico,
+        lejos_oi_eje,
+        lejos_oi_agudeza_visual,
+        adicion_od_esferico,
+        adicion_oi_esferico,
+        tipo_lentes,
+        observaciones,
+      ] = Object.values(exam);
+      await Exam.create({
+        cliente: cliente,
+        fecha: fecha,
+        rx: rx,
+        lejos_od_esferico: lejos_od_esferico,
+        lejos_od_cilindrico: lejos_od_cilindrico,
+        lejos_od_eje: lejos_od_eje,
+        lejos_od_agudeza_visual: lejos_od_agudeza_visual,
+        lejos_oi_esferico: lejos_oi_esferico,
+        lejos_oi_cilindrico: lejos_oi_cilindrico,
+        lejos_oi_eje: lejos_oi_eje,
+        lejos_oi_agudeza_visual: lejos_oi_agudeza_visual,
+        adicion_od_esferico: adicion_od_esferico,
+        adicion_oi_esferico: adicion_oi_esferico,
+        tipo_lentes: tipo_lentes,
+        observaciones: observaciones,
+      });
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   }
 
   /**

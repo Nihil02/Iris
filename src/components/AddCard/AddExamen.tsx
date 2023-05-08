@@ -1,28 +1,29 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
+import { ExamController, Exam, dateIntFormat } from "../../util";
 
 function AddExamen() {
   let [examen, setExamen] = useState({
-    cliente: "", //Texto
+    cliente: "GAMR020521HTSRNFA3", //Texto
     fecha: "", //Entero
 
-    lejos_od_esferico: "", //Decimal
-    lejos_od_cilindrico: "", //Decimal
-    lejos_od_eje: "", //Decimal
-    lejos_od_agudeza: "", //Decimal
-    adicion_od_esferico: "", //Decimal
+    lejos_od_esferico: 0, //Decimal
+    lejos_od_cilindrico: 0, //Decimal
+    lejos_od_eje: 0, //Decimal
+    lejos_od_agudeza: 0, //Decimal
+    adicion_od_esferico: 0, //Decimal
 
-    lejos_oi_esferico: "", //Decimal
-    lejos_oi_cilindrico: "", //Decimal
-    lejos_oi_eje: "", //Decimal
-    lejos_oi_agudeza: "", //Decimal
-    adicion_oi_esferico: "", //Decimal
+    lejos_oi_esferico: 0, //Decimal
+    lejos_oi_cilindrico: 0, //Decimal
+    lejos_oi_eje: 0, //Decimal
+    lejos_oi_agudeza: 0, //Decimal
+    adicion_oi_esferico: 0, //Decimal
 
-    dp_oi: "", //Decimal
-    dp_od: "", //Decimal
-    ob_od: "", //Decimal
-    ob_oi: "", //Decimal
+    dp_oi: 0, //Decimal
+    dp_od: 0, //Decimal
+    ob_od: 0, //Decimal
+    ob_oi: 0, //Decimal
 
     tipo_lentes: "", //Texto
     observaciones: "", //Texto, opcional
@@ -36,11 +37,39 @@ function AddExamen() {
     setIsOpen(true);
   }
 
-  const addCard = (e: { preventDefault: () => void }) => {
+  const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    setExamen({ ...examen, fecha: examen.fecha.replace("-", "") });
-    console.log(examen);
-    closeModal();
+
+    if (isOpen) {
+      const exa = new Exam(
+        examen.cliente,
+        examen.fecha,
+        examen.dp_od,
+        examen.dp_oi,
+        examen.ob_od,
+        examen.lejos_od_esferico,
+        examen.lejos_od_cilindrico,
+        examen.lejos_od_eje,
+        examen.lejos_od_agudeza,
+        examen.lejos_oi_esferico,
+        examen.lejos_oi_cilindrico,
+        examen.lejos_oi_eje,
+        examen.lejos_od_agudeza,
+        examen.adicion_od_esferico,
+        examen.adicion_oi_esferico,
+        examen.tipo_lentes,
+        examen.observaciones
+      );
+      if (await ExamController.addExam(exa)) {
+        console.log("Insertando registro ");
+        console.log(exa);
+      } else {
+        console.log("error");
+      }
+
+      closeModal();
+      //window.location.reload();
+    }
   };
 
   return (
@@ -96,14 +125,14 @@ function AddExamen() {
                         id=""
                         name=""
                         className="text-input"
-                        onChange={(e) =>
-                          setExamen({ ...examen, fecha: e.target.value })
-                        }
+                        onChange={(e) => {
+                          let aux = dateIntFormat(e.target.value);
+                          setExamen({ ...examen, fecha: aux });
+                        }}
                         required
                       />
                     </div>
-                    <div className="mb-6">
-                    </div>
+                    <div className="mb-6"></div>
                     <div className="mb-6 w-full justify-center items-center">
                       <label htmlFor="">RX</label>
                       <hr className="mb-6 mt-3" />
@@ -130,11 +159,11 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                value="0.00"
+                                value={0.0}
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    lejos_od_esferico: e.target.value,
+                                    lejos_od_esferico: parseInt(e.target.value),
                                   })
                                 }
                               />
@@ -152,7 +181,9 @@ function AddExamen() {
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    lejos_od_cilindrico: e.target.value,
+                                    lejos_od_cilindrico: parseInt(
+                                      e.target.value
+                                    ),
                                   })
                                 }
                               />
@@ -170,7 +201,7 @@ function AddExamen() {
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    lejos_od_eje: e.target.value,
+                                    lejos_od_eje: parseInt(e.target.value),
                                   })
                                 }
                               />
@@ -188,7 +219,7 @@ function AddExamen() {
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    lejos_od_agudeza: e.target.value,
+                                    lejos_od_agudeza: parseInt(e.target.value),
                                   })
                                 }
                               />
@@ -211,7 +242,27 @@ function AddExamen() {
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    lejos_oi_esferico: e.target.value,
+                                    lejos_oi_esferico: parseInt(e.target.value),
+                                  })
+                                }
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                step={0.25}
+                                max={12.0}
+                                min={-12.0}
+                                value={0.0}
+                                onChange={(e) =>
+                                  setExamen({
+                                    ...examen,
+                                    lejos_oi_cilindrico: parseInt(
+                                      e.target.value
+                                    ),
                                   })
                                 }
                               />
@@ -229,7 +280,7 @@ function AddExamen() {
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    lejos_oi_cilindrico: e.target.value,
+                                    lejos_oi_eje: parseInt(e.target.value),
                                   })
                                 }
                               />
@@ -247,25 +298,7 @@ function AddExamen() {
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    lejos_oi_eje: e.target.value,
-                                  })
-                                }
-                              />
-                            </td>
-                            <td>
-                              <input
-                                type="number"
-                                name=""
-                                id=""
-                                className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
-                                value="0.00"
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    lejos_oi_agudeza: e.target.value,
+                                    lejos_oi_agudeza: parseInt(e.target.value),
                                   })
                                 }
                               />
@@ -288,7 +321,9 @@ function AddExamen() {
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    adicion_od_esferico: e.target.value,
+                                    adicion_od_esferico: parseInt(
+                                      e.target.value
+                                    ),
                                   })
                                 }
                               />
@@ -311,7 +346,9 @@ function AddExamen() {
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    adicion_oi_esferico: e.target.value,
+                                    adicion_oi_esferico: parseInt(
+                                      e.target.value
+                                    ),
                                   })
                                 }
                               />
@@ -321,8 +358,6 @@ function AddExamen() {
                       </table>
                     </div>
                     <div className="mb-6">
-                      
-
                       {/* Otros datos */}
                       <table className="table-fixed">
                         <thead className="text-center text-sm">
@@ -349,7 +384,7 @@ function AddExamen() {
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    dp_od: e.target.value,
+                                    dp_od: parseInt(e.target.value),
                                   })
                                 }
                               />
@@ -367,7 +402,7 @@ function AddExamen() {
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    dp_oi: e.target.value,
+                                    dp_oi: parseInt(e.target.value),
                                   })
                                 }
                               />
@@ -390,7 +425,7 @@ function AddExamen() {
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    ob_od: e.target.value,
+                                    ob_od: parseInt(e.target.value),
                                   })
                                 }
                               />
@@ -408,7 +443,7 @@ function AddExamen() {
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    ob_oi: e.target.value,
+                                    ob_oi: parseInt(e.target.value),
                                   })
                                 }
                               />

@@ -25,7 +25,8 @@ class Exam {
   lejos_oi_eje: number;
   lejos_oi_agudeza_visual: number;
   adicion_od_esferico: number;
-  tipo_lentes: number;
+  adicion_oi_esferico: number;
+  tipo_lentes: string;
   observaciones: string;
   constructor(
     cliente: string,
@@ -42,7 +43,8 @@ class Exam {
     lejos_oi_eje: number,
     lejos_oi_agudeza_visual: number,
     adicion_od_esferico: number,
-    tipo_lentes: number,
+    adicion_oi_esferico: number,
+    tipo_lentes: string,
     observaciones: string
   ) {
     this.cliente = cliente;
@@ -59,6 +61,7 @@ class Exam {
     this.lejos_oi_eje = lejos_oi_eje;
     this.lejos_oi_agudeza_visual = lejos_oi_agudeza_visual;
     this.adicion_od_esferico = adicion_od_esferico;
+    this.adicion_oi_esferico = adicion_oi_esferico;
     this.tipo_lentes = tipo_lentes;
     this.observaciones = observaciones;
   }
@@ -79,4 +82,4 @@ class ExamController {
   }
 }
 
-export { ExamController };
+export { Exam, ExamController };

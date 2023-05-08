@@ -35,13 +35,12 @@ function AddProveedor() {
       );
       if (await SupplierController.createSupplier(sup)) {
         console.log("Insertando registro ");
-        console.log(sup);
       } else {
         console.log("error");
       }
 
       closeModal();
-      //window.location.reload();
+      window.location.reload();
     }
   };
 

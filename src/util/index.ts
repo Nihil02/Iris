@@ -50,3 +50,6 @@ import {
   SupplierController,
 } from "../../core/controller/supplierController";
 export { Supplier, SupplierController };
+
+import { Exam, ExamController } from "../../core/controller/examController";
+export { Exam, ExamController };
