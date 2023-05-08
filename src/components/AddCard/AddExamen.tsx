@@ -4,24 +4,28 @@ import { FaPlus } from "react-icons/fa";
 
 function AddExamen() {
   let [examen, setExamen] = useState({
-    cliente: "",
-    fecha: "",
-    rx: "",
+    cliente: "", //Texto
+    fecha: "", //Entero
 
-    lejos_od_esferico: "",
-    lejos_od_cilindrico: "",
-    lejos_od_eje: "",
-    lejos_od_agudeza: "",
-    adicion_od_esferico: "",
+    lejos_od_esferico: "", //Decimal
+    lejos_od_cilindrico: "", //Decimal
+    lejos_od_eje: "", //Decimal
+    lejos_od_agudeza: "", //Decimal
+    adicion_od_esferico: "", //Decimal
 
-    lejos_oi_esferico: "",
-    lejos_oi_cilindrico: "",
-    lejos_oi_eje: "",
-    lejos_oi_agudeza: "",
-    adicion_oi_esferico: "",
+    lejos_oi_esferico: "", //Decimal
+    lejos_oi_cilindrico: "", //Decimal
+    lejos_oi_eje: "", //Decimal
+    lejos_oi_agudeza: "", //Decimal
+    adicion_oi_esferico: "", //Decimal
 
-    tipo_lentes: "",
-    observaciones: "",
+    dp_oi: "", //Decimal
+    dp_od: "", //Decimal
+    ob_od: "", //Decimal
+    ob_oi: "", //Decimal
+
+    tipo_lentes: "", //Texto
+    observaciones: "", //Texto, opcional
   });
 
   let [isOpen, setIsOpen] = useState(false);
@@ -86,21 +90,6 @@ function AddExamen() {
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">RX</label>
-                      <input
-                        type="text"
-                        id=""
-                        name=""
-                        maxLength={50}
-                        className="text-input"
-                        placeholder="RX"
-                        onChange={(e) =>
-                          setExamen({ ...examen, rx: e.target.value })
-                        }
-                        required
-                      />
-                    </div>
-                    <div className="mb-6">
                       <label htmlFor="">Fecha de Captura</label>
                       <input
                         type="date"
@@ -113,7 +102,11 @@ function AddExamen() {
                         required
                       />
                     </div>
+                    <div className="mb-6">
+                    </div>
                     <div className="mb-6 w-full justify-center items-center">
+                      <label htmlFor="">RX</label>
+                      <hr className="mb-6 mt-3" />
                       <table className="table-fixed">
                         <thead className="text-center text-sm">
                           <tr>
@@ -137,9 +130,12 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                placeholder="0.00"
+                                value="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, lejos_od_esferico: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    lejos_od_esferico: e.target.value,
+                                  })
                                 }
                               />
                             </td>
@@ -152,9 +148,12 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                placeholder="0.00"
+                                value="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, lejos_od_cilindrico: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    lejos_od_cilindrico: e.target.value,
+                                  })
                                 }
                               />
                             </td>
@@ -167,9 +166,12 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                placeholder="0.00"
+                                value="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, lejos_od_eje: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    lejos_od_eje: e.target.value,
+                                  })
                                 }
                               />
                             </td>
@@ -182,14 +184,17 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                placeholder="0.00"
+                                value="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, lejos_od_agudeza: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    lejos_od_agudeza: e.target.value,
+                                  })
                                 }
                               />
                             </td>
                           </tr>
-                          
+
                           {/* Ojo Izquierdo Lejos */}
                           <tr>
                             <td></td>
@@ -202,9 +207,12 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                placeholder="0.00"
+                                value="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, lejos_oi_esferico: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    lejos_oi_esferico: e.target.value,
+                                  })
                                 }
                               />
                             </td>
@@ -217,9 +225,12 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                placeholder="0.00"
+                                value="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, lejos_oi_cilindrico: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    lejos_oi_cilindrico: e.target.value,
+                                  })
                                 }
                               />
                             </td>
@@ -232,9 +243,12 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                placeholder="0.00"
+                                value="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, lejos_oi_eje: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    lejos_oi_eje: e.target.value,
+                                  })
                                 }
                               />
                             </td>
@@ -247,9 +261,12 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                placeholder="0.00"
+                                value="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, lejos_oi_agudeza: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    lejos_oi_agudeza: e.target.value,
+                                  })
                                 }
                               />
                             </td>
@@ -267,14 +284,17 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                placeholder="0.00"
+                                value="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, adicion_od_esferico: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    adicion_od_esferico: e.target.value,
+                                  })
                                 }
                               />
                             </td>
                           </tr>
-                          
+
                           {/* Ojo Izquierdo Adición */}
                           <tr>
                             <td></td>
@@ -287,9 +307,109 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                placeholder="0.00"
+                                value="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, adicion_oi_esferico: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    adicion_oi_esferico: e.target.value,
+                                  })
+                                }
+                              />
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className="mb-6">
+                      
+
+                      {/* Otros datos */}
+                      <table className="table-fixed">
+                        <thead className="text-center text-sm">
+                          <tr>
+                            <th></th>
+                            <th>Derecho</th>
+                            <th>Izquierdo</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {/* DP */}
+                          <tr>
+                            <td className="pr-12">DP</td>
+                            <td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                step={0.25}
+                                max={12.0}
+                                min={-12.0}
+                                value="0.00"
+                                onChange={(e) =>
+                                  setExamen({
+                                    ...examen,
+                                    dp_od: e.target.value,
+                                  })
+                                }
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                step={0.25}
+                                max={12.0}
+                                min={-12.0}
+                                value="0.00"
+                                onChange={(e) =>
+                                  setExamen({
+                                    ...examen,
+                                    dp_oi: e.target.value,
+                                  })
+                                }
+                              />
+                            </td>
+                          </tr>
+
+                          {/* Oblea */}
+                          <tr>
+                            <td className="pr-10">Oblea</td>
+                            <td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                step={0.25}
+                                max={12.0}
+                                min={-12.0}
+                                value="0.00"
+                                onChange={(e) =>
+                                  setExamen({
+                                    ...examen,
+                                    ob_od: e.target.value,
+                                  })
+                                }
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                step={0.25}
+                                max={12.0}
+                                min={-12.0}
+                                value="0.00"
+                                onChange={(e) =>
+                                  setExamen({
+                                    ...examen,
+                                    ob_oi: e.target.value,
+                                  })
                                 }
                               />
                             </td>

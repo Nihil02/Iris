@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 
 function Content({ title = "" }) {
   let [data, setData] = useState([{}]);
+  let [auxData, setAuxData] = useState([{}]);
 
   /* Get the current location and their params */
   const location = useLocation().pathname;
@@ -33,6 +34,9 @@ function Content({ title = "" }) {
         case "/examen/" + param.cliente:
           const exa = await EmployeeController.getAllEmployees();
           setData(exa);
+          setAuxData(
+            await CustomerController.getCustomerById(param.cliente + "")
+          );
           break;
 
         case "/proveedor":
@@ -124,7 +128,7 @@ function Content({ title = "" }) {
               id="nombre"
               name="nombre"
               className="text-input"
-              value="Juan Pérez Pérez"
+              value={auxData.CURP}
               readOnly
             />
           </div>

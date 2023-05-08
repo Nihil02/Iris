@@ -1,19 +1,33 @@
 /* Admin privileges */
 let admin = true;
 
+/**
+ * @returns set the value of priv.
+ */
 function isAdmin(priv: boolean) {
   admin = priv;
 }
+/**
+ * @returns true if the user has admin privileges or false if not.
+ */
 function getAdmin() {
   return admin;
 }
 export { getAdmin, isAdmin };
 
 /* Date Format */
+/**
+ * Recives a string called date with the format YYYYMMDD.
+ * @returns the string in format YYYY-MM-DD
+ */
 function dateFormat(date: string) {
   return date.slice(0, 4) + "-" + date.slice(4, 6) + "-" + date.slice(6);
 }
-function dateIntFormat(date: string){
+/**
+ * Recives a string called date with the format YYYY-MM-DD.
+ * @returns the string in format YYYYMMDD
+ */
+function dateIntFormat(date: string) {
   return date.replaceAll("-", "");
 }
 export { dateFormat, dateIntFormat };
