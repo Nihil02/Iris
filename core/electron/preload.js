@@ -16,7 +16,7 @@ const supplierAPI = {
   getSupplierByRFC: (rfc) => ipcRenderer.invoke(K.Supplier.getSupplierByRFC, rfc),
   createSupplier: (supplier) => ipcRenderer.invoke(K.Supplier.createSupplier, supplier),
   updateSupplier: (supplier) => ipcRenderer.invoke(K.Supplier.updateSupplier, supplier),
-  deleteSupplier: (rfc) => ipcRenderer.invoke(K.Supplier.createSupplier, rfc),
+  deleteSupplier: (rfc) => ipcRenderer.invoke(K.Supplier.deleteSupplier, rfc),
 }
 
 const customerAPI = {
@@ -28,10 +28,10 @@ const customerAPI = {
 }
 
 const examAPI = {
-  getAllExams: (curp) => ipcRenderer.invoke(K.Exam.getAllExams),
-  getExamById: (curp, date) => ipcRenderer.invoke(K.Exam.getExamById),
-  addExam: (exam) => ipcRenderer.invoke(K.Exam.addExam),
-  updateExam: (exam) => ipcRenderer.invoke(K.Exam.updateExam)
+  getAllExams: (curp) => ipcRenderer.invoke(K.Exam.getAllExams, curp),
+  getExamById: (curp, date) => ipcRenderer.invoke(K.Exam.getExamById, curp, date),
+  addExam: (exam) => ipcRenderer.invoke(K.Exam.addExam, exam),
+  updateExam: (exam) => ipcRenderer.invoke(K.Exam.updateExam, exam)
 }
 
 contextBridge.exposeInMainWorld("supplierAPI", supplierAPI);

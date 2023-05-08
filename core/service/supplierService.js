@@ -10,23 +10,24 @@ class SupplierService {
     return suppliers;
   }
 
-   /**
+  /**
    * Finds a supplier by his RFC and returns him if exists.
    * @param RFC - The RFC of the Supplier.
    * @returns An object with the supplier data.
    */
-    static async getSupplierByRFC(rfc = "") {
-        try {
-            const sanitizedRFC = rfc.trim();
-            if (!Validator.isRFC(sanitizedRFC)) {
-                throw Error("Invalid RFC");
-            }
-            const supplier = await SupplierDAO.getSupplierById(sanitizedRFC);
-            return supplier[0].dataValues;
-        } catch (error) {
-            console.error(error);
-        }
+  static async getSupplierByRFC(rfc = "") {
+    try {
+      const sanitizedRFC = rfc.trim();
+      if (!Validator.isRFC(sanitizedRFC)) {
+        throw Error("Invalid RFC");
+      }
+      const supplier = await SupplierDAO.getSupplierById(sanitizedRFC);
+      return supplier[0].dataValues;
+    } catch (error) {
+      console.error(error);
+      return false;
     }
+  }
 
   /**
    * Receives an object with the data of the supplier and creates him in the database.
@@ -34,24 +35,25 @@ class SupplierService {
    */
   static async createSupplier(supplier) {
     try {
-      const sanitizedSupplier = this.sanitizeSupplier(supplier);
+      /*const sanitizedSupplier = this.sanitizeSupplier(supplier);
       const validation = this.isValidSupplier(sanitizedSupplier);
 
-      if(typeof validation === 'object') {
+      if (typeof validation === "object") {
         throw validation;
-      }
-      const findSupplier = await this.getSupplierById(sanitizedSupplier.rfc);
-      if(findSupplier) {
+      }*/
+      const findSupplier = await this.getSupplierByRFC(supplier.rfc);
+      if (findSupplier) {
         throw new Error("Supplier already exists");
       }
 
-      return await SupplierDAO.createSupplier(sanitizedSupplier);
+      return await SupplierDAO.createSupplier(supplier);
     } catch (error) {
-      return error;
+      console.error(error);
+      return false;
     }
   }
 
-static async updateSupplier(supplier) {
+  static async updateSupplier(supplier) {
     try {
       /* Validations goes here */
       await SupplierDAO.updateSupplier(supplier);
@@ -72,8 +74,9 @@ static async updateSupplier(supplier) {
     }
   }
 
-static sanitizeSupplier(supplier) {
-    let {rfc, razon_social, domicilio, correo, telefono, cuenta_bancaria} = supplier;
+  static sanitizeSupplier(supplier) {
+    let { rfc, razon_social, domicilio, correo, telefono, cuenta_bancaria } =
+      supplier;
     rfc = rfc.trim();
     razon_social = razon_social.trim();
     domicilio = domicilio.trim();
@@ -82,17 +85,18 @@ static sanitizeSupplier(supplier) {
     cuenta_bancaria = cuenta_bancaria.trim();
 
     return {
-        rfc: rfc,
-        razon_social: razon_social,
-        domicilio: domicilio,
-        correo_electronico: correo,
-        telefono: telefono,
-        cuenta_bancaria: cuenta_bancaria,
+      rfc: rfc,
+      razon_social: razon_social,
+      domicilio: domicilio,
+      correo_electronico: correo,
+      telefono: telefono,
+      cuenta_bancaria: cuenta_bancaria,
     };
   }
 
   static isValidSupplier(supplier) {
-    let {rfc, razon_social, domicilio, correo, telefono, cuenta_bancaria} = supplier;
+    let { rfc, razon_social, domicilio, correo, telefono, cuenta_bancaria } =
+      supplier;
 
     if (!Validator.isRFC(rfc)) {
       return new Error("Invalid RFC");
@@ -104,7 +108,6 @@ static sanitizeSupplier(supplier) {
 
     return true;
   }
-
 }
 
 module.exports = SupplierService;
