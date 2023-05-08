@@ -20,15 +20,15 @@ Exam.init(
     },
     dp_od: {
       type: DataTypes.NUMBER,
-      allowNull: false,
+      allowNull: true,
     },
     dp_oi: {
       type: DataTypes.NUMBER,
-      allowNull: false,
+      allowNull: true,
     },
     oblea: {
       type: DataTypes.NUMBER,
-      allowNull: false
+      allowNull: true
     },
     lejos_od_esferico: {
       type: DataTypes.NUMBER,
@@ -76,7 +76,7 @@ Exam.init(
     },
     observaciones: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
   },
   { sequelize, modelName: "Examen", tableName: "EXAMEN", timestamps: false }

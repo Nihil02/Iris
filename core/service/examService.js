@@ -2,11 +2,12 @@ const ExamDAO = require("../DAO/examDAO.js");
 const Validator = require("../validation/validator.js");
 
 class ExamService {
-  static async getAllExam() {
+  static async getAllExam(curp="") {
     const res = await ExamDAO.getAllExams();
     const exams = res.map((exam) => {
       return exam.dataValues;
     });
+    //const exams = await this.getExamById(curp);
     return exams;
   }
 
@@ -30,7 +31,7 @@ class ExamService {
       } else {
         exam = await ExamDAO.getExamOfCustomer(curp, date);
       }
-      return exam[0].dataValues;
+      return exam.dataValues;
     } catch (error) {
       console.error(error);
     }
@@ -49,13 +50,12 @@ class ExamService {
         throw validation;
       }*/
       const findExam = await this.getExamById(
-        sanitizedExam.cliente,
-        sanitizedExam.fecha
+        exam.cliente,
+        exam.fecha
       );
       if (findExam) {
         throw new Error("Exam already exists");
       }
-
       return await ExamDAO.createExam(exam);
     } catch (error) {
       return error;

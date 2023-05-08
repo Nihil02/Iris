@@ -2,28 +2,30 @@ import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { ExamController, Exam, dateIntFormat } from "../../util";
+import { useParams } from "react-router-dom";
 
 function AddExamen() {
+  let param = useParams()
   let [examen, setExamen] = useState({
-    cliente: "GAMR020521HTSRNFA3", //Texto
+    cliente: param.cliente+"", //Texto
     fecha: "", //Entero
 
-    lejos_od_esferico: 0, //Decimal
-    lejos_od_cilindrico: 0, //Decimal
-    lejos_od_eje: 0, //Decimal
-    lejos_od_agudeza: 0, //Decimal
-    adicion_od_esferico: 0, //Decimal
+    lejos_od_esferico: "0.00", //Decimal
+    lejos_od_cilindrico: "0.00", //Decimal
+    lejos_od_eje: "0.00", //Decimal
+    lejos_od_agudeza: "0.00", //Decimal
+    adicion_od_esferico: "0.00", //Decimal
 
-    lejos_oi_esferico: 0, //Decimal
-    lejos_oi_cilindrico: 0, //Decimal
-    lejos_oi_eje: 0, //Decimal
-    lejos_oi_agudeza: 0, //Decimal
-    adicion_oi_esferico: 0, //Decimal
+    lejos_oi_esferico: "0.00", //Decimal
+    lejos_oi_cilindrico: "0.00", //Decimal
+    lejos_oi_eje: "0.00", //Decimal
+    lejos_oi_agudeza: "0.00", //Decimal
+    adicion_oi_esferico: "0.00", //Decimal
 
-    dp_oi: 0, //Decimal
-    dp_od: 0, //Decimal
-    ob_od: 0, //Decimal
-    ob_oi: 0, //Decimal
+    dp_oi: "0.00", //Decimal
+    dp_od: "0.00", //Decimal
+    ob_od: "0.00", //Decimal
+    ob_oi: "0.00", //Decimal
 
     tipo_lentes: "", //Texto
     observaciones: "", //Texto, opcional
@@ -44,19 +46,19 @@ function AddExamen() {
       const exa = new Exam(
         examen.cliente,
         examen.fecha,
-        examen.dp_od,
-        examen.dp_oi,
-        examen.ob_od,
-        examen.lejos_od_esferico,
-        examen.lejos_od_cilindrico,
-        examen.lejos_od_eje,
-        examen.lejos_od_agudeza,
-        examen.lejos_oi_esferico,
-        examen.lejos_oi_cilindrico,
-        examen.lejos_oi_eje,
-        examen.lejos_od_agudeza,
-        examen.adicion_od_esferico,
-        examen.adicion_oi_esferico,
+        parseInt(examen.dp_od),
+        parseInt(examen.dp_oi),
+        parseInt(examen.ob_od),
+        parseInt(examen.lejos_od_esferico),
+        parseInt(examen.lejos_od_cilindrico),
+        parseInt(examen.lejos_od_eje),
+        parseInt(examen.lejos_od_agudeza),
+        parseInt(examen.lejos_oi_esferico),
+        parseInt(examen.lejos_oi_cilindrico),
+        parseInt(examen.lejos_oi_eje),
+        parseInt(examen.lejos_od_agudeza),
+        parseInt(examen.adicion_od_esferico),
+        parseInt(examen.adicion_oi_esferico),
         examen.tipo_lentes,
         examen.observaciones
       );
@@ -159,11 +161,11 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                value={0.0}
+                                value={examen.lejos_od_esferico}
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    lejos_od_esferico: parseInt(e.target.value),
+                                    lejos_od_esferico: e.target.value,
                                   })
                                 }
                               />
@@ -177,13 +179,11 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                value="0.00"
+                                value={examen.lejos_od_cilindrico}
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    lejos_od_cilindrico: parseInt(
-                                      e.target.value
-                                    ),
+                                    lejos_od_cilindrico: e.target.value
                                   })
                                 }
                               />
@@ -197,11 +197,11 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                value="0.00"
+                                value={examen.lejos_od_eje}
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    lejos_od_eje: parseInt(e.target.value),
+                                    lejos_od_eje: e.target.value,
                                   })
                                 }
                               />
@@ -215,11 +215,11 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                value="0.00"
+                                value={examen.lejos_od_agudeza}
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    lejos_od_agudeza: parseInt(e.target.value),
+                                    lejos_od_agudeza: e.target.value,
                                   })
                                 }
                               />
@@ -238,11 +238,11 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                value="0.00"
+                                value={examen.lejos_oi_esferico}
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    lejos_oi_esferico: parseInt(e.target.value),
+                                    lejos_oi_esferico: e.target.value,
                                   })
                                 }
                               />
@@ -256,13 +256,11 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                value={0.0}
+                                value={examen.lejos_oi_cilindrico}
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    lejos_oi_cilindrico: parseInt(
-                                      e.target.value
-                                    ),
+                                    lejos_oi_cilindrico: e.target.value
                                   })
                                 }
                               />
@@ -276,11 +274,11 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                value="0.00"
+                                value={examen.lejos_oi_eje}
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    lejos_oi_eje: parseInt(e.target.value),
+                                    lejos_oi_eje: e.target.value,
                                   })
                                 }
                               />
@@ -294,11 +292,11 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                value="0.00"
+                                value={examen.lejos_oi_agudeza}
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    lejos_oi_agudeza: parseInt(e.target.value),
+                                    lejos_oi_agudeza: e.target.value,
                                   })
                                 }
                               />
@@ -317,13 +315,11 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                value="0.00"
+                                value={examen.adicion_od_esferico}
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    adicion_od_esferico: parseInt(
-                                      e.target.value
-                                    ),
+                                    adicion_od_esferico: e.target.value
                                   })
                                 }
                               />
@@ -342,13 +338,11 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                value="0.00"
+                                value={examen.adicion_oi_esferico}
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    adicion_oi_esferico: parseInt(
-                                      e.target.value
-                                    ),
+                                    adicion_oi_esferico: e.target.value
                                   })
                                 }
                               />
@@ -380,11 +374,11 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                value="0.00"
+                                value={examen.dp_od}
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    dp_od: parseInt(e.target.value),
+                                    dp_od: e.target.value,
                                   })
                                 }
                               />
@@ -398,11 +392,11 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                value="0.00"
+                                value={examen.dp_oi}
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    dp_oi: parseInt(e.target.value),
+                                    dp_oi: e.target.value,
                                   })
                                 }
                               />
@@ -421,11 +415,11 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                value="0.00"
+                                value={examen.ob_od}
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    ob_od: parseInt(e.target.value),
+                                    ob_od: e.target.value,
                                   })
                                 }
                               />
@@ -439,11 +433,11 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                value="0.00"
+                                value={examen.ob_oi}
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    ob_oi: parseInt(e.target.value),
+                                    ob_oi: e.target.value,
                                   })
                                 }
                               />

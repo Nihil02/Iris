@@ -15,7 +15,11 @@ const isDev = process.env.IS_DEV === "true";
 
 const createWindow = async () => {
   if (isDev) {
-    await sequelize.sync({ alter: true });
+    try {
+      await sequelize.sync({ alter: true });
+    } catch (error) {
+      console.error(error);
+    }
   }
   const win = new BrowserWindow({
     title: "Iris",
@@ -155,11 +159,11 @@ ipcMain.handle(K.Employee.deleteEmployee, async (event, employeeRFC) => {
 // Exam
 
 ipcMain.handle(K.Exam.getAllExams, async (event, curp) => {
-  return await ExamService.getExamById(curp);
+  return await ExamService.getAllExam(curp);
 });
 
 ipcMain.handle(K.Exam.getExamById, async (event, curp, date) => {
-  return await ExamService.getAllExam(curp, date);
+  return await ExamService.getExamById(curp, date);
 });
 
 ipcMain.handle(K.Exam.addExam, async (event, exam) => {

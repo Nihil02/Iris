@@ -43,7 +43,6 @@ function ShowCliente({ id = "", name = "" }) {
 
   async function showCard(e: { preventDefault: () => void }) {
     e.preventDefault();
-    console.log("/examen/" + id);
 
     if (id === "") {
       id = "1";

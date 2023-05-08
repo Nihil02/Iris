@@ -29,8 +29,6 @@ function ShowExamen({name = ""}) {
   }
   function openModal(e: { preventDefault: () => void }) {
     e.preventDefault();
-    console.log("Diggy Diggy Hole");
-    
     setIsOpen(true);
   }
 

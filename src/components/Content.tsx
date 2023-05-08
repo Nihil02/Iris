@@ -4,6 +4,8 @@ import {
   CustomerController,
   SupplierController,
   EmployeeController,
+  ExamController,
+  dateFormat
 } from "./../util";
 import Card from "./Card";
 import AddCard from "./AddCard/AddCard";
@@ -31,7 +33,9 @@ function Content({ title = "" }) {
           break;
 
         case "/examen/" + param.cliente:
-          const exa = await EmployeeController.getAllEmployees();
+          const exa = await ExamController.getAllExams(param.cliente+"");
+          console.log(exa);
+          
           setData(exa);
           setAuxData(
             await CustomerController.getCustomerById(param.cliente + "")
@@ -103,9 +107,11 @@ function Content({ title = "" }) {
 
         case "/examen/" + param.cliente:
           {
-            id = card.rfc;
+            if (card.fecha !== null) {
+              id = dateFormat(card.fecha+"");
+            }
           }
-          return <Card key={card.rfc} id={card.rfc} name={card.razon_social} />;
+          return <Card key={id} id={id} name={id} />;
 
         default:
           return <h1>Error</h1>;
@@ -126,7 +132,11 @@ function Content({ title = "" }) {
               id="nombre"
               name="nombre"
               className="text-input"
-              value={auxData.CURP}
+              value={auxData.nombre+
+                " " +
+                auxData.primer_apellido +
+                " " +
+                auxData.segundo_apellido}
               readOnly
             />
           </div>
