@@ -42,7 +42,6 @@ function Content({ title = "" }) {
         case "/proveedor":
           const sup = await SupplierController.getAllSuppliers();
           setData(sup);
-          console.log(sup);
           break;
 
         case "/usuario":

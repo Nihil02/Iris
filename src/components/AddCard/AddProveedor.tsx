@@ -1,6 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
+import { SupplierController, Supplier } from "../../util";
 
 function AddProveedor() {
   let [proveedor, setProveedor] = useState({
@@ -20,10 +21,28 @@ function AddProveedor() {
     setIsOpen(true);
   }
 
-  const addCard = (e: { preventDefault: () => void }) => {
+  const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    console.log(proveedor);
-    closeModal();
+
+    if (isOpen) {
+      const sup = new Supplier(
+        proveedor.rfc,
+        proveedor.razon,
+        proveedor.domicilio,
+        proveedor.correo,
+        proveedor.telefono,
+        proveedor.cuenta
+      );
+      if (await SupplierController.createSupplier(sup)) {
+        console.log("Insertando registro ");
+        console.log(sup);
+      } else {
+        console.log("error");
+      }
+
+      closeModal();
+      //window.location.reload();
+    }
   };
 
   return (
@@ -140,7 +159,7 @@ function AddProveedor() {
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Cuenta</label>
+                      <label htmlFor="">Cuenta Bancaria</label>
                       <input
                         type="text"
                         id=""
