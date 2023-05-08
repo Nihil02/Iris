@@ -13,7 +13,9 @@ declare global {
 class Exam {
   cliente: string;
   fecha: string;
-  rx: string;
+  dp_od: number;
+  dp_oi: number;
+  oblea: number;
   lejos_od_esferico: number;
   lejos_od_cilindrico: number;
   lejos_od_eje: number;
@@ -28,7 +30,9 @@ class Exam {
   constructor(
     cliente: string,
     fecha: string,
-    rx: string,
+    dp_od: number,
+    dp_oi: number,
+    oblea: number,
     lejos_od_esferico: number,
     lejos_od_cilindrico: number,
     lejos_od_eje: number,
@@ -43,7 +47,9 @@ class Exam {
   ) {
     this.cliente = cliente;
     this.fecha = fecha;
-    this.rx = rx;
+    this.dp_od = dp_od;
+    this.dp_oi = dp_oi;
+    this.oblea = oblea;
     this.lejos_od_esferico = lejos_od_esferico;
     this.lejos_od_cilindrico = lejos_od_cilindrico;
     this.lejos_od_eje = lejos_od_eje;
@@ -73,4 +79,4 @@ class ExamController {
   }
 }
 
-export { ExamController }
+export { ExamController };

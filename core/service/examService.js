@@ -42,12 +42,12 @@ class ExamService {
    */
   static async createExam(exam) {
     try {
-      const sanitizedExam = this.sanitizeExam(exam);
-      const validation = this.isValidExam(sanitizedExam);
+      //const sanitizedExam = this.sanitizeExam(exam);
+      //const validation = this.isValidExam(sanitizedExam);
 
-      if (typeof validation === "object") {
+      /*if (typeof validation === "object") {
         throw validation;
-      }
+      }*/
       const findExam = await this.getExamById(
         sanitizedExam.cliente,
         sanitizedExam.fecha
@@ -56,7 +56,7 @@ class ExamService {
         throw new Error("Exam already exists");
       }
 
-      return await ExamDAO.createExam(sanitizedExam);
+      return await ExamDAO.createExam(exam);
     } catch (error) {
       return error;
     }
