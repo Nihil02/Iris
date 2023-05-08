@@ -47,7 +47,7 @@ function DeleteCard({ cardID = "" }) {
           break;
       }
 
-      //window.location.reload();
+      window.location.reload();
       closeModal();
     }
   }

@@ -9,6 +9,15 @@ function getAdmin() {
 }
 export { getAdmin, isAdmin };
 
+/* Date Format */
+function dateFormat(date: string) {
+  return date.slice(0, 4) + "-" + date.slice(4, 6) + "-" + date.slice(6);
+}
+function dateIntFormat(date: string){
+  return date.replaceAll("-", "");
+}
+export { dateFormat, dateIntFormat };
+
 /* Controllers */
 import {
   Employee,

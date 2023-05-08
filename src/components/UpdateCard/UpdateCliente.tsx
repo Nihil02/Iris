@@ -1,7 +1,12 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
-import { Customer, CustomerController } from "../../util";
+import {
+  Customer,
+  CustomerController,
+  dateFormat,
+  dateIntFormat,
+} from "../../util";
 
 function UpdateCliente({ id = "" }) {
   let [cliente, setCliente] = useState({
@@ -20,7 +25,16 @@ function UpdateCliente({ id = "" }) {
   useEffect(() => {
     async function getData() {
       const data = await CustomerController.getCustomerById(id);
-      console.log(data);
+      cliente.curp = data.CURP;
+      cliente.nombre = data.nombre;
+      cliente.apellido1 = data.primer_apellido;
+      cliente.apellido2 = data.segundo_apellido;
+      cliente.fecha = data.fecnac;
+      cliente.estado = data.edo;
+      cliente.municipio = data.mun;
+      cliente.locacion = data.loc;
+      cliente.sexo = data.sexo;
+      cliente.compaq = data.contpaq_id;
     }
     getData();
   }, []);
@@ -33,13 +47,8 @@ function UpdateCliente({ id = "" }) {
     setIsOpen(true);
   }
 
-  const addCard = async (e: { preventDefault: () => void }) => {
+  const updateCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    let aux = cliente.fecha.replaceAll("-", "");
-    console.log(aux);
-
-    setCliente({ ...cliente, fecha: aux });
-    console.log(cliente.fecha);
 
     if (isOpen) {
       const cli = new Customer(
@@ -56,7 +65,7 @@ function UpdateCliente({ id = "" }) {
         cliente.locacion,
         parseInt(cliente.compaq)
       );
-      if (await CustomerController.createCustomer(cli)) {
+      if (await CustomerController.updateCustomer(cli)) {
         console.log("Insertando registro ");
         console.log(cli);
       } else {
@@ -64,12 +73,16 @@ function UpdateCliente({ id = "" }) {
       }
     }
     closeModal();
-    window.location.reload();
+    //window.location.reload();
   };
 
   return (
     <>
-      <button className="card-button bg-green-600 hover:bg-green-500">
+      {/* Button in the card */}
+      <button
+        className="card-button bg-green-600 hover:bg-green-500"
+        onClick={openModal}
+      >
         <FaPen size={16} color="white" />
       </button>
 
@@ -99,7 +112,7 @@ function UpdateCliente({ id = "" }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="modal-panel">
-                  <form className="m-4" onSubmit={addCard}>
+                  <form className="m-4" onSubmit={updateCard}>
                     <div className="mb-6">
                       <label htmlFor="">CURP</label>
                       <input
@@ -107,7 +120,7 @@ function UpdateCliente({ id = "" }) {
                         id=""
                         name=""
                         className="text-input"
-                        placeholder="CURP"
+                        value={cliente.curp}
                         onChange={(e) =>
                           setCliente({ ...cliente, curp: e.target.value })
                         }
@@ -124,7 +137,7 @@ function UpdateCliente({ id = "" }) {
                         maxLength={50}
                         className="text-input"
                         pattern="[\w]+$"
-                        placeholder="Nombre"
+                        value={cliente.nombre}
                         onChange={(e) =>
                           setCliente({ ...cliente, nombre: e.target.value })
                         }
@@ -139,7 +152,7 @@ function UpdateCliente({ id = "" }) {
                         name=""
                         maxLength={50}
                         className="text-input"
-                        placeholder="Primer Apellido"
+                        value={cliente.apellido1}
                         onChange={(e) =>
                           setCliente({ ...cliente, apellido1: e.target.value })
                         }
@@ -154,7 +167,7 @@ function UpdateCliente({ id = "" }) {
                         name=""
                         maxLength={50}
                         className="text-input"
-                        placeholder="Segundo Apellido"
+                        value={cliente.apellido2}
                         onChange={(e) =>
                           setCliente({ ...cliente, apellido2: e.target.value })
                         }
@@ -167,8 +180,9 @@ function UpdateCliente({ id = "" }) {
                         id=""
                         name=""
                         className="text-input"
+                        value={dateFormat(cliente.fecha.toString())}
                         onChange={(e) => {
-                          let aux = e.target.value.replaceAll("-", "");
+                          let aux = dateIntFormat(e.target.value);
                           setCliente({ ...cliente, fecha: aux });
                         }}
                         required
@@ -180,6 +194,7 @@ function UpdateCliente({ id = "" }) {
                         className="text-input"
                         name="sexo"
                         id="sexo"
+                        value={cliente.sexo}
                         onChange={(e) =>
                           setCliente({
                             ...cliente,
@@ -198,7 +213,7 @@ function UpdateCliente({ id = "" }) {
                         id=""
                         name=""
                         className="text-input"
-                        placeholder="Estado"
+                        value={cliente.estado}
                         onChange={(e) =>
                           setCliente({ ...cliente, estado: e.target.value })
                         }
@@ -215,7 +230,7 @@ function UpdateCliente({ id = "" }) {
                         id=""
                         name=""
                         className="text-input"
-                        placeholder="Municipio"
+                        value={cliente.municipio}
                         onChange={(e) =>
                           setCliente({ ...cliente, municipio: e.target.value })
                         }
@@ -232,7 +247,7 @@ function UpdateCliente({ id = "" }) {
                         id=""
                         name=""
                         className="text-input"
-                        placeholder="Locación"
+                        value={cliente.locacion}
                         onChange={(e) =>
                           setCliente({ ...cliente, locacion: e.target.value })
                         }
@@ -247,7 +262,7 @@ function UpdateCliente({ id = "" }) {
                         id=""
                         name=""
                         className="text-input"
-                        placeholder="ID en Compaq"
+                        value={cliente.compaq}
                         onChange={(e) =>
                           setCliente({ ...cliente, compaq: e.target.value })
                         }
@@ -258,7 +273,7 @@ function UpdateCliente({ id = "" }) {
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
                       <button type="submit" className="btn-primary">
-                        Agregar
+                        Modificar
                       </button>
                       <button className="btn-danger" onClick={closeModal}>
                         Cancelar
