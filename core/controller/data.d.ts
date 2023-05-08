@@ -33,3 +33,20 @@ interface Customer {
   loc: string;
   compaqi_id: number;
 }
+
+interface Exam {
+  cliente: string;
+  fecha: string;
+  rx: string;
+  lejos_od_esferico: number;
+  lejos_od_cilindrico: number;
+  lejos_od_eje: number;
+  lejos_od_agudeza_visual: number;
+  lejos_oi_esferico: number;
+  lejos_oi_cilindrico: number;
+  lejos_oi_eje: number;
+  lejos_oi_agudeza_visual: number;
+  adicion_od_esferico: number;
+  tipo_lentes: number;
+  observaciones: string;
+}
