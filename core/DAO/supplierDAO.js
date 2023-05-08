@@ -20,18 +20,23 @@ class SupplierDAO {
   }
 
   static async createSupplier(supplier) {
-    const [rfc, razon_social, domicilio, correo, telefono, cuenta_bancaria] =
-      Object.values(supplier);
+    try {
+      const [rfc, razon_social, domicilio, correo, telefono, cuenta_bancaria] =
+        Object.values(supplier);
 
-    await Supplier.create({
-      rfc: rfc,
-      razon_social: razon_social,
-      domicilio: domicilio,
-      correo_electronico: correo,
-      telefono: telefono,
-      cuenta_bancaria: cuenta_bancaria,
-    });
-    return true;
+      await Supplier.create({
+        rfc: rfc,
+        razon_social: razon_social,
+        domicilio: domicilio,
+        correo_electronico: correo,
+        telefono: telefono,
+        cuenta_bancaria: cuenta_bancaria,
+      });
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   }
 
   /**
@@ -43,12 +48,12 @@ class SupplierDAO {
 
     await Supplier.update(
       {
-      rfc: rfc,
-      razon_social: razon_social,
-      domicilio: domicilio,
-      correo_electronico: correo,
-      telefono: telefono,
-      cuenta_bancaria: cuenta_bancaria,
+        rfc: rfc,
+        razon_social: razon_social,
+        domicilio: domicilio,
+        correo_electronico: correo,
+        telefono: telefono,
+        cuenta_bancaria: cuenta_bancaria,
       },
       {
         where: {
