@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { Customer, CustomerController } from "../../util";
+import { Customer, CustomerController, dateIntFormat } from "../../util";
 
 function AddCliente() {
   let [cliente, setCliente] = useState({
@@ -27,11 +27,7 @@ function AddCliente() {
 
   const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    let aux = cliente.fecha.replaceAll("-", "");
-    console.log(aux);
-    
-    setCliente({ ...cliente, fecha: aux });
-    console.log(cliente.fecha);
+    setCliente({ ...cliente, fecha: dateIntFormat(cliente.fecha) });
     
 
     if (isOpen) {
