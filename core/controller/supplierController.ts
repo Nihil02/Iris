@@ -46,7 +46,7 @@ class SupplierController {
     return res;
   }
 
-  static async createSupplier(supplier: Employee) {
+  static async createSupplier(supplier: Supplier) {
     const res: Boolean = await window.supplierAPI.createSupplier(supplier);
     return res;
   }
@@ -56,7 +56,7 @@ class SupplierController {
     return res;
   }
 
-  static async updateSupplier(supplier: Employee) {
+  static async updateSupplier(supplier: Supplier) {
     const res: Boolean = await window.supplierAPI.updateSupplier(supplier);
     return res;
   }

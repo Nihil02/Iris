@@ -14,7 +14,7 @@ if (require("electron-squirrel-startup")) {
 const isDev = process.env.IS_DEV === "true";
 
 const createWindow = async () => {
-  await sequelize.sync({alter: true});
+  await sequelize.sync({ alter: true });
   const win = new BrowserWindow({
     title: "Iris",
     minWidth: 800,
@@ -79,49 +79,49 @@ ipcMain.handle(K.Supplier.getAllSuppliers, async () => {
 
 // Get supplier by RFC
 ipcMain.handle(K.Supplier.getSupplierByRFC, async (event, rfc) => {
-    return await SupplierService.getSupplierByRFC(rfc);
+  return await SupplierService.getSupplierByRFC(rfc);
 });
 
 // Create a supplier
 ipcMain.handle(K.Supplier.createSupplier, async (event, supplier) => {
-    return await SupplierService.createSupplier(supplier);
+  return await SupplierService.createSupplier(supplier);
 });
 
 // Update a supplier
 ipcMain.handle(K.Supplier.updateSupplier, async (event, supplier) => {
-    return await SupplierService.updateSupplier(supplier);
+  return await SupplierService.updateSupplier(supplier);
 });
 
 // Delete a supplier
 ipcMain.handle(K.Supplier.deleteSupplier, async (event, rfc) => {
-    return await SupplierService.deleteSupplier(rfc);
+  return await SupplierService.deleteSupplier(rfc);
 });
 
 // Customer handlers
 
 // get all customers
 ipcMain.handle(K.Customer.getAllCustomers, async () => {
-    return await CustomerService.getAllCustomers();
+  return await CustomerService.getAllCustomers();
 });
 
 // get costumber by id
 ipcMain.handle(K.Customer.getCustomerById, async (event, id) => {
-    return await CustomerService.getCustomerByCURP(id);
+  return await CustomerService.getCustomerByCURP(id);
 });
 
 // create Customer
 ipcMain.handle(K.Customer.createCustomer, async (event, customer) => {
-    return await CustomerService.createCustomer(customer);
+  return await CustomerService.createCustomer(customer);
 });
 
 // update Customer
 ipcMain.handle(K.Customer.updateCustomer, async (event, customer) => {
-    return await CustomerService.updateCustomer(customer);
+  return await CustomerService.updateCustomer(customer);
 });
 
 // delete Customer
 ipcMain.handle(K.Customer.deleteCustomer, async (event, id) => {
-    return await CustomerService.deleteCustomer(id);
+  return await CustomerService.deleteCustomer(id);
 });
 
 // Employee handlers
@@ -148,4 +148,22 @@ ipcMain.handle(K.Employee.updateEmployee, async (event, employee) => {
 // Delete employee
 ipcMain.handle(K.Employee.deleteEmployee, async (event, employeeRFC) => {
   return await EmployeeService.deleteEmployee(employeeRFC);
+});
+
+// Exam
+
+ipcMain.handle(K.Exam.getAllExams, async (event, curp) => {
+  return await ExamService.getExamById(curp);
+});
+
+ipcMain.handle(K.Exam.getExamById, async (event, curp, date) => {
+  return await ExamService.getAllExam(curp, date);
+});
+
+ipcMain.handle(K.Exam.addExam, async (event, exam) => {
+  return await ExamService.createExam(exam);
+});
+
+ipcMain.handle(K.Exam.updateExam, async (event, exam) => {
+  return await ExamService.updateExam(exam);
 });
