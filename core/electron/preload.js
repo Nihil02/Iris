@@ -27,8 +27,17 @@ const customerAPI = {
   deleteCustomer: (id) => ipcRenderer.invoke(K.Customer.deleteCustomer, id),
 }
 
+const examAPI = {
+  getAllExams: (curp) => ipcRenderer.invoke(K.Exam.getAllExams),
+  getExamById: (curp, date) => ipcRenderer.invoke(K.Exam.getExamById),
+  addExam: (exam) => ipcRenderer.invoke(K.Exam.addExam),
+  updateExam: (exam) => ipcRenderer.invoke(K.Exam.updateExam)
+}
+
 contextBridge.exposeInMainWorld("supplierAPI", supplierAPI);
 
 contextBridge.exposeInMainWorld("employeeAPI", employeeAPI);
 
 contextBridge.exposeInMainWorld("customerAPI", customerAPI);
+
+contextBridge.exposeInMainWorld("examAPI", examAPI);

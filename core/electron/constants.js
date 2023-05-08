@@ -8,8 +8,13 @@ class K {
     authEmployee: "authEmployee"
   };
 
-  static Exam = {};
-
+  static Exam = {
+    getAllExams: "getAllExams",
+    getExamById: "getExamById",
+    addExam: "addExam",
+    updateExam: "updateExam"
+  }
+  
   static Supplier = {
     getAllSuppliers: "getAllSuppliers",
     getSupplierByRFC: "getSupplierByRFC",
@@ -25,6 +30,7 @@ class K {
     updateCustomer: "updateCustomer",
     deleteCustomer: "deleteCustomer"
   };
+
 }
 
 module.exports = K;
