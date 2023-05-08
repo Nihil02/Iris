@@ -19,7 +19,6 @@ function UpdateCliente({ id = "" }) {
     municipio: "",
     locacion: "",
     sexo: "",
-    compaq: "",
   });
 
   useEffect(() => {
@@ -34,7 +33,6 @@ function UpdateCliente({ id = "" }) {
       cliente.municipio = data.mun;
       cliente.locacion = data.loc;
       cliente.sexo = data.sexo;
-      cliente.compaq = data.contpaq_id;
     }
     getData();
   }, []);
@@ -63,7 +61,7 @@ function UpdateCliente({ id = "" }) {
         cliente.estado,
         cliente.municipio,
         cliente.locacion,
-        parseInt(cliente.compaq)
+        0
       );
       if (await CustomerController.updateCustomer(cli)) {
         console.log("Insertando registro ");
@@ -252,21 +250,6 @@ function UpdateCliente({ id = "" }) {
                           setCliente({ ...cliente, locacion: e.target.value })
                         }
                         min={0}
-                        max={9999}
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">CompaqID</label>
-                      <input
-                        type="number"
-                        id=""
-                        name=""
-                        className="text-input"
-                        value={cliente.compaq}
-                        onChange={(e) =>
-                          setCliente({ ...cliente, compaq: e.target.value })
-                        }
-                        min={1}
                         max={9999}
                       />
                     </div>

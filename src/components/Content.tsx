@@ -131,17 +131,6 @@ function Content({ title = "" }) {
               readOnly
             />
           </div>
-          <label htmlFor="nombre">Id en Compaq</label>
-          <div className="mb-6">
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              className="text-input"
-              value="01"
-              readOnly
-            />
-          </div>
         </div>
       ) : null}
       <AddCard />

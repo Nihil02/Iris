@@ -14,7 +14,6 @@ function AddCliente() {
     municipio: "48",
     locacion: "0000",
     sexo: "H",
-    compaq: "",
   });
 
   let [isOpen, setIsOpen] = useState(false);
@@ -43,7 +42,7 @@ function AddCliente() {
         cliente.estado,
         cliente.municipio,
         cliente.locacion,
-        parseInt(cliente.compaq)
+        0
       );
       if (await CustomerController.createCustomer(cli)) {
         console.log("Insertando registro ");
@@ -227,21 +226,6 @@ function AddCliente() {
                           setCliente({ ...cliente, locacion: e.target.value })
                         }
                         min={0}
-                        max={9999}
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">CompaqID</label>
-                      <input
-                        type="number"
-                        id=""
-                        name=""
-                        className="text-input"
-                        placeholder="ID en Compaq"
-                        onChange={(e) =>
-                          setCliente({ ...cliente, compaq: e.target.value })
-                        }
-                        min={1}
                         max={9999}
                       />
                     </div>
