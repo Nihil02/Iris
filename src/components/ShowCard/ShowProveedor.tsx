@@ -1,16 +1,33 @@
 import { Transition, Dialog } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { SupplierController } from "../../util";
 
-function ShowProveedor({ name = "" }) {
+function ShowProveedor({id = "", name = ""}) {
   let [proveedor, setProveedor] = useState({
-    rfc: "",
-    razon: "",
-    domicilio: "",
-    telefono: "",
-    correo: "",
-    cuenta: "",
+    rfc: "", //Text
+    razon: "", //Text
+    domicilio: "", //Text
+    telefono: "", //Number
+    correo: "", //Text
+    cuenta: 0, //Number
   });
 
+  /* Fetch data from the api to the component */
+  useEffect(() => {
+    async function getData() {
+      const data = await SupplierController.getSupplierByRFC(id);
+      
+      proveedor.rfc = data.rfc;
+      proveedor.razon = data.razon_social;
+      proveedor.domicilio = data.domicilio;
+      proveedor.correo = data.correo_electronico;
+      proveedor.cuenta = data.cuenta_bancaria;
+      proveedor.telefono = data.telefono;
+    }
+    getData();
+  }, []);
+
+  /* Controls modal state */
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
     setIsOpen(false);
@@ -19,14 +36,23 @@ function ShowProveedor({ name = "" }) {
     setIsOpen(true);
   }
 
+  async function showCard(e: { preventDefault: () => void }) {
+    e.preventDefault();
+    openModal();
+  }
+
   return (
     <>
-      <div className="flex flex-wrap items-center w-auto" onClick={openModal}>
+      <div
+        className="flex flex-wrap items-center w-auto"
+        onClick={showCard}
+      >
         <p className="text-sm leading-6  max-w-md">
           <strong className="font-semibold truncate">{name}</strong>
         </p>
       </div>
 
+    {/* Modal */}
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
@@ -63,6 +89,7 @@ function ShowProveedor({ name = "" }) {
                         className="text-input"
                         value={proveedor.rfc}
                         readOnly
+                        disabled
                       />
                     </div>
                     <div className="mb-6">
@@ -74,6 +101,7 @@ function ShowProveedor({ name = "" }) {
                         className="text-input"
                         value={proveedor.razon}
                         readOnly
+                        disabled
                       />
                     </div>
                     <div className="mb-6">
@@ -85,6 +113,7 @@ function ShowProveedor({ name = "" }) {
                         className="text-input"
                         value={proveedor.domicilio}
                         readOnly
+                        disabled
                       />
                     </div>
                     <div className="mb-6">
@@ -96,6 +125,7 @@ function ShowProveedor({ name = "" }) {
                         className="text-input"
                         value={proveedor.telefono}
                         readOnly
+                        disabled
                       />
                     </div>
                     <div className="mb-6">
@@ -107,10 +137,11 @@ function ShowProveedor({ name = "" }) {
                         className="text-input"
                         value={proveedor.correo}
                         readOnly
+                        disabled
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Cuenta</label>
+                      <label htmlFor="">Cuenta Bancaria</label>
                       <input
                         type="text"
                         id=""
@@ -118,12 +149,13 @@ function ShowProveedor({ name = "" }) {
                         className="text-input"
                         value={proveedor.cuenta}
                         readOnly
+                        disabled
                       />
                     </div>
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
                       <button className="btn-danger" onClick={closeModal}>
-                        Regresar
+                        Cancelar
                       </button>
                     </div>
                   </form>

@@ -21,6 +21,7 @@ function UpdateCliente({ id = "" }) {
     sexo: "",
   });
 
+  /* Fetch data from the api to the component */
   useEffect(() => {
     async function getData() {
       const data = await CustomerController.getCustomerById(id);
@@ -37,6 +38,7 @@ function UpdateCliente({ id = "" }) {
     getData();
   }, []);
 
+  /* Controls modal state */
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
     setIsOpen(false);

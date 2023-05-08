@@ -97,7 +97,7 @@ function AddProveedor() {
                         type="text"
                         id=""
                         name=""
-                        maxLength={50}
+                        maxLength={250}
                         className="text-input"
                         placeholder="Razon Social"
                         onChange={(e) =>
@@ -112,7 +112,7 @@ function AddProveedor() {
                         type="text"
                         id=""
                         name=""
-                        maxLength={50}
+                        maxLength={250}
                         className="text-input"
                         placeholder="Domicilio"
                         onChange={(e) =>
@@ -130,7 +130,7 @@ function AddProveedor() {
                         type="text"
                         id=""
                         name=""
-                        maxLength={50}
+                        maxLength={20}
                         className="text-input"
                         placeholder="Telefono"
                         onChange={(e) =>
@@ -145,7 +145,7 @@ function AddProveedor() {
                     <div className="mb-6">
                       <label htmlFor="">Correo</label>
                       <input
-                        type="text"
+                        type="email"
                         id=""
                         name=""
                         maxLength={50}
@@ -160,7 +160,7 @@ function AddProveedor() {
                     <div className="mb-6">
                       <label htmlFor="">Cuenta Bancaria</label>
                       <input
-                        type="text"
+                        type="number"
                         id=""
                         name=""
                         maxLength={50}

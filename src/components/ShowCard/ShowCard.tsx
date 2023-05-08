@@ -20,7 +20,7 @@ function ShowCard({ name = "", id = "" }) {
     case "/proveedor":
       return (
         <>
-          <ShowProveedor name={name} />
+          <ShowProveedor id={id} name={name} />
         </>
       );
 

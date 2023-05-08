@@ -17,12 +17,12 @@ class SupplierService {
    */
   static async getSupplierByRFC(rfc = "") {
     try {
-      const sanitizedRFC = rfc.trim();
+      /*const sanitizedRFC = rfc.trim();
       if (!Validator.isRFC(sanitizedRFC)) {
         throw Error("Invalid RFC");
-      }
-      const supplier = await SupplierDAO.getSupplierById(sanitizedRFC);
-      return supplier[0].dataValues;
+      }*/
+      const supplier = await SupplierDAO.getSupplierById(rfc);
+      return supplier.dataValues;
     } catch (error) {
       console.error(error);
       return false;
@@ -57,7 +57,7 @@ class SupplierService {
     try {
       /* Validations goes here */
       await SupplierDAO.updateSupplier(supplier);
-      return false;
+      return true;
     } catch (error) {
       console.error(error);
       return false;

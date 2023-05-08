@@ -2,10 +2,18 @@ import { Transition, Dialog } from "@headlessui/react";
 import { useState, Fragment } from "react";
 import { FaTrash } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
-import { EmployeeController, CustomerController } from "../util";
+import {
+  EmployeeController,
+  CustomerController,
+  SupplierController,
+  ExamController,
+} from "../util";
 
 function DeleteCard({ cardID = "" }) {
+  /* Get current location */
   const path = useLocation().pathname;
+
+  /* Controls modal state */
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
     setIsOpen(false);
@@ -18,8 +26,6 @@ function DeleteCard({ cardID = "" }) {
     e.preventDefault();
     console.log("Borrando");
     console.log(cardID);
-    
-    
 
     if (isOpen) {
       let condition;
@@ -27,6 +33,15 @@ function DeleteCard({ cardID = "" }) {
       switch (path) {
         case "/cliente":
           condition = await CustomerController.deleteCustomer(cardID);
+          if (condition) {
+            console.log("eliminado registro " + cardID);
+          } else {
+            console.log("error");
+          }
+          break;
+
+        case "/proveedor":
+          condition = await SupplierController.deleteSupplier(cardID);
           if (condition) {
             console.log("eliminado registro " + cardID);
           } else {

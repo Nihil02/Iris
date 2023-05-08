@@ -28,7 +28,6 @@ function Content({ title = "" }) {
         case "/cliente":
           const cliente = await CustomerController.getAllCustomers();
           setData(cliente);
-          console.log(cliente);
           break;
 
         case "/examen/" + param.cliente:
