@@ -21,13 +21,13 @@ class EmployeeService {
    */
   static async getEmployeeByRFC(rfc = "") {
     try {
-      const sanitizedRFC = rfc.trim();
+      /*const sanitizedRFC = rfc.trim();
       if (await this.areNoEmployees()) {
         throw Error("There is no employee in the database");
       }
       if (!Validator.isRFC(sanitizedRFC)) {
         throw Error("Invalid RFC");
-      }
+      }*/
       const employee = await EmployeeDAO.getEmployeeByRFC(rfc);
       return employee.dataValues;
     } catch (error) {

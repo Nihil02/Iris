@@ -15,8 +15,6 @@ function AddEmpleado() {
     pass: "",
   });
 
-  const navigate = useNavigate();
-
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
     setIsOpen(false);
@@ -46,7 +44,7 @@ function AddEmpleado() {
       }
 
       closeModal();
-      window.location.reload();
+      //window.location.reload();
     }
   };
 
