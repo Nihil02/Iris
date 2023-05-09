@@ -12,11 +12,12 @@ Exam.init(
         key: "CURP",
       },
       primaryKey: true,
+      unique: false,
     },
     fecha: {
       type: DataTypes.STRING(10), // De acuerdo al protocolo ISO 8601
-      allowNull: false,
       primaryKey: true,
+      unique: false,
     },
     dp_od: {
       type: DataTypes.NUMBER,
