@@ -122,16 +122,18 @@ function AddProveedor() {
                             domicilio: e.target.value,
                           })
                         }
+                        pattern="[\w]+$"
                         required
                       />
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Telefono</label>
                       <input
-                        type="text"
+                        type="number"
                         id=""
                         name=""
                         maxLength={20}
+                        min={0}
                         className="text-input"
                         placeholder="Telefono"
                         onChange={(e) =>
@@ -165,8 +167,10 @@ function AddProveedor() {
                         id=""
                         name=""
                         maxLength={50}
+                        minLength={16}
+                        min={0}
                         className="text-input"
-                        placeholder="Cuenta"
+                        placeholder="Cuenta Bancaria"
                         onChange={(e) =>
                           setProveedor({ ...proveedor, cuenta: e.target.value })
                         }
