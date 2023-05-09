@@ -37,9 +37,9 @@ function AddEmpleado() {
       );
       if (await controller.EmployeeController.createEmployee(emp)) {
         console.log("Insertando registro ");
-        console.log(empleado);
       } else {
         console.log("error");
+        console.log(empleado);
         alert("Error, no se pudo insertar los datos");
       }
 
