@@ -3,11 +3,11 @@ const Validator = require("../validation/validator.js");
 
 class ExamService {
   static async getAllExam(curp="") {
-    const res = await ExamDAO.getAllExams();
+    /*const res = await ExamDAO.getAllExams();
     const exams = res.map((exam) => {
       return exam.dataValues;
-    });
-    //const exams = await this.getExamById(curp);
+    });*/
+    const exams = await this.getExamById(curp);
     return exams;
   }
 
