@@ -26,7 +26,7 @@ class ExamDAO {
 
     if (arguments.length == 2) {
       const res = Exam.findAll({ where: { cliente: curp, fecha: date } });
-      return res;
+      return res[0].dataValues;
     }
   }
 
