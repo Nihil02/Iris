@@ -1,6 +1,5 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
-import { CustomerController } from "../../util";
 import { useNavigate } from "react-router-dom";
 
 function ShowCliente({ id = "", name = "" }) {

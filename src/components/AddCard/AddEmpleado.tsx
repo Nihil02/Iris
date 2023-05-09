@@ -1,8 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { EmployeeController, Employee } from "../../util";
-import { useNavigate } from "react-router-dom";
+import { controller } from "../../util";
 
 function AddEmpleado() {
   let [empleado, setEmpleado] = useState({
@@ -27,7 +26,7 @@ function AddEmpleado() {
     e.preventDefault();
 
     if (isOpen) {
-      const emp = new Employee(
+      const emp = new controller.Employee(
         empleado.rfc,
         empleado.nombre,
         empleado.apellido1,
@@ -36,11 +35,12 @@ function AddEmpleado() {
         empleado.pass,
         empleado.privilegios
       );
-      if (await EmployeeController.createEmployee(emp)) {
+      if (await controller.EmployeeController.createEmployee(emp)) {
         console.log("Insertando registro ");
         console.log(empleado);
       } else {
         console.log("error");
+        alert("Error, no se pudo insertar los datos");
       }
 
       closeModal();

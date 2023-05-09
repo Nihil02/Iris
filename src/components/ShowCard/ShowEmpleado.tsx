@@ -1,6 +1,6 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
-import { EmployeeController } from "../../util";
+import { controller } from "../../util";
 
 function ShowEmpleado({ id = "", name = "" }) {
   let [empleado, setEmpleado] = useState({
@@ -15,7 +15,7 @@ function ShowEmpleado({ id = "", name = "" }) {
   /* Fetch data from the api to the component */
   useEffect(() => {
     async function getData() {
-      const data = await EmployeeController.getEmployeeByRFC(id);
+      const data = await controller.EmployeeController.getEmployeeByRFC(id);
       empleado.rfc = data.rfc;
       empleado.nombre = data.nombre;
       empleado.apellido1 = data.primer_apellido;

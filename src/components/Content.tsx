@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
-import {
-  CustomerController,
-  SupplierController,
-  EmployeeController,
-  ExamController,
-  dateFormat
-} from "./../util";
+import { controller, dateFormat } from "./../util";
 import Card from "./Card";
 import AddCard from "./AddCard/AddCard";
 import SearchBar from "./SearchBar";
@@ -28,27 +22,27 @@ function Content({ title = "" }) {
     async function getData() {
       switch (location) {
         case "/cliente":
-          const cliente = await CustomerController.getAllCustomers();
+          const cliente = await controller.CustomerController.getAllCustomers();
           setData(cliente);
           break;
 
         case "/examen/" + param.cliente:
-          const exa = await ExamController.getAllExams(param.cliente+"");
+          const exa = await controller.ExamController.getAllExams(param.cliente + "");
           console.log(exa);
-          
+
           setData(exa);
           setAuxData(
-            await CustomerController.getCustomerById(param.cliente + "")
+            await controller.CustomerController.getCustomerById(param.cliente + "")
           );
           break;
 
         case "/proveedor":
-          const sup = await SupplierController.getAllSuppliers();
+          const sup = await controller.SupplierController.getAllSuppliers();
           setData(sup);
           break;
 
         case "/usuario":
-          const emp = await EmployeeController.getAllEmployees();
+          const emp = await controller.EmployeeController.getAllEmployees();
           setData(emp);
           break;
 
@@ -108,7 +102,7 @@ function Content({ title = "" }) {
         case "/examen/" + param.cliente:
           {
             if (card.fecha !== null) {
-              id = dateFormat(card.fecha+"");
+              id = dateFormat(card.fecha + "");
             }
           }
           return <Card key={id} id={id} name={id} />;
@@ -132,11 +126,13 @@ function Content({ title = "" }) {
               id="nombre"
               name="nombre"
               className="text-input"
-              value={auxData.nombre+
+              value={
+                auxData.nombre +
                 " " +
                 auxData.primer_apellido +
                 " " +
-                auxData.segundo_apellido}
+                auxData.segundo_apellido
+              }
               readOnly
             />
           </div>

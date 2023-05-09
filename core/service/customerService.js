@@ -19,6 +19,7 @@ class CustomerService {
     try {
       const sanitizedCURP = curp.trim();
       if (!Validator.isCURP(sanitizedCURP)) {
+        console.log("Curp " + curp);
         console.log("Esta chingadera " + sanitizedCURP);
         throw Error("Invalid CURP");
       }

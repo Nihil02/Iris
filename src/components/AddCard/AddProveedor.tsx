@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { SupplierController, Supplier } from "../../util";
+import { controller } from "../../util";
 
 function AddProveedor() {
   let [proveedor, setProveedor] = useState({
@@ -25,7 +25,7 @@ function AddProveedor() {
     e.preventDefault();
 
     if (isOpen) {
-      const sup = new Supplier(
+      const sup = new controller.Supplier(
         proveedor.rfc,
         proveedor.razon,
         proveedor.domicilio,
@@ -33,10 +33,11 @@ function AddProveedor() {
         proveedor.telefono,
         proveedor.cuenta
       );
-      if (await SupplierController.createSupplier(sup)) {
+      if (await controller.SupplierController.createSupplier(sup)) {
         console.log("Insertando registro ");
       } else {
         console.log("error");
+        alert("Error, no se pudo insertar los datos");
       }
 
       closeModal();

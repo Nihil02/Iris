@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { Customer, CustomerController, dateIntFormat } from "../../util";
+import { controller, dateIntFormat } from "../../util";
 
 function AddCliente() {
   let [cliente, setCliente] = useState({
@@ -27,10 +27,9 @@ function AddCliente() {
   const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setCliente({ ...cliente, fecha: dateIntFormat(cliente.fecha) });
-    
 
     if (isOpen) {
-      const cli = new Customer(
+      const cli = new controller.Customer(
         cliente.curp,
         cliente.nombre,
         cliente.apellido1,
@@ -44,11 +43,12 @@ function AddCliente() {
         cliente.locacion,
         0
       );
-      if (await CustomerController.createCustomer(cli)) {
+      if (await controller.CustomerController.createCustomer(cli)) {
         console.log("Insertando registro ");
         console.log(cli);
       } else {
         console.log("error");
+        alert("Error, no se pudo insertar los datos")
       }
     }
     closeModal();
@@ -155,11 +155,10 @@ function AddCliente() {
                         id=""
                         name=""
                         className="text-input"
-                        onChange={(e) =>
-                          {
-                            let aux = e.target.value.replaceAll("-", "");
-                            setCliente({ ...cliente, fecha: aux })}
-                        }
+                        onChange={(e) => {
+                          let aux = e.target.value.replaceAll("-", "");
+                          setCliente({ ...cliente, fecha: aux });
+                        }}
                         required
                       />
                     </div>
@@ -222,7 +221,7 @@ function AddCliente() {
                         name=""
                         className="text-input"
                         placeholder="Locación"
-                        value={cliente.locacion} 
+                        value={cliente.locacion}
                         onChange={(e) =>
                           setCliente({ ...cliente, locacion: e.target.value })
                         }

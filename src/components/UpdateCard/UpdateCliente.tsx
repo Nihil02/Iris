@@ -1,12 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
-import {
-  Customer,
-  CustomerController,
-  dateFormat,
-  dateIntFormat,
-} from "../../util";
+import { controller, dateFormat, dateIntFormat } from "../../util";
 
 function UpdateCliente({ id = "" }) {
   let [cliente, setCliente] = useState({
@@ -24,7 +19,7 @@ function UpdateCliente({ id = "" }) {
   /* Fetch data from the api to the component */
   useEffect(() => {
     async function getData() {
-      const data = await CustomerController.getCustomerById(id);
+      const data = await controller.CustomerController.getCustomerById(id);
       cliente.curp = data.CURP;
       cliente.nombre = data.nombre;
       cliente.apellido1 = data.primer_apellido;
@@ -51,7 +46,7 @@ function UpdateCliente({ id = "" }) {
     e.preventDefault();
 
     if (isOpen) {
-      const cli = new Customer(
+      const cli = new controller.Customer(
         cliente.curp,
         cliente.nombre,
         cliente.apellido1,
@@ -65,11 +60,12 @@ function UpdateCliente({ id = "" }) {
         cliente.locacion,
         0
       );
-      if (await CustomerController.updateCustomer(cli)) {
+      if (await controller.CustomerController.updateCustomer(cli)) {
         console.log("Insertando registro ");
         console.log(cli);
       } else {
         console.log("error");
+        alert("Error, no se pudo modificar los datos");
       }
     }
     closeModal();

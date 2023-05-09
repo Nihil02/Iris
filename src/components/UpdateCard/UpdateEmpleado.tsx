@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { useState, Fragment, useEffect } from "react";
 import { FaPen } from "react-icons/fa";
-import { Employee, EmployeeController } from "../../util";
+import { controller } from "../../util";
 
 function UpdateEmpleado({ id = "" }) {
   let [empleado, setEmpleado] = useState({
@@ -17,7 +17,7 @@ function UpdateEmpleado({ id = "" }) {
   /* Fetch data from the api to the component */
   useEffect(() => {
     async function getData() {
-      const data = await EmployeeController.getEmployeeByRFC(id);
+      const data = await controller.EmployeeController.getEmployeeByRFC(id);
       empleado.rfc = data.rfc;
       empleado.nombre = data.nombre;
       empleado.apellido1 = data.primer_apellido;
@@ -47,7 +47,7 @@ function UpdateEmpleado({ id = "" }) {
     e.preventDefault();
 
     if (isOpen) {
-      const emp = new Employee(
+      const emp = new controller.Employee(
         empleado.rfc,
         empleado.nombre,
         empleado.apellido1,
@@ -56,12 +56,12 @@ function UpdateEmpleado({ id = "" }) {
         empleado.pass,
         empleado.privilegios
       );
-      if (await EmployeeController.updateEmployee(emp)) {
+      if (await controller.EmployeeController.updateEmployee(emp)) {
         console.log("Modificando registro ");
         console.log(emp);
       } else {
         console.log("error");
-        alert("Error");
+        alert("Error, no se pudo modificar los datos");
       }
 
       closeModal();
