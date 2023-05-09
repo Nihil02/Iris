@@ -10,6 +10,7 @@ Exam.init(
       references: {
         model: Paciente,
         key: "CURP",
+        onDelete: "CASCADE"
       },
       primaryKey: true,
       unique: false,
