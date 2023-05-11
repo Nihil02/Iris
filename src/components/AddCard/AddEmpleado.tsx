@@ -89,6 +89,7 @@ function AddEmpleado() {
                         name=""
                         className="text-input"
                         placeholder="RFC"
+                        pattern={regex.rfc}
                         onChange={(e) =>
                           setEmpleado({ ...empleado, rfc: e.target.value })
                         }

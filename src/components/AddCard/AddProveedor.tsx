@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { controller } from "../../util";
+import { controller, regex } from "../../util";
 
 function AddProveedor() {
   let [proveedor, setProveedor] = useState({
@@ -86,6 +86,7 @@ function AddProveedor() {
                         name=""
                         className="text-input"
                         placeholder="RFC"
+                        pattern={regex.rfc}
                         onChange={(e) =>
                           setProveedor({ ...proveedor, rfc: e.target.value })
                         }
