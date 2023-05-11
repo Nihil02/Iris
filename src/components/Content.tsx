@@ -27,12 +27,16 @@ function Content({ title = "" }) {
           break;
 
         case "/examen/" + param.cliente:
-          const exa = await controller.ExamController.getAllExams(param.cliente + "");
+          const exa = await controller.ExamController.getAllExams(
+            param.cliente + ""
+          );
           console.log(exa);
 
           setData(exa);
           setAuxData(
-            await controller.CustomerController.getCustomerById(param.cliente + "")
+            await controller.CustomerController.getCustomerById(
+              param.cliente + ""
+            )
           );
           break;
 
@@ -115,7 +119,7 @@ function Content({ title = "" }) {
 
   return (
     <>
-      <SearchBar />
+      <SearchBar data={data} />
       <h1 className="text-2xl m-5">{title}</h1>
       {location == "/examen/" + param.cliente ? (
         <div className="panel">
