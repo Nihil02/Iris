@@ -20,8 +20,18 @@ function ShowEmpleado({ id = "", name = "" }) {
       empleado.nombre = data.nombre;
       empleado.apellido1 = data.primer_apellido;
       empleado.apellido2 = data.segundo_apellido;
-      empleado.privilegios = data.privilegios;
       empleado.usuario = data.usuario;
+
+      switch (data.privilegios) {
+        case "1":
+          empleado.privilegios = "Común";
+          break;
+        case "2":
+          empleado.privilegios = "Administrador";
+          break;
+        default:
+          break;
+      }
     }
     getData();
   }, []);
@@ -47,10 +57,7 @@ function ShowEmpleado({ id = "", name = "" }) {
 
   return (
     <>
-      <div
-        className="flex flex-wrap items-center w-auto"
-        onClick={showCard}
-      >
+      <div className="flex flex-wrap items-center w-auto" onClick={showCard}>
         <p className="text-sm leading-6  max-w-md">
           <strong className="font-semibold truncate">{name}</strong>
         </p>
