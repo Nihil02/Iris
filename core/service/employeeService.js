@@ -109,7 +109,8 @@ class EmployeeService {
 
   /**
    * Deletes an employee.
-   * @returns true if the employee has been deleted, otherwise returns false.
+   * @param {string} rfc - RFC of the employee that's going to be deleted.
+   * @returns True if the employee has been deleted, otherwise returns false.
    */
   static async deleteEmployee(rfc) {
     try {
