@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
-import { controller, dateFormat, dateIntFormat } from "../../util";
+import { controller, dateFormat, dateIntFormat, regex } from "../../util";
 
 function UpdateCliente({ id = "" }) {
   let [cliente, setCliente] = useState({
@@ -118,7 +118,10 @@ function UpdateCliente({ id = "" }) {
                         className="text-input"
                         value={cliente.curp}
                         onChange={(e) =>
-                          setCliente({ ...cliente, curp: e.target.value })
+                          setCliente({
+                            ...cliente,
+                            curp: e.target.value.toUpperCase(),
+                          })
                         }
                         pattern="[A-Za-z]{4}[\d]{6}[H|M][A-Za-z]{5}[A-Za-z\d]{2}$"
                         required
@@ -132,7 +135,7 @@ function UpdateCliente({ id = "" }) {
                         name=""
                         maxLength={50}
                         className="text-input"
-                        pattern="[\w]+$"
+                        pattern={regex.name}
                         value={cliente.nombre}
                         onChange={(e) =>
                           setCliente({ ...cliente, nombre: e.target.value })
@@ -149,6 +152,7 @@ function UpdateCliente({ id = "" }) {
                         maxLength={50}
                         className="text-input"
                         value={cliente.apellido1}
+                        pattern={regex.name}
                         onChange={(e) =>
                           setCliente({ ...cliente, apellido1: e.target.value })
                         }
@@ -164,6 +168,7 @@ function UpdateCliente({ id = "" }) {
                         maxLength={50}
                         className="text-input"
                         value={cliente.apellido2}
+                        pattern={regex.name}
                         onChange={(e) =>
                           setCliente({ ...cliente, apellido2: e.target.value })
                         }
