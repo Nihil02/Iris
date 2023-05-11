@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { controller, dateIntFormat } from "../../util";
+import { controller, regex, dateIntFormat } from "../../util";
 
 function AddCliente() {
   let [cliente, setCliente] = useState({
@@ -48,7 +48,7 @@ function AddCliente() {
         console.log(cli);
       } else {
         console.log("error");
-        alert("Error, no se pudo insertar los datos")
+        alert("Error, no se pudo insertar los datos");
       }
     }
     closeModal();
@@ -97,9 +97,12 @@ function AddCliente() {
                         className="text-input"
                         placeholder="CURP"
                         onChange={(e) =>
-                          setCliente({ ...cliente, curp: e.target.value })
+                          setCliente({
+                            ...cliente,
+                            curp: e.target.value.toUpperCase(),
+                          })
                         }
-                        pattern="[A-Za-z]{4}[\d]{6}[H|M][A-Za-z]{5}[A-Za-z\d]{2}$"
+                        pattern={regex.curp}
                         required
                       />
                     </div>
@@ -111,7 +114,7 @@ function AddCliente() {
                         name=""
                         maxLength={50}
                         className="text-input"
-                        pattern="[\w]+$"
+                        pattern={regex.name}
                         placeholder="Nombre"
                         onChange={(e) =>
                           setCliente({ ...cliente, nombre: e.target.value })
@@ -128,6 +131,7 @@ function AddCliente() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Primer Apellido"
+                        pattern={regex.name}
                         onChange={(e) =>
                           setCliente({ ...cliente, apellido1: e.target.value })
                         }
@@ -143,6 +147,7 @@ function AddCliente() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Segundo Apellido"
+                        pattern={regex.name}
                         onChange={(e) =>
                           setCliente({ ...cliente, apellido2: e.target.value })
                         }

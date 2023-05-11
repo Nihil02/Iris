@@ -32,3 +32,6 @@ export function dateIntFormat(date: string) {
 
 import * as controller from "./controllers";
 export { controller };
+
+import * as regex from "./regex";
+export { regex };

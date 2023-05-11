@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { controller } from "../../util";
+import { controller, regex } from "../../util";
 
 function AddEmpleado() {
   let [empleado, setEmpleado] = useState({
@@ -104,6 +104,7 @@ function AddEmpleado() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Nombre"
+                        pattern={regex.name}
                         onChange={(e) =>
                           setEmpleado({ ...empleado, nombre: e.target.value })
                         }
@@ -119,6 +120,7 @@ function AddEmpleado() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Primer Apellido"
+                        pattern={regex.name}
                         onChange={(e) =>
                           setEmpleado({
                             ...empleado,
@@ -137,6 +139,7 @@ function AddEmpleado() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Segundo Apellido"
+                        pattern={regex.name}
                         onChange={(e) =>
                           setEmpleado({
                             ...empleado,
