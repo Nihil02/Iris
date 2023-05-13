@@ -13,6 +13,14 @@ Customer.init(
       type: DataTypes.STRING(50),
       allowNull: false,
     },
+    telefono: {
+      type: DataTypes.STRING(20),
+      allowNull: false 
+    },
+    domicilio: {
+      type: DataTypes.STRING(50),
+      allowNull: false
+    },
     primer_apellido: {
       type: DataTypes.STRING(50),
       allowNull: false,

@@ -45,7 +45,6 @@ class CustomerService {
       }*/
       const findCustomer = await this.getCustomerByCURP(customer.curp);
       if (findCustomer) {
-        console.log("Fue esto otro");
         throw new Error("Customer already exists");
       }
 
@@ -77,6 +76,11 @@ class CustomerService {
     }
   }
 
+  /**
+   * @deprecated
+   * @param {JSON} customer 
+   * @returns 
+   */
   static sanitizeCustomer(customer) {
     let {
       curp,
@@ -119,6 +123,12 @@ class CustomerService {
       contpaq_id: contpaq_id,
     };
   }
+
+  /**
+   * @deprecated
+   * @param {JSON} customer 
+   * @returns 
+   */
 
   static isValidCustomer(customer) {
     const {
