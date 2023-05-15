@@ -8,6 +8,7 @@ class BackUpService {
    * @param {string} dest The path of the backup folder
    */
   static createBackUp(src = "", dest = "") {
+    // TODO: Insert logic here for create the backup folder if not exists.
     // We get all files in the backup folder for get the number of backups in the system.
     const files = getFiles(dest);
     // This statement is ever true if the actualNumberOfBackups is equal to the limit plus one.

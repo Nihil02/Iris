@@ -57,6 +57,11 @@ class EmployeeService {
         throw res.error;
       }
 
+      // TODO: test this functionality.
+      if(employee.password === undefined || employee.password.trim === "") {
+        throw new Error("Null password");
+      }
+
       // Creates the password for the user.
       res.employee.password = this.createPassword(employee.password);
 
@@ -173,10 +178,6 @@ class EmployeeService {
    * Creates a hashed password.
    */
   static createPassword(password) {
-    if (password.trim() === "") {
-      throw new Error("Null password");
-    }
-    console.log(password);
     return this.hashPassword(password.trim());
   }
   /**

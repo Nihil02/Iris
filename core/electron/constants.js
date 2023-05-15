@@ -5,22 +5,22 @@ class K {
     createEmployee: "createEmployee",
     updateEmployee: "updateEmployee",
     deleteEmployee: "deleteEmployee",
-    authEmployee: "authEmployee"
+    authEmployee: "authEmployee",
   };
 
   static Exam = {
     getAllExams: "getAllExams",
     getExamById: "getExamById",
     addExam: "addExam",
-    updateExam: "updateExam"
-  }
-  
+    updateExam: "updateExam",
+  };
+
   static Supplier = {
     getAllSuppliers: "getAllSuppliers",
     getSupplierByRFC: "getSupplierByRFC",
     createSupplier: "createSupplier",
     updateSupplier: "updateSupplier",
-    deleteSupplier: "deleteSupplier"
+    deleteSupplier: "deleteSupplier",
   };
 
   static Customer = {
@@ -28,9 +28,12 @@ class K {
     getCustomerById: "getCustomerById",
     createCustomer: "createCustomer",
     updateCustomer: "updateCustomer",
-    deleteCustomer: "deleteCustomer"
+    deleteCustomer: "deleteCustomer",
   };
 
+  static Backup = {
+    createBackUp: "createBackUp",
+  };
 }
 
 module.exports = K;
