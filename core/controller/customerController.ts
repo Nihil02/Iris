@@ -16,6 +16,8 @@ class Customer {
   name: string;
   firstLastName: string;
   secondLastName: string;
+  phone: string;
+  adress: string;
   fecnac: number;
   edonac: string;
   sexo: string;
@@ -30,6 +32,8 @@ class Customer {
       name: string,
       firstLastName: string,
       secondLastName: string,
+      phone: string,
+      adress: string,
       fecnac: number,
       edonac: string,
       sexo: string,
@@ -43,6 +47,8 @@ class Customer {
   this.name = name;
   this.firstLastName = firstLastName;
   this.secondLastName = secondLastName;
+  this.adress = adress;
+  this.phone = phone;
   this.fecnac = fecnac;
   this.edonac = edonac;
   this.sexo = sexo;

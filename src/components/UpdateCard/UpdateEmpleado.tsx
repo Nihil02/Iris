@@ -119,6 +119,7 @@ function UpdateEmpleado({ id = "" }) {
                           setEmpleado({ ...empleado, rfc: e.target.value })
                         }
                         value={empleado.rfc}
+                        pattern={regex.rfc}
                         required
                       />
                     </div>

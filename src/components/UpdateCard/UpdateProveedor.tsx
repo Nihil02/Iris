@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
-import { controller } from "../../util";
+import { controller, regex } from "../../util";
 
 function UpdateProveedor({ id = "" }) {
   let [proveedor, setProveedor] = useState({
@@ -106,6 +106,7 @@ function UpdateProveedor({ id = "" }) {
                         name=""
                         className="text-input"
                         value={proveedor.rfc}
+                        pattern={regex.rfc}
                         onChange={(e) =>
                           setProveedor({ ...proveedor, rfc: e.target.value })
                         }
