@@ -1,6 +1,6 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
-import { SupplierController } from "../../util";
+import { controller } from "../../util";
 
 function ShowProveedor({id = "", name = ""}) {
   let [proveedor, setProveedor] = useState({
@@ -15,7 +15,7 @@ function ShowProveedor({id = "", name = ""}) {
   /* Fetch data from the api to the component */
   useEffect(() => {
     async function getData() {
-      const data = await SupplierController.getSupplierByRFC(id);
+      const data = await controller.SupplierController.getSupplierByRFC(id);
       
       proveedor.rfc = data.rfc;
       proveedor.razon = data.razon_social;

@@ -17,12 +17,13 @@ class CustomerService {
    */
   static async getCustomerByCURP(curp = "") {
     try {
-      const sanitizedCURP = curp.trim();
+      /*const sanitizedCURP = curp.trim();
       if (!Validator.isCURP(sanitizedCURP)) {
         console.log("Esta chingadera " + sanitizedCURP);
         throw Error("Invalid CURP");
-      }
-      const customer = await CustomerDAO.getCustomerByCURP(sanitizedCURP);
+      }*/
+      console.log("Curp " + curp);
+      const customer = await CustomerDAO.getCustomerByCURP(curp);
       return customer.dataValues;
     } catch (error) {
       console.error(error);
@@ -82,10 +83,10 @@ class CustomerService {
    */
   static sanitizeCustomer(customer) {
     let {
-      CURP,
-      nombre,
-      primer_apellido,
-      segundo_apellido,
+      curp,
+      name,
+      firstLastName,
+      secondLastName,
       fecnac,
       edonac,
       sexo,
@@ -95,10 +96,10 @@ class CustomerService {
       loc,
       contpaq_id,
     } = customer;
-    CURP = CURP.trim();
-    nombre = nombre.trim();
-    primer_apellido = primer_apellido.trim();
-    segundo_apellido = segundo_apellido.trim();
+    curp = curp.trim();
+    name = name.trim();
+    firstLastName = firstLastName.trim();
+    secondLastName = secondLastName.trim();
     edonac = edonac.trim();
     sexo = sexo.trim();
     nacorigen = nacorigen.trim();
@@ -108,10 +109,10 @@ class CustomerService {
     contpaq_id = contpaq_id.trim();
 
     return {
-      CURP: CURP,
-      nombre: nombre,
-      primer_apellido: primer_apellido,
-      segundo_apellido: segundo_apellido,
+      curp: curp,
+      name: name,
+      firstLastName: firstLastName,
+      secondLastName: secondLastName,
       fecnac: fecnac,
       edonac: edonac,
       sexo: sexo,
@@ -131,10 +132,10 @@ class CustomerService {
 
   static isValidCustomer(customer) {
     const {
-      CURP,
-      nombre,
-      primer_apellido,
-      segundo_apellido,
+      curp,
+      name,
+      firstLastName,
+      secondLastName,
       fecnac,
       edonac,
       sexo,
@@ -144,19 +145,19 @@ class CustomerService {
       loc,
       compaqi_id,
     } = customer;
-    if (!Validator.isName(nombre)) {
+    if (!Validator.isName(name)) {
       return new Error("Invalid name");
     }
 
-    if (!Validator.isName(primer_apellido)) {
+    if (!Validator.isName(firstLastName)) {
       return new Error("Invalid first last name");
     }
 
-    if (!Validator.isName(segundo_apellido)) {
+    if (!Validator.isName(secondLastName)) {
       return new Error("Invalid second last name");
     }
 
-    if (!Validator.isCURP(CURP)) {
+    if (!Validator.isCURP(curp)) {
       return new Error("Invalid CURP");
     }
     return true;

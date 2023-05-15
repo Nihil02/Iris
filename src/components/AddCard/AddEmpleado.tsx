@@ -1,8 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { EmployeeController, Employee } from "../../util";
-import { useNavigate } from "react-router-dom";
+import { controller, regex } from "../../util";
 
 function AddEmpleado() {
   let [empleado, setEmpleado] = useState({
@@ -27,7 +26,7 @@ function AddEmpleado() {
     e.preventDefault();
 
     if (isOpen) {
-      const emp = new Employee(
+      const emp = new controller.Employee(
         empleado.rfc,
         empleado.nombre,
         empleado.apellido1,
@@ -36,11 +35,12 @@ function AddEmpleado() {
         empleado.pass,
         empleado.privilegios
       );
-      if (await EmployeeController.createEmployee(emp)) {
+      if (await controller.EmployeeController.createEmployee(emp)) {
         console.log("Insertando registro ");
-        console.log(empleado);
       } else {
         console.log("error");
+        console.log(empleado);
+        alert("Error, no se pudo insertar los datos");
       }
 
       closeModal();
@@ -89,6 +89,7 @@ function AddEmpleado() {
                         name=""
                         className="text-input"
                         placeholder="RFC"
+                        pattern={regex.rfc}
                         onChange={(e) =>
                           setEmpleado({ ...empleado, rfc: e.target.value })
                         }
@@ -104,6 +105,7 @@ function AddEmpleado() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Nombre"
+                        pattern={regex.name}
                         onChange={(e) =>
                           setEmpleado({ ...empleado, nombre: e.target.value })
                         }
@@ -119,6 +121,7 @@ function AddEmpleado() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Primer Apellido"
+                        pattern={regex.name}
                         onChange={(e) =>
                           setEmpleado({
                             ...empleado,
@@ -137,6 +140,7 @@ function AddEmpleado() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Segundo Apellido"
+                        pattern={regex.name}
                         onChange={(e) =>
                           setEmpleado({
                             ...empleado,

@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { Customer, CustomerController, dateIntFormat } from "../../util";
+import { controller, regex, dateIntFormat } from "../../util";
 
 function AddCliente() {
   let [cliente, setCliente] = useState({
@@ -27,10 +27,9 @@ function AddCliente() {
   const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setCliente({ ...cliente, fecha: dateIntFormat(cliente.fecha) });
-    
 
     if (isOpen) {
-      const cli = new Customer(
+      const cli = new controller.Customer(
         cliente.curp,
         cliente.nombre,
         cliente.apellido1,
@@ -44,11 +43,12 @@ function AddCliente() {
         cliente.locacion,
         0
       );
-      if (await CustomerController.createCustomer(cli)) {
+      if (await controller.CustomerController.createCustomer(cli)) {
         console.log("Insertando registro ");
         console.log(cli);
       } else {
         console.log("error");
+        alert("Error, no se pudo insertar los datos");
       }
     }
     closeModal();
@@ -97,9 +97,12 @@ function AddCliente() {
                         className="text-input"
                         placeholder="CURP"
                         onChange={(e) =>
-                          setCliente({ ...cliente, curp: e.target.value })
+                          setCliente({
+                            ...cliente,
+                            curp: e.target.value.toUpperCase(),
+                          })
                         }
-                        pattern="[A-Za-z]{4}[\d]{6}[H|M][A-Za-z]{5}[A-Za-z\d]{2}$"
+                        pattern={regex.curp}
                         required
                       />
                     </div>
@@ -111,7 +114,7 @@ function AddCliente() {
                         name=""
                         maxLength={50}
                         className="text-input"
-                        pattern="[\w]+$"
+                        pattern={regex.name}
                         placeholder="Nombre"
                         onChange={(e) =>
                           setCliente({ ...cliente, nombre: e.target.value })
@@ -128,6 +131,7 @@ function AddCliente() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Primer Apellido"
+                        pattern={regex.name}
                         onChange={(e) =>
                           setCliente({ ...cliente, apellido1: e.target.value })
                         }
@@ -143,6 +147,7 @@ function AddCliente() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Segundo Apellido"
+                        pattern={regex.name}
                         onChange={(e) =>
                           setCliente({ ...cliente, apellido2: e.target.value })
                         }
@@ -155,11 +160,10 @@ function AddCliente() {
                         id=""
                         name=""
                         className="text-input"
-                        onChange={(e) =>
-                          {
-                            let aux = e.target.value.replaceAll("-", "");
-                            setCliente({ ...cliente, fecha: aux })}
-                        }
+                        onChange={(e) => {
+                          let aux = e.target.value.replaceAll("-", "");
+                          setCliente({ ...cliente, fecha: aux });
+                        }}
                         required
                       />
                     </div>
@@ -222,7 +226,7 @@ function AddCliente() {
                         name=""
                         className="text-input"
                         placeholder="Locación"
-                        value={cliente.locacion} 
+                        value={cliente.locacion}
                         onChange={(e) =>
                           setCliente({ ...cliente, locacion: e.target.value })
                         }

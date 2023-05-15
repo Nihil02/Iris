@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { SupplierController, Supplier } from "../../util";
+import { controller, regex } from "../../util";
 
 function AddProveedor() {
   let [proveedor, setProveedor] = useState({
@@ -25,7 +25,7 @@ function AddProveedor() {
     e.preventDefault();
 
     if (isOpen) {
-      const sup = new Supplier(
+      const sup = new controller.Supplier(
         proveedor.rfc,
         proveedor.razon,
         proveedor.domicilio,
@@ -33,10 +33,11 @@ function AddProveedor() {
         proveedor.telefono,
         proveedor.cuenta
       );
-      if (await SupplierController.createSupplier(sup)) {
+      if (await controller.SupplierController.createSupplier(sup)) {
         console.log("Insertando registro ");
       } else {
         console.log("error");
+        alert("Error, no se pudo insertar los datos");
       }
 
       closeModal();
@@ -85,6 +86,7 @@ function AddProveedor() {
                         name=""
                         className="text-input"
                         placeholder="RFC"
+                        pattern={regex.rfc}
                         onChange={(e) =>
                           setProveedor({ ...proveedor, rfc: e.target.value })
                         }
@@ -121,16 +123,18 @@ function AddProveedor() {
                             domicilio: e.target.value,
                           })
                         }
+                        pattern="[\w]+$"
                         required
                       />
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Telefono</label>
                       <input
-                        type="text"
+                        type="number"
                         id=""
                         name=""
                         maxLength={20}
+                        min={0}
                         className="text-input"
                         placeholder="Telefono"
                         onChange={(e) =>
@@ -164,8 +168,10 @@ function AddProveedor() {
                         id=""
                         name=""
                         maxLength={50}
+                        minLength={16}
+                        min={0}
                         className="text-input"
-                        placeholder="Cuenta"
+                        placeholder="Cuenta Bancaria"
                         onChange={(e) =>
                           setProveedor({ ...proveedor, cuenta: e.target.value })
                         }

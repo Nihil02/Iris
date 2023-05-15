@@ -2,12 +2,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { useState, Fragment } from "react";
 import { FaTrash } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
-import {
-  EmployeeController,
-  CustomerController,
-  SupplierController,
-  ExamController,
-} from "../util";
+import { controller } from "../util";
 
 function DeleteCard({ cardID = "" }) {
   /* Get current location */
@@ -32,7 +27,7 @@ function DeleteCard({ cardID = "" }) {
 
       switch (path) {
         case "/cliente":
-          condition = await CustomerController.deleteCustomer(cardID);
+          condition = await controller.CustomerController.deleteCustomer(cardID);
           if (condition) {
             console.log("eliminado registro " + cardID);
           } else {
@@ -41,7 +36,7 @@ function DeleteCard({ cardID = "" }) {
           break;
 
         case "/proveedor":
-          condition = await SupplierController.deleteSupplier(cardID);
+          condition = await controller.SupplierController.deleteSupplier(cardID);
           if (condition) {
             console.log("eliminado registro " + cardID);
           } else {
@@ -50,7 +45,7 @@ function DeleteCard({ cardID = "" }) {
           break;
 
         case "/usuario":
-          condition = await EmployeeController.deleteEmployee(cardID);
+          condition = await controller.EmployeeController.deleteEmployee(cardID);
           if (condition) {
             console.log("eliminado registro " + cardID);
           } else {
