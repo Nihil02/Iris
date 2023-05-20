@@ -79,7 +79,10 @@ class SupplierService {
    */
   static async updateSupplier(supplier) {
     try {
-      /* Validations goes here */
+      const validation = this.isValidSupplier(supplier);
+      if(typeof validation === "object") {
+        throw validation;
+      }
       await SupplierDAO.updateSupplier(supplier);
       return true;
     } catch (error) {
@@ -122,6 +125,10 @@ class SupplierService {
    * @returns
    */
   static isValidSupplier(supplier) {
+    const forbiddenChars = /[@<>%&#"'/]/g;
+    if(forbiddenChars.test(supplier.razon_social)) {
+      return new Error("Invalid name");
+    }
     if (!Validator.isRFC(supplier.rfc)) {
       return new Error("Invalid RFC");
     }
