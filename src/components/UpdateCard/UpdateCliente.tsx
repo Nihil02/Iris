@@ -22,7 +22,6 @@ function UpdateCliente({ id = "" }) {
   useEffect(() => {
     async function getData() {
       const data = await controller.CustomerController.getCustomerById(id);
-      console.log(data);
 
       cliente.curp = data.CURP;
       cliente.nombre = data.nombre;

@@ -40,21 +40,21 @@ function ShowExamen({ id = "", name = "" }) {
       
       examen.fecha = data.fecha;
 
-      examen.lejos_od_esferico = data.lejos_od_esferico + "";
-      examen.lejos_od_cilindrico = data.lejos_od_cilindrico + "";
-      examen.lejos_od_eje = data.lejos_od_eje + "";
-      examen.lejos_od_agudeza = data.lejos_od_agudeza_visual + "";
-      examen.adicion_od_esferico = data.adicion_od_esferico + "";
+      examen.lejos_od_esferico = format.numberDecFormat(data.lejos_od_esferico);
+      examen.lejos_od_cilindrico = format.numberDecFormat(data.lejos_od_cilindrico);
+      examen.lejos_od_eje = format.numberDecFormat(data.lejos_od_eje);
+      examen.lejos_od_agudeza = format.numberDecFormat(data.lejos_od_agudeza_visual);
+      examen.adicion_od_esferico = format.numberDecFormat(data.adicion_od_esferico);
 
-      examen.lejos_oi_esferico = data.lejos_oi_esferico + "";
-      examen.lejos_oi_cilindrico = data.lejos_oi_cilindrico + "";
-      examen.lejos_oi_eje = data.lejos_oi_eje + "";
-      examen.lejos_oi_agudeza = data.lejos_oi_agudeza_visual + "";
-      examen.adicion_oi_esferico = data.adicion_oi_esferico + "";
+      examen.lejos_oi_esferico = format.numberDecFormat(data.lejos_oi_esferico);
+      examen.lejos_oi_cilindrico = format.numberDecFormat(data.lejos_oi_cilindrico);
+      examen.lejos_oi_eje = format.numberDecFormat(data.lejos_oi_eje);
+      examen.lejos_oi_agudeza = format.numberDecFormat(data.lejos_oi_agudeza_visual);
+      examen.adicion_oi_esferico = format.numberDecFormat(data.adicion_oi_esferico);
 
-      examen.dp_od = data.dp_od + ""
-      examen.dp_oi = data.dp_oi + ""
-      examen.ob_od = data.oblea+""
+      examen.dp_od = format.numberDecFormat(data.dp_od);
+      examen.dp_oi = format.numberDecFormat(data.dp_oi);
+      examen.ob_od = format.numberDecFormat(data.oblea);
 
       examen.tipo_lentes = data.tipo_lentes;
       examen.observaciones = data.observaciones;
@@ -317,7 +317,7 @@ function ShowExamen({ id = "", name = "" }) {
                                 value={examen.ob_od}
                               />
                             </td>
-                            <td>
+                            {/*<td>
                               <input
                                 type="number"
                                 name=""
@@ -326,7 +326,7 @@ function ShowExamen({ id = "", name = "" }) {
                                 readOnly
                                 value={examen.ob_oi}
                               />
-                            </td>
+                            </td>*/}
                           </tr>
                         </tbody>
                       </table>

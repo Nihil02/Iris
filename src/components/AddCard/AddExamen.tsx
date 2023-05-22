@@ -41,6 +41,7 @@ function AddExamen() {
 
   const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    setExamen(examen)
     console.log(examen);
 
     if (isOpen) {
@@ -72,7 +73,7 @@ function AddExamen() {
       }
 
       closeModal();
-      //window.location.reload();
+      window.location.reload();
     }
   };
 
