@@ -1,6 +1,6 @@
 interface IExamAPI {
-  getAllExams: (curp: string) => Array<Data>;
-  getExamById: (curp: string, date: string) => Data;
+  getAllExams: (curp: string) => Array<Exam>;
+  getExamById: (curp: string, date?: string) => Exam;
   addExam: (exam: any) => Boolean;
   updateExam: (exam: any) => Boolean;
 }
@@ -68,12 +68,14 @@ class Exam {
 }
 
 class ExamController {
-  static async getAllExams(curp: string): Promise<Array<Data>> {
+  static async getAllExams(curp: string): Promise<Array<Exam>> {
     return await window.examAPI.getAllExams(curp);
   }
-  static async getExamById(curp: string, date: string): Promise<Data> {
+  
+  static async getExamById(curp: string, date?: string): Promise<Exam> {
     return await window.examAPI.getExamById(curp, date);
   }
+
   static async addExam(exam: Exam): Promise<Boolean> {
     return await window.examAPI.addExam(exam);
   }

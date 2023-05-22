@@ -1,82 +1,74 @@
 const Customer = require("../model/customer");
 
+/**
+ * @typedef CustomerDTO
+ * @property {string} CURP
+ * @property {string} nombre
+ * @property {string} primer_apellido
+ * @property {string} segundo_apellido
+ * @property {string} telefono
+ * @property {string} domicilio
+ * @property {string} fecnac
+ * @property {string} edonac
+ * @property {string} sexo
+ * @property {string} nacorigen
+ * @property {string} edo
+ * @property {string} mun
+ * @property {string} loc
+ * @property {string} contpaq_id
+ */
 class CustomerDAO {
-
   /**
    * Returns all Customers in the database.
    * @returns Array of Customers's
    */
-    static async getAllCustomers() {
-        const res = Customer.findAll();
-        return res;
-    }
+  static async getAllCustomers() {
+    const res = Customer.findAll();
+    return res;
+  }
 
   /**
    * Finds a customer by his CURP.
    * @returns A customer (Object)
-  */
-    static async getCustomerByCURP(id) {
-        const res = Customer.findByPk(id);
-        return res;
-    }
+   */
+  static async getCustomerByCURP(id) {
+    const res = Customer.findByPk(id);
+    return res;
+  }
 
-    static async createCustomer(customer) {
-        const [CURP, nombre, primer_apellido, segundo_apellido, telefono, domicilio, fecnac, edonac, sexo, nacorigen, edo, mun, loc, contpaq_id] = Object.values(customer);
-        await Customer.create({
-            CURP: CURP,
-            nombre: nombre,
-            primer_apellido: primer_apellido,
-            segundo_apellido: segundo_apellido,
-            telefono:  telefono,
-            domicilio: domicilio,
-            fecnac: fecnac,
-            edonac: edonac,
-            sexo: sexo,
-            nacorigen: nacorigen,
-            edo: edo,
-            mun: mun,
-            loc: loc,
-            contpaq_id: contpaq_id
-        });
-        return true;
-    }
+  /**
+   * Creates a customer in the database
+   * @param {CustomerDTO} customer
+   */
+  static async createCustomer(customer) {
+    await Customer.create(customer);
+    return true;
+  }
 
   /**
    * Update customer information
-  */
-    static async updateCustomer(customer) {
-        const [CURP, nombre, primer_apellido, segundo_apellido, telefono, domicilio, fecnac, edonac, sexo, nacorigen, edo, mun, loc, contpaq_id] = Object.values(customer);
-        await Customer.update({
-            nombre: nombre,
-            primer_apellido: primer_apellido,
-            segundo_apellido: segundo_apellido,
-            telefono:  telefono,
-            domicilio: domicilio,
-            fecnac: fecnac,
-            edonac: edonac,
-            sexo: sexo,
-            nacorigen: nacorigen,
-            edo: edo,
-            mun: mun,
-            loc: loc,
-            compaqi_id: contpaq_id
-        }, {
-            where: {
-                CURP: CURP,
-            },
-        });
-        return true;
-    }
+   * @param {CustomerDTO} customer
+   */
+  static async updateCustomer(customer) {
+    await Customer.update(
+      customer,
+      {
+        where: {
+          CURP: customer.CURP,
+        },
+      }
+    );
+    return true;
+  }
 
   /**
    * Finds an customer by his curp and deletes him.
-  */
-    static async deleteCustomer(curp) {
-        const customer = await Customer.findByPk(curp);
-        await customer.destroy();
-        return true;
-    }
-    
+   */
+  static async deleteCustomer(curp) {
+    const customer = await Customer.findByPk(curp);
+    await customer.destroy();
+    return true;
+  }
 }
 
-module.exports = CustomerDAO
+module.exports = CustomerDAO;

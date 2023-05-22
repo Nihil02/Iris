@@ -29,7 +29,7 @@ function ShowExamen({ id = "", name = "" }) {
   /* Fetch data from the api to the component */
   useEffect(() => {
     async function getData() {
-      const data = await controller.ExamController.getExamById(examen.cliente, id);
+      const data = await controller.ExamController.getExamById(examen.cliente);
       console.log(examen.cliente + " " + id);
       console.log("examen " + data);
       

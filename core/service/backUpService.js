@@ -47,7 +47,7 @@ class BackUpService {
   }
 
   /**
-   * Sorts an arrays of files with name format `iris-yyyymmdd.db` by date (from the most recent to me most oldest date).
+   * Sorts an array of files with name format `iris-yyyymmdd.db` by date (from the most recent to me most oldest date).
    *
    * @param {string[]} files An array with filenames.
    * @returns {string []} An array with filenames sorted by date.

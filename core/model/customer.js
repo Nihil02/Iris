@@ -8,6 +8,7 @@ Customer.init(
     CURP: {
       type: DataTypes.STRING(18),
       primaryKey: true,
+      allowNull: false
     },
     nombre: {
       type: DataTypes.STRING(50),
@@ -15,11 +16,11 @@ Customer.init(
     },
     telefono: {
       type: DataTypes.STRING(20),
-      allowNull: false 
+      allowNull: true 
     },
     domicilio: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: true
     },
     primer_apellido: {
       type: DataTypes.STRING(50),
