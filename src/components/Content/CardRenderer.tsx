@@ -54,8 +54,6 @@ const CardRenderer = ({ data = [{}] }) => {
                   id = card.fecha;
                   nombre = dateFormat(card.fecha + "");
                 }
-                console.log(id + " - " + nombre);
-                
               }
               return <Card key={id} id={id} name={nombre} />;
 
