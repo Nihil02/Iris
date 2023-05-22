@@ -9,7 +9,7 @@ class BackUpService {
    */
   static createBackUp(src = "", dest = "") {
     // Before all is necessary check if the backup folder not exists, if is true, thus we create him.
-    if (folderExists(dest)) {
+    if (!folderExists(dest)) {
       fs.mkdirSync(dest);
     }
     // We get all files in the backup folder for get the number of backups in the system.

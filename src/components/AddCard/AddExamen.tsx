@@ -71,7 +71,7 @@ function AddExamen() {
       }
 
       closeModal();
-      //window.location.reload();
+      window.location.reload();
     }
   };
 

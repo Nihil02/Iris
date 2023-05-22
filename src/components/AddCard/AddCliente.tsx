@@ -29,7 +29,6 @@ function AddCliente() {
   const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setCliente({ ...cliente, fecha: format.dateIntFormat(cliente.fecha) });
-    console.log(cliente);
 
     if (isOpen) {
       const cli = new controller.Customer(

@@ -65,7 +65,7 @@ const MenuIcon = ({ icon = {}, tooltip = "", route = "", redirect = true }) => {
     e.preventDefault();
     switch (route) {
       case "Exportar":
-        BackUpcontroller.createBackUp("../../core/database/iris.db", "../../core/database/");
+        BackUpcontroller.createBackUp("../../core/database/iris.db", "../../core/backup/");
         break;
 
       case "Restaurar":

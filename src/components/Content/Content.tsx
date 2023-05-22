@@ -103,9 +103,7 @@ function Content({ title = "" }) {
   }
 
   const search = (keyword: string) => {
-    let matches = matchSorter(data, keyword, { keys: ["res"] });
-    console.log(matches);
-    
+    let matches = matchSorter(data, keyword, { keys: ["res"] });    
     setKeyword(keyword);
 
     if (keyword === "") {
