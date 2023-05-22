@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { controller, regex, format } from "../../util";
+import { controller, regex, format, arrays } from "../../util";
 
 function AddCliente() {
   let [cliente, setCliente] = useState({
@@ -12,7 +12,7 @@ function AddCliente() {
     telefono: "",
     domicilio: "",
     fecha: "",
-    estado: "32",
+    estado: "28",
     municipio: "48",
     locacion: "0000",
     sexo: "H",
@@ -47,7 +47,7 @@ function AddCliente() {
         cliente.telefono,
         cliente.domicilio
       );
-      
+
       if (await controller.CustomerController.createCustomer(cli)) {
         console.log("Insertando registro ");
         console.log(cli);
@@ -224,20 +224,22 @@ function AddCliente() {
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Estado</label>
-                      <input
-                        type="number"
-                        id=""
-                        name=""
+                      <select
                         className="text-input"
-                        placeholder="Estado"
+                        name="estado"
+                        id="estado"
+                        value={cliente.estado}
                         onChange={(e) =>
-                          setCliente({ ...cliente, estado: e.target.value })
+                          setCliente({
+                            ...cliente,
+                            estado: e.target.value,
+                          })
                         }
-                        value={cliente.estado} //Tamaulipas
-                        min={1}
-                        max={32}
-                        required
-                      />
+                      >
+                        {arrays.states.map((s, i) => {
+                          return <option value={i + 1}>{s}</option>;
+                        })}
+                      </select>
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Municipio</label>

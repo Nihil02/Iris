@@ -41,6 +41,8 @@ function AddExamen() {
 
   const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    setExamen(examen)
+    console.log(examen);
 
     if (isOpen) {
       const exa = new controller.Exam(
@@ -163,12 +165,13 @@ function AddExamen() {
                                 max={12.0}
                                 min={-12.0}
                                 value={examen.lejos_od_esferico}
-                                onChange={(e) =>
+                                onChange={(e) => {
                                   setExamen({
                                     ...examen,
                                     lejos_od_esferico: e.target.value,
-                                  })
-                                }
+                                  });
+                                  console.log(examen.lejos_od_esferico);
+                                }}
                               />
                             </td>
                             <td>

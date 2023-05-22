@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
-import { controller, format, regex } from "../../util";
+import { arrays, controller, format, regex } from "../../util";
 
 function UpdateCliente({ id = "" }) {
   let [cliente, setCliente] = useState({
@@ -22,15 +22,14 @@ function UpdateCliente({ id = "" }) {
   useEffect(() => {
     async function getData() {
       const data = await controller.CustomerController.getCustomerById(id);
-      console.log(data);
 
       cliente.curp = data.CURP;
       cliente.nombre = data.nombre;
       cliente.apellido1 = data.primer_apellido;
       cliente.apellido2 = data.segundo_apellido;
-      cliente.telefono = data.telefono;
-      cliente.domicilio = data.domicilio;
-      cliente.fecha = data.fecnac;
+      cliente.telefono = data.telefono + "";
+      cliente.domicilio = data.domicilio + "";
+      cliente.fecha = data.fecnac + "";
       cliente.estado = data.edo;
       cliente.municipio = data.mun;
       cliente.locacion = data.loc;
@@ -252,20 +251,22 @@ function UpdateCliente({ id = "" }) {
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Estado</label>
-                      <input
-                        type="number"
-                        id=""
-                        name=""
+                      <select
                         className="text-input"
+                        name="estado"
+                        id="estado"
                         value={cliente.estado}
                         onChange={(e) =>
-                          setCliente({ ...cliente, estado: e.target.value })
+                          setCliente({
+                            ...cliente,
+                            estado: e.target.value,
+                          })
                         }
-                        defaultValue={28} //Tamaulipas
-                        min={1}
-                        max={32}
-                        required
-                      />
+                      >
+                        {arrays.states.map((s, i) => {
+                          return <option value={i + 1}>{s}</option>;
+                        })}
+                      </select>
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Municipio</label>

@@ -1,14 +1,13 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
-import { controller } from "../../util";
+import { controller, format } from "../../util";
 import { useParams } from "react-router";
 
 function ShowExamen({ id = "", name = "" }) {
   let param = useParams();
   let [examen, setExamen] = useState({
-    cliente: param.cliente+"",
+    cliente: param.cliente + "",
     fecha: "",
-    rx: "",
 
     lejos_od_esferico: "",
     lejos_od_cilindrico: "",
@@ -22,6 +21,11 @@ function ShowExamen({ id = "", name = "" }) {
     lejos_oi_agudeza: "",
     adicion_oi_esferico: "",
 
+    dp_oi: "",
+    dp_od: "",
+    ob_od: "",
+    ob_oi: "",
+
     tipo_lentes: "",
     observaciones: "",
   });
@@ -29,10 +33,31 @@ function ShowExamen({ id = "", name = "" }) {
   /* Fetch data from the api to the component */
   useEffect(() => {
     async function getData() {
-      const data = await controller.ExamController.getExamById(examen.cliente, id);
-      console.log(examen.cliente + " " + id);
-      console.log(data);
+      const data = await controller.ExamController.getExamById(
+        examen.cliente,
+        id
+      );
       
+      examen.fecha = data.fecha;
+
+      examen.lejos_od_esferico = format.numberDecFormat(data.lejos_od_esferico);
+      examen.lejos_od_cilindrico = format.numberDecFormat(data.lejos_od_cilindrico);
+      examen.lejos_od_eje = format.numberDecFormat(data.lejos_od_eje);
+      examen.lejos_od_agudeza = format.numberDecFormat(data.lejos_od_agudeza_visual);
+      examen.adicion_od_esferico = format.numberDecFormat(data.adicion_od_esferico);
+
+      examen.lejos_oi_esferico = format.numberDecFormat(data.lejos_oi_esferico);
+      examen.lejos_oi_cilindrico = format.numberDecFormat(data.lejos_oi_cilindrico);
+      examen.lejos_oi_eje = format.numberDecFormat(data.lejos_oi_eje);
+      examen.lejos_oi_agudeza = format.numberDecFormat(data.lejos_oi_agudeza_visual);
+      examen.adicion_oi_esferico = format.numberDecFormat(data.adicion_oi_esferico);
+
+      examen.dp_od = format.numberDecFormat(data.dp_od);
+      examen.dp_oi = format.numberDecFormat(data.dp_oi);
+      examen.ob_od = format.numberDecFormat(data.oblea);
+
+      examen.tipo_lentes = data.tipo_lentes;
+      examen.observaciones = data.observaciones;
     }
     getData();
   }, []);
@@ -81,7 +106,8 @@ function ShowExamen({ id = "", name = "" }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="modal-panel">
-                  <form className="m-4">
+                  
+                <form className="m-4">
                     <div className="mb-6">
                       <label htmlFor="">Cliente</label>
                       <input
@@ -89,25 +115,9 @@ function ShowExamen({ id = "", name = "" }) {
                         id=""
                         name=""
                         className="text-input"
-                        readOnly
                         placeholder="Cliente"
                         value={examen.cliente}
-                        required
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">RX</label>
-                      <input
-                        type="text"
-                        id=""
-                        name=""
-                        maxLength={50}
-                        className="text-input"
-                        placeholder="RX"
-                        onChange={(e) =>
-                          setExamen({ ...examen, rx: e.target.value })
-                        }
-                        required
+                        readOnly
                       />
                     </div>
                     <div className="mb-6">
@@ -117,13 +127,14 @@ function ShowExamen({ id = "", name = "" }) {
                         id=""
                         name=""
                         className="text-input"
-                        onChange={(e) =>
-                          setExamen({ ...examen, fecha: e.target.value })
-                        }
-                        required
+                        value={format.dateHTMLFormat(examen.fecha)}
+                        readOnly
                       />
                     </div>
+                    <div className="mb-6"></div>
                     <div className="mb-6 w-full justify-center items-center">
+                      <label htmlFor="">RX</label>
+                      <hr className="mb-6 mt-3" />
                       <table className="table-fixed">
                         <thead className="text-center text-sm">
                           <tr>
@@ -144,16 +155,8 @@ function ShowExamen({ id = "", name = "" }) {
                                 name=""
                                 id=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
-                                placeholder="0.00"
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    lejos_od_esferico: e.target.value,
-                                  })
-                                }
+                                readOnly
+                                value={examen.lejos_od_esferico}
                               />
                             </td>
                             <td>
@@ -162,16 +165,8 @@ function ShowExamen({ id = "", name = "" }) {
                                 name=""
                                 id=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
-                                placeholder="0.00"
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    lejos_od_cilindrico: e.target.value,
-                                  })
-                                }
+                                readOnly
+                                value={examen.lejos_od_cilindrico}
                               />
                             </td>
                             <td>
@@ -180,16 +175,8 @@ function ShowExamen({ id = "", name = "" }) {
                                 name=""
                                 id=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
-                                placeholder="0.00"
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    lejos_od_eje: e.target.value,
-                                  })
-                                }
+                                readOnly
+                                value={examen.lejos_od_eje}
                               />
                             </td>
                             <td>
@@ -198,16 +185,8 @@ function ShowExamen({ id = "", name = "" }) {
                                 name=""
                                 id=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
-                                placeholder="0.00"
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    lejos_od_agudeza: e.target.value,
-                                  })
-                                }
+                                readOnly
+                                value={examen.lejos_od_agudeza}
                               />
                             </td>
                           </tr>
@@ -221,16 +200,8 @@ function ShowExamen({ id = "", name = "" }) {
                                 name=""
                                 id=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
-                                placeholder="0.00"
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    lejos_oi_esferico: e.target.value,
-                                  })
-                                }
+                                readOnly
+                                value={examen.lejos_oi_esferico}
                               />
                             </td>
                             <td>
@@ -239,16 +210,8 @@ function ShowExamen({ id = "", name = "" }) {
                                 name=""
                                 id=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
-                                placeholder="0.00"
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    lejos_oi_cilindrico: e.target.value,
-                                  })
-                                }
+                                readOnly
+                                value={examen.lejos_oi_cilindrico}
                               />
                             </td>
                             <td>
@@ -257,16 +220,8 @@ function ShowExamen({ id = "", name = "" }) {
                                 name=""
                                 id=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
-                                placeholder="0.00"
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    lejos_oi_eje: e.target.value,
-                                  })
-                                }
+                                readOnly
+                                value={examen.lejos_oi_eje}
                               />
                             </td>
                             <td>
@@ -275,16 +230,8 @@ function ShowExamen({ id = "", name = "" }) {
                                 name=""
                                 id=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
-                                placeholder="0.00"
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    lejos_oi_agudeza: e.target.value,
-                                  })
-                                }
+                                readOnly
+                                value={examen.lejos_oi_agudeza}
                               />
                             </td>
                           </tr>
@@ -298,16 +245,8 @@ function ShowExamen({ id = "", name = "" }) {
                                 name=""
                                 id=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
-                                placeholder="0.00"
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    adicion_od_esferico: e.target.value,
-                                  })
-                                }
+                                readOnly
+                                value={examen.adicion_od_esferico}
                               />
                             </td>
                           </tr>
@@ -321,18 +260,73 @@ function ShowExamen({ id = "", name = "" }) {
                                 name=""
                                 id=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
-                                placeholder="0.00"
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    adicion_oi_esferico: e.target.value,
-                                  })
-                                }
+                                readOnly
+                                value={examen.adicion_oi_esferico}
                               />
                             </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className="mb-6">
+                      {/* Otros datos */}
+                      <table className="table-fixed">
+                        <thead className="text-center text-sm">
+                          <tr>
+                            <th></th>
+                            <th>Derecho</th>
+                            <th>Izquierdo</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {/* DP */}
+                          <tr>
+                            <td className="pr-12">DP</td>
+                            <td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                readOnly
+                                value={examen.dp_od}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                readOnly
+                                value={examen.dp_oi}
+                              />
+                            </td>
+                          </tr>
+
+                          {/* Oblea */}
+                          <tr>
+                            <td className="pr-10">Oblea</td>
+                            <td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                readOnly
+                                value={examen.ob_od}
+                              />
+                            </td>
+                            {/*<td>
+                              <input
+                                type="number"
+                                name=""
+                                id=""
+                                className="table-input"
+                                readOnly
+                                value={examen.ob_oi}
+                              />
+                            </td>*/}
                           </tr>
                         </tbody>
                       </table>
@@ -343,13 +337,9 @@ function ShowExamen({ id = "", name = "" }) {
                         type="text"
                         id=""
                         name=""
-                        maxLength={50}
                         className="text-input"
-                        placeholder="Tipo de Lentes"
-                        onChange={(e) =>
-                          setExamen({ ...examen, tipo_lentes: e.target.value })
-                        }
-                        required
+                        value={examen.tipo_lentes}
+                        readOnly
                       />
                     </div>
                     <div className="mb-6">
@@ -360,17 +350,14 @@ function ShowExamen({ id = "", name = "" }) {
                         className="text-input"
                         placeholder="Observaciones"
                         rows={3}
-                        onChange={(e) =>
-                          setExamen({
-                            ...examen,
-                            observaciones: e.target.value,
-                          })
-                        }
-                        required
+                        value={examen.observaciones}
                       />
                     </div>
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
+                      <button type="submit" className="btn-primary">
+                        Agregar
+                      </button>
                       <button className="btn-danger" onClick={closeModal}>
                         Cancelar
                       </button>

@@ -26,7 +26,6 @@ class ExamDAO {
 
     if (arguments.length == 2) {
       const res = await Exam.findOne({ where: { cliente: curp, fecha: date } });
-      console.log(res.dataValues);
       return res.dataValues;
     }
   }
