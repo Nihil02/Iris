@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
-import { controller, format, regex } from "../../util";
+import { arrays, controller, format, regex } from "../../util";
 
 function UpdateCliente({ id = "" }) {
   let [cliente, setCliente] = useState({
@@ -252,20 +252,22 @@ function UpdateCliente({ id = "" }) {
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Estado</label>
-                      <input
-                        type="number"
-                        id=""
-                        name=""
+                      <select
                         className="text-input"
+                        name="estado"
+                        id="estado"
                         value={cliente.estado}
                         onChange={(e) =>
-                          setCliente({ ...cliente, estado: e.target.value })
+                          setCliente({
+                            ...cliente,
+                            estado: e.target.value,
+                          })
                         }
-                        defaultValue={28} //Tamaulipas
-                        min={1}
-                        max={32}
-                        required
-                      />
+                      >
+                        {arrays.states.map((s, i) => {
+                          return <option value={i + 1}>{s}</option>;
+                        })}
+                      </select>
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Municipio</label>
