@@ -1,5 +1,29 @@
 const SupplierDAO = require("../DAO/supplierDAO.js");
 const Validator = require("../validation/validator.js");
+/**
+ * @readonly
+ * @enum {string}
+ */
+
+const SupplierValidationResult = {
+  VALID: "VALID",
+  INVALID_RFC: "INVALID_RFC",
+  INVALID_DATA: "INVALID_DATA",
+  INVALID_PHONE: "INVALID_PHONE",
+  EMPLOYEE_NOT_FOUND: "EMPLOYEE_NOT_FOUND",
+  INVALID_EMAIL: "INVALID_EMAIL",
+  MISSING_FIELD: "MISSING_FIELD",
+};
+
+const {
+  VALID,
+  INVALID_RFC,
+  INVALID_DATA,
+  INVALID_PHONE,
+  EMPLOYEE_NOT_FOUND,
+  INVALID_EMAIL,
+  MISSING_FIELD,
+} = SupplierValidationResult;
 
 /**
  * @typedef Supplier
@@ -28,13 +52,17 @@ class SupplierService {
   static async getSupplierByRFC(rfc = "") {
     try {
       if (typeof rfc !== "string") {
-        throw new Error("No string RFC");
+        throw new Error(INVALID_DATA);
       }
 
       const sanitizedRFC = rfc.trim();
 
+      if(!sanitizedRFC) {
+        throw new Error(MISSING_FIELD);
+      }
+
       if (!Validator.isRFC(sanitizedRFC)) {
-        throw Error("Invalid RFC");
+        throw Error(INVALID_RFC);
       }
 
       const supplier = await SupplierDAO.getSupplierById(rfc);
@@ -52,15 +80,15 @@ class SupplierService {
    */
   static async createSupplier(supplier) {
     try {
-      const newSupplier = this.formatSupplier(supplier);
-      const validation = this.isValidSupplier(newSupplier);
+      const formattedSupplier = this.formatSupplier(supplier);
+      const validationResult = this.validateSupplier(formattedSupplier);
 
-      if (typeof validation === "object") {
-        throw validation;
+      if (validationResult !== VALID) {
+        throw new Error(validationResult);
       }
 
-      const findSupplier = await this.getSupplierByRFC(supplier.rfc);
-      if (findSupplier) {
+      const searchResult = await this.getSupplierByRFC(supplier.rfc);
+      if (searchResult) {
         throw new Error("Supplier already exists");
       }
 
@@ -79,9 +107,9 @@ class SupplierService {
    */
   static async updateSupplier(supplier) {
     try {
-      const validation = this.isValidSupplier(supplier);
-      if(typeof validation === "object") {
-        throw validation;
+      const validationResult = this.validateSupplier(supplier);
+      if (validationResult !== VALID) {
+        throw new Error(validationResult);
       }
       await SupplierDAO.updateSupplier(supplier);
       return true;
@@ -122,20 +150,27 @@ class SupplierService {
    * Validates all of the properties of a supplier.
    *
    * @param {Supplier} supplier - See {@linkcode Supplier}.
-   * @returns
+   * @returns {SupplierValidationResult}
    */
-  static isValidSupplier(supplier) {
+  static validateSupplier(supplier) {
+    for (const [_, value] of Object.entries(supplier)) {
+      if (!value) {
+        return MISSING_FIELD;
+      }
+    }
     const forbiddenChars = /[@<>%&#"'/]/g;
-    if(forbiddenChars.test(supplier.razon_social)) {
-      return new Error("Invalid name");
+    if (forbiddenChars.test(supplier.razon_social)) {
+      return INVALID_DATA;
     }
-    if (!Validator.isRFC(supplier.rfc)) {
-      return new Error("Invalid RFC");
-    }
+
     if (!Validator.isEmail(supplier.correo_electronico)) {
-      return new Error("Invalid Email");
+      return INVALID_EMAIL;
     }
-    return true;
+
+    if (!Validator.isRFC(supplier.rfc)) {
+      return INVALID_RFC;
+    }
+    return VALID;
   }
 }
 
