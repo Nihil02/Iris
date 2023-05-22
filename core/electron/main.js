@@ -177,5 +177,5 @@ ipcMain.handle(K.Exam.updateExam, async (event, exam) => {
 
 // Backup
 ipcMain.handle(K.Backup.createBackUp, (event, src, dest) => {
-  return BackUpService.createBackUp(src, dest);
-})
+  BackUpService.createBackUp(src, dest);
+});

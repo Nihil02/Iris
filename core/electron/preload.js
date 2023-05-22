@@ -41,7 +41,7 @@ const examAPI = {
   updateExam: (exam) => ipcRenderer.invoke(K.Exam.updateExam, exam),
 };
 
-const backupAPI = {
+const backUpAPI = {
   createBackUp: (src, dest) =>
     ipcRenderer.invoke(K.Backup.createBackUp, src, dest),
 };
@@ -54,4 +54,4 @@ contextBridge.exposeInMainWorld("customerAPI", customerAPI);
 
 contextBridge.exposeInMainWorld("examAPI", examAPI);
 
-contextBridge.exposeInMainWorld("backupAPI", backupAPI);
+contextBridge.exposeInMainWorld("backUpAPI", backUpAPI);

@@ -1,5 +1,5 @@
 interface IBackUpAPI {
-  createBackUp: (src: string, dest: string) => void;
+  createBackUp: (src?: string, dest?: string) => void;
 }
 
 declare global {
@@ -15,7 +15,7 @@ class BackUpcontroller {
    * @param {string} src The path of database folder.
    * @param {string} dest The path of the backup folder.
    */
-  static createBackUp(src: string, dest: string) {
+  static createBackUp(src?: string, dest?: string) {
     window.backUpAPI.createBackUp(src, dest);
   }
 }

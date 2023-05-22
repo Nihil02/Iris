@@ -1,4 +1,5 @@
 const fs = require("fs");
+const {sequelize} = require("../database/connection.js");
 const { getFiles, folderExists } = require("../util/folderHandler.js");
 
 class BackUpService {
@@ -8,6 +9,12 @@ class BackUpService {
    * @param {string} dest The path of the backup folder
    */
   static createBackUp(src = "", dest = "") {
+    if (dest.trim() === "") {
+      dest = `${process.cwd()}/core/backups`;
+    }
+    if (src.trim() === "") {
+      src = `${process.cwd()}/core/database`;
+    }
     // Before all is necessary check if the backup folder not exists, if is true, thus we create him.
     if (!folderExists(dest)) {
       fs.mkdirSync(dest);
@@ -24,7 +31,9 @@ class BackUpService {
     // Gets the actual date, parses into a string and formats from YYYY-MM-DDThh:mm:ssZ to YYYY-MM-DD.
     const date = new Date().toISOString().split("T").shift();
     const finalDest = `${dest}/iris_${date}.db`;
-    fs.copyFile(src, finalDest);
+    const sql = `VACUUM '${finalDest}'`; // Omg Rafa, wtf
+    sequelize.query(sql);
+    //fs.copyFileSync(src, finalDest);
   }
 
   /**
