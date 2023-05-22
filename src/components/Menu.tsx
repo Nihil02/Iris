@@ -7,7 +7,8 @@ import {
   FaUndo,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { getAdmin } from "../util";
+import { getAdmin, controller } from "../util";
+import { BackUpcontroller } from "../../core/controller/backUpController";
 
 function Menu() {
   return (
@@ -60,7 +61,10 @@ function Menu() {
 }
 
 const MenuIcon = ({ icon = {}, tooltip = "", route = "", redirect = true }) => {
-  const menuClick = () => {};
+  const menuClick = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    BackUpcontroller.createBackUp("../../core/database/iris.db", "")
+  };
 
   return (
     <>
