@@ -34,7 +34,7 @@ function ShowCard({ name = "", id = "" }) {
     case "/examen/" + param.cliente:
       return (
         <>
-          <ShowExamen name = {name}/>
+          <ShowExamen id = {id} name = {name}/>
         </>
       );
 

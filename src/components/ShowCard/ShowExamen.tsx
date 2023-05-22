@@ -1,9 +1,12 @@
 import { Transition, Dialog } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { controller } from "../../util";
+import { useParams } from "react-router";
 
-function ShowExamen({name = ""}) {
+function ShowExamen({ id = "", name = "" }) {
+  let param = useParams();
   let [examen, setExamen] = useState({
-    cliente: "",
+    cliente: param.cliente+"",
     fecha: "",
     rx: "",
 
@@ -23,6 +26,18 @@ function ShowExamen({name = ""}) {
     observaciones: "",
   });
 
+  /* Fetch data from the api to the component */
+  useEffect(() => {
+    async function getData() {
+      const data = await controller.ExamController.getExamById(examen.cliente, id);
+      console.log(examen.cliente + " " + id);
+      console.log("examen " + data);
+      
+    }
+    getData();
+  }, []);
+
+  /* Controls modal state */
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
     setIsOpen(false);
@@ -32,20 +47,13 @@ function ShowExamen({name = ""}) {
     setIsOpen(true);
   }
 
-  const addCard = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    setExamen({ ...examen, fecha: examen.fecha.replace("-", "") });
-    console.log(examen);
-    closeModal();
-  };
-
   return (
     <>
-    <div className="flex flex-wrap items-center w-auto" onClick={openModal}>
-      <p className="text-sm leading-6  max-w-md">
-        <strong className="font-semibold truncate">{name}</strong>
-      </p>
-    </div>
+      <div className="flex flex-wrap items-center w-auto" onClick={openModal}>
+        <p className="text-sm leading-6  max-w-md">
+          <strong className="font-semibold truncate">{name}</strong>
+        </p>
+      </div>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -73,7 +81,7 @@ function ShowExamen({name = ""}) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="modal-panel">
-                  <form className="m-4" onSubmit={addCard}>
+                  <form className="m-4">
                     <div className="mb-6">
                       <label htmlFor="">Cliente</label>
                       <input
@@ -141,7 +149,10 @@ function ShowExamen({name = ""}) {
                                 min={-12.0}
                                 placeholder="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, lejos_od_esferico: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    lejos_od_esferico: e.target.value,
+                                  })
                                 }
                               />
                             </td>
@@ -156,7 +167,10 @@ function ShowExamen({name = ""}) {
                                 min={-12.0}
                                 placeholder="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, lejos_od_cilindrico: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    lejos_od_cilindrico: e.target.value,
+                                  })
                                 }
                               />
                             </td>
@@ -171,7 +185,10 @@ function ShowExamen({name = ""}) {
                                 min={-12.0}
                                 placeholder="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, lejos_od_eje: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    lejos_od_eje: e.target.value,
+                                  })
                                 }
                               />
                             </td>
@@ -186,12 +203,15 @@ function ShowExamen({name = ""}) {
                                 min={-12.0}
                                 placeholder="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, lejos_od_agudeza: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    lejos_od_agudeza: e.target.value,
+                                  })
                                 }
                               />
                             </td>
                           </tr>
-                          
+
                           {/* Ojo Izquierdo Lejos */}
                           <tr>
                             <td></td>
@@ -206,7 +226,10 @@ function ShowExamen({name = ""}) {
                                 min={-12.0}
                                 placeholder="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, lejos_oi_esferico: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    lejos_oi_esferico: e.target.value,
+                                  })
                                 }
                               />
                             </td>
@@ -221,7 +244,10 @@ function ShowExamen({name = ""}) {
                                 min={-12.0}
                                 placeholder="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, lejos_oi_cilindrico: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    lejos_oi_cilindrico: e.target.value,
+                                  })
                                 }
                               />
                             </td>
@@ -236,7 +262,10 @@ function ShowExamen({name = ""}) {
                                 min={-12.0}
                                 placeholder="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, lejos_oi_eje: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    lejos_oi_eje: e.target.value,
+                                  })
                                 }
                               />
                             </td>
@@ -251,7 +280,10 @@ function ShowExamen({name = ""}) {
                                 min={-12.0}
                                 placeholder="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, lejos_oi_agudeza: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    lejos_oi_agudeza: e.target.value,
+                                  })
                                 }
                               />
                             </td>
@@ -271,12 +303,15 @@ function ShowExamen({name = ""}) {
                                 min={-12.0}
                                 placeholder="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, adicion_od_esferico: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    adicion_od_esferico: e.target.value,
+                                  })
                                 }
                               />
                             </td>
                           </tr>
-                          
+
                           {/* Ojo Izquierdo Adición */}
                           <tr>
                             <td></td>
@@ -291,7 +326,10 @@ function ShowExamen({name = ""}) {
                                 min={-12.0}
                                 placeholder="0.00"
                                 onChange={(e) =>
-                                  setExamen({ ...examen, adicion_oi_esferico: e.target.value })
+                                  setExamen({
+                                    ...examen,
+                                    adicion_oi_esferico: e.target.value,
+                                  })
                                 }
                               />
                             </td>
@@ -333,9 +371,6 @@ function ShowExamen({name = ""}) {
                     </div>
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
-                      <button type="submit" className="btn-primary">
-                        Agregar
-                      </button>
                       <button className="btn-danger" onClick={closeModal}>
                         Cancelar
                       </button>
