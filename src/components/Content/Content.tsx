@@ -78,7 +78,7 @@ function Content({ title = "" }) {
 
       case "/examen/" + param.cliente:
         data.map((d) => {
-          d.res = dateFormat(d.fecha+"");
+          d.res = dateFormat(d.fecha + "");
           d.id = d.fecha;
         });
         break;
@@ -102,7 +102,7 @@ function Content({ title = "" }) {
     }
   }
 
-  const search = (keyword) => {
+  const search = (keyword: string) => {
     let matches = matchSorter(data, keyword, { keys: ["res"] });
     setKeyword(keyword);
 
@@ -134,6 +134,28 @@ function Content({ title = "" }) {
                 " " +
                 auxData.segundo_apellido
               }
+              readOnly
+            />
+          </div>
+          <div className="mb-6">
+            <label htmlFor="nombre">Domicilio</label>
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              className="text-input"
+              value={auxData.domicilio}
+              readOnly
+            />
+          </div>
+          <div className="mb-6">
+            <label htmlFor="nombre">Teléfono</label>
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              className="text-input"
+              value={auxData.telefono}
               readOnly
             />
           </div>
