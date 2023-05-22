@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
-import { controller, dateFormat, dateIntFormat, regex } from "../../util";
+import { controller, format, regex } from "../../util";
 
 function UpdateCliente({ id = "" }) {
   let [cliente, setCliente] = useState({
@@ -9,6 +9,8 @@ function UpdateCliente({ id = "" }) {
     nombre: "",
     apellido1: "",
     apellido2: "",
+    telefono: "",
+    domicilio: "",
     fecha: "",
     estado: "",
     municipio: "",
@@ -20,10 +22,14 @@ function UpdateCliente({ id = "" }) {
   useEffect(() => {
     async function getData() {
       const data = await controller.CustomerController.getCustomerById(id);
+      console.log(data);
+
       cliente.curp = data.CURP;
       cliente.nombre = data.nombre;
       cliente.apellido1 = data.primer_apellido;
       cliente.apellido2 = data.segundo_apellido;
+      cliente.telefono = data.telefono;
+      cliente.domicilio = data.domicilio;
       cliente.fecha = data.fecnac;
       cliente.estado = data.edo;
       cliente.municipio = data.mun;
@@ -51,6 +57,8 @@ function UpdateCliente({ id = "" }) {
         cliente.nombre,
         cliente.apellido1,
         cliente.apellido2,
+        cliente.telefono,
+        cliente.domicilio,
         parseInt(cliente.fecha),
         "0000",
         cliente.sexo,
@@ -181,9 +189,9 @@ function UpdateCliente({ id = "" }) {
                         id=""
                         name=""
                         className="text-input"
-                        value={dateFormat(cliente.fecha.toString())}
+                        value={format.dateHTMLFormat(cliente.fecha + "")}
                         onChange={(e) => {
-                          let aux = dateIntFormat(e.target.value);
+                          let aux = format.dateIntFormat(e.target.value);
                           setCliente({ ...cliente, fecha: aux });
                         }}
                         required
@@ -206,6 +214,41 @@ function UpdateCliente({ id = "" }) {
                         <option value="H">Hombre</option>
                         <option value="M">Mujer</option>
                       </select>
+                    </div>
+                    <div className="mb-6">
+                      <label htmlFor="">Telefono</label>
+                      <input
+                        type="number"
+                        id=""
+                        name=""
+                        maxLength={20}
+                        min={0}
+                        className="text-input"
+                        placeholder="Telefono"
+                        value={cliente.telefono}
+                        onChange={(e) =>
+                          setCliente({
+                            ...cliente,
+                            telefono: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                    <div className="mb-6">
+                      <label htmlFor="">Domicilio</label>
+                      <input
+                        type="text"
+                        id=""
+                        name=""
+                        className="text-input"
+                        value={cliente.domicilio}
+                        placeholder="Domicilio"
+                        onChange={(e) =>
+                          setCliente({ ...cliente, domicilio: e.target.value })
+                        }
+                        required
+                      />
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Estado</label>
@@ -241,7 +284,7 @@ function UpdateCliente({ id = "" }) {
                         required
                       />
                     </div>
-                    <div className="mb-6">
+                    {/*<div className="mb-6">
                       <label htmlFor="">Locación</label>
                       <input
                         type="number"
@@ -255,7 +298,7 @@ function UpdateCliente({ id = "" }) {
                         min={0}
                         max={9999}
                       />
-                    </div>
+                      </div>*/}
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
                       <button type="submit" className="btn-primary">

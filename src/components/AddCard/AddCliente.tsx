@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { controller, regex, dateIntFormat } from "../../util";
+import { controller, regex, format } from "../../util";
 
 function AddCliente() {
   let [cliente, setCliente] = useState({
@@ -9,6 +9,8 @@ function AddCliente() {
     nombre: "",
     apellido1: "",
     apellido2: "",
+    telefono: "",
+    domicilio: "",
     fecha: "",
     estado: "32",
     municipio: "48",
@@ -26,7 +28,8 @@ function AddCliente() {
 
   const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    setCliente({ ...cliente, fecha: dateIntFormat(cliente.fecha) });
+    setCliente({ ...cliente, fecha: format.dateIntFormat(cliente.fecha) });
+    console.log(cliente);
 
     if (isOpen) {
       const cli = new controller.Customer(
@@ -34,6 +37,8 @@ function AddCliente() {
         cliente.nombre,
         cliente.apellido1,
         cliente.apellido2,
+        cliente.telefono,
+        cliente.domicilio,
         parseInt(cliente.fecha),
         "0000",
         cliente.sexo,
@@ -43,6 +48,7 @@ function AddCliente() {
         cliente.locacion,
         0
       );
+      
       if (await controller.CustomerController.createCustomer(cli)) {
         console.log("Insertando registro ");
         console.log(cli);
@@ -185,6 +191,39 @@ function AddCliente() {
                       </select>
                     </div>
                     <div className="mb-6">
+                      <label htmlFor="">Telefono</label>
+                      <input
+                        type="number"
+                        id=""
+                        name=""
+                        maxLength={20}
+                        min={0}
+                        className="text-input"
+                        placeholder="Telefono"
+                        onChange={(e) =>
+                          setCliente({
+                            ...cliente,
+                            telefono: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                    <div className="mb-6">
+                      <label htmlFor="">Domicilio</label>
+                      <input
+                        type="text"
+                        id=""
+                        name=""
+                        className="text-input"
+                        placeholder="Domicilio"
+                        onChange={(e) =>
+                          setCliente({ ...cliente, domicilio: e.target.value })
+                        }
+                        required
+                      />
+                    </div>
+                    <div className="mb-6">
                       <label htmlFor="">Estado</label>
                       <input
                         type="number"
@@ -218,7 +257,7 @@ function AddCliente() {
                         required
                       />
                     </div>
-                    <div className="mb-6">
+                    {/*<div className="mb-6">
                       <label htmlFor="">Locación</label>
                       <input
                         type="number"
@@ -233,7 +272,7 @@ function AddCliente() {
                         min={0}
                         max={9999}
                       />
-                    </div>
+                    </div>*/}
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
                       <button type="submit" className="btn-primary">

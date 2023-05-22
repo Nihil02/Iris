@@ -21,12 +21,14 @@ class CustomerDAO {
     }
 
     static async createCustomer(customer) {
-        const [CURP, nombre, primer_apellido, segundo_apellido, fecnac, edonac, sexo, nacorigen, edo, mun, loc, contpaq_id] = Object.values(customer);
+        const [CURP, nombre, primer_apellido, segundo_apellido, telefono, domicilio, fecnac, edonac, sexo, nacorigen, edo, mun, loc, contpaq_id] = Object.values(customer);
         await Customer.create({
             CURP: CURP,
             nombre: nombre,
             primer_apellido: primer_apellido,
             segundo_apellido: segundo_apellido,
+            telefono:  telefono,
+            domicilio: domicilio,
             fecnac: fecnac,
             edonac: edonac,
             sexo: sexo,
@@ -43,11 +45,13 @@ class CustomerDAO {
    * Update customer information
   */
     static async updateCustomer(customer) {
-        const [CURP, nombre, primer_apellido, segundo_apellido, fecnac, edonac, sexo, nacorigen, edo, mun, loc, contpaq_id] = Object.values(customer);
+        const [CURP, nombre, primer_apellido, segundo_apellido, telefono, domicilio, fecnac, edonac, sexo, nacorigen, edo, mun, loc, contpaq_id] = Object.values(customer);
         await Customer.update({
             nombre: nombre,
             primer_apellido: primer_apellido,
             segundo_apellido: segundo_apellido,
+            telefono:  telefono,
+            domicilio: domicilio,
             fecnac: fecnac,
             edonac: edonac,
             sexo: sexo,

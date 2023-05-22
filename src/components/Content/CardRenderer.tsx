@@ -1,5 +1,5 @@
 import { useLocation, useParams } from "react-router-dom";
-import { dateFormat } from "../../util";
+import { format } from "../../util";
 import Card from "../Card";
 
 const CardRenderer = ({ data = [{}] }) => {
@@ -52,7 +52,7 @@ const CardRenderer = ({ data = [{}] }) => {
               {
                 if (card.fecha !== null) {
                   id = card.fecha;
-                  nombre = dateFormat(card.fecha + "");
+                  nombre = format.dateStringFormat(card.fecha + "");
                 }
               }
               return <Card key={id} id={id} name={nombre} />;
