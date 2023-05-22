@@ -1,5 +1,5 @@
 import { Transition, Dialog } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { ChangeEvent, Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { controller, format } from "../../util";
 import { useParams } from "react-router-dom";
@@ -24,8 +24,7 @@ function AddExamen() {
 
     dp_oi: "0.00", //Decimal
     dp_od: "0.00", //Decimal
-    ob_od: "0.00", //Decimal
-    ob_oi: "0.00", //Decimal
+    ob: "0.00", //Decimal
 
     tipo_lentes: "", //Texto
     observaciones: "", //Texto, opcional
@@ -39,10 +38,18 @@ function AddExamen() {
     setIsOpen(true);
   }
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const name = e.target.name;
+    const value = e.target.value;
+    setExamen((values) => ({ ...values, [name]: value }));
+    setExamen((values) => ({ ...values, [name]: value + "" }));
+    console.log(examen);
+  };
+
   const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    setExamen(examen)
-    console.log(examen);
+    setExamen(examen);
 
     if (isOpen) {
       const exa = new controller.Exam(
@@ -50,7 +57,7 @@ function AddExamen() {
         examen.fecha,
         parseInt(examen.dp_od),
         parseInt(examen.dp_oi),
-        parseInt(examen.ob_od),
+        parseInt(examen.ob),
         parseInt(examen.lejos_od_esferico),
         parseInt(examen.lejos_od_cilindrico),
         parseInt(examen.lejos_od_eje),
@@ -64,6 +71,7 @@ function AddExamen() {
         examen.tipo_lentes,
         examen.observaciones
       );
+
       if (await controller.ExamController.addExam(exa)) {
         console.log("Insertando registro ");
         console.log(exa);
@@ -157,75 +165,50 @@ function AddExamen() {
                             <td className="pr-6">Lejos</td>
                             <td>
                               <input
-                                type="number"
-                                name=""
-                                id=""
+                                type="text"
+                                name="lejos_od_esferico"
                                 className="table-input"
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
                                 value={examen.lejos_od_esferico}
-                                onChange={(e) => {
-                                  setExamen({
-                                    ...examen,
-                                    lejos_od_esferico: e.target.value,
-                                  });
-                                  console.log(examen.lejos_od_esferico);
-                                }}
+                                onChange={handleChange}
                               />
                             </td>
                             <td>
                               <input
-                                type="number"
-                                name=""
-                                id=""
+                                type="text"
+                                name="lejos_od_cilindrico"
                                 className="table-input"
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
                                 value={examen.lejos_od_cilindrico}
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    lejos_od_cilindrico: e.target.value,
-                                  })
-                                }
+                                onChange={handleChange}
                               />
                             </td>
                             <td>
                               <input
-                                type="number"
-                                name=""
-                                id=""
+                                type="text"
+                                name="lejos_od_eje"
                                 className="table-input"
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
                                 value={examen.lejos_od_eje}
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    lejos_od_eje: e.target.value,
-                                  })
-                                }
+                                onChange={handleChange}
                               />
                             </td>
                             <td>
                               <input
-                                type="number"
-                                name=""
-                                id=""
+                                type="text"
+                                name="lejos_od_agudeza"
                                 className="table-input"
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
                                 value={examen.lejos_od_agudeza}
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    lejos_od_agudeza: e.target.value,
-                                  })
-                                }
+                                onChange={handleChange}
                               />
                             </td>
                           </tr>
@@ -235,74 +218,50 @@ function AddExamen() {
                             <td></td>
                             <td>
                               <input
-                                type="number"
-                                name=""
-                                id=""
+                                type="text"
+                                name="lejos_oi_esferico"
                                 className="table-input"
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
                                 value={examen.lejos_oi_esferico}
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    lejos_oi_esferico: e.target.value,
-                                  })
-                                }
+                                onChange={handleChange}
                               />
                             </td>
                             <td>
                               <input
-                                type="number"
-                                name=""
-                                id=""
+                                type="text"
+                                name="lejos_oi_cilindrico"
                                 className="table-input"
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
                                 value={examen.lejos_oi_cilindrico}
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    lejos_oi_cilindrico: e.target.value,
-                                  })
-                                }
+                                onChange={handleChange}
                               />
                             </td>
                             <td>
                               <input
-                                type="number"
-                                name=""
-                                id=""
+                                type="text"
+                                name="lejos_oi_eje"
                                 className="table-input"
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
                                 value={examen.lejos_oi_eje}
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    lejos_oi_eje: e.target.value,
-                                  })
-                                }
+                                onChange={handleChange}
                               />
                             </td>
                             <td>
                               <input
-                                type="number"
-                                name=""
-                                id=""
+                                type="text"
+                                name="lejos_oi_agudeza"
                                 className="table-input"
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
                                 value={examen.lejos_oi_agudeza}
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    lejos_oi_agudeza: e.target.value,
-                                  })
-                                }
+                                onChange={handleChange}
                               />
                             </td>
                           </tr>
@@ -312,20 +271,14 @@ function AddExamen() {
                             <td className="pr-6">Adición</td>
                             <td>
                               <input
-                                type="number"
-                                name=""
-                                id=""
+                                type="text"
+                                name="adicion_od_esferico"
                                 className="table-input"
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
                                 value={examen.adicion_od_esferico}
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    adicion_od_esferico: e.target.value,
-                                  })
-                                }
+                                onChange={handleChange}
                               />
                             </td>
                           </tr>
@@ -335,29 +288,22 @@ function AddExamen() {
                             <td></td>
                             <td>
                               <input
-                                type="number"
-                                name=""
-                                id=""
+                                type="text"
+                                name="adicion_oi_esferico"
                                 className="table-input"
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
                                 value={examen.adicion_oi_esferico}
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    adicion_oi_esferico: e.target.value,
-                                  })
-                                }
+                                onChange={handleChange}
                               />
                             </td>
                           </tr>
+                          <tr>
+                            <br />
+                          </tr>
                         </tbody>
-                      </table>
-                    </div>
-                    <div className="mb-6">
-                      {/* Otros datos */}
-                      <table className="table-fixed">
+
                         <thead className="text-center text-sm">
                           <tr>
                             <th></th>
@@ -371,66 +317,59 @@ function AddExamen() {
                             <td className="pr-12">DP</td>
                             <td>
                               <input
-                                type="number"
-                                name=""
-                                id=""
+                                type="text"
+                                name="dp_od"
                                 className="table-input"
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
                                 value={examen.dp_od}
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    dp_od: e.target.value,
-                                  })
-                                }
+                                onChange={handleChange}
                               />
                             </td>
                             <td>
                               <input
-                                type="number"
-                                name=""
-                                id=""
+                                type="text"
+                                name="dp_oi"
                                 className="table-input"
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
                                 value={examen.dp_oi}
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    dp_oi: e.target.value,
-                                  })
-                                }
+                                onChange={handleChange}
                               />
                             </td>
                           </tr>
+                          <tr>
+                            <br />
+                          </tr>
+                        </tbody>
 
+                        <thead className="text-center text-sm">
+                          <tr>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
                           {/* Oblea */}
                           <tr>
                             <td className="pr-10">Oblea</td>
                             <td>
                               <input
-                                type="number"
-                                name=""
-                                id=""
+                                type="text"
+                                name="ob"
                                 className="table-input"
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
-                                value={examen.ob_od}
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    ob_od: e.target.value,
-                                  })
-                                }
+                                value={examen.ob}
+                                onChange={handleChange}
                               />
                             </td>
-                            <td>
+                            {/*<td>
                               <input
-                                type="number"
+                                type="text"
                                 name=""
                                 id=""
                                 className="table-input"
@@ -438,18 +377,14 @@ function AddExamen() {
                                 max={12.0}
                                 min={-12.0}
                                 value={examen.ob_oi}
-                                onChange={(e) =>
-                                  setExamen({
-                                    ...examen,
-                                    ob_oi: e.target.value,
-                                  })
-                                }
+                                onChange={handleChange}
                               />
-                            </td>
+                            </td>*/}
                           </tr>
                         </tbody>
                       </table>
                     </div>
+
                     <div className="mb-6">
                       <label htmlFor="">Tipo de Lentes</label>
                       <input
