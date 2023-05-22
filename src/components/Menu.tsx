@@ -61,9 +61,19 @@ function Menu() {
 }
 
 const MenuIcon = ({ icon = {}, tooltip = "", route = "", redirect = true }) => {
-  const menuClick = (e: { preventDefault: () => void; }) => {
+  const menuClick = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    BackUpcontroller.createBackUp("../../core/database/iris.db", "")
+    switch (route) {
+      case "Exportar":
+        BackUpcontroller.createBackUp("../../core/database/iris.db", "../../core/database/");
+        break;
+
+      case "Restaurar":
+        break;
+
+      default:
+        break;
+    }
   };
 
   return (
