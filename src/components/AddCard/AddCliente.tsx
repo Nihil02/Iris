@@ -37,8 +37,6 @@ function AddCliente() {
         cliente.nombre,
         cliente.apellido1,
         cliente.apellido2,
-        cliente.telefono,
-        cliente.domicilio,
         parseInt(cliente.fecha),
         "0000",
         cliente.sexo,
@@ -46,7 +44,9 @@ function AddCliente() {
         cliente.estado,
         cliente.municipio,
         cliente.locacion,
-        0
+        0,
+        cliente.telefono,
+        cliente.domicilio
       );
       
       if (await controller.CustomerController.createCustomer(cli)) {
