@@ -476,7 +476,6 @@ function AddExamen() {
                             observaciones: e.target.value,
                           })
                         }
-                        required
                       />
                     </div>
 

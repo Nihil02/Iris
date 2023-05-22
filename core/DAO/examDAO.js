@@ -20,13 +20,14 @@ class ExamDAO {
       throw Error("Invalid arguments");
     }
     if (arguments.length == 1) {
-      const res = Exam.findAll({ where: { cliente: curp } });
+      const res = await Exam.findAll({ where: { cliente: curp } });
       return res;
     }
 
     if (arguments.length == 2) {
-      const res = Exam.findAll({ where: { cliente: curp, fecha: date } });
-      return res[0].dataValues;
+      const res = await Exam.findOne({ where: { cliente: curp, fecha: date } });
+      console.log(res.dataValues);
+      return res.dataValues;
     }
   }
 
