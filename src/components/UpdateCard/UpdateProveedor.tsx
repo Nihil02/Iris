@@ -1,9 +1,9 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
-import { SupplierController, Supplier } from "../../util";
+import { controller, regex } from "../../util";
 
-function UpdateProveedor({id = ""}) {
+function UpdateProveedor({ id = "" }) {
   let [proveedor, setProveedor] = useState({
     rfc: "", //Text
     razon: "", //Text
@@ -16,7 +16,7 @@ function UpdateProveedor({id = ""}) {
   /* Fetch data from the api to the component */
   useEffect(() => {
     async function getData() {
-      const data = await SupplierController.getSupplierByRFC(id);
+      const data = await controller.SupplierController.getSupplierByRFC(id);
       proveedor.rfc = data.rfc;
       proveedor.razon = data.razon_social;
       proveedor.domicilio = data.domicilio;
@@ -40,7 +40,7 @@ function UpdateProveedor({id = ""}) {
     e.preventDefault();
 
     if (isOpen) {
-      const sup = new Supplier(
+      const sup = new controller.Supplier(
         proveedor.rfc,
         proveedor.razon,
         proveedor.domicilio,
@@ -48,10 +48,11 @@ function UpdateProveedor({id = ""}) {
         proveedor.telefono,
         proveedor.cuenta.toString()
       );
-      if (await SupplierController.updateSupplier(sup)) {
+      if (await controller.SupplierController.updateSupplier(sup)) {
         console.log("Modificando registro ");
       } else {
         console.log("error");
+        alert("Error, no se pudo modificar los datos");
       }
 
       closeModal();
@@ -61,15 +62,15 @@ function UpdateProveedor({id = ""}) {
 
   return (
     <>
-    {/* Button in the card */}
-    <button
-      className="card-button bg-green-600 hover:bg-green-500"
-      onClick={openModal}
-    >
-      <FaPen size={16} color="white" />
-    </button>
+      {/* Button in the card */}
+      <button
+        className="card-button bg-green-600 hover:bg-green-500"
+        onClick={openModal}
+      >
+        <FaPen size={16} color="white" />
+      </button>
 
-    {/* Modal */}
+      {/* Modal */}
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
@@ -105,6 +106,7 @@ function UpdateProveedor({id = ""}) {
                         name=""
                         className="text-input"
                         value={proveedor.rfc}
+                        pattern={regex.rfc}
                         onChange={(e) =>
                           setProveedor({ ...proveedor, rfc: e.target.value })
                         }
@@ -141,16 +143,18 @@ function UpdateProveedor({id = ""}) {
                             domicilio: e.target.value,
                           })
                         }
+                        pattern="[\w]+$"
                         required
                       />
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Telefono</label>
                       <input
-                        type="text"
+                        type="number"
                         id=""
                         name=""
                         maxLength={20}
+                        min={0}
                         className="text-input"
                         value={proveedor.telefono}
                         onChange={(e) =>
@@ -165,7 +169,7 @@ function UpdateProveedor({id = ""}) {
                     <div className="mb-6">
                       <label htmlFor="">Correo</label>
                       <input
-                        type="text"
+                        type="email"
                         id=""
                         name=""
                         maxLength={50}
@@ -180,14 +184,19 @@ function UpdateProveedor({id = ""}) {
                     <div className="mb-6">
                       <label htmlFor="">Cuenta Bancaria</label>
                       <input
-                        type="text"
+                        type="number"
                         id=""
                         name=""
                         maxLength={50}
+                        minLength={16}
+                        min={0}
                         className="text-input"
                         value={proveedor.cuenta}
                         onChange={(e) =>
-                          setProveedor({ ...proveedor, cuenta: parseInt(e.target.value) })
+                          setProveedor({
+                            ...proveedor,
+                            cuenta: parseInt(e.target.value),
+                          })
                         }
                         required
                       />

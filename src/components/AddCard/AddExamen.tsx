@@ -1,13 +1,13 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { ExamController, Exam, dateIntFormat } from "../../util";
+import { controller, dateIntFormat } from "../../util";
 import { useParams } from "react-router-dom";
 
 function AddExamen() {
-  let param = useParams()
+  let param = useParams();
   let [examen, setExamen] = useState({
-    cliente: param.cliente+"", //Texto
+    cliente: param.cliente + "", //Texto
     fecha: "", //Entero
 
     lejos_od_esferico: "0.00", //Decimal
@@ -43,7 +43,7 @@ function AddExamen() {
     e.preventDefault();
 
     if (isOpen) {
-      const exa = new Exam(
+      const exa = new controller.Exam(
         examen.cliente,
         examen.fecha,
         parseInt(examen.dp_od),
@@ -62,11 +62,12 @@ function AddExamen() {
         examen.tipo_lentes,
         examen.observaciones
       );
-      if (await ExamController.addExam(exa)) {
+      if (await controller.ExamController.addExam(exa)) {
         console.log("Insertando registro ");
         console.log(exa);
       } else {
         console.log("error");
+        alert("Error, no se pudo insertar los datos");
       }
 
       closeModal();
@@ -183,7 +184,7 @@ function AddExamen() {
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    lejos_od_cilindrico: e.target.value
+                                    lejos_od_cilindrico: e.target.value,
                                   })
                                 }
                               />
@@ -260,7 +261,7 @@ function AddExamen() {
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    lejos_oi_cilindrico: e.target.value
+                                    lejos_oi_cilindrico: e.target.value,
                                   })
                                 }
                               />
@@ -319,7 +320,7 @@ function AddExamen() {
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    adicion_od_esferico: e.target.value
+                                    adicion_od_esferico: e.target.value,
                                   })
                                 }
                               />
@@ -342,7 +343,7 @@ function AddExamen() {
                                 onChange={(e) =>
                                   setExamen({
                                     ...examen,
-                                    adicion_oi_esferico: e.target.value
+                                    adicion_oi_esferico: e.target.value,
                                   })
                                 }
                               />
