@@ -1,6 +1,16 @@
 const SupplierDAO = require("../DAO/supplierDAO.js");
 const Validator = require("../validation/validator.js");
 
+/**
+ * @typedef Supplier
+ * @property {string} rfc
+ * @property {string} razon_social
+ * @property {string} domicilio
+ * @property {string} correo_electronico
+ * @property {string} telefono
+ * @property {string} cuenta_bancaria
+ */
+
 class SupplierService {
   static async getAllSuppliers() {
     const res = await SupplierDAO.getAllSuppliers();
@@ -17,10 +27,16 @@ class SupplierService {
    */
   static async getSupplierByRFC(rfc = "") {
     try {
-      /*const sanitizedRFC = rfc.trim();
+      if (typeof rfc !== "string") {
+        throw new Error("No string RFC");
+      }
+
+      const sanitizedRFC = rfc.trim();
+
       if (!Validator.isRFC(sanitizedRFC)) {
         throw Error("Invalid RFC");
-      }*/
+      }
+
       const supplier = await SupplierDAO.getSupplierById(rfc);
       return supplier.dataValues;
     } catch (error) {
@@ -31,16 +47,18 @@ class SupplierService {
 
   /**
    * Receives an object with the data of the supplier and creates him in the database.
+   * @param {Supplier} supplier
    * @returns True if the user has been created in other case throws an error.
    */
   static async createSupplier(supplier) {
     try {
-      /*const sanitizedSupplier = this.sanitizeSupplier(supplier);
-      const validation = this.isValidSupplier(sanitizedSupplier);
+      const newSupplier = this.formatSupplier(supplier);
+      const validation = this.isValidSupplier(newSupplier);
 
       if (typeof validation === "object") {
         throw validation;
-      }*/
+      }
+
       const findSupplier = await this.getSupplierByRFC(supplier.rfc);
       if (findSupplier) {
         throw new Error("Supplier already exists");
@@ -53,9 +71,18 @@ class SupplierService {
     }
   }
 
+  /**
+   * Recives a `Supplier` and updates his information.
+   *
+   * @param {Supplier} supplier {@link Supplier}
+   * @returns
+   */
   static async updateSupplier(supplier) {
     try {
-      /* Validations goes here */
+      const validation = this.isValidSupplier(supplier);
+      if(typeof validation === "object") {
+        throw validation;
+      }
       await SupplierDAO.updateSupplier(supplier);
       return true;
     } catch (error) {
@@ -74,38 +101,40 @@ class SupplierService {
     }
   }
 
-  static sanitizeSupplier(supplier) {
-    let { rfc, razon_social, domicilio, correo, telefono, cuenta_bancaria } =
-      supplier;
-    rfc = rfc.trim();
-    razon_social = razon_social.trim();
-    domicilio = domicilio.trim();
-    correo = correo.trim();
-    telefono = telefono.trim();
-    cuenta_bancaria = cuenta_bancaria.trim();
-
-    return {
-      rfc: rfc,
-      razon_social: razon_social,
-      domicilio: domicilio,
-      correo_electronico: correo,
-      telefono: telefono,
-      cuenta_bancaria: cuenta_bancaria,
+  /**
+   * Format all the properties from a supplier.
+   * @param {Supplier} supplier
+   * @returns {Supplier}
+   */
+  static formatSupplier(supplier) {
+    const formattedSupplier = {
+      rfc: supplier.rfc.trim(),
+      razon_social: supplier.razon_social.trim(),
+      domicilio: supplier.domicilio.trim(),
+      correo_electronico: supplier.correo_electronico.trim(),
+      telefono: supplier.telefono.trim(),
+      cuenta_bancaria: supplier.cuenta_bancaria.trim(),
     };
+    return formattedSupplier;
   }
 
+  /**
+   * Validates all of the properties of a supplier.
+   *
+   * @param {Supplier} supplier - See {@linkcode Supplier}.
+   * @returns
+   */
   static isValidSupplier(supplier) {
-    let { rfc, razon_social, domicilio, correo, telefono, cuenta_bancaria } =
-      supplier;
-
-    if (!Validator.isRFC(rfc)) {
+    const forbiddenChars = /[@<>%&#"'/]/g;
+    if(forbiddenChars.test(supplier.razon_social)) {
+      return new Error("Invalid name");
+    }
+    if (!Validator.isRFC(supplier.rfc)) {
       return new Error("Invalid RFC");
     }
-
-    if (!Validator.isEmail(correo)) {
+    if (!Validator.isEmail(supplier.correo_electronico)) {
       return new Error("Invalid Email");
     }
-
     return true;
   }
 }

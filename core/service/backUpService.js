@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { getFiles } = require("../util/folderHandler.js");
+const { getFiles, folderExists } = require("../util/folderHandler.js");
 
 class BackUpService {
   /**
@@ -8,7 +8,10 @@ class BackUpService {
    * @param {string} dest The path of the backup folder
    */
   static createBackUp(src = "", dest = "") {
-    // TODO: Insert logic here for create the backup folder if not exists.
+    // Before all is necessary check if the backup folder not exists, if is true, thus we create him.
+    if (folderExists(dest)) {
+      fs.mkdirSync(dest);
+    }
     // We get all files in the backup folder for get the number of backups in the system.
     const files = getFiles(dest);
     // This statement is ever true if the actualNumberOfBackups is equal to the limit plus one.
@@ -67,7 +70,6 @@ class BackUpService {
       fs.rmSync(`${path}/${backup}`);
     });
   }
-
 }
 
 module.exports = BackUpService;
