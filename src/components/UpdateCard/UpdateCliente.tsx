@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
-import { controller, dateFormat, dateIntFormat, regex } from "../../util";
+import { controller, format, regex } from "../../util";
 
 function UpdateCliente({ id = "" }) {
   let [cliente, setCliente] = useState({
@@ -23,13 +23,13 @@ function UpdateCliente({ id = "" }) {
     async function getData() {
       const data = await controller.CustomerController.getCustomerById(id);
       console.log(data);
-      
+
       cliente.curp = data.CURP;
       cliente.nombre = data.nombre;
       cliente.apellido1 = data.primer_apellido;
       cliente.apellido2 = data.segundo_apellido;
       cliente.telefono = data.telefono;
-      cliente.domicilio = data.domicilio
+      cliente.domicilio = data.domicilio;
       cliente.fecha = data.fecnac;
       cliente.estado = data.edo;
       cliente.municipio = data.mun;
@@ -189,9 +189,9 @@ function UpdateCliente({ id = "" }) {
                         id=""
                         name=""
                         className="text-input"
-                        value={dateFormat(cliente.fecha.toString())}
+                        value={format.dateHTMLFormat(cliente.fecha + "")}
                         onChange={(e) => {
-                          let aux = dateIntFormat(e.target.value);
+                          let aux = format.dateIntFormat(e.target.value);
                           setCliente({ ...cliente, fecha: aux });
                         }}
                         required

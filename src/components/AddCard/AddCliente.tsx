@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { controller, regex, dateIntFormat } from "../../util";
+import { controller, regex, format } from "../../util";
 
 function AddCliente() {
   let [cliente, setCliente] = useState({
@@ -28,9 +28,8 @@ function AddCliente() {
 
   const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    setCliente({ ...cliente, fecha: dateIntFormat(cliente.fecha) });
+    setCliente({ ...cliente, fecha: format.dateIntFormat(cliente.fecha) });
     console.log(cliente);
-    
 
     if (isOpen) {
       const cli = new controller.Customer(
@@ -49,7 +48,6 @@ function AddCliente() {
         cliente.locacion,
         0
       );
-      console.log(cli);
       
       if (await controller.CustomerController.createCustomer(cli)) {
         console.log("Insertando registro ");

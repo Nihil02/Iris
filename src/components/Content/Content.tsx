@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { matchSorter } from "match-sorter";
-import { controller, dateFormat } from "../../util";
+import { controller, format } from "../../util";
 import CardRenderer from "./CardRenderer";
 import SearchBar from "./SearchBar";
 import AddCard from "../AddCard";
@@ -78,7 +78,7 @@ function Content({ title = "" }) {
 
       case "/examen/" + param.cliente:
         data.map((d) => {
-          d.res = dateFormat(d.fecha + "");
+          d.res = format.dateStringFormat(d.fecha + "");
           d.id = d.fecha;
         });
         break;
@@ -104,6 +104,8 @@ function Content({ title = "" }) {
 
   const search = (keyword: string) => {
     let matches = matchSorter(data, keyword, { keys: ["res"] });
+    console.log(matches);
+    
     setKeyword(keyword);
 
     if (keyword === "") {
@@ -155,7 +157,7 @@ function Content({ title = "" }) {
               id="nombre"
               name="nombre"
               className="text-input"
-              value={auxData.telefono}
+              value={format.phoneStringFormat(auxData.telefono + "")}
               readOnly
             />
           </div>
