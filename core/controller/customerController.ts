@@ -1,6 +1,6 @@
 interface ICustomerAPI {
-  getAllCustomers: () => Array<Data>,
-  getCustomerById: (id: any) => Data,
+  getAllCustomers: () => Array<Customer>,
+  getCustomerById: (id: any) => Customer,
   createCustomer: (customer: any) => Boolean,
   updateCustomer: (customer: any) => Boolean,
   deleteCustomer: (id: any) => Boolean
@@ -12,12 +12,12 @@ declare global {
   }
 }
 class Customer {
-  curp: string;
-  name: string;
-  firstLastName: string;
-  secondLastName: string;
-  phone: string;
-  adress: string;
+  CURP: string;
+  nombre: string;
+  primer_apellido: string;
+  segundo_apellido: string;
+  telefono?: string;
+  domicilio?: string;
   fecnac: number;
   edonac: string;
   sexo: string;
@@ -28,12 +28,10 @@ class Customer {
   contpaq_id: number;
 
   constructor(
-      curp: string,
-      name: string,
-      firstLastName: string,
-      secondLastName: string,
-      phone: string,
-      adress: string,
+      CURP: string,
+      nombre: string,
+      primer_apellido: string,
+      segundo_apellido: string,
       fecnac: number,
       edonac: string,
       sexo: string,
@@ -41,14 +39,16 @@ class Customer {
       edo: string,
       mun: string,
       loc: string,
-      contpaq_id: number
+      contpaq_id: number,
+      telefono?: string,
+      domicilio?: string,
   ) {
-  this.curp = curp;
-  this.name = name;
-  this.firstLastName = firstLastName;
-  this.secondLastName = secondLastName;
-  this.adress = adress;
-  this.phone = phone;
+  this.CURP = CURP;
+  this.nombre = nombre;
+  this.primer_apellido = primer_apellido;
+  this.segundo_apellido = segundo_apellido;
+  this.domicilio = domicilio;
+  this.telefono = telefono;
   this.fecnac = fecnac;
   this.edonac = edonac;
   this.sexo = sexo;
@@ -62,12 +62,12 @@ class Customer {
 }
 class CustomerController {
   static async getAllCustomers() {
-    const res: Array<Data> = await window.customerAPI.getAllCustomers();
+    const res: Array<Customer> = await window.customerAPI.getAllCustomers();
     return res;
   }
 
   static async getCustomerById(curp: string) {
-    const res: Data = await window.customerAPI.getCustomerById(curp);
+    const res: Customer = await window.customerAPI.getCustomerById(curp);
     return res;
   }
 
