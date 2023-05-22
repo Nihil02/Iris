@@ -123,7 +123,6 @@ function AddProveedor() {
                             domicilio: e.target.value,
                           })
                         }
-                        pattern="[\w]+$"
                         required
                       />
                     </div>

@@ -143,7 +143,6 @@ function UpdateProveedor({ id = "" }) {
                             domicilio: e.target.value,
                           })
                         }
-                        pattern="[\w]+$"
                         required
                       />
                     </div>
