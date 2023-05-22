@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { controller, dateIntFormat } from "../../util";
+import { controller, format } from "../../util";
 import { useParams } from "react-router-dom";
 
 function AddExamen() {
@@ -129,7 +129,7 @@ function AddExamen() {
                         name=""
                         className="text-input"
                         onChange={(e) => {
-                          let aux = dateIntFormat(e.target.value);
+                          let aux = format.dateIntFormat(e.target.value);
                           setExamen({ ...examen, fecha: aux });
                         }}
                         required
