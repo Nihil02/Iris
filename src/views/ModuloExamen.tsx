@@ -4,7 +4,7 @@ function ModuloExamen() {
   return (
     <>
       <div className="content-container">
-        <Content title="Módulo Examenes"/>
+        <Content title="Módulo Exámenes"/>
       </div>
     </>
   );

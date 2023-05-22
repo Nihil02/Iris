@@ -1,38 +1,38 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
-import { controller, dateFormat } from "./../util";
-import Card from "./Card";
-import AddCard from "./AddCard/AddCard";
+import { useState, useEffect } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import { matchSorter } from "match-sorter";
+import { controller, dateFormat } from "../../util";
+import CardRenderer from "./CardRenderer";
 import SearchBar from "./SearchBar";
-import { useParams } from "react-router-dom";
+import AddCard from "../AddCard";
 
 function Content({ title = "" }) {
-  let [data, setData] = useState([{}]);
-  let [auxData, setAuxData] = useState([{}]);
+  const [data, setData] = useState([{}]);
+  const [allData, setAllData] = useState([{}]);
+  const [auxData, setAuxData] = useState([{}]);
+  const [keyword, setKeyword] = useState("");
 
   /* Get the current location and their params */
   const location = useLocation().pathname;
   let param = useParams();
-
-  let nombre: string;
-  let id: string;
 
   /* Fetch data from the api to the component */
   useEffect(() => {
     async function getData() {
       switch (location) {
         case "/cliente":
-          const cliente = await controller.CustomerController.getAllCustomers();
-          setData(cliente);
+          const cli = await controller.CustomerController.getAllCustomers();
+          setData(cli);
+          setAllData(cli);
           break;
 
         case "/examen/" + param.cliente:
           const exa = await controller.ExamController.getAllExams(
             param.cliente + ""
           );
-          console.log(exa);
 
           setData(exa);
+          setAllData(exa);
           setAuxData(
             await controller.CustomerController.getCustomerById(
               param.cliente + ""
@@ -43,11 +43,13 @@ function Content({ title = "" }) {
         case "/proveedor":
           const sup = await controller.SupplierController.getAllSuppliers();
           setData(sup);
+          setAllData(sup);
           break;
 
         case "/usuario":
           const emp = await controller.EmployeeController.getAllEmployees();
           setData(emp);
+          setAllData(emp);
           break;
 
         default:
@@ -65,61 +67,56 @@ function Content({ title = "" }) {
     getData();
   }, []);
 
-  /* Render the cards */
-  function renderCards() {
-    return data.map((card) => {
-      switch (location) {
-        case "/cliente":
-          {
-            nombre =
-              card.nombre +
-              " " +
-              card.primer_apellido +
-              " " +
-              card.segundo_apellido;
-          }
-          {
-            id = card.CURP;
-          }
-          return <Card key={id} id={id} name={nombre} />;
+  function formatData() {
+    switch (location) {
+      case "/cliente":
+        data.map((d) => {
+          d.res = d.nombre + " " + d.primer_apellido + " " + d.segundo_apellido;
+          d.id = d.CURP;
+        });
+        break;
 
-        case "/proveedor":
-          {
-            id = card.rfc;
-          }
-          return <Card key={id} id={id} name={card.razon_social} />;
+      case "/examen/" + param.cliente:
+        data.map((d) => {
+          d.res = dateFormat(d.fecha+"");
+          d.id = d.fecha;
+        });
+        break;
 
-        case "/usuario":
-          {
-            nombre =
-              card.nombre +
-              " " +
-              card.primer_apellido +
-              " " +
-              card.segundo_apellido;
-          }
-          {
-            id = card.rfc;
-          }
-          return <Card key={id} id={id} name={nombre} />;
+      case "/proveedor":
+        data.map((d) => {
+          d.res = d.razon_social;
+          d.id = d.rfc;
+        });
+        break;
 
-        case "/examen/" + param.cliente:
-          {
-            if (card.fecha !== null) {
-              id = dateFormat(card.fecha + "");
-            }
-          }
-          return <Card key={id} id={id} name={id} />;
+      case "/usuario":
+        data.map((d) => {
+          d.res = d.nombre + " " + d.primer_apellido + " " + d.segundo_apellido;
+          d.id = d.rfc;
+        });
+        break;
 
-        default:
-          return <h1>Error</h1>;
-      }
-    });
+      default:
+        break;
+    }
   }
+
+  const search = (keyword) => {
+    let matches = matchSorter(data, keyword, { keys: ["res"] });
+    setKeyword(keyword);
+
+    if (keyword === "") {
+      setData(allData);
+    } else {
+      setData(matches);
+    }
+  };
 
   return (
     <>
-      <SearchBar data={data} />
+      {formatData()}
+      <SearchBar keyword={keyword} onChange={search} />
       <h1 className="text-2xl m-5">{title}</h1>
       {location == "/examen/" + param.cliente ? (
         <div className="panel">
@@ -143,7 +140,7 @@ function Content({ title = "" }) {
         </div>
       ) : null}
       <AddCard />
-      {renderCards()}
+      <CardRenderer data={data} />
     </>
   );
 }
