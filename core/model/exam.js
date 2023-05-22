@@ -1,6 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("../database/connection.js");
-const Paciente = require("./customer.js");
 const Customer = require("./customer.js");
 class Exam extends Model {}
 
@@ -9,11 +8,11 @@ Exam.init(
     cliente: {
       type: DataTypes.STRING(18),
       references: {
-        model: Paciente,
+        model: Customer,
         key: "CURP",
-        onDelete: "CASCADE",
         allowNull: false
       },
+      onDelete: "CASCADE",
       primaryKey: true
     },
     fecha: {
@@ -83,7 +82,5 @@ Exam.init(
   },
   { sequelize, modelName: "Examen", tableName: "EXAMEN", timestamps: false }
 );
-
-Customer.hasMany(Exam)
 
 module.exports = Exam;

@@ -8,7 +8,7 @@ Customer.init(
     CURP: {
       type: DataTypes.STRING(18),
       primaryKey: true,
-      allowNull: false
+      allowNull: false,
     },
     nombre: {
       type: DataTypes.STRING(50),
@@ -16,11 +16,11 @@ Customer.init(
     },
     telefono: {
       type: DataTypes.STRING(20),
-      allowNull: true 
+      allowNull: true,
     },
     domicilio: {
       type: DataTypes.STRING(50),
-      allowNull: true
+      allowNull: true,
     },
     primer_apellido: {
       type: DataTypes.STRING(50),
@@ -47,24 +47,24 @@ Customer.init(
     nacorigen: {
       type: DataTypes.STRING(4),
       allowNull: false,
-      defaultValue: "NND"
+      defaultValue: "NND",
     },
     edo: {
       type: DataTypes.STRING(2),
       allowNull: false,
-      defaultValue: "00"
+      defaultValue: "00",
     },
     mun: {
       type: DataTypes.STRING(3),
       allowNull: false,
-      defaultValue: "000"
+      defaultValue: "000",
     },
     // Clave de la localidad existente en el catálogo de la INGEGI
     // El código postal, pues
     loc: {
       type: DataTypes.STRING(4),
       allowNull: false,
-      defaultValue:   "0000"
+      defaultValue: "0000",
     },
     contpaq_id: {
       type: DataTypes.STRING,
