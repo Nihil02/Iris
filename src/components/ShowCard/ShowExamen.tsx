@@ -30,7 +30,6 @@ function ShowExamen({ id = "", name = "" }) {
   useEffect(() => {
     async function getData() {
       const data = await controller.ExamController.getExamById(examen.cliente, id);
-      console.log(examen.cliente + " " + id);
       console.log(data);
       
     }

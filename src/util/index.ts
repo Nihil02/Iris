@@ -22,3 +22,6 @@ export { format };
 
 import * as regex from "./regex";
 export { regex };
+
+import * as arrays from "./arrays";
+export { arrays };
