@@ -12,13 +12,11 @@ Exam.init(
         key: "CURP",
         onDelete: "CASCADE"
       },
-      primaryKey: true,
-      unique: false,
+      unique: "primary_key",
     },
     fecha: {
       type: DataTypes.STRING(10), // De acuerdo al protocolo ISO 8601
-      primaryKey: true,
-      unique: false,
+      unique: "primary_key",
     },
     dp_od: {
       type: DataTypes.NUMBER,
