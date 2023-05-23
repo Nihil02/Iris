@@ -1,31 +1,57 @@
 import logo from "/logo.svg";
 import { useNavigate } from "react-router-dom";
 import { FaLock } from "react-icons/fa";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Transition, Dialog } from "@headlessui/react";
 import { matchSorter } from "match-sorter";
-import { isAdmin } from "../util";
+import { controller, isAdmin } from "../util";
+
+interface ICredential {
+  rfc: string;
+  usuario: string;
+  privilegio: string;
+  contraseña: string;
+}
+
+const def: ICredential[] = [
+  {
+    rfc: "1",
+    usuario: "admin",
+    privilegio: "2",
+    contraseña: "12345",
+  },
+  {
+    rfc: "2",
+    usuario: "Soraida",
+    privilegio: "1",
+    contraseña: "hola1234",
+  },
+];
+
 function Login() {
   let [name, setName] = useState("");
   let [pass, setPass] = useState("");
-  const [data, setData] = useState([{}]);
+  let [data, setData] = useState<ICredential[]>(def);
   let [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  const data = [
-    {
-      id: "1",
-      name: "admin",
-      pass: "12345",
-      priv: true,
-    },
-    {
-      id: "2",
-      name: "Soraida",
-      pass: "hola1234",
-      priv: false
-    },
-  ];
+  useEffect(() => {
+    async function getData() {
+      const emp = await controller.EmployeeController.getAllEmployees();
+      //setData(prevData => ([...prevData, ...emp]))
+      emp.map((em) => {
+        const aux: ICredential = {
+          rfc: em.rfc,
+          usuario: em.usuario,
+          privilegio: em.privilegios,
+          contraseña: em.contrasenna,
+        };
+        setData([aux, ...data]);
+      });
+    }
+    getData();
+    console.log(data);
+  }, []);
 
   function closeModal() {
     setIsOpen(false);
@@ -34,14 +60,15 @@ function Login() {
     setIsOpen(true);
   }
 
-  const validation = (e: { preventDefault: () => void; }) => {
+  const validation = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const res = matchSorter(data, name, { keys: ["name"] });
+    const res = matchSorter(data, name, { keys: ["usuario"] });
 
-    isAdmin(res[0].priv)
+    let priv = res[0].privilegio === "2" ? true : false;
+    isAdmin(priv);
 
-    pass == res[0].pass ? navigate("/cliente") : openModal();
-  }
+    pass == res[0].contraseña ? navigate("/cliente") : openModal();
+  };
 
   return (
     <div className="content-container ml-0 bg-gray-50">
