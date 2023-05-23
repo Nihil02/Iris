@@ -52,7 +52,6 @@ function UpdateProveedor({ id = "" }) {
         console.log("Modificando registro ");
       } else {
         console.log("error");
-        alert("Error, no se pudo modificar los datos");
       }
 
       closeModal();

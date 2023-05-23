@@ -72,7 +72,6 @@ function UpdateCliente({ id = "" }) {
         console.log(cli);
       } else {
         console.log("error");
-        alert("Error, no se pudo modificar los datos");
       }
     }
     closeModal();

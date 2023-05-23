@@ -1,10 +1,8 @@
-import { useNavigate } from "react-router-dom";
 import { Fragment, useState } from "react";
 import { Transition, Dialog } from "@headlessui/react";
 
 function AlertDialog({open = false, msg = ""}) {
   let [isOpen, setIsOpen] = useState(open);
-  const navigate = useNavigate();
 
   function closeModal() {
     setIsOpen(false);

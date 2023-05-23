@@ -40,7 +40,6 @@ function AddEmpleado() {
       } else {
         console.log("error");
         console.log(empleado);
-        alert("Error, no se pudo insertar los datos");
       }
 
       closeModal();

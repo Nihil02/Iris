@@ -77,7 +77,6 @@ function AddExamen() {
         console.log(exa);
       } else {
         console.log("error");
-        alert("Error, no se pudo insertar los datos");
       }
 
       closeModal();

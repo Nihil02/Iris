@@ -4,6 +4,7 @@ import { FaPen } from "react-icons/fa";
 import UpdateEmpleado from "./UpdateEmpleado";
 import UpdateCliente from "./UpdateCliente";
 import UpdateProveedor from "./UpdateProveedor";
+import UpdateExamen from "./UpdateExamen";
 
 function UpdateCard({ id = "" }) {
   const location = useLocation();
@@ -20,11 +21,7 @@ function UpdateCard({ id = "" }) {
       return <UpdateEmpleado id={id} />;
 
     case "/examen/" + param.cliente:
-      return (
-        <button className="card-button bg-green-600 hover:bg-green-500">
-          <FaPen size={16} color="white" />
-        </button>
-      );
+      return <UpdateExamen id={id} />;
 
     default:
       return (
