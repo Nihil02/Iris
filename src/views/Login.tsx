@@ -4,16 +4,17 @@ import { FaLock } from "react-icons/fa";
 import { Fragment, useEffect, useState } from "react";
 import { Transition, Dialog } from "@headlessui/react";
 import { matchSorter } from "match-sorter";
+import { SHA256, enc } from "crypto-js";
 import { controller, isAdmin } from "../util";
 
 /**
  * Interface for the credentials of a user
  *
  * @interface
- * @field {string} rfc 
- * @field {string} usuario 
- * @field {string} privilegio 
- * @field {string} contraseña 
+ * @field {string} rfc
+ * @field {string} usuario
+ * @field {string} privilegio
+ * @field {string} contraseña
  */
 interface ICredential {
   rfc: string;
@@ -30,13 +31,13 @@ const def: ICredential[] = [
     rfc: "1",
     usuario: "admin",
     privilegio: "2",
-    contraseña: "12345",
+    contraseña: SHA256("12345").toString(enc.Hex),
   },
   {
     rfc: "2",
     usuario: "Soraida",
     privilegio: "1",
-    contraseña: "hola1234",
+    contraseña: SHA256("hola1234").toString(enc.Hex),
   },
 ];
 
@@ -119,7 +120,9 @@ function Login() {
                   required
                   className="login-input"
                   placeholder="Contraseña"
-                  onChange={(e) => setPass(e.target.value)}
+                  onChange={(e) =>
+                    setPass(SHA256(e.target.value).toString(enc.Hex))
+                  }
                 />
               </div>
             </div>
