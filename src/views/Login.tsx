@@ -8,6 +8,7 @@ import { isAdmin } from "../util";
 function Login() {
   let [name, setName] = useState("");
   let [pass, setPass] = useState("");
+  const [data, setData] = useState([{}]);
   let [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
