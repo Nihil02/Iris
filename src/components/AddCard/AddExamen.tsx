@@ -55,19 +55,19 @@ function AddExamen() {
       const exa = new controller.Exam(
         examen.cliente,
         examen.fecha,
-        parseInt(examen.dp_od),
-        parseInt(examen.dp_oi),
-        parseInt(examen.ob),
-        parseInt(examen.lejos_od_esferico),
-        parseInt(examen.lejos_od_cilindrico),
-        parseInt(examen.lejos_od_eje),
-        parseInt(examen.lejos_od_agudeza),
-        parseInt(examen.lejos_oi_esferico),
-        parseInt(examen.lejos_oi_cilindrico),
-        parseInt(examen.lejos_oi_eje),
-        parseInt(examen.lejos_od_agudeza),
-        parseInt(examen.adicion_od_esferico),
-        parseInt(examen.adicion_oi_esferico),
+        parseFloat(examen.dp_od),
+        parseFloat(examen.dp_oi),
+        parseFloat(examen.ob),
+        parseFloat(examen.lejos_od_esferico),
+        parseFloat(examen.lejos_od_cilindrico),
+        parseFloat(examen.lejos_od_eje),
+        parseFloat(examen.lejos_od_agudeza),
+        parseFloat(examen.lejos_oi_esferico),
+        parseFloat(examen.lejos_oi_cilindrico),
+        parseFloat(examen.lejos_oi_eje),
+        parseFloat(examen.lejos_od_agudeza),
+        parseFloat(examen.adicion_od_esferico),
+        parseFloat(examen.adicion_oi_esferico),
         examen.tipo_lentes,
         examen.observaciones
       );
@@ -348,7 +348,7 @@ function AddExamen() {
                         <thead className="text-center text-sm">
                           <tr>
                             <th></th>
-                            <th></th>
+                            <th>Oblea</th>
                           </tr>
                         </thead>
                         <tbody>

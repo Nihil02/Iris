@@ -153,7 +153,6 @@ function ShowExamen({ id = "", name = "" }) {
                               <input
                                 type="number"
                                 name=""
-                                id=""
                                 className="table-input"
                                 readOnly
                                 value={examen.lejos_od_esferico}
@@ -163,7 +162,6 @@ function ShowExamen({ id = "", name = "" }) {
                               <input
                                 type="number"
                                 name=""
-                                id=""
                                 className="table-input"
                                 readOnly
                                 value={examen.lejos_od_cilindrico}
@@ -173,7 +171,6 @@ function ShowExamen({ id = "", name = "" }) {
                               <input
                                 type="number"
                                 name=""
-                                id=""
                                 className="table-input"
                                 readOnly
                                 value={examen.lejos_od_eje}
@@ -183,7 +180,6 @@ function ShowExamen({ id = "", name = "" }) {
                               <input
                                 type="number"
                                 name=""
-                                id=""
                                 className="table-input"
                                 readOnly
                                 value={examen.lejos_od_agudeza}
@@ -198,7 +194,6 @@ function ShowExamen({ id = "", name = "" }) {
                               <input
                                 type="number"
                                 name=""
-                                id=""
                                 className="table-input"
                                 readOnly
                                 value={examen.lejos_oi_esferico}
@@ -208,7 +203,6 @@ function ShowExamen({ id = "", name = "" }) {
                               <input
                                 type="number"
                                 name=""
-                                id=""
                                 className="table-input"
                                 readOnly
                                 value={examen.lejos_oi_cilindrico}
@@ -218,7 +212,6 @@ function ShowExamen({ id = "", name = "" }) {
                               <input
                                 type="number"
                                 name=""
-                                id=""
                                 className="table-input"
                                 readOnly
                                 value={examen.lejos_oi_eje}
@@ -228,7 +221,6 @@ function ShowExamen({ id = "", name = "" }) {
                               <input
                                 type="number"
                                 name=""
-                                id=""
                                 className="table-input"
                                 readOnly
                                 value={examen.lejos_oi_agudeza}
@@ -243,7 +235,6 @@ function ShowExamen({ id = "", name = "" }) {
                               <input
                                 type="number"
                                 name=""
-                                id=""
                                 className="table-input"
                                 readOnly
                                 value={examen.adicion_od_esferico}
@@ -258,19 +249,15 @@ function ShowExamen({ id = "", name = "" }) {
                               <input
                                 type="number"
                                 name=""
-                                id=""
                                 className="table-input"
                                 readOnly
                                 value={examen.adicion_oi_esferico}
                               />
                             </td>
                           </tr>
+                          <tr><br /></tr>
                         </tbody>
-                      </table>
-                    </div>
-                    <div className="mb-6">
-                      {/* Otros datos */}
-                      <table className="table-fixed">
+
                         <thead className="text-center text-sm">
                           <tr>
                             <th></th>
@@ -304,6 +291,17 @@ function ShowExamen({ id = "", name = "" }) {
                             </td>
                           </tr>
 
+                          <tr><br /></tr>
+                        </tbody>
+
+                        <thead className="text-center text-sm">
+                          <tr>
+                            <th></th>
+                            <th>Oblea</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
                           {/* Oblea */}
                           <tr>
                             <td className="pr-10">Oblea</td>
@@ -332,6 +330,11 @@ function ShowExamen({ id = "", name = "" }) {
                       </table>
                     </div>
                     <div className="mb-6">
+                      {/* Otros datos */}
+                      <table className="table-fixed">
+                      </table>
+                    </div>
+                    <div className="mb-6">
                       <label htmlFor="">Tipo de Lentes</label>
                       <input
                         type="text"
@@ -355,9 +358,6 @@ function ShowExamen({ id = "", name = "" }) {
                     </div>
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
-                      <button type="submit" className="btn-primary">
-                        Agregar
-                      </button>
                       <button className="btn-danger" onClick={closeModal}>
                         Cancelar
                       </button>
