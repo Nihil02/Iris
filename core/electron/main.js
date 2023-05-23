@@ -15,13 +15,7 @@ if (require("electron-squirrel-startup")) {
 const isDev = process.env.IS_DEV === "true";
 
 const createWindow = async () => {
-  if (isDev) {
-    try {
-      await sequelize.sync({ alter: true });
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  await sequelize.sync();
   const win = new BrowserWindow({
     title: "Iris",
     minWidth: 800,
