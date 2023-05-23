@@ -53,7 +53,6 @@ function AddCliente() {
         console.log(cli);
       } else {
         console.log("error");
-        alert("Error, no se pudo insertar los datos");
       }
     }
     closeModal();

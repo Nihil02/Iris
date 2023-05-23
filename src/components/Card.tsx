@@ -18,12 +18,14 @@ const Card = ({ id = "", name = "" }) => {
       <div className="card">
         <ShowCard name={name} id={id} />
         <div className="flex flex-wrap absolute items-center gap-y-2 gap-x-4 right-4">
-          <button
-            className="card-button bg-yellow-600 hover:bg-yellow-500"
-            onClick={cardPrint}
-          >
-            <FaPrint size={16} color="white" />
-          </button>
+          {location != "/usuario"? (
+            <button
+              className="card-button bg-yellow-600 hover:bg-yellow-500"
+              onClick={cardPrint}
+            >
+              <FaPrint size={16} color="white" />
+            </button>
+          ) : null}
           <UpdateCard id={id} />
           {location != "/examen/" + param.cliente ? (
             <DeleteCard cardID={id} />
