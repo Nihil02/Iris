@@ -1,30 +1,70 @@
 import logo from "/logo.svg";
 import { useNavigate } from "react-router-dom";
 import { FaLock } from "react-icons/fa";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Transition, Dialog } from "@headlessui/react";
 import { matchSorter } from "match-sorter";
-import { isAdmin } from "../util";
+import { SHA256, enc } from "crypto-js";
+import { controller, isAdmin } from "../util";
+
+/**
+ * Interface for the credentials of a user
+ *
+ * @interface
+ * @field {string} rfc
+ * @field {string} usuario
+ * @field {string} privilegio
+ * @field {string} contraseña
+ */
+interface ICredential {
+  rfc: string;
+  usuario: string;
+  privilegio: string;
+  contraseña: string;
+}
+
+/**
+ * Default users
+ */
+const def: ICredential[] = [
+  {
+    rfc: "1",
+    usuario: "admin",
+    privilegio: "2",
+    contraseña: SHA256("12345").toString(enc.Hex),
+  },
+  {
+    rfc: "2",
+    usuario: "Soraida",
+    privilegio: "1",
+    contraseña: SHA256("hola1234").toString(enc.Hex),
+  },
+];
+
 function Login() {
   let [name, setName] = useState("");
   let [pass, setPass] = useState("");
+  let [data, setData] = useState<ICredential[]>(def);
   let [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  const data = [
-    {
-      id: "1",
-      name: "admin",
-      pass: "12345",
-      priv: true,
-    },
-    {
-      id: "2",
-      name: "Soraida",
-      pass: "hola1234",
-      priv: false
-    },
-  ];
+  /* Fetch data from the api to the component */
+  useEffect(() => {
+    async function getData() {
+      const emp = await controller.EmployeeController.getAllEmployees();
+      emp.map((em) => {
+        const aux: ICredential = {
+          rfc: em.rfc,
+          usuario: em.usuario,
+          privilegio: em.privilegios,
+          contraseña: em.contrasenna,
+        };
+        setData([aux, ...data]);
+      });
+    }
+    getData();
+    console.log(data);
+  }, []);
 
   function closeModal() {
     setIsOpen(false);
@@ -33,14 +73,15 @@ function Login() {
     setIsOpen(true);
   }
 
-  const validation = (e: { preventDefault: () => void; }) => {
+  const validation = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const res = matchSorter(data, name, { keys: ["name"] });
+    const res = matchSorter(data, name, { keys: ["usuario"] });
 
-    isAdmin(res[0].priv)
+    let priv = res[0].privilegio === "2" ? true : false;
+    isAdmin(priv);
 
-    pass == res[0].pass ? navigate("/cliente") : openModal();
-  }
+    pass == res[0].contraseña ? navigate("/cliente") : openModal();
+  };
 
   return (
     <div className="content-container ml-0 bg-gray-50">
@@ -79,7 +120,9 @@ function Login() {
                   required
                   className="login-input"
                   placeholder="Contraseña"
-                  onChange={(e) => setPass(e.target.value)}
+                  onChange={(e) =>
+                    setPass(SHA256(e.target.value).toString(enc.Hex))
+                  }
                 />
               </div>
             </div>

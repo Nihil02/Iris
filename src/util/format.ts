@@ -41,3 +41,13 @@ export function phoneStringFormat(phone: string) {
   }
   return "";
 }
+
+
+/* Number Format */
+/**
+ * Recives a number.
+ * @returns the number in format X.XX
+ */
+export function numberDecFormat(num: number) {
+  return (Math.round(num * 100) / 100).toFixed(2);
+}

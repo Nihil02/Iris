@@ -15,13 +15,7 @@ if (require("electron-squirrel-startup")) {
 const isDev = process.env.IS_DEV === "true";
 
 const createWindow = async () => {
-  if (isDev) {
-    try {
-      await sequelize.sync({ alter: true });
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  await sequelize.sync();
   const win = new BrowserWindow({
     title: "Iris",
     minWidth: 800,
@@ -177,5 +171,5 @@ ipcMain.handle(K.Exam.updateExam, async (event, exam) => {
 
 // Backup
 ipcMain.handle(K.Backup.createBackUp, (event, src, dest) => {
-  return BackUpService.createBackUp(src, dest);
-})
+  BackUpService.createBackUp(src, dest);
+});

@@ -1,10 +1,10 @@
 import { Transition, Dialog } from "@headlessui/react";
-import { ChangeEvent, Fragment, useState } from "react";
-import { FaPlus } from "react-icons/fa";
+import { ChangeEvent, Fragment, useEffect, useState } from "react";
+import { FaPen } from "react-icons/fa";
 import { controller, format } from "../../util";
 import { useParams } from "react-router-dom";
 
-function AddExamen() {
+function UpdateExamen({ id = "" }) {
   let param = useParams();
   let [examen, setExamen] = useState({
     cliente: param.cliente + "", //Texto
@@ -30,6 +30,50 @@ function AddExamen() {
     observaciones: "", //Texto, opcional
   });
 
+  /* Fetch data from the api to the component */
+  useEffect(() => {
+    async function getData() {
+      const data = await controller.ExamController.getExamById(
+        examen.cliente,
+        id
+      );
+
+      examen.fecha = data.fecha;
+
+      examen.lejos_od_esferico = format.numberDecFormat(data.lejos_od_esferico);
+      examen.lejos_od_cilindrico = format.numberDecFormat(
+        data.lejos_od_cilindrico
+      );
+      examen.lejos_od_eje = format.numberDecFormat(data.lejos_od_eje);
+      examen.lejos_od_agudeza = format.numberDecFormat(
+        data.lejos_od_agudeza_visual
+      );
+      examen.adicion_od_esferico = format.numberDecFormat(
+        data.adicion_od_esferico
+      );
+
+      examen.lejos_oi_esferico = format.numberDecFormat(data.lejos_oi_esferico);
+      examen.lejos_oi_cilindrico = format.numberDecFormat(
+        data.lejos_oi_cilindrico
+      );
+      examen.lejos_oi_eje = format.numberDecFormat(data.lejos_oi_eje);
+      examen.lejos_oi_agudeza = format.numberDecFormat(
+        data.lejos_oi_agudeza_visual
+      );
+      examen.adicion_oi_esferico = format.numberDecFormat(
+        data.adicion_oi_esferico
+      );
+
+      examen.dp_od = format.numberDecFormat(data.dp_od);
+      examen.dp_oi = format.numberDecFormat(data.dp_oi);
+      examen.ob = format.numberDecFormat(data.oblea);
+
+      examen.tipo_lentes = data.tipo_lentes;
+      examen.observaciones = data.observaciones;
+    }
+    getData();
+  }, []);
+
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
     setIsOpen(false);
@@ -47,7 +91,7 @@ function AddExamen() {
     console.log(examen);
   };
 
-  const addCard = async (e: { preventDefault: () => void }) => {
+  const updateCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setExamen(examen);
 
@@ -72,8 +116,8 @@ function AddExamen() {
         examen.observaciones
       );
 
-      if (await controller.ExamController.addExam(exa)) {
-        console.log("Insertando registro ");
+      if (await controller.ExamController.updateExam(exa)) {
+        console.log("Modificando registro ");
         console.log(exa);
       } else {
         console.log("error");
@@ -86,9 +130,12 @@ function AddExamen() {
 
   return (
     <>
-      <div className="add-card" onClick={openModal}>
-        <FaPlus size={20} color="gray" />
-      </div>
+      <button
+        className="card-button bg-green-600 hover:bg-green-500"
+        onClick={openModal}
+      >
+        <FaPen size={16} color="white" />
+      </button>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -116,7 +163,7 @@ function AddExamen() {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="modal-panel">
-                  <form className="m-4" onSubmit={addCard}>
+                  <form className="m-4" onSubmit={updateCard}>
                     <div className="mb-6">
                       <label htmlFor="">Cliente</label>
                       <input
@@ -137,6 +184,7 @@ function AddExamen() {
                         id=""
                         name=""
                         className="text-input"
+                        value={format.dateHTMLFormat(examen.fecha)}
                         onChange={(e) => {
                           let aux = format.dateIntFormat(e.target.value);
                           setExamen({ ...examen, fecha: aux });
@@ -393,6 +441,7 @@ function AddExamen() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Tipo de Lentes"
+                        value={examen.tipo_lentes}
                         onChange={(e) =>
                           setExamen({ ...examen, tipo_lentes: e.target.value })
                         }
@@ -407,6 +456,7 @@ function AddExamen() {
                         className="text-input"
                         placeholder="Observaciones"
                         rows={3}
+                        value={examen.observaciones}
                         onChange={(e) =>
                           setExamen({
                             ...examen,
@@ -435,4 +485,4 @@ function AddExamen() {
   );
 }
 
-export default AddExamen;
+export default UpdateExamen;

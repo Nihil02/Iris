@@ -29,7 +29,6 @@ function AddCliente() {
   const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setCliente({ ...cliente, fecha: format.dateIntFormat(cliente.fecha) });
-    console.log(cliente);
 
     if (isOpen) {
       const cli = new controller.Customer(
@@ -37,8 +36,6 @@ function AddCliente() {
         cliente.nombre,
         cliente.apellido1,
         cliente.apellido2,
-        cliente.telefono,
-        cliente.domicilio,
         parseInt(cliente.fecha),
         "0000",
         cliente.sexo,
@@ -46,7 +43,9 @@ function AddCliente() {
         cliente.estado,
         cliente.municipio,
         cliente.locacion,
-        0
+        0,
+        cliente.telefono,
+        cliente.domicilio
       );
 
       if (await controller.CustomerController.createCustomer(cli)) {
@@ -54,7 +53,6 @@ function AddCliente() {
         console.log(cli);
       } else {
         console.log("error");
-        alert("Error, no se pudo insertar los datos");
       }
     }
     closeModal();

@@ -61,7 +61,6 @@ function UpdateEmpleado({ id = "" }) {
         console.log(emp);
       } else {
         console.log("error");
-        alert("Error, no se pudo modificar los datos");
       }
 
       closeModal();

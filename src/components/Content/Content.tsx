@@ -34,9 +34,7 @@ function Content({ title = "" }) {
           setData(exa);
           setAllData(exa);
           setAuxData(
-            await controller.CustomerController.getCustomerById(
-              param.cliente + ""
-            )
+            await controller.CustomerController.getCustomerById(param.cliente + "")
           );
           break;
 
@@ -103,9 +101,7 @@ function Content({ title = "" }) {
   }
 
   const search = (keyword: string) => {
-    let matches = matchSorter(data, keyword, { keys: ["res"] });
-    console.log(matches);
-    
+    let matches = matchSorter(data, keyword, { keys: ["res"] });    
     setKeyword(keyword);
 
     if (keyword === "") {

@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("../database/connection.js");
-const Paciente = require("./customer.js");
+const Customer = require("./customer.js");
 class Exam extends Model {}
 
 Exam.init(
@@ -8,17 +8,16 @@ Exam.init(
     cliente: {
       type: DataTypes.STRING(18),
       references: {
-        model: Paciente,
+        model: Customer,
         key: "CURP",
-        onDelete: "CASCADE"
+        allowNull: false
       },
-      primaryKey: true,
-      unique: false,
+      onDelete: "CASCADE",
+      primaryKey: true
     },
     fecha: {
       type: DataTypes.STRING(10), // De acuerdo al protocolo ISO 8601
-      primaryKey: true,
-      unique: false,
+      primaryKey: true
     },
     dp_od: {
       type: DataTypes.NUMBER,

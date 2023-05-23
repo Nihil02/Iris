@@ -19,10 +19,8 @@ class CustomerService {
     try {
       /*const sanitizedCURP = curp.trim();
       if (!Validator.isCURP(sanitizedCURP)) {
-        console.log("Esta chingadera " + sanitizedCURP);
         throw Error("Invalid CURP");
       }*/
-      console.log("Curp " + curp);
       const customer = await CustomerDAO.getCustomerByCURP(curp);
       return customer.dataValues;
     } catch (error) {

@@ -22,15 +22,14 @@ function UpdateCliente({ id = "" }) {
   useEffect(() => {
     async function getData() {
       const data = await controller.CustomerController.getCustomerById(id);
-      console.log(data);
 
       cliente.curp = data.CURP;
       cliente.nombre = data.nombre;
       cliente.apellido1 = data.primer_apellido;
       cliente.apellido2 = data.segundo_apellido;
-      cliente.telefono = data.telefono;
-      cliente.domicilio = data.domicilio;
-      cliente.fecha = data.fecnac;
+      cliente.telefono = data.telefono + "";
+      cliente.domicilio = data.domicilio + "";
+      cliente.fecha = data.fecnac + "";
       cliente.estado = data.edo;
       cliente.municipio = data.mun;
       cliente.locacion = data.loc;
@@ -57,8 +56,6 @@ function UpdateCliente({ id = "" }) {
         cliente.nombre,
         cliente.apellido1,
         cliente.apellido2,
-        cliente.telefono,
-        cliente.domicilio,
         parseInt(cliente.fecha),
         "0000",
         cliente.sexo,
@@ -66,14 +63,15 @@ function UpdateCliente({ id = "" }) {
         cliente.estado,
         cliente.municipio,
         cliente.locacion,
-        0
+        0,
+        cliente.telefono,
+        cliente.domicilio
       );
       if (await controller.CustomerController.updateCustomer(cli)) {
         console.log("Insertando registro ");
         console.log(cli);
       } else {
         console.log("error");
-        alert("Error, no se pudo modificar los datos");
       }
     }
     closeModal();

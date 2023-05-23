@@ -1,4 +1,5 @@
 const fs = require("fs");
+const {sequelize} = require("../database/connection.js");
 const { getFiles, folderExists } = require("../util/folderHandler.js");
 
 class BackUpService {
@@ -8,8 +9,14 @@ class BackUpService {
    * @param {string} dest The path of the backup folder
    */
   static createBackUp(src = "", dest = "") {
+    if (dest.trim() === "") {
+      dest = `${process.cwd()}/core/backups`;
+    }
+    if (src.trim() === "") {
+      src = `${process.cwd()}/core/database/iris.db`;
+    }
     // Before all is necessary check if the backup folder not exists, if is true, thus we create him.
-    if (folderExists(dest)) {
+    if (!folderExists(dest)) {
       fs.mkdirSync(dest);
     }
     // We get all files in the backup folder for get the number of backups in the system.
@@ -24,7 +31,7 @@ class BackUpService {
     // Gets the actual date, parses into a string and formats from YYYY-MM-DDThh:mm:ssZ to YYYY-MM-DD.
     const date = new Date().toISOString().split("T").shift();
     const finalDest = `${dest}/iris_${date}.db`;
-    fs.copyFile(src, finalDest);
+    fs.copyFileSync(src, finalDest);
   }
 
   /**
@@ -47,7 +54,7 @@ class BackUpService {
   }
 
   /**
-   * Sorts an arrays of files with name format `iris-yyyymmdd.db` by date (from the most recent to me most oldest date).
+   * Sorts an array of files with name format `iris-yyyymmdd.db` by date (from the most recent to me most oldest date).
    *
    * @param {string[]} files An array with filenames.
    * @returns {string []} An array with filenames sorted by date.

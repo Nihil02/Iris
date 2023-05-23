@@ -37,7 +37,6 @@ function AddProveedor() {
         console.log("Insertando registro ");
       } else {
         console.log("error");
-        alert("Error, no se pudo insertar los datos");
       }
 
       closeModal();
@@ -123,7 +122,6 @@ function AddProveedor() {
                             domicilio: e.target.value,
                           })
                         }
-                        pattern="[\w]+$"
                         required
                       />
                     </div>
