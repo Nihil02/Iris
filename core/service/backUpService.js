@@ -13,7 +13,7 @@ class BackUpService {
       dest = `${process.cwd()}/core/backups`;
     }
     if (src.trim() === "") {
-      src = `${process.cwd()}/core/database`;
+      src = `${process.cwd()}/core/database/iris.db`;
     }
     // Before all is necessary check if the backup folder not exists, if is true, thus we create him.
     if (!folderExists(dest)) {
@@ -31,9 +31,7 @@ class BackUpService {
     // Gets the actual date, parses into a string and formats from YYYY-MM-DDThh:mm:ssZ to YYYY-MM-DD.
     const date = new Date().toISOString().split("T").shift();
     const finalDest = `${dest}/iris_${date}.db`;
-    const sql = `VACUUM '${finalDest}'`; // Omg Rafa, wtf
-    sequelize.query(sql);
-    //fs.copyFileSync(src, finalDest);
+    fs.copyFileSync(src, finalDest);
   }
 
   /**
