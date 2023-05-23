@@ -6,6 +6,15 @@ import { Transition, Dialog } from "@headlessui/react";
 import { matchSorter } from "match-sorter";
 import { controller, isAdmin } from "../util";
 
+/**
+ * Interface for the credentials of a user
+ *
+ * @interface
+ * @field {string} rfc 
+ * @field {string} usuario 
+ * @field {string} privilegio 
+ * @field {string} contraseña 
+ */
 interface ICredential {
   rfc: string;
   usuario: string;
@@ -13,6 +22,9 @@ interface ICredential {
   contraseña: string;
 }
 
+/**
+ * Default users
+ */
 const def: ICredential[] = [
   {
     rfc: "1",
@@ -35,10 +47,10 @@ function Login() {
   let [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
+  /* Fetch data from the api to the component */
   useEffect(() => {
     async function getData() {
       const emp = await controller.EmployeeController.getAllEmployees();
-      //setData(prevData => ([...prevData, ...emp]))
       emp.map((em) => {
         const aux: ICredential = {
           rfc: em.rfc,
