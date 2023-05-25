@@ -34,9 +34,7 @@ function Content({ title = "" }) {
           setData(exa);
           setAllData(exa);
           setAuxData(
-            await controller.CustomerController.getCustomerById(
-              param.cliente + ""
-            )
+            await controller.CustomerController.getCustomerById(param.cliente + "")
           );
           break;
 
