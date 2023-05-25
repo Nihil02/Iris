@@ -34,6 +34,10 @@ class K {
   static Backup = {
     createBackUp: "createBackUp",
   };
+
+  static Print = {
+    printToPdf: "printToPdf"
+  }
 }
 
 module.exports = K;

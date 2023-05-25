@@ -7,6 +7,7 @@ const SupplierService = require("../service/supplierService.js");
 const ExamService = require("../service/examService.js");
 const CustomerService = require("../service/customerService.js");
 const BackUpService = require("../service/backUpService.js");
+const PrintService = require("../service/printService.js");
 
 if (require("electron-squirrel-startup")) {
   app.quit();
@@ -172,4 +173,9 @@ ipcMain.handle(K.Exam.updateExam, async (event, exam) => {
 // Backup
 ipcMain.handle(K.Backup.createBackUp, (event, src, dest) => {
   BackUpService.createBackUp(src, dest);
+});
+
+// Print service
+ipcMain.handle(K.Print.printToPdf, (event, format, path) => {
+  PrintService.printToPDF(format, path);
 });
