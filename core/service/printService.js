@@ -24,8 +24,13 @@ class PrintService {
 
     if (filename === undefined) {
       filename = "foo";
-      console.log("Hola " + filename);
     }
+
+    if (path === "") {
+      
+    }
+
+    console.log(fs.existsSync("/Users/nihil"));
 
     if (filename.includes(".pdf")) {
         filename = filename.replace(".pdf", "");

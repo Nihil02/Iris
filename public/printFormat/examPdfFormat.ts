@@ -269,6 +269,8 @@ const generateExamFormat = (
   };
 
   const docDefinition = {
+    pageSize: "A5",
+    pageOrientation: "landscape",
     content: [
       { text: `Examen` },
       { text: `Fecha: ${fechaExamen}` },

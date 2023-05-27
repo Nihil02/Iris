@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaPrint } from "react-icons/fa";
-import generateExamFormat from "../../../public/examPdfFormat";
+import generateExamFormat from "../../../public/printFormat/examPdfFormat";
 import { controller, format } from "../../util";
 import { useParams } from "react-router-dom";
 
@@ -134,13 +134,13 @@ function PrintExamen({ id = "" }) {
       lentType,
       observations
     );
-    controller.PrintController.printToPdf(pdf, "./public", "foo");
-    const aTag = document.createElement("a");
+    controller.PrintController.printToPdf(pdf, "./..", filename);
+    /*const aTag = document.createElement("a");
     aTag.href = "./foo.pdf";
     aTag.setAttribute("download", filename);
     document.body.appendChild(aTag);
     aTag.click();
-    aTag.remove();
+    aTag.remove();*/
   }
 
   return (
