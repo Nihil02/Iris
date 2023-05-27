@@ -21,3 +21,7 @@ import { Exam, ExamController } from "../../core/controller/examController";
 export { Exam, ExamController };
 
 import { BackUpcontroller } from "../../core/controller/backUpController";
+export { BackUpcontroller };
+
+import { PrintController } from "../../core/controller/printController";
+export { PrintController };

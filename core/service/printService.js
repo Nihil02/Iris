@@ -22,6 +22,11 @@ class PrintService {
       },
     };
 
+    if (filename === undefined) {
+      filename = "foo";
+      console.log("Hola " + filename);
+    }
+
     if (filename.includes(".pdf")) {
         filename = filename.replace(".pdf", "");
     }

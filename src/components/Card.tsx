@@ -1,7 +1,7 @@
-import { FaPrint } from "react-icons/fa";
 import DeleteCard from "./DeleteCard";
 import UpdateCard from "./UpdateCard";
 import ShowCard from "./ShowCard";
+import PrintCard from "./PrintCard";
 import { useLocation, useParams } from "react-router-dom";
 
 const Card = ({ id = "", name = "" }) => {
@@ -19,12 +19,7 @@ const Card = ({ id = "", name = "" }) => {
         <ShowCard name={name} id={id} />
         <div className="flex flex-wrap absolute items-center gap-y-2 gap-x-4 right-4">
           {location != "/usuario"? (
-            <button
-              className="card-button bg-yellow-600 hover:bg-yellow-500"
-              onClick={cardPrint}
-            >
-              <FaPrint size={16} color="white" />
-            </button>
+            <PrintCard id = {id} />
           ) : null}
           <UpdateCard id={id} />
           {location != "/examen/" + param.cliente ? (

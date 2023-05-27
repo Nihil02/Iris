@@ -1,6 +1,6 @@
 /**
  * Representation of the information of a client.
- * 
+ *
  * @typedef {Object} InfoCliente
  * @property {string} nombre
  * @property {string} sexo
@@ -9,7 +9,7 @@
 
 /**
  * Eye information resentation.
- * 
+ *
  * @typedef {Object} OjoInfo
  * @property {(string | number)} dp
  * @property {(string | number)} lejos_esferico
@@ -21,14 +21,14 @@
 
 /**
  * Generates a PDF format for an exam for be used in the PDF Service.
- * 
+ *
  * @param {string} fechaExamen - The date of the exam, must be in ISO 8601 format, e.g. `2023-05-21`.
  * @param {InfoCliente} infoCliente - Information of the client, see {@link InfoCliente}
  * @param {OjoInfo} ojoIzquierdoInfo - Information of the left eye, see {@link OjoInfo}
  * @param {OjoInfo} ojoDerechoInfo - Information of the rigth eye, see {@link OjoInfo}
- * @param {string | number} oblea 
- * @param {string} tipo_lente 
- * @param {string} observaciones 
+ * @param {string | number} oblea
+ * @param {string} tipo_lente
+ * @param {string} observaciones
  * @returns {object} An object representing the PDF format to be used in the PrintService.
  */
 const generateExamFormat = (
@@ -283,7 +283,7 @@ const generateExamFormat = (
           { width: "*", text: "" },
         ],
       },
-      {text: "Resultados del examen."},
+      { text: "Resultados del examen." },
       {
         columns: [
           { width: "*", text: "" },
@@ -300,4 +300,4 @@ const generateExamFormat = (
   return docDefinition;
 };
 
-module.exports = generateExamFormat;
+export default generateExamFormat;
