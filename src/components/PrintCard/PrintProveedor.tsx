@@ -33,7 +33,7 @@ function PrintProveedor({ id = "" }) {
     const pdf = generateSupplierFormat(
       proveedor.razon,
       proveedor.domicilio,
-      proveedor.telefono,
+      format.phoneStringFormat(proveedor.telefono),
       proveedor.correo,
       proveedor.cuenta
     );
