@@ -2,7 +2,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { controller, regex } from "../../util";
-import ErrorDialog from "../ErrorDialog";
+import ErrorDialog from "../Dialogs/ErrorDialog";
 
 function AddEmpleado() {
   let [empleado, setEmpleado] = useState({

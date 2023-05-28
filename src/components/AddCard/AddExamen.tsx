@@ -3,7 +3,7 @@ import { ChangeEvent, Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { controller, format } from "../../util";
 import { useParams } from "react-router-dom";
-import ErrorDialog from "../ErrorDialog";
+import ErrorDialog from "../Dialogs/ErrorDialog";
 
 function AddExamen() {
   let param = useParams();

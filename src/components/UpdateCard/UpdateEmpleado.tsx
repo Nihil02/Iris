@@ -2,7 +2,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { useState, Fragment, useEffect } from "react";
 import { FaPen } from "react-icons/fa";
 import { controller, regex } from "../../util";
-import ErrorDialog from "../ErrorDialog";
+import ErrorDialog from "../Dialogs/ErrorDialog";
 
 function UpdateEmpleado({ id = "" }) {
   let [empleado, setEmpleado] = useState({

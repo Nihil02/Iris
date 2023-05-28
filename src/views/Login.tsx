@@ -6,7 +6,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { matchSorter } from "match-sorter";
 import { SHA256, enc } from "crypto-js";
 import { controller, isAdmin } from "../util";
-import ErrorDialog from "../components/ErrorDialog";
+import ErrorDialog from "../components/Dialogs/ErrorDialog";
 
 /**
  * Interface for the credentials of a user

@@ -2,7 +2,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
 import { arrays, controller, format, regex } from "../../util";
-import ErrorDialog from "../ErrorDialog";
+import ErrorDialog from "../Dialogs/ErrorDialog";
 
 function UpdateCliente({ id = "" }) {
   let [cliente, setCliente] = useState({

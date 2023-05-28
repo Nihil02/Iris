@@ -7,16 +7,16 @@ interface IPrintCard {
   id: string;
 }
 
-function PrintCard(props: IPrintCard) {
+function PrintCard({id}: IPrintCard) {
   const path = useLocation().pathname;
   let param = useParams();
 
   switch (path) {
     case "/proveedor":
-      return <PrintProveedor id={props.id} />;
+      return <PrintProveedor id={id} />;
 
     case "/examen/" + param.cliente:
-      return <PrintExamen id={props.id} />;
+      return <PrintExamen id={id} />;
 
     default:
       return <h1>Fallo</h1>;

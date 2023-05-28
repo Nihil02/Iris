@@ -3,6 +3,7 @@ import { FaPrint } from "react-icons/fa";
 import generateExamFormat from "../../../public/printFormat/examPdfFormat";
 import { controller, format } from "../../util";
 import { useParams } from "react-router-dom";
+import { InfoDialog } from "../Dialogs";
 
 function PrintExamen({ id = "" }) {
   const param = useParams();
@@ -35,6 +36,11 @@ function PrintExamen({ id = "" }) {
     tipo_lentes: "", //Texto
     observaciones: "", //Texto, opcional
   });
+
+  let [isOpen, setIsOpen] = useState(false);
+  function openModal() {
+    setIsOpen(true);
+  }
 
   /* Fetch data from the api to the component */
   useEffect(() => {
@@ -141,6 +147,7 @@ function PrintExamen({ id = "" }) {
     document.body.appendChild(aTag);
     aTag.click();
     aTag.remove();*/
+    openModal();
   }
 
   return (
@@ -151,6 +158,11 @@ function PrintExamen({ id = "" }) {
       >
         <FaPrint size={16} color="white" />
       </button>
+      <InfoDialog
+        open={isOpen}
+        setIsOpen={setIsOpen}
+        msg="Guardando el archivo como pdf en"
+      />
     </>
   );
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FaPrint } from "react-icons/fa";
 import { controller, format } from "../../util";
 import generateSupplierFormat from "../../../public/printFormat/supplierPdfFormat";
+import { InfoDialog } from "../Dialogs";
 
 function PrintProveedor({ id = "" }) {
   let [proveedor, setProveedor] = useState({
@@ -12,6 +13,11 @@ function PrintProveedor({ id = "" }) {
     correo: "", //Text
     cuenta: 0, //Number
   });
+
+  let [isOpen, setIsOpen] = useState(false);
+  function openModal() {
+    setIsOpen(true);
+  }
 
   /* Fetch data from the api to the component */
   useEffect(() => {
@@ -48,6 +54,11 @@ function PrintProveedor({ id = "" }) {
       >
         <FaPrint size={16} color="white" />
       </button>
+      <InfoDialog
+        open={isOpen}
+        setIsOpen={setIsOpen}
+        msg="Guardando el archivo como pdf en"
+      />
     </>
   );
 }
