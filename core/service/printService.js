@@ -36,12 +36,13 @@ class PrintService {
 
     pathPDF = pathPDF.replace("/", "\\\\").replace(".", "");
     const finalUrl = `${electronPath}\\${pathPDF}\\${filename}.pdf`;
+    
     const printer = new PdfPrinter(fonts);
 
     const pdfDoc = printer.createPdfKitDocument(format);
     pdfDoc.pipe(fs.createWriteStream(finalUrl));
     pdfDoc.end();
-    
+
     return `${electronPath}\\${pathPDF}\\${filename}.pdf`;
   }
 }

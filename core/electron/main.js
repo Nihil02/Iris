@@ -23,6 +23,7 @@ const createWindow = async () => {
     minHeight: 600,
     width: 1024,
     height: 768,
+    icon: path.join(__dirname, "build", "logo.ico"),
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       sandbox: false,
@@ -32,10 +33,10 @@ const createWindow = async () => {
   if (isDev) {
     await win.loadURL("http://localhost:5173");
     win.webContents.openDevTools({ mode: "detach" });
+    win.setIcon(path.join(__dirname, "..", "..", "public", "logo.ico"));
   } else {
     win.loadFile(path.join(__dirname, "build", "index.html"));
     win.setMenu(null);
-    win.webContents.openDevTools({ mode: "detach" });
   }
 };
 
