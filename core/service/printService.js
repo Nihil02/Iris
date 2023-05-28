@@ -11,11 +11,7 @@ class PrintService {
    * @param {string} [path] The path where the file is going to be saved
    * @param {string} filename
    */
-  static printToPDF(format, path = "") {
-    if (path.trim() === "") {
-      throw new Error("No given path");
-    }
-
+  static printToPDF(format, path, filename) {
     const fontsPath = `${process.cwd()}/public/fonts`;
     const fonts = {
       Roboto: {
@@ -25,8 +21,16 @@ class PrintService {
         bolditalics: `${fontsPath}/Roboto-MediumItalic.ttf`,
       },
     };
-
-    const finalUrl = `${path}.pdf`;
+    if (path.trim() === "") {
+      throw new Error("No given path");
+    }
+    if (filename === undefined) {
+      filename = "foo";
+    }
+    if (filename.includes(".pdf")) {
+      filename = filename.replace(".pdf", "");
+    }
+    const finalUrl = `${path}/${filename}.pdf`;
     const printer = new PdfPrinter(fonts);
     const pdfDoc = printer.createPdfKitDocument(format);
     pdfDoc.pipe(fs.createWriteStream(finalUrl));

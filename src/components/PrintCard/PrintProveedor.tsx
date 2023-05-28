@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaPrint } from "react-icons/fa";
-import { controller, format, printFormat } from "../../util";
+import { controller, format, messages, printFormat } from "../../util";
 import { InfoDialog } from "../Dialogs";
 
 function PrintProveedor({ id = "" }) {
@@ -42,7 +42,13 @@ function PrintProveedor({ id = "" }) {
       proveedor.correo,
       proveedor.cuenta
     );
-    controller.PrintController.printToPdf(pdf);
+    controller.PrintController.printToPdf(pdf, "./public", "foo");
+    const aTag = document.createElement("a");
+    aTag.href = "./foo.pdf";
+    aTag.setAttribute("download", filename);
+    document.body.appendChild(aTag);
+    aTag.click();
+    aTag.remove();
     openModal()
   }
 
@@ -57,7 +63,7 @@ function PrintProveedor({ id = "" }) {
       <InfoDialog
         open={isOpen}
         setIsOpen={setIsOpen}
-        msg="Guardando el archivo como pdf en"
+        msg={messages.infoPrint}
       />
     </>
   );

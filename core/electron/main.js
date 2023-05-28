@@ -176,7 +176,6 @@ ipcMain.handle(K.Backup.createBackUp, (event, src, dest) => {
 });
 
 // Print service
-ipcMain.handle(K.Print.printToPdf, (event, format) => {
-  const path = dialog.showSaveDialogSync();
-  PrintService.printToPDF(format, path);
+ipcMain.handle(K.Print.printToPdf, (event, format, path, filename) => {
+  PrintService.printToPDF(format, path, filename);
 });

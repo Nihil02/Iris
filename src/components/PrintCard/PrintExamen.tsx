@@ -125,13 +125,13 @@ function PrintExamen({ id = "" }) {
       examen.tipo_lentes,
       examen.observaciones 
     );
-    controller.PrintController.printToPdf(pdf);
-    /*const aTag = document.createElement("a");
+    controller.PrintController.printToPdf(pdf, "./public", "foo");
+    const aTag = document.createElement("a");
     aTag.href = "./foo.pdf";
     aTag.setAttribute("download", filename);
     document.body.appendChild(aTag);
     aTag.click();
-    aTag.remove();*/
+    aTag.remove();
     openModal();
   }
 

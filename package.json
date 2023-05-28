@@ -59,6 +59,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
+    "react-pdf": "^7.0.1",
     "react-router-dom": "^6.9.0",
     "sequelize": "^6.29.0",
     "sqlite3": "^5.1.6",
