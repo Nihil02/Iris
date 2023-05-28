@@ -44,6 +44,7 @@ function PrintProveedor({ id = "" }) {
       proveedor.cuenta
     );
     controller.PrintController.printToPdf(pdf, "./..", filename);
+    openModal()
   }
 
   return (
