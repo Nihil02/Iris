@@ -46,6 +46,11 @@ const backUpAPI = {
     ipcRenderer.invoke(K.Backup.createBackUp, src, dest),
 };
 
+const printAPI = {
+  printToPdf: (format, path, filename) =>
+    ipcRenderer.invoke(K.Print.printToPdf, format, path, filename),
+};
+
 contextBridge.exposeInMainWorld("supplierAPI", supplierAPI);
 
 contextBridge.exposeInMainWorld("employeeAPI", employeeAPI);
@@ -55,3 +60,5 @@ contextBridge.exposeInMainWorld("customerAPI", customerAPI);
 contextBridge.exposeInMainWorld("examAPI", examAPI);
 
 contextBridge.exposeInMainWorld("backUpAPI", backUpAPI);
+
+contextBridge.exposeInMainWorld("printAPI", printAPI);
