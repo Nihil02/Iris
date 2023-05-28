@@ -42,7 +42,7 @@ function PrintProveedor({ id = "" }) {
       proveedor.correo,
       proveedor.cuenta
     );
-    controller.PrintController.printToPdf(pdf, "./..", filename);
+    controller.PrintController.printToPdf(pdf);
     openModal()
   }
 

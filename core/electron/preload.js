@@ -47,8 +47,8 @@ const backUpAPI = {
 };
 
 const printAPI = {
-  printToPdf: (format, path, filename) =>
-    ipcRenderer.invoke(K.Print.printToPdf, format, path, filename),
+  printToPdf: (format) =>
+    ipcRenderer.invoke(K.Print.printToPdf, format),
 };
 
 contextBridge.exposeInMainWorld("supplierAPI", supplierAPI);
