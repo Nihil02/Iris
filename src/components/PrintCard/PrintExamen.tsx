@@ -3,6 +3,7 @@ import { FaPrint } from "react-icons/fa";
 import { controller, format, messages, printFormat } from "../../util";
 import { useParams } from "react-router-dom";
 import { InfoDialog } from "../Dialogs";
+import { sleep } from "../../util/delay";
 
 function PrintExamen({ id = "" }) {
   const param = useParams();
@@ -32,7 +33,8 @@ function PrintExamen({ id = "" }) {
   });
 
   let [isOpen, setIsOpen] = useState(false);
-  function openModal() {
+  async function openModal() {
+    await sleep(100);
     setIsOpen(true);
   }
 

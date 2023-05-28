@@ -181,6 +181,6 @@ ipcMain.handle(K.Backup.createBackUp, (event, src, dest) => {
 });
 
 // Print service
-ipcMain.handle(K.Print.printToPdf, async (event, format, path, filename) => {
-  return await PrintService.printToPDF(format, path, filename);
+ipcMain.handle(K.Print.printToPdf, (event, format, path, filename) => {
+  PrintService.printToPDF(format, path, filename);
 });

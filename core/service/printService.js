@@ -12,7 +12,7 @@ class PrintService {
    * @param {string} [pathPDF] The path where the file is going to be saved
    * @param {string} filename
    */
-  static async printToPDF(format, pathPDF, filename) {
+  static printToPDF(format, pathPDF, filename) {
     const electronPath = app.getAppPath();
     const fontsPath = `${electronPath}/public/fonts`;
 
@@ -34,7 +34,7 @@ class PrintService {
       filename = filename.replace(".pdf", "");
     }
     
-    process.env.IS_DEV === "true"? (null):(pathPDF = "core/electron/build")
+    process.env.IS_DEV === "true" ? (null):(pathPDF = "core/electron/build")
 
     pathPDF = pathPDF.replace("/", "\\\\").replace(".", "");
     const finalUrl = `${electronPath}\\${pathPDF}\\${filename}.pdf`;
@@ -45,7 +45,6 @@ class PrintService {
     pdfDoc.pipe(fs.createWriteStream(finalUrl));
     pdfDoc.end();
 
-    return `${electronPath}\\${pathPDF}\\${filename}.pdf`;
   }
 }
 
