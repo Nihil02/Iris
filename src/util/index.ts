@@ -25,3 +25,6 @@ export { regex };
 
 import * as arrays from "./arrays";
 export { arrays };
+
+import * as printFormat from "./printFormats"
+export { printFormat}

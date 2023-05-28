@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaPrint } from "react-icons/fa";
-import { controller, format } from "../../util";
-import generateSupplierFormat from "../../../public/printFormat/supplierPdfFormat";
+import { controller, format, printFormat } from "../../util";
 import { InfoDialog } from "../Dialogs";
 
 function PrintProveedor({ id = "" }) {
@@ -36,7 +35,7 @@ function PrintProveedor({ id = "" }) {
   function printCard(e: { preventDefault: () => void }) {
     e.preventDefault();
     const filename = proveedor.rfc;
-    const pdf = generateSupplierFormat(
+    const pdf = printFormat.generateSupplierFormat(
       proveedor.razon,
       proveedor.domicilio,
       format.phoneStringFormat(proveedor.telefono),

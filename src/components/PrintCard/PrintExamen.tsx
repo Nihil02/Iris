@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaPrint } from "react-icons/fa";
-import generateExamFormat from "../../../public/printFormat/examPdfFormat";
-import { controller, format } from "../../util";
+import { controller, format, printFormat } from "../../util";
 import { useParams } from "react-router-dom";
 import { InfoDialog } from "../Dialogs";
 
@@ -131,7 +130,7 @@ function PrintExamen({ id = "" }) {
     const lentType = examen.tipo_lentes;
     const observations = examen.observaciones;
 
-    const pdf = generateExamFormat(
+    const pdf = printFormat.generateExamFormat(
       fecha,
       cliente,
       ojoDerecho,

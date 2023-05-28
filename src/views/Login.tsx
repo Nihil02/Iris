@@ -1,8 +1,7 @@
 import logo from "/logo.svg";
 import { useNavigate } from "react-router-dom";
 import { FaLock } from "react-icons/fa";
-import { Fragment, useEffect, useState } from "react";
-import { Transition, Dialog } from "@headlessui/react";
+import { useEffect, useState } from "react";
 import { matchSorter } from "match-sorter";
 import { SHA256, enc } from "crypto-js";
 import { controller, isAdmin } from "../util";
