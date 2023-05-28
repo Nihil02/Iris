@@ -146,7 +146,8 @@ function PrintExamen({ id = "" }) {
       <InfoDialog
         open={isOpen}
         setIsOpen={setIsOpen}
-        msg="Guardando el archivo como pdf en"
+        msg="Guardando el archivo como PDF"
+        pdf={true}
       />
     </>
   );

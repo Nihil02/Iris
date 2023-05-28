@@ -5,19 +5,20 @@ interface IProps {
   open: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   msg: string;
+  pdf?: boolean;
 }
 
-function InfoDialog(props: IProps) {
+function InfoDialog({ open, setIsOpen, msg, pdf = false }: IProps) {
   function closeModal() {
-    props.setIsOpen(false);
+    setIsOpen(false);
   }
   function openModal() {
-    props.setIsOpen(true);
+    setIsOpen(true);
   }
 
   return (
     <>
-      <Transition appear show={props.open} as={Fragment}>
+      <Transition appear show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
@@ -49,7 +50,17 @@ function InfoDialog(props: IProps) {
                   >
                     Info
                   </Dialog.Title>
-                  <p>{props.msg}</p>
+                  <p>{msg}</p>
+                  {pdf ? (
+                    <div className="">
+                      <embed
+                        src="./foo.pdf"
+                        type="application/pdf"
+                        width="100%"
+                        height="100%"
+                      />
+                    </div>
+                  ) : null}
                 </Dialog.Panel>
               </Transition.Child>
             </div>
