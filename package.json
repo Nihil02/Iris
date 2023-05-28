@@ -23,10 +23,10 @@
     "test": "jest",
     "build": "vite build",
     "preview": "vite preview",
-    "release": "electron-forge make",
-    "package": "electron-forge package",
+    "release": "npm run build && electron-forge make",
+    "package": "npm run build && electron-forge package",
     "electron:dev": "cross-env IS_DEV=true electron-forge start",
-    "electron:prod": "cross-env IS_DEV=false electron-forge start"
+    "electron:prod": "npm run build && cross-env IS_DEV=false electron-forge start"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.5",
