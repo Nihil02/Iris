@@ -35,7 +35,7 @@ const def: ICredential[] = [
   },
   {
     rfc: "2",
-    usuario: "Soraida",
+    usuario: "comun",
     privilegio: "1",
     contraseña: SHA256("hola1234").toString(enc.Hex),
   },
@@ -74,12 +74,20 @@ function Login() {
 
   const validation = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const res = matchSorter(data, name, { keys: ["usuario"] });
+    const res = matchSorter(data, name, {
+      keys: ["usuario"],
+      threshold: matchSorter.rankings.CASE_SENSITIVE_EQUAL,
+    });
 
-    let priv = res[0].privilegio === "2" ? true : false;
-    isAdmin(priv);
+    if (res[0] !== undefined) {
+      let priv = res[0].privilegio === "2" ? true : false;
+      isAdmin(priv);
 
-    pass == res[0].contraseña ? navigate("/cliente") : openModal();
+      pass == res[0].contraseña && name == res[0].usuario
+        ? navigate("/cliente")
+        : openModal();
+    }
+    openModal();
   };
 
   return (

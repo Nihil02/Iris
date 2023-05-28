@@ -44,7 +44,6 @@ function AddCliente() {
         setCliente((values) => ({ ...values, [name]: value + "" }));
         break;
     }
-    console.log(cliente);
   };
 
   const addCard = async (e: { preventDefault: () => void }) => {
@@ -269,7 +268,6 @@ function AddCliente() {
                           });
                         }}
                       >
-                        {console.log(arrays.mun[parseInt(cliente.estado)]) + ""}
                         {arrays.mun[parseInt(cliente.estado) - 1].map(
                           (s, i) => {
                             return <option value={i + 1}>{s}</option>;

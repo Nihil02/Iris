@@ -4,7 +4,7 @@ import { FaTrash } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import { controller } from "../util";
 
-function DeleteCard({ cardID = "" }) {
+function DeleteCard({ id = "" }) {
   /* Get current location */
   const path = useLocation().pathname;
 
@@ -19,35 +19,33 @@ function DeleteCard({ cardID = "" }) {
 
   async function deleteCard(e: { preventDefault: () => void }) {
     e.preventDefault();
-    console.log("Borrando");
-    console.log(cardID);
 
     if (isOpen) {
       let condition;
 
       switch (path) {
         case "/cliente":
-          condition = await controller.CustomerController.deleteCustomer(cardID);
+          condition = await controller.CustomerController.deleteCustomer(id);
           if (condition) {
-            console.log("eliminado registro " + cardID);
+            console.log("eliminado registro " + id);
           } else {
             console.log("error");
           }
           break;
 
         case "/proveedor":
-          condition = await controller.SupplierController.deleteSupplier(cardID);
+          condition = await controller.SupplierController.deleteSupplier(id);
           if (condition) {
-            console.log("eliminado registro " + cardID);
+            console.log("eliminado registro " + id);
           } else {
             console.log("error");
           }
           break;
 
         case "/usuario":
-          condition = await controller.EmployeeController.deleteEmployee(cardID);
+          condition = await controller.EmployeeController.deleteEmployee(id);
           if (condition) {
-            console.log("eliminado registro " + cardID);
+            console.log("eliminado registro " + id);
           } else {
             console.log("error");
           }
