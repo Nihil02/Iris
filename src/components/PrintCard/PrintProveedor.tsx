@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FaPrint } from "react-icons/fa";
 import { controller, format, messages, printFormat } from "../../util";
 import { InfoDialog } from "../Dialogs";
+import { sleep } from "../../util/delay";
 
 function PrintProveedor({ id = "" }) {
   let [proveedor, setProveedor] = useState({
@@ -14,7 +15,8 @@ function PrintProveedor({ id = "" }) {
   });
 
   let [isOpen, setIsOpen] = useState(false);
-  function openModal() {
+  async function openModal() {
+    await sleep(100);
     setIsOpen(true);
   }
 
