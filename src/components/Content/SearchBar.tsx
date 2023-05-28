@@ -1,14 +1,20 @@
+import { ChangeEvent } from "react";
 import { FaSearch } from "react-icons/fa";
 
-function SearchBar({ keyword = "", onChange }) {
+interface IProps {
+  keyword: string;
+  onChange(e: string): void;
+}
+
+function SearchBar(props: IProps) {
   return (
     <div className="search-bar">
       <input
         className="search-input"
         key="search-bar"
-        value={keyword}
+        value={props.keyword}
         placeholder={"Buscar"}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => props.onChange(e.target.value)}
       />
       <FaSearch size="24" className="" />
     </div>

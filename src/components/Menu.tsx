@@ -10,6 +10,13 @@ import { Link } from "react-router-dom";
 import { getAdmin, controller } from "../util";
 import { BackUpcontroller } from "../../core/controller/backUpController";
 
+interface IMenuIcon {
+  icon: JSX.Element;
+  tooltip: string;
+  route: string;
+  redirect?: boolean;
+}
+
 function Menu() {
   return (
     <nav
@@ -35,6 +42,7 @@ function Menu() {
           />
         ) : null}
       </div>
+
       <div className="fixed bottom-0 left-3">
         <hr className="bg-gray-200 border border-gray-200  rounded-full mx-2" />
 
@@ -60,7 +68,7 @@ function Menu() {
   );
 }
 
-const MenuIcon = ({ icon = {}, tooltip = "", route = "", redirect = true }) => {
+const MenuIcon = ({ icon, tooltip, route, redirect = true }: IMenuIcon) => {
   const menuClick = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     switch (route) {
