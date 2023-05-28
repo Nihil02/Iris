@@ -2,6 +2,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { useState, Fragment, useEffect } from "react";
 import { FaPen } from "react-icons/fa";
 import { controller, regex } from "../../util";
+import ErrorDialog from "../ErrorDialog";
 
 function UpdateEmpleado({ id = "" }) {
   let [empleado, setEmpleado] = useState({
@@ -27,6 +28,8 @@ function UpdateEmpleado({ id = "" }) {
     }
     getData();
   }, []);
+
+  let [isError, setIsError] = useState(false);
 
   /* Controls modal state */
   let [isOpen, setIsOpen] = useState(false);
@@ -59,12 +62,12 @@ function UpdateEmpleado({ id = "" }) {
       if (await controller.EmployeeController.updateEmployee(emp)) {
         console.log("Modificando registro ");
         console.log(emp);
+        closeModal();
+        window.location.reload();
       } else {
         console.log("error");
+        setIsError(true);
       }
-
-      closeModal();
-      window.location.reload();
     }
   };
 
@@ -243,6 +246,12 @@ function UpdateEmpleado({ id = "" }) {
           </div>
         </Dialog>
       </Transition>
+      
+      <ErrorDialog
+        open={isError}
+        setIsOpen={setIsError}
+        msg="Error de modificación de datos\nRevise que se haya insertado datos correctos"
+      />
     </>
   );
 }

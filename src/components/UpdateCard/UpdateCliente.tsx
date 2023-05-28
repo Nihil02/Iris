@@ -2,6 +2,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
 import { arrays, controller, format, regex } from "../../util";
+import ErrorDialog from "../ErrorDialog";
 
 function UpdateCliente({ id = "" }) {
   let [cliente, setCliente] = useState({
@@ -38,6 +39,8 @@ function UpdateCliente({ id = "" }) {
     getData();
   }, []);
 
+  let [isError, setIsError] = useState(false);
+
   /* Controls modal state */
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
@@ -70,12 +73,13 @@ function UpdateCliente({ id = "" }) {
       if (await controller.CustomerController.updateCustomer(cli)) {
         console.log("Insertando registro ");
         console.log(cli);
+        closeModal();
+        window.location.reload();
       } else {
         console.log("error");
+        setIsError(true);
       }
     }
-    closeModal();
-    window.location.reload();
   };
 
   return (
@@ -315,6 +319,12 @@ function UpdateCliente({ id = "" }) {
           </div>
         </Dialog>
       </Transition>
+
+      <ErrorDialog
+        open={isError}
+        setIsOpen={setIsError}
+        msg="Error de modificación de datos\nRevise que se haya insertado datos correctos"
+      />
     </>
   );
 }

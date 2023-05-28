@@ -2,6 +2,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { controller, regex } from "../../util";
+import ErrorDialog from "../ErrorDialog";
 
 function AddEmpleado() {
   let [empleado, setEmpleado] = useState({
@@ -22,6 +23,14 @@ function AddEmpleado() {
     setIsOpen(true);
   }
 
+  let [isError, setIsError] = useState(false);
+  function closeError() {
+    setIsError(false);
+  }
+  function openError() {
+    setIsError(true);
+  }
+
   const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
@@ -37,13 +46,13 @@ function AddEmpleado() {
       );
       if (await controller.EmployeeController.createEmployee(emp)) {
         console.log("Insertando registro ");
-      } else {
-        console.log("error");
-        console.log(empleado);
-      }
 
-      closeModal();
-      window.location.reload();
+        closeModal();
+        window.location.reload();
+      } else {
+        closeModal();
+        openError();
+      }
     }
   };
 
@@ -212,6 +221,12 @@ function AddEmpleado() {
           </div>
         </Dialog>
       </Transition>
+
+      <ErrorDialog
+        open={isError}
+        setIsOpen={setIsError}
+        msg="Error de inserción de datos\nRevise que se haya insertado datos correctos"
+      />
     </>
   );
 }

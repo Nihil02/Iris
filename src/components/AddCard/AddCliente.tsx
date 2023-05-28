@@ -2,6 +2,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { controller, regex, format, arrays } from "../../util";
+import ErrorDialog from "../ErrorDialog";
 
 function AddCliente() {
   let [cliente, setCliente] = useState({
@@ -17,6 +18,8 @@ function AddCliente() {
     locacion: "0000",
     sexo: "H",
   });
+
+  let [isError, setIsError] = useState(false);
 
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
@@ -51,12 +54,13 @@ function AddCliente() {
       if (await controller.CustomerController.createCustomer(cli)) {
         console.log("Insertando registro ");
         console.log(cli);
+        closeModal();
+        window.location.reload();
       } else {
-        console.log("error");
+        closeModal();
+        setIsError(true)
       }
     }
-    closeModal();
-    window.location.reload();
   };
 
   return (
@@ -289,6 +293,12 @@ function AddCliente() {
           </div>
         </Dialog>
       </Transition>
+
+      <ErrorDialog
+        open={isError}
+        setIsOpen={setIsError}
+        msg="Error de inserción de datos\nRevise que se haya insertado datos correctos"
+      />
     </>
   );
 }

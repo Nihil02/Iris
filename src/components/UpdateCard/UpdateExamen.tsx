@@ -3,6 +3,7 @@ import { ChangeEvent, Fragment, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
 import { controller, format } from "../../util";
 import { useParams } from "react-router-dom";
+import ErrorDialog from "../ErrorDialog";
 
 function UpdateExamen({ id = "" }) {
   let param = useParams();
@@ -74,6 +75,9 @@ function UpdateExamen({ id = "" }) {
     getData();
   }, []);
 
+  let [isError, setIsError] = useState(false);
+
+  /* Controls modal state */
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
     setIsOpen(false);
@@ -119,12 +123,12 @@ function UpdateExamen({ id = "" }) {
       if (await controller.ExamController.updateExam(exa)) {
         console.log("Modificando registro ");
         console.log(exa);
+        closeModal();
+        window.location.reload();
       } else {
         console.log("error");
+        setIsError(true);
       }
-
-      closeModal();
-      window.location.reload();
     }
   };
 
@@ -481,6 +485,12 @@ function UpdateExamen({ id = "" }) {
           </div>
         </Dialog>
       </Transition>
+
+      <ErrorDialog
+        open={isError}
+        setIsOpen={setIsError}
+        msg="Error de modificación de datos\nRevise que se haya insertado datos correctos"
+      />
     </>
   );
 }

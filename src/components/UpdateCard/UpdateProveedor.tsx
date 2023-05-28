@@ -2,6 +2,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
 import { controller, regex } from "../../util";
+import ErrorDialog from "../ErrorDialog";
 
 function UpdateProveedor({ id = "" }) {
   let [proveedor, setProveedor] = useState({
@@ -26,6 +27,8 @@ function UpdateProveedor({ id = "" }) {
     }
     getData();
   }, []);
+
+  let [isError, setIsError] = useState(false);
 
   /* Controls modal state */
   let [isOpen, setIsOpen] = useState(false);
@@ -215,6 +218,12 @@ function UpdateProveedor({ id = "" }) {
           </div>
         </Dialog>
       </Transition>
+
+      <ErrorDialog
+        open={isError}
+        setIsOpen={setIsError}
+        msg="Error de modificación de datos\nRevise que se haya insertado datos correctos"
+      />
     </>
   );
 }
