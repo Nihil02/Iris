@@ -1,7 +1,7 @@
 /**
  * Eye information resentation.
  *
- * @typedef {Interface} OjoInfo
+ * @typedef {Interface} IOjoInfo
  * @property {(string | number)} dp
  * @property {(string | number)} lejos_esferico
  * @property {(string | number)} lejos_cilindrico
@@ -23,8 +23,8 @@ interface IOjoInfo {
  *
  * @param {string} fechaExamen - The date of the exam, must be in ISO 8601 format, e.g. "2023-05-21".
  * @param {string} cliente - Name of the client
- * @param {OjoInfo} ojoIzquierdoInfo - Information of the left eye, see {@link OjoInfo}
- * @param {OjoInfo} ojoDerechoInfo - Information of the rigth eye, see {@link OjoInfo}
+ * @param {IOjoInfo} ojoIzquierdoInfo - Information of the left eye, see {@link IOjoInfo}
+ * @param {IOjoInfo} ojoDerechoInfo - Information of the rigth eye, see {@link IOjoInfo}
  * @param {string | number} oblea
  * @param {string} tipoLente
  * @param {string} observaciones - Observations

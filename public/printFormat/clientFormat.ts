@@ -17,11 +17,20 @@ const generateSupplierFormat = (cliente: ICliente) => {
   const clientTable = {
     widths: ["auto", "*"],
     body: [
-      [{ text: "CURP", bold: true }, { text: cliente.CURP }],
+      [
+        { text: "CURP", bold: true, fillColor: "#CCCCCC" },
+        { text: cliente.CURP, fillColor: "#CCCCCC" },
+      ],
       [{ text: "Sexo", bold: true }, { text: cliente.sexo }],
-      [{ text: "Fecha de Nacimiento", bold: true }, { text: cliente.fecNac }],
+      [
+        { text: "Fecha de Nacimiento", bold: true, fillColor: "#CCCCCC" },
+        { text: cliente.fecNac, fillColor: "#CCCCCC" },
+      ],
       [{ text: "Domicilio", bold: true }, { text: cliente.domicilio }],
-      [{ text: "Número de Telefono", bold: true }, { text: cliente.telefono }],
+      [
+        { text: "Número de Telefono", bold: true, fillColor: "#CCCCCC" },
+        { text: cliente.telefono, fillColor: "#CCCCCC" },
+      ],
     ],
   };
 
@@ -29,6 +38,7 @@ const generateSupplierFormat = (cliente: ICliente) => {
     pageSize: "A5",
     pageOrientation: "landscape",
     content: [
+      { text: "DATOS DEL CLIENTE" + "\n", style: "header" },
       { text: cliente.nombre + "\n", style: "header" },
       {
         columns: [

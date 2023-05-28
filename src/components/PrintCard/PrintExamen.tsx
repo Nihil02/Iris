@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaPrint } from "react-icons/fa";
-import { controller, format, printFormat } from "../../util";
+import { controller, format, messages, printFormat } from "../../util";
 import { useParams } from "react-router-dom";
 import { InfoDialog } from "../Dialogs";
 
@@ -146,7 +146,7 @@ function PrintExamen({ id = "" }) {
       <InfoDialog
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        msg="Guardando el archivo como PDF"
+        msg={messages.infoPrint}
         pdf={true}
       />
     </>
