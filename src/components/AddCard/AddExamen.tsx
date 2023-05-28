@@ -47,7 +47,6 @@ function AddExamen() {
     const value = e.target.value;
     setExamen((values) => ({ ...values, [name]: value }));
     setExamen((values) => ({ ...values, [name]: value + "" }));
-    console.log(examen);
   };
 
   const addCard = async (e: { preventDefault: () => void }) => {

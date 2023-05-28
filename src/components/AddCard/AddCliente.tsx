@@ -1,5 +1,5 @@
 import { Transition, Dialog } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { ChangeEvent, Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { controller, regex, format, arrays, messages } from "../../util";
 import ErrorDialog from "../Dialogs/ErrorDialog";
@@ -14,7 +14,7 @@ function AddCliente() {
     domicilio: "",
     fecha: "",
     estado: "28",
-    municipio: "48",
+    municipio: "9",
     locacion: "0000",
     sexo: "H",
   });
@@ -28,6 +28,24 @@ function AddCliente() {
   function openModal() {
     setIsOpen(true);
   }
+
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    const name = e.target.name;
+    const value = e.target.value;
+    switch (name) {
+      case "estado":
+        setCliente((values) => ({ ...values, [name]: value + "" }));
+        cliente.municipio = "01";
+        break;
+
+      default:
+        setCliente((values) => ({ ...values, [name]: value }));
+        setCliente((values) => ({ ...values, [name]: value + "" }));
+        break;
+    }
+    console.log(cliente);
+  };
 
   const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -56,7 +74,7 @@ function AddCliente() {
         closeModal();
         window.location.reload();
       } else {
-        setIsError(true)
+        setIsError(true);
       }
     }
   };
@@ -230,12 +248,7 @@ function AddCliente() {
                         name="estado"
                         id="estado"
                         value={cliente.estado}
-                        onChange={(e) =>
-                          setCliente({
-                            ...cliente,
-                            estado: e.target.value,
-                          })
-                        }
+                        onChange={(e) => handleChange(e)}
                       >
                         {arrays.states.map((s, i) => {
                           return <option value={i + 1}>{s}</option>;
@@ -244,20 +257,25 @@ function AddCliente() {
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Municipio</label>
-                      <input
-                        type="number"
-                        id=""
-                        name=""
+                      <select
                         className="text-input"
-                        placeholder="Municipio"
-                        onChange={(e) =>
-                          setCliente({ ...cliente, municipio: e.target.value })
-                        }
-                        value={cliente.municipio} //C.d. Madero
-                        min={0}
-                        max={999}
-                        required
-                      />
+                        name="municipio"
+                        id="municipio"
+                        value={cliente.municipio}
+                        onChange={(e) => {
+                          setCliente({
+                            ...cliente,
+                            municipio: e.target.value,
+                          });
+                        }}
+                      >
+                        {console.log(arrays.mun[parseInt(cliente.estado)]) + ""}
+                        {arrays.mun[parseInt(cliente.estado) - 1].map(
+                          (s, i) => {
+                            return <option value={i + 1}>{s}</option>;
+                          }
+                        )}
+                      </select>
                     </div>
                     {/*<div className="mb-6">
                       <label htmlFor="">Locación</label>
