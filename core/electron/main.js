@@ -35,6 +35,7 @@ const createWindow = async () => {
   } else {
     win.loadFile(path.join(__dirname, "build", "index.html"));
     win.setMenu(null);
+    win.webContents.openDevTools({ mode: "detach" });
   }
 };
 
@@ -71,6 +72,9 @@ app.on("activate", () => {
     createWindow();
   }
 });
+
+//Electron Path
+module.exports = { path };
 
 // Supplier handlers
 
@@ -176,6 +180,6 @@ ipcMain.handle(K.Backup.createBackUp, (event, src, dest) => {
 });
 
 // Print service
-ipcMain.handle(K.Print.printToPdf, (event, format, path, filename) => {
-  PrintService.printToPDF(format, path, filename);
+ipcMain.handle(K.Print.printToPdf, async (event, format, path, filename) => {
+  return await PrintService.printToPDF(format, path, filename);
 });

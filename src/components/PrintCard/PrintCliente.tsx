@@ -37,7 +37,9 @@ function PrintCliente({ id = "" }) {
     e.preventDefault();
     const filename = cliente.CURP;
     const pdf = printFormat.generateClientFormat(cliente);
-    controller.PrintController.printToPdf(pdf, "./public", "foo");
+    const a = controller.PrintController.printToPdf(pdf, "./public", "foo");
+    console.log(a);
+    
     openModal();
   }
 

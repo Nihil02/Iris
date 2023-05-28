@@ -16,8 +16,8 @@ class PrintController {
    * @param {Object} format - The pdf format in the form of `json`
    * @param {string} path - The ubication where the pdf is going to bre created
    */
-  static printToPdf(format: Object, path: string, filename?: string) {
-    window.printAPI.printToPdf(format, path, filename);
+  static async printToPdf(format: Object, path: string, filename?: string) {
+    return await window.printAPI.printToPdf(format, path, filename);
   }
 }
 

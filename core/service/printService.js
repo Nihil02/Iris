@@ -1,5 +1,6 @@
 const PdfPrinter = require("pdfmake");
 const fs = require("fs");
+const { app } = require("electron");
 
 /**
  * The print service is designed to be used since anotother services, e.g exams and suppliers.
@@ -8,11 +9,13 @@ class PrintService {
   /**
    * Recives a `format` in a form of a JSON and transforms him into a PDF document.
    * @param {JSON} format
-   * @param {string} [path] The path where the file is going to be saved
+   * @param {string} [pathPDF] The path where the file is going to be saved
    * @param {string} filename
    */
-  static printToPDF(format, path, filename) {
-    const fontsPath = `${process.cwd()}/public/fonts`;
+  static async printToPDF(format, pathPDF, filename) {
+    const electronPath = app.getAppPath();
+    const fontsPath = `${electronPath}/public/fonts`;
+
     const fonts = {
       Roboto: {
         normal: `${fontsPath}/Roboto-Regular.ttf`,
@@ -21,7 +24,7 @@ class PrintService {
         bolditalics: `${fontsPath}/Roboto-MediumItalic.ttf`,
       },
     };
-    if (path.trim() === "") {
+    if (pathPDF.trim() === "") {
       throw new Error("No given path");
     }
     if (filename === undefined) {
@@ -30,11 +33,16 @@ class PrintService {
     if (filename.includes(".pdf")) {
       filename = filename.replace(".pdf", "");
     }
-    const finalUrl = `${path}/${filename}.pdf`;
+
+    pathPDF = pathPDF.replace("/", "\\\\").replace(".", "");
+    const finalUrl = `${electronPath}\\${pathPDF}\\${filename}.pdf`;
     const printer = new PdfPrinter(fonts);
+
     const pdfDoc = printer.createPdfKitDocument(format);
     pdfDoc.pipe(fs.createWriteStream(finalUrl));
     pdfDoc.end();
+    
+    return `${electronPath}\\${pathPDF}\\${filename}.pdf`;
   }
 }
 
