@@ -3,7 +3,19 @@
   "private": true,
   "version": "1.0.0",
   "main": "core/electron/main.js",
-  "authors": "Someone",
+  "authors": [
+    {
+      "name": "Samuel ALva Segundo"
+    },
+    {
+      "name": "Rafael García Mendoza"
+    }
+  ],
+  "contributors": [
+    {
+      "name": ""
+    }
+  ],
   "description": "Sistema gestor de clientes de óptica modelo y agenda de proveedores de lentes y armazones",
   "scripts": {
     "dev": "concurrently -k \"vite\" \"npm run electron:dev --inspect\"",
@@ -11,10 +23,10 @@
     "test": "jest",
     "build": "vite build",
     "preview": "vite preview",
+    "release": "electron-forge make",
+    "package": "electron-forge package",
     "electron:dev": "cross-env IS_DEV=true electron-forge start",
-    "electron:prod": "cross-env IS_DEV=false electron-forge start",
-    "electron:build": "electron-forge make",
-    "electron:package": "electron-forge package"
+    "electron:prod": "cross-env IS_DEV=false electron-forge start"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.5",
