@@ -43,12 +43,6 @@ function PrintProveedor({ id = "" }) {
       proveedor.cuenta
     );
     controller.PrintController.printToPdf(pdf, "./public", "foo");
-    const aTag = document.createElement("a");
-    aTag.href = "./foo.pdf";
-    aTag.setAttribute("download", filename);
-    document.body.appendChild(aTag);
-    aTag.click();
-    aTag.remove();
     openModal()
   }
 
@@ -61,7 +55,7 @@ function PrintProveedor({ id = "" }) {
         <FaPrint size={16} color="white" />
       </button>
       <InfoDialog
-        open={isOpen}
+        isOpen={isOpen}
         setIsOpen={setIsOpen}
         msg={messages.infoPrint}
       />

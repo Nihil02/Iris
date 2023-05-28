@@ -123,15 +123,15 @@ function PrintExamen({ id = "" }) {
       ojoIzquierdo,
       examen.ob,
       examen.tipo_lentes,
-      examen.observaciones 
+      examen.observaciones
     );
     controller.PrintController.printToPdf(pdf, "./public", "foo");
-    const aTag = document.createElement("a");
+    /*const aTag = document.createElement("a");
     aTag.href = "./foo.pdf";
     aTag.setAttribute("download", filename);
     document.body.appendChild(aTag);
     aTag.click();
-    aTag.remove();
+    aTag.remove();*/
     openModal();
   }
 
@@ -144,7 +144,7 @@ function PrintExamen({ id = "" }) {
         <FaPrint size={16} color="white" />
       </button>
       <InfoDialog
-        open={isOpen}
+        isOpen={isOpen}
         setIsOpen={setIsOpen}
         msg="Guardando el archivo como PDF"
         pdf={true}

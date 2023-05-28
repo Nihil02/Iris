@@ -146,4 +146,8 @@ body {
   .panel {
     @apply w-3/4 rounded-2xl align-middle p-6 mb-8 text-left bg-white;
   }
+
+  .pdf-view {
+    @apply h-96 w-full;
+  }
 }

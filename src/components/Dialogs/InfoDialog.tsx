@@ -1,14 +1,16 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment } from "react";
+import PDFViewer from "../PDFViewer";
 
 interface IProps {
-  open: boolean;
+  isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   msg: string;
   pdf?: boolean;
+  fn?: string;
 }
 
-function InfoDialog({ open, setIsOpen, msg, pdf = false }: IProps) {
+function InfoDialog({ isOpen, setIsOpen, msg, pdf = false, fn = "" }: IProps) {
   function closeModal() {
     setIsOpen(false);
   }
@@ -18,7 +20,7 @@ function InfoDialog({ open, setIsOpen, msg, pdf = false }: IProps) {
 
   return (
     <>
-      <Transition appear show={open} as={Fragment}>
+      <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
@@ -51,16 +53,7 @@ function InfoDialog({ open, setIsOpen, msg, pdf = false }: IProps) {
                     Info
                   </Dialog.Title>
                   <p>{msg}</p>
-                  {pdf ? (
-                    <div className="">
-                      <embed
-                        src="./foo.pdf"
-                        type="application/pdf"
-                        width="100%"
-                        height="100%"
-                      />
-                    </div>
-                  ) : null}
+                  {pdf ? <PDFViewer /> : null}
                 </Dialog.Panel>
               </Transition.Child>
             </div>
