@@ -8,11 +8,15 @@ class PrintService {
   /**
    * Recives a `format` in a form of a JSON and transforms him into a PDF document.
    * @param {JSON} format
-   * @param {string} path The path where the file is going to be saved
+   * @param {string} [path] The path where the file is going to be saved
    * @param {string} filename
    */
-  static printToPDF(format, path, filename) {
-    const fontsPath = `${process.cwd()}/public/fonts`
+  static printToPDF(format, path = "") {
+    if (path.trim() === "") {
+      throw new Error("No given path");
+    }
+
+    const fontsPath = `${process.cwd()}/public/fonts`;
     const fonts = {
       Roboto: {
         normal: `${fontsPath}/Roboto-Regular.ttf`,
@@ -22,20 +26,7 @@ class PrintService {
       },
     };
 
-    if (filename === undefined) {
-      filename = "foo";
-    }
-
-    if (path === "") {
-      
-    }
-
-    console.log(fs.existsSync("/Users/nihil"));
-
-    if (filename.includes(".pdf")) {
-        filename = filename.replace(".pdf", "");
-    }
-    const finalUrl = `${path}/${filename}.pdf`;
+    const finalUrl = `${path}.pdf`;
     const printer = new PdfPrinter(fonts);
     const pdfDoc = printer.createPdfKitDocument(format);
     pdfDoc.pipe(fs.createWriteStream(finalUrl));

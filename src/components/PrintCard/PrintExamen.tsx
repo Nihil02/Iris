@@ -125,7 +125,7 @@ function PrintExamen({ id = "" }) {
       examen.tipo_lentes,
       examen.observaciones 
     );
-    controller.PrintController.printToPdf(pdf, "./..", filename);
+    controller.PrintController.printToPdf(pdf);
     /*const aTag = document.createElement("a");
     aTag.href = "./foo.pdf";
     aTag.setAttribute("download", filename);

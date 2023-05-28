@@ -14,19 +14,19 @@ Customer.init(
       type: DataTypes.STRING(50),
       allowNull: false,
     },
-    telefono: {
-      type: DataTypes.STRING(20),
-      allowNull: true,
-    },
-    domicilio: {
-      type: DataTypes.STRING(50),
-      allowNull: true,
-    },
     primer_apellido: {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
     segundo_apellido: {
+      type: DataTypes.STRING(50),
+      allowNull: true,
+    },
+    telefono: {
+      type: DataTypes.STRING(20),
+      allowNull: true,
+    },
+    domicilio: {
       type: DataTypes.STRING(50),
       allowNull: true,
     },
