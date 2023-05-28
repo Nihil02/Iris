@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { ChangeEvent, Fragment, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
-import { controller, format } from "../../util";
+import { controller, format, messages } from "../../util";
 import { useParams } from "react-router-dom";
 import ErrorDialog from "../Dialogs/ErrorDialog";
 
@@ -120,11 +120,10 @@ function UpdateExamen({ id = "" }) {
       );
 
       if (await controller.ExamController.updateExam(exa)) {
-        console.log("Modificando registro ");
+        console.log(exa);
         closeModal();
         window.location.reload();
       } else {
-        console.log("error");
         setIsError(true);
       }
     }
@@ -474,7 +473,7 @@ function UpdateExamen({ id = "" }) {
       <ErrorDialog
         open={isError}
         setIsOpen={setIsError}
-        msg="Error de modificación de datos. Revise que se haya insertado datos correctos"
+        msg={messages.errorUpdate}
       />
     </>
   );

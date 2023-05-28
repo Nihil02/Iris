@@ -26,5 +26,8 @@ export { regex };
 import * as arrays from "./arrays";
 export { arrays };
 
-import * as printFormat from "./printFormats"
-export { printFormat}
+import * as printFormat from "./printFormats";
+export { printFormat };
+
+import * as messages from "./messages";
+export { messages };

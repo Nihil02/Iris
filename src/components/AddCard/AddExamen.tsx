@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { ChangeEvent, Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { controller, format } from "../../util";
+import { controller, format, messages } from "../../util";
 import { useParams } from "react-router-dom";
 import ErrorDialog from "../Dialogs/ErrorDialog";
 
@@ -76,12 +76,10 @@ function AddExamen() {
       );
 
       if (await controller.ExamController.addExam(exa)) {
-        console.log("Insertando registro ");
         console.log(exa);
         closeModal();
         window.location.reload();
       } else {
-        closeModal();
         setIsError(true);
       }
     }
@@ -438,7 +436,7 @@ function AddExamen() {
       <ErrorDialog
         open={isError}
         setIsOpen={setIsError}
-        msg="Error de inserción de datos\nRevise que se haya insertado datos correctos"
+        msg={messages.errorInsertion}
       />
     </>
   );

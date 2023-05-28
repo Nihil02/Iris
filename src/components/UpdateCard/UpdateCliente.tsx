@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
-import { arrays, controller, format, regex } from "../../util";
+import { arrays, controller, format, messages, regex } from "../../util";
 import ErrorDialog from "../Dialogs/ErrorDialog";
 
 function UpdateCliente({ id = "" }) {
@@ -71,13 +71,10 @@ function UpdateCliente({ id = "" }) {
         cliente.domicilio
       );
       if (await controller.CustomerController.updateCustomer(cli)) {
-        console.log("Insertando registro ");
         console.log(cli);
         closeModal();
         window.location.reload();
       } else {
-        console.log("error");
-        closeModal();
         setIsError(true);
       }
     }
@@ -324,7 +321,7 @@ function UpdateCliente({ id = "" }) {
       <ErrorDialog
         open={isError}
         setIsOpen={setIsError}
-        msg="Error de modificación de datos\nRevise que se haya insertado datos correctos"
+        msg={messages.errorUpdate}
       />
     </>
   );

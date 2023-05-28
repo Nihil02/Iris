@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { controller, regex } from "../../util";
+import { controller, messages, regex } from "../../util";
 import ErrorDialog from "../Dialogs/ErrorDialog";
 
 function AddProveedor() {
@@ -37,12 +37,10 @@ function AddProveedor() {
         proveedor.cuenta
       );
       if (await controller.SupplierController.createSupplier(sup)) {
-        console.log("Insertando registro ");
-
+        console.log(sup);
         closeModal();
         window.location.reload();
       } else {
-        console.log("error");
         setIsError(true);
       }
     }
@@ -201,7 +199,7 @@ function AddProveedor() {
       <ErrorDialog
         open={isError}
         setIsOpen={setIsError}
-        msg="Error de inserción de datos \nRevise que se haya insertado datos correctos"
+        msg={messages.errorInsertion}
       />
     </>
   );

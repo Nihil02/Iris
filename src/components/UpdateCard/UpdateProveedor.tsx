@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
-import { controller, regex } from "../../util";
+import { controller, messages, regex } from "../../util";
 import ErrorDialog from "../Dialogs/ErrorDialog";
 
 function UpdateProveedor({ id = "" }) {
@@ -52,7 +52,7 @@ function UpdateProveedor({ id = "" }) {
         proveedor.cuenta.toString()
       );
       if (await controller.SupplierController.updateSupplier(sup)) {
-        console.log("Modificando registro ");
+        console.log(sup);
         closeModal();
         window.location.reload();
       } else {
@@ -221,7 +221,7 @@ function UpdateProveedor({ id = "" }) {
       <ErrorDialog
         open={isError}
         setIsOpen={setIsError}
-        msg="Error de modificación de datos. Revise que se haya insertado datos correctos"
+        msg={messages.errorUpdate}
       />
     </>
   );

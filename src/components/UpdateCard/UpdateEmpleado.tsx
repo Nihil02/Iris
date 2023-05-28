@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { useState, Fragment, useEffect } from "react";
 import { FaPen } from "react-icons/fa";
-import { controller, regex } from "../../util";
+import { controller, messages, regex } from "../../util";
 import ErrorDialog from "../Dialogs/ErrorDialog";
 
 function UpdateEmpleado({ id = "" }) {
@@ -60,12 +60,10 @@ function UpdateEmpleado({ id = "" }) {
         empleado.privilegios
       );
       if (await controller.EmployeeController.updateEmployee(emp)) {
-        console.log("Modificando registro ");
         console.log(emp);
         closeModal();
         window.location.reload();
       } else {
-        console.log("error");
         setIsError(true);
       }
     }
@@ -250,7 +248,7 @@ function UpdateEmpleado({ id = "" }) {
       <ErrorDialog
         open={isError}
         setIsOpen={setIsError}
-        msg="Error de modificación de datos\nRevise que se haya insertado datos correctos"
+        msg={messages.errorUpdate}
       />
     </>
   );
