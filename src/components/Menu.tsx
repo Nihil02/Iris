@@ -9,6 +9,8 @@ import {
 import { Link } from "react-router-dom";
 import { getAdmin, controller } from "../util";
 import { BackUpcontroller } from "../../core/controller/backUpController";
+import { InfoDialog } from "./Dialogs";
+import { useState } from "react";
 
 interface IMenuIcon {
   icon: JSX.Element;
@@ -18,6 +20,57 @@ interface IMenuIcon {
 }
 
 function Menu() {
+  let [isOpen, setIsOpen] = useState(false);
+  let [msg, setMsg] = useState("");
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  const MenuIcon = ({ icon, tooltip, route, redirect = true }: IMenuIcon) => {
+    const menuClick = (e: { preventDefault: () => void }) => {
+      e.preventDefault();
+      switch (route) {
+        case "Exportar":
+          BackUpcontroller.createBackUp();
+          setMsg("Creada la copia de seguridad");
+          openModal();
+          break;
+
+        case "Restaurar":
+          setMsg("Restaurando datos");
+          openModal();
+          break;
+
+        default:
+          break;
+      }
+    };
+
+    return (
+      <>
+        {redirect ? (
+          <Link to={route} className="menu-icon group">
+            <>
+              {icon}
+              <span className="menu-tooltip group-hover:scale-100">
+                {tooltip}
+              </span>
+            </>
+          </Link>
+        ) : (
+          <div className="menu-icon group" onClick={menuClick}>
+            <>
+              {icon}
+              <span className="menu-tooltip group-hover:scale-100">
+                {tooltip}
+              </span>
+            </>
+          </div>
+        )}
+      </>
+    );
+  };
+
   return (
     <nav
       className="fixed top-0 left-0 h-screen w-20 flex flex-col
@@ -64,49 +117,10 @@ function Menu() {
         ) : null}
         <MenuIcon icon={<FaDoorOpen size="28" />} tooltip="Salir" route="/" />
       </div>
+
+      <InfoDialog isOpen={isOpen} setIsOpen={setIsOpen} msg={msg}></InfoDialog>
     </nav>
   );
 }
-
-const MenuIcon = ({ icon, tooltip, route, redirect = true }: IMenuIcon) => {
-  const menuClick = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    switch (route) {
-      case "Exportar":
-        BackUpcontroller.createBackUp();
-        break;
-
-      case "Restaurar":
-        break;
-
-      default:
-        break;
-    }
-  };
-
-  return (
-    <>
-      {redirect ? (
-        <Link to={route} className="menu-icon group">
-          <>
-            {icon}
-            <span className="menu-tooltip group-hover:scale-100">
-              {tooltip}
-            </span>
-          </>
-        </Link>
-      ) : (
-        <div className="menu-icon group" onClick={menuClick}>
-          <>
-            {icon}
-            <span className="menu-tooltip group-hover:scale-100">
-              {tooltip}
-            </span>
-          </>
-        </div>
-      )}
-    </>
-  );
-};
 
 export default Menu;
