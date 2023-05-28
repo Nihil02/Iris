@@ -33,6 +33,8 @@ class PrintService {
     if (filename.includes(".pdf")) {
       filename = filename.replace(".pdf", "");
     }
+    
+    process.env.IS_DEV === "true"? (null):(pathPDF = "core/electron/build")
 
     pathPDF = pathPDF.replace("/", "\\\\").replace(".", "");
     const finalUrl = `${electronPath}\\${pathPDF}\\${filename}.pdf`;

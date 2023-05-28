@@ -1,5 +1,7 @@
 module.exports = {
-  packagerConfig: {},
+  packagerConfig: {
+    icon: "public/logo.ico"
+  },
   rebuildConfig: {},
   makers: [
     {
