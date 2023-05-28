@@ -53,12 +53,11 @@ function UpdateProveedor({ id = "" }) {
       );
       if (await controller.SupplierController.updateSupplier(sup)) {
         console.log("Modificando registro ");
+        closeModal();
+        window.location.reload();
       } else {
-        console.log("error");
+        setIsError(true)
       }
-
-      closeModal();
-      window.location.reload();
     }
   };
 
@@ -222,7 +221,7 @@ function UpdateProveedor({ id = "" }) {
       <ErrorDialog
         open={isError}
         setIsOpen={setIsError}
-        msg="Error de modificación de datos\nRevise que se haya insertado datos correctos"
+        msg="Error de modificación de datos. Revise que se haya insertado datos correctos"
       />
     </>
   );

@@ -92,7 +92,6 @@ function UpdateExamen({ id = "" }) {
     const value = e.target.value;
     setExamen((values) => ({ ...values, [name]: value }));
     setExamen((values) => ({ ...values, [name]: value + "" }));
-    console.log(examen);
   };
 
   const updateCard = async (e: { preventDefault: () => void }) => {
@@ -122,7 +121,6 @@ function UpdateExamen({ id = "" }) {
 
       if (await controller.ExamController.updateExam(exa)) {
         console.log("Modificando registro ");
-        console.log(exa);
         closeModal();
         window.location.reload();
       } else {
@@ -418,19 +416,6 @@ function UpdateExamen({ id = "" }) {
                                 onChange={handleChange}
                               />
                             </td>
-                            {/*<td>
-                              <input
-                                type="text"
-                                name=""
-                                id=""
-                                className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
-                                value={examen.ob_oi}
-                                onChange={handleChange}
-                              />
-                            </td>*/}
                           </tr>
                         </tbody>
                       </table>
@@ -472,7 +457,7 @@ function UpdateExamen({ id = "" }) {
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
                       <button type="submit" className="btn-primary">
-                        Agregar
+                        Modificar
                       </button>
                       <button className="btn-danger" onClick={closeModal}>
                         Cancelar
@@ -489,7 +474,7 @@ function UpdateExamen({ id = "" }) {
       <ErrorDialog
         open={isError}
         setIsOpen={setIsError}
-        msg="Error de modificación de datos\nRevise que se haya insertado datos correctos"
+        msg="Error de modificación de datos. Revise que se haya insertado datos correctos"
       />
     </>
   );

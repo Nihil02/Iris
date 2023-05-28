@@ -201,7 +201,7 @@ function AddProveedor() {
       <ErrorDialog
         open={isError}
         setIsOpen={setIsError}
-        msg="Error de inserción de datos\nRevise que se haya insertado datos correctos"
+        msg="Error de inserción de datos \nRevise que se haya insertado datos correctos"
       />
     </>
   );

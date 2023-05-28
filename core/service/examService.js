@@ -66,7 +66,7 @@ class ExamService {
     try {
       /* Validations goes here */
       await ExamDAO.updateExam(exam);
-      return false;
+      return true;
     } catch (error) {
       console.error(error);
       return false;

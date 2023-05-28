@@ -77,6 +77,7 @@ function UpdateCliente({ id = "" }) {
         window.location.reload();
       } else {
         console.log("error");
+        closeModal();
         setIsError(true);
       }
     }
