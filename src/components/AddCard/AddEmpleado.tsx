@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { controller, messages, regex } from "../../util";
+import { controller, format, messages, regex } from "../../util";
 import ErrorDialog from "../Dialogs/ErrorDialog";
 
 function AddEmpleado() {
@@ -31,9 +31,9 @@ function AddEmpleado() {
     if (isOpen) {
       const emp = new controller.Employee(
         empleado.rfc,
-        empleado.nombre,
-        empleado.apellido1,
-        empleado.apellido2,
+        format.firstUpperCaseFormat(empleado.nombre),
+        format.firstUpperCaseFormat(empleado.apellido1),
+          format.firstUpperCaseFormat(empleado.apellido2),
         empleado.usuario,
         empleado.pass,
         empleado.privilegios

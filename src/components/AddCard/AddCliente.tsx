@@ -53,9 +53,9 @@ function AddCliente() {
     if (isOpen) {
       const cli = new controller.Customer(
         cliente.curp,
-        cliente.nombre,
-        cliente.apellido1,
-        cliente.apellido2,
+        format.firstUpperCaseFormat(cliente.nombre),
+        format.firstUpperCaseFormat(cliente.apellido1),
+        format.firstUpperCaseFormat(cliente.apellido2),
         parseInt(cliente.fecha),
         "0000",
         cliente.sexo,
@@ -208,12 +208,13 @@ function AddCliente() {
                       </select>
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Telefono</label>
+                      <label htmlFor="">Teléfono</label>
                       <input
                         type="number"
                         id=""
                         name=""
-                        maxLength={20}
+                        maxLength={10}
+                        minLength={10}
                         min={0}
                         className="text-input"
                         placeholder="Telefono"

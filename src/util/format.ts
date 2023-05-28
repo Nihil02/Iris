@@ -42,7 +42,6 @@ export function phoneStringFormat(phone: string) {
   return "";
 }
 
-
 /* Number Format */
 /**
  * Recives a number.
@@ -50,4 +49,16 @@ export function phoneStringFormat(phone: string) {
  */
 export function numberDecFormat(num: number) {
   return (Math.round(num * 100) / 100).toFixed(2);
+}
+
+/* Text Format */
+/**
+ * Recives a text.
+ * @returns
+ */
+export function firstUpperCaseFormat(txt: string) {
+  txt = txt.toLowerCase();
+  var aux = txt.charAt(0).toUpperCase();
+  txt = aux + txt.slice(1);
+  return txt;
 }

@@ -148,12 +148,13 @@ function UpdateProveedor({ id = "" }) {
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Telefono</label>
+                      <label htmlFor="">Teléfono</label>
                       <input
                         type="number"
                         id=""
                         name=""
-                        maxLength={20}
+                        maxLength={10}
+                        minLength={10}
                         min={0}
                         className="text-input"
                         value={proveedor.telefono}

@@ -1,7 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { useState, Fragment, useEffect } from "react";
 import { FaPen } from "react-icons/fa";
-import { controller, messages, regex } from "../../util";
+import { controller, format, messages, regex } from "../../util";
 import ErrorDialog from "../Dialogs/ErrorDialog";
 
 function UpdateEmpleado({ id = "" }) {
@@ -52,9 +52,9 @@ function UpdateEmpleado({ id = "" }) {
     if (isOpen) {
       const emp = new controller.Employee(
         empleado.rfc,
-        empleado.nombre,
-        empleado.apellido1,
-        empleado.apellido2,
+        format.firstUpperCaseFormat(empleado.nombre),
+        format.firstUpperCaseFormat(empleado.apellido1),
+        format.firstUpperCaseFormat(empleado.apellido2),
         empleado.usuario,
         empleado.pass,
         empleado.privilegios
@@ -244,7 +244,7 @@ function UpdateEmpleado({ id = "" }) {
           </div>
         </Dialog>
       </Transition>
-      
+
       <ErrorDialog
         open={isError}
         setIsOpen={setIsError}
