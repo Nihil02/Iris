@@ -1,8 +1,8 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
-import { controller } from "../../util";
+import { controller, format } from "../../util";
 
-function ShowProveedor({id = "", name = ""}) {
+function ShowProveedor({ id = "", name = "" }) {
   let [proveedor, setProveedor] = useState({
     rfc: "", //Text
     razon: "", //Text
@@ -16,7 +16,7 @@ function ShowProveedor({id = "", name = ""}) {
   useEffect(() => {
     async function getData() {
       const data = await controller.SupplierController.getSupplierByRFC(id);
-      
+
       proveedor.rfc = data.rfc;
       proveedor.razon = data.razon_social;
       proveedor.domicilio = data.domicilio;
@@ -43,16 +43,13 @@ function ShowProveedor({id = "", name = ""}) {
 
   return (
     <>
-      <div
-        className="flex flex-wrap items-center w-auto"
-        onClick={showCard}
-      >
+      <div className="flex flex-wrap items-center w-auto" onClick={showCard}>
         <p className="text-sm leading-6  max-w-md">
           <strong className="font-semibold truncate">{name}</strong>
         </p>
       </div>
 
-    {/* Modal */}
+      {/* Modal */}
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
@@ -123,22 +120,21 @@ function ShowProveedor({id = "", name = ""}) {
                         id=""
                         name=""
                         className="text-input"
-                        value={proveedor.telefono}
+                        value={format.phoneStringFormat(
+                          proveedor.telefono + ""
+                        )}
                         readOnly
                         disabled
                       />
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Correo</label>
-                      <input
-                        type="text"
-                        id=""
-                        name=""
+                      <a
+                        href={"mailto:" + proveedor.correo}
                         className="text-input"
-                        value={proveedor.correo}
-                        readOnly
-                        disabled
-                      />
+                      >
+                        {proveedor.correo}
+                      </a>
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Cuenta Bancaria</label>
