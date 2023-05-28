@@ -6,12 +6,7 @@ import { InfoDialog } from "../Dialogs";
 
 function PrintExamen({ id = "" }) {
   const param = useParams();
-  const [cliente, setCliente] = useState({
-    name: "",
-    genre: "",
-    adress: "",
-    birthdate: "",
-  });
+  const [cliente, setCliente] = useState("");
   const [examen, setExamen] = useState({
     cliente: param.cliente + "", //Texto
     fecha: "", //Entero
@@ -52,19 +47,13 @@ function PrintExamen({ id = "" }) {
         examen.cliente
       );
 
-      cliente.name =
+      setCliente(
         auxData.nombre +
-        " " +
-        auxData.primer_apellido +
-        " " +
-        auxData.segundo_apellido;
-      cliente.birthdate = format.dateStringFormat(auxData.fecnac + "");
-      auxData.domicilio === undefined
-        ? (cliente.adress = "")
-        : (cliente.adress = auxData.domicilio);
-      auxData.sexo == "H"
-        ? (cliente.genre = "Hombre")
-        : (cliente.genre = "Mujer");
+          " " +
+          auxData.primer_apellido +
+          " " +
+          auxData.segundo_apellido
+      );
 
       examen.fecha = data.fecha;
 
@@ -106,7 +95,7 @@ function PrintExamen({ id = "" }) {
     e.preventDefault();
     const fecha = format.dateStringFormat(examen.fecha);
     const filename =
-      cliente.name.replaceAll(" ", "-") +
+      cliente.replaceAll(" ", "-") +
       "-" +
       format.dateHTMLFormat(examen.fecha) +
       ".pdf";
@@ -126,18 +115,15 @@ function PrintExamen({ id = "" }) {
       lejos_agudeza_visual: examen.lejos_oi_agudeza,
       adicion_esferico: examen.adicion_oi_esferico,
     };
-    const oblea = examen.ob;
-    const lentType = examen.tipo_lentes;
-    const observations = examen.observaciones;
 
     const pdf = printFormat.generateExamFormat(
       fecha,
       cliente,
       ojoDerecho,
       ojoIzquierdo,
-      oblea,
-      lentType,
-      observations
+      examen.ob,
+      examen.tipo_lentes,
+      examen.observaciones 
     );
     controller.PrintController.printToPdf(pdf, "./..", filename);
     /*const aTag = document.createElement("a");
