@@ -183,6 +183,7 @@ function AddCliente() {
                         id=""
                         name=""
                         className="text-input"
+                        max={new Date().toLocaleDateString('fr-ca')}
                         onChange={(e) => {
                           let aux = e.target.value.replaceAll("-", "");
                           setCliente({ ...cliente, fecha: aux });

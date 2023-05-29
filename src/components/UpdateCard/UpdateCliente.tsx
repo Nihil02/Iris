@@ -1,5 +1,5 @@
 import { Transition, Dialog } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react";
+import { ChangeEvent, Fragment, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
 import { arrays, controller, format, messages, regex } from "../../util";
 import ErrorDialog from "../Dialogs/ErrorDialog";
@@ -13,8 +13,8 @@ function UpdateCliente({ id = "" }) {
     telefono: "",
     domicilio: "",
     fecha: "",
-    estado: "",
-    municipio: "",
+    estado: "01",
+    municipio: "01",
     locacion: "",
     sexo: "",
   });
@@ -49,6 +49,23 @@ function UpdateCliente({ id = "" }) {
   function openModal() {
     setIsOpen(true);
   }
+
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    const name = e.target.name;
+    const value = e.target.value;
+    switch (name) {
+      case "estado":
+        setCliente((values) => ({ ...values, [name]: value + "" }));
+        cliente.municipio = "01";
+        break;
+
+      default:
+        setCliente((values) => ({ ...values, [name]: value }));
+        setCliente((values) => ({ ...values, [name]: value + "" }));
+        break;
+    }
+  };
 
   const updateCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -189,6 +206,7 @@ function UpdateCliente({ id = "" }) {
                         id=""
                         name=""
                         className="text-input"
+                        max={new Date().toLocaleDateString("fr-ca")}
                         value={format.dateHTMLFormat(cliente.fecha + "")}
                         onChange={(e) => {
                           let aux = format.dateIntFormat(e.target.value);
@@ -258,50 +276,29 @@ function UpdateCliente({ id = "" }) {
                         name="estado"
                         id="estado"
                         value={cliente.estado}
-                        onChange={(e) =>
-                          setCliente({
-                            ...cliente,
-                            estado: e.target.value,
-                          })
-                        }
+                        onChange={(e) => handleChange(e)}
                       >
                         {arrays.states.map((s, i) => {
                           return <option value={i + 1}>{s}</option>;
                         })}
                       </select>
                     </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Municipio</label>
-                      <input
-                        type="number"
-                        id=""
-                        name=""
-                        className="text-input"
-                        value={cliente.municipio}
-                        onChange={(e) =>
-                          setCliente({ ...cliente, municipio: e.target.value })
-                        }
-                        defaultValue={38} //C.d. Madero
-                        min={0}
-                        max={999}
-                        required
-                      />
-                    </div>
-                    {/*<div className="mb-6">
-                      <label htmlFor="">Locación</label>
-                      <input
-                        type="number"
-                        id=""
-                        name=""
-                        className="text-input"
-                        value={cliente.locacion}
-                        onChange={(e) =>
-                          setCliente({ ...cliente, locacion: e.target.value })
-                        }
-                        min={0}
-                        max={9999}
-                      />
-                      </div>*/}
+                    <select
+                      className="text-input"
+                      name="municipio"
+                      id="municipio"
+                      value={cliente.municipio}
+                      onChange={(e) => {
+                        setCliente({
+                          ...cliente,
+                          municipio: e.target.value,
+                        });
+                      }}
+                    >
+                      {arrays.mun[parseInt(cliente.estado) - 1].map((s, i) => {
+                        return <option value={i + 1}>{s}</option>;
+                      })}
+                    </select>
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
                       <button type="submit" className="btn-primary">
