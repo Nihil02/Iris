@@ -1,5 +1,5 @@
 const fs = require("fs");
-const {sequelize} = require("../database/connection.js");
+const { sequelize } = require("../database/connection.js");
 const { getFiles, folderExists } = require("../util/folderHandler.js");
 
 class BackUpService {
@@ -40,9 +40,13 @@ class BackUpService {
    * @param {string} dest The path of the database folder.
    */
   static getBackUp(src = "", dest = "") {
-    if(src.trim()  === "" && src.trim() === "") {
-      src = `${process.cwd()}/core/backups`
-      dest = `${process.cwd()}/core/database`
+    if (src.trim() === "" && src.trim() === "") {
+      src = `${process.cwd()}/core/backups`;
+      dest = `${process.cwd()}/core/database`;
+    }
+
+    if (!folderExists(src) || isFolderEmpty(src)) {
+      return;
     }
     // The format of a backup name is the next: iris-yyyymmdd.db
     const files = getFiles(src);
