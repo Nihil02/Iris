@@ -37,6 +37,7 @@ function Menu() {
           break;
 
         case "Restaurar":
+          BackUpcontroller.getBackUp();
           setMsg("Restaurando datos");
           openModal();
           break;
