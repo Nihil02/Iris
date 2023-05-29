@@ -1,5 +1,6 @@
 interface IBackUpAPI {
   createBackUp: (src?: string, dest?: string) => void;
+  getBackUp: () => void;
 }
 
 declare global {
@@ -17,6 +18,10 @@ class BackUpcontroller {
    */
   static createBackUp(src?: string, dest?: string) {
     window.backUpAPI.createBackUp(src, dest);
+  }
+
+  static getBackUp() {
+    window.backUpAPI.getBackUp();
   }
 }
 

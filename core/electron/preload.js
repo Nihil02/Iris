@@ -44,6 +44,7 @@ const examAPI = {
 const backUpAPI = {
   createBackUp: (src, dest) =>
     ipcRenderer.invoke(K.Backup.createBackUp, src, dest),
+  getBackUo: () => ipcRenderer.invoke(K.Backup.getBackUp),
 };
 
 const printAPI = {

@@ -33,6 +33,7 @@ class K {
 
   static Backup = {
     createBackUp: "createBackUp",
+    getBackUp: "getBackUp"
   };
 
   static Print = {
