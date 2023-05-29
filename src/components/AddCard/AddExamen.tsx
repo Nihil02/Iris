@@ -44,7 +44,13 @@ function AddExamen() {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const name = e.target.name;
-    const value = e.target.value;
+    let value = e.target.value;
+    let aux = parseFloat(value);
+    if (aux > 15.0) {
+      value = "15.00";
+    } else if (aux < -15.0) {
+      value = "-15.00";
+    }
     setExamen((values) => ({ ...values, [name]: value }));
     setExamen((values) => ({ ...values, [name]: value + "" }));
   };
@@ -137,6 +143,8 @@ function AddExamen() {
                         id=""
                         name=""
                         className="text-input"
+                        max={new Date().toLocaleDateString("fr-ca")}
+                        min={"1900-01-01"}
                         onChange={(e) => {
                           let aux = format.dateIntFormat(e.target.value);
                           setExamen({ ...examen, fecha: aux });

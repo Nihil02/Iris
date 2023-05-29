@@ -130,12 +130,10 @@ function AddProveedor() {
                     <div className="mb-6">
                       <label htmlFor="">Teléfono</label>
                       <input
-                        type="number"
-                        id=""
-                        name=""
-                        maxLength={10}
-                        minLength={10}
-                        min={0}
+                        type="tel"
+                        id="tel"
+                        name="tel"
+                        pattern="[\d]{10}$"
                         className="text-input"
                         placeholder="Telefono"
                         onChange={(e) =>

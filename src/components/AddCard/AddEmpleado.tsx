@@ -31,9 +31,9 @@ function AddEmpleado() {
     if (isOpen) {
       const emp = new controller.Employee(
         empleado.rfc,
-        format.firstUpperCaseFormat(empleado.nombre),
-        format.firstUpperCaseFormat(empleado.apellido1),
-          format.firstUpperCaseFormat(empleado.apellido2),
+        format.nameFormat(empleado.nombre),
+        format.nameFormat(empleado.apellido1),
+          format.nameFormat(empleado.apellido2),
         empleado.usuario,
         empleado.pass,
         empleado.privilegios

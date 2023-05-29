@@ -56,9 +56,15 @@ export function numberDecFormat(num: number) {
  * Recives a text.
  * @returns
  */
-export function firstUpperCaseFormat(txt: string) {
+export function nameFormat(txt: string) {
   txt = txt.toLowerCase();
-  var aux = txt.charAt(0).toUpperCase();
-  txt = aux + txt.slice(1);
+  let arr = txt.split(" ");
+  txt = "";
+  for (let i = 0; i < arr.length; i++) {
+    const element = arr[i];
+    var aux = element.charAt(0).toUpperCase();
+    txt += aux + element.slice(1) + " ";
+  }
+  txt = txt.slice(0, -1);
   return txt;
 }

@@ -73,9 +73,9 @@ function UpdateCliente({ id = "" }) {
     if (isOpen) {
       const cli = new controller.Customer(
         cliente.curp,
-        format.firstUpperCaseFormat(cliente.nombre),
-        format.firstUpperCaseFormat(cliente.apellido1),
-        format.firstUpperCaseFormat(cliente.apellido2),
+        format.nameFormat(cliente.nombre),
+        format.nameFormat(cliente.apellido1),
+        format.nameFormat(cliente.apellido2),
         parseInt(cliente.fecha),
         "0000",
         cliente.sexo,
@@ -207,6 +207,7 @@ function UpdateCliente({ id = "" }) {
                         name=""
                         className="text-input"
                         max={new Date().toLocaleDateString("fr-ca")}
+                        min={"1900-01-01"}
                         value={format.dateHTMLFormat(cliente.fecha + "")}
                         onChange={(e) => {
                           let aux = format.dateIntFormat(e.target.value);
@@ -236,12 +237,10 @@ function UpdateCliente({ id = "" }) {
                     <div className="mb-6">
                       <label htmlFor="">Teléfono</label>
                       <input
-                        type="number"
-                        id=""
-                        name=""
-                        maxLength={10}
-                        minLength={10}
-                        min={0}
+                        type="tel"
+                        id="tel"
+                        name="tel"
+                        pattern="[\d]{10}$"
                         className="text-input"
                         placeholder="Télefono"
                         value={cliente.telefono}

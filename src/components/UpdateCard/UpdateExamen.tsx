@@ -185,6 +185,8 @@ function UpdateExamen({ id = "" }) {
                         id=""
                         name=""
                         className="text-input"
+                        max={new Date().toLocaleDateString('fr-ca')}
+                        min={"1900-01-01"}
                         value={format.dateHTMLFormat(examen.fecha)}
                         onChange={(e) => {
                           let aux = format.dateIntFormat(e.target.value);
