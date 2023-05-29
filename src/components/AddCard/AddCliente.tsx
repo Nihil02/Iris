@@ -125,7 +125,7 @@ function AddCliente() {
                             curp: e.target.value.toUpperCase(),
                           })
                         }
-                        pattern={regex.curp}
+                        pattern={regex.curp_rfc}
                         required
                       />
                     </div>
