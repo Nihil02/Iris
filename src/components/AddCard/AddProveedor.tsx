@@ -196,7 +196,7 @@ function AddProveedor() {
 
       
       <ErrorDialog
-        open={isError}
+        isOpen={isError}
         setIsOpen={setIsError}
         msg={messages.errorInsertion}
       />

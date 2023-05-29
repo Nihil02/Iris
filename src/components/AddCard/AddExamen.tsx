@@ -441,7 +441,7 @@ function AddExamen() {
       </Transition>
 
       <ErrorDialog
-        open={isError}
+        isOpen={isError}
         setIsOpen={setIsError}
         msg={messages.errorInsertion}
       />

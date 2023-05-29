@@ -148,7 +148,7 @@ function Login() {
           </form>
 
           <ErrorDialog
-            open={isOpen}
+            isOpen={isOpen}
             setIsOpen={setIsOpen}
             msg="Credenciales de inicio de sesión inválidas"
           />

@@ -8,8 +8,7 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { getAdmin, controller } from "../util";
-import { BackUpcontroller } from "../../core/controller/backUpController";
-import { InfoDialog } from "./Dialogs";
+import { BackupDialog, InfoDialog } from "./Dialogs";
 import { useState } from "react";
 
 interface IMenuIcon {
@@ -21,7 +20,9 @@ interface IMenuIcon {
 
 function Menu() {
   let [isOpen, setIsOpen] = useState(false);
+  let [isRestore, setRestore] = useState(false);
   let [msg, setMsg] = useState("");
+  let [title, setTitle] = useState("");
   function openModal() {
     setIsOpen(true);
   }
@@ -31,15 +32,15 @@ function Menu() {
       e.preventDefault();
       switch (route) {
         case "Exportar":
-          BackUpcontroller.createBackUp();
-          setMsg("Creada la copia de seguridad");
+          controller.BackUpcontroller.createBackUp();
+          setMsg("Se ha creado la copia de seguridad");
           openModal();
           break;
 
         case "Restaurar":
-          BackUpcontroller.getBackUp();
-          setMsg("Restaurando datos");
-          openModal();
+          setTitle("Restaurar copia de seguridad");
+          setMsg("¿Desea restaurar la copia de seguridad anterior?");
+          setRestore(true);
           break;
 
         default:
@@ -119,7 +120,13 @@ function Menu() {
         <MenuIcon icon={<FaDoorOpen size="28" />} tooltip="Salir" route="/" />
       </div>
 
-      <InfoDialog isOpen={isOpen} setIsOpen={setIsOpen} msg={msg}></InfoDialog>
+      <InfoDialog isOpen={isOpen} setIsOpen={setIsOpen} msg={msg} />
+      <BackupDialog
+        isOpen={isRestore}
+        setIsOpen={setRestore}
+        title={title}
+        msg={msg}
+      />
     </nav>
   );
 }

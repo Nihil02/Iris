@@ -36,7 +36,7 @@ export function dateStringFormat(date: string) {
  * @returns the phone number in format XXX-XXX-XXXX
  */
 export function phoneStringFormat(phone: string) {
-  if (phone !== "") {
+  if (phone !== undefined) {
     return phone.slice(0, 3) + "-" + phone.slice(3, 6) + "-" + phone.slice(6);
   }
   return "";

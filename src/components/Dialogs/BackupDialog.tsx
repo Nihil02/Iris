@@ -1,15 +1,23 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment } from "react";
 import { IDialog } from ".";
+import { controller } from "../../util";
 
-interface IProps extends IDialog {}
+interface IProps extends IDialog {
+  restore?: boolean;
+}
 
-function ErrorDialog({isOpen, setIsOpen, msg, title = "Error"}: IProps) {
+function BackupDialog({ isOpen, setIsOpen, msg, title = "Info" }: IProps) {
   function closeModal() {
     setIsOpen(false);
   }
   function openModal() {
     setIsOpen(true);
+  }
+  function restoreDB() {
+    controller.BackUpcontroller.getBackUp();
+    closeModal();
+    window.location.reload();
   }
 
   return (
@@ -42,11 +50,19 @@ function ErrorDialog({isOpen, setIsOpen, msg, title = "Error"}: IProps) {
                 <Dialog.Panel className="modal-panel">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-bold leading-6 py-2 text-red-800"
+                    className="text-lg font-bold leading-6 py-2 text-yellow-600"
                   >
                     {title}
                   </Dialog.Title>
                   <p>{msg}</p>
+                  <div className="flex items-center justify-center gap-x-6 mt-4">
+                    <button onClick={restoreDB} className="btn-primary">
+                      Continuar
+                    </button>
+                    <button onClick={closeModal} className="btn-danger">
+                      Cancelar
+                    </button>
+                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
@@ -57,4 +73,4 @@ function ErrorDialog({isOpen, setIsOpen, msg, title = "Error"}: IProps) {
   );
 }
 
-export default ErrorDialog;
+export default BackupDialog;
