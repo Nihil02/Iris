@@ -180,6 +180,10 @@ ipcMain.handle(K.Backup.createBackUp, (event, src, dest) => {
   BackUpService.createBackUp(src, dest);
 });
 
+ipcMain.handle(K.Backup.getBackUp, () => {
+  BackUpService.getBackUp();
+});
+
 // Print service
 ipcMain.handle(K.Print.printToPdf, (event, format, path, filename) => {
   PrintService.printToPDF(format, path, filename);

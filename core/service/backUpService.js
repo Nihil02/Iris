@@ -40,6 +40,10 @@ class BackUpService {
    * @param {string} dest The path of the database folder.
    */
   static getBackUp(src = "", dest = "") {
+    if(src.trim()  === "" && src.trim() === "") {
+      src = `${process.cwd()}/core/backups`
+      dest = `${process.cwd()}/core/database`
+    }
     // The format of a backup name is the next: iris-yyyymmdd.db
     const files = getFiles(src);
     const sortedFiles = this.#sortByDate(files);
