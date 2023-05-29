@@ -1,6 +1,6 @@
 const fs = require("fs");
 const { sequelize } = require("../database/connection.js");
-const { getFiles, folderExists } = require("../util/folderHandler.js");
+const { getFiles, folderExists, isFolderEmpty } = require("../util/folderHandler.js");
 
 class BackUpService {
   /**
