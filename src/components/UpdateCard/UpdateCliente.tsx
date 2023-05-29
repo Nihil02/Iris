@@ -148,7 +148,7 @@ function UpdateCliente({ id = "" }) {
                             curp: e.target.value.toUpperCase(),
                           })
                         }
-                        pattern="[A-Za-z]{4}[\d]{6}[H|M][A-Za-z]{5}[A-Za-z\d]{2}$"
+                        pattern={regex.curp_rfc}
                         required
                       />
                     </div>

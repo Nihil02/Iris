@@ -125,7 +125,7 @@ function AddCliente() {
                             curp: e.target.value.toUpperCase(),
                           })
                         }
-                        pattern={regex.curp}
+                        pattern={regex.rfc}
                         required
                       />
                     </div>
@@ -183,7 +183,7 @@ function AddCliente() {
                         id=""
                         name=""
                         className="text-input"
-                        max={new Date().toLocaleDateString('fr-ca')}
+                        max={new Date().toLocaleDateString("fr-ca")}
                         min={"1900-01-01"}
                         onChange={(e) => {
                           let aux = e.target.value.replaceAll("-", "");
