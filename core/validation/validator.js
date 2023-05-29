@@ -19,8 +19,9 @@ class Validator {
 
   static isName(name) {
     const regex =
-      /[a-z,A-Z,á,é,í,ó,ú,â,ê,ô,ã,õ,ç,Á,É,Í,Ó,Ú,Â,Ê,Ô,Ã,Õ,Ç,ü,ñ,Ü,Ñ,' ']+/;
-    const junkCharsRegex = /[\x20-\x40\x5b-\x60\x7b-\x7e]/g;
+      /[a-z,A-Z,á,é,í,ó,ú,â,ê,ô,ã,õ,ç,Á,É,Í,Ó,Ú,Â,Ê,Ô,Ã,Õ,Ç,ü,ñ,Ü,Ñ,\s]+/;
+    const junkCharsRegex = /[\x21-\x40\x5b-\x60\x7b-\x7e]/;
+
     return name !== "" && regex.test(name) && !junkCharsRegex.test(name);
   }
 }
