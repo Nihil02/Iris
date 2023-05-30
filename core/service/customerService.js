@@ -1,19 +1,20 @@
 const CustomerDAO = require("../DAO/customerDAO.js");
 const Validator = require("../validation/validator.js");
+const { CustomerDTO } = require("../types.js");
 
 class CustomerService {
+  /**
+   * @returns {Promise<[CustomerDTO]>}
+   */
   static async getAllCustomers() {
-    const res = await CustomerDAO.getAllCustomers();
-    const customers = res.map((customer) => {
-      return customer.dataValues;
-    });
+    const customers = await CustomerDAO.getAllCustomers();
     return customers;
   }
 
   /**
    * Finds a customer by his CURP and returns him if exists.
-   * @param RFC - The CURP of the Customer.
-   * @returns An object with the customer data.
+   * @param {string} curp - The CURP of the Customer.
+   * @returns {Promise<CustomerDTO>} A customer.
    */
   static async getCustomerByCURP(curp = "") {
     try {
@@ -22,7 +23,7 @@ class CustomerService {
         throw Error("Invalid CURP");
       }*/
       const customer = await CustomerDAO.getCustomerByCURP(curp);
-      return customer.dataValues;
+      return customer;
     } catch (error) {
       console.error(error);
       return false;
@@ -31,6 +32,7 @@ class CustomerService {
 
   /**
    * Recives an object with the data of the customer and creates him in the database.
+   * @param {CustomerDTO} customer
    * @returns True if the customer has been created in other case throws an error.
    */
   static async createCustomer(customer) {
@@ -53,6 +55,10 @@ class CustomerService {
     }
   }
 
+  /**
+   * @param {CustomerDTO} customer
+   * @returns
+   */
   static async updateCustomer(customer) {
     try {
       /* Validations goes here */
@@ -64,10 +70,13 @@ class CustomerService {
     }
   }
 
+  /**
+   * @param {string} curp
+   * @returns
+   */
   static async deleteCustomer(curp) {
     try {
-      const del = await CustomerDAO.deleteCustomer(curp);
-      return del;
+      return await CustomerDAO.deleteCustomer(curp);
     } catch (error) {
       console.error(error);
       return false;
@@ -75,88 +84,32 @@ class CustomerService {
   }
 
   /**
-   * @deprecated
-   * @param {JSON} customer 
-   * @returns 
+   * @param {CustomerDTO} customer
+   * @returns {CustomerDTO}
    */
-  static sanitizeCustomer(customer) {
-    let {
-      curp,
-      name,
-      firstLastName,
-      secondLastName,
-      fecnac,
-      edonac,
-      sexo,
-      nacorigen,
-      edo,
-      mun,
-      loc,
-      contpaq_id,
-    } = customer;
-    curp = curp.trim();
-    name = name.trim();
-    firstLastName = firstLastName.trim();
-    secondLastName = secondLastName.trim();
-    edonac = edonac.trim();
-    sexo = sexo.trim();
-    nacorigen = nacorigen.trim();
-    edo = edo.trim();
-    mun = mun.trim();
-    loc = loc.trim();
-    contpaq_id = contpaq_id.trim();
-
-    return {
-      curp: curp,
-      name: name,
-      firstLastName: firstLastName,
-      secondLastName: secondLastName,
-      fecnac: fecnac,
-      edonac: edonac,
-      sexo: sexo,
-      nacorigen: nacorigen,
-      edo: edo,
-      mun: mun,
-      loc: loc,
-      contpaq_id: contpaq_id,
-    };
-  }
+  static formatCustomer(customer) {}
 
   /**
-   * @deprecated
-   * @param {JSON} customer 
-   * @returns 
+   * @param {CustomerDTO} customer
+   * @returns
    */
-
   static isValidCustomer(customer) {
-    const {
-      curp,
-      name,
-      firstLastName,
-      secondLastName,
-      fecnac,
-      edonac,
-      sexo,
-      nacorigen,
-      edo,
-      mun,
-      loc,
-      compaqi_id,
-    } = customer;
-    if (!Validator.isName(name)) {
+    if (!Validator.isName(customer.nombre)) {
       return new Error("Invalid name");
     }
-
-    if (!Validator.isName(firstLastName)) {
+    if (!Validator.isName(customer.primer_apellido)) {
       return new Error("Invalid first last name");
     }
 
-    if (!Validator.isName(secondLastName)) {
+    if (!Validator.isName(customer.segundo_apellido)) {
       return new Error("Invalid second last name");
     }
-
-    if (!Validator.isCURP(curp)) {
+    if (!Validator.isCURP(customer.CURP)) {
       return new Error("Invalid CURP");
+    }
+
+    if (!Validator.isPhone(customer.telefono)) {
+      return new Error("Invalid Phone Number");
     }
     return true;
   }

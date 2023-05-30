@@ -13,6 +13,7 @@ class K {
     getExamById: "getExamById",
     addExam: "addExam",
     updateExam: "updateExam",
+    deleteExam: "deleteExam"
   };
 
   static Supplier = {

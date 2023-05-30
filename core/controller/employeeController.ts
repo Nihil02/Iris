@@ -14,12 +14,12 @@ declare global {
 }
 class Employee {
   rfc: string;
-  name: string;
-  firstLastName: string;
-  secondLastName: string;
+  nombre: string;
+  primer_apellido: string;
+  segundo_apellido: string;
   username: string;
   password?: string;
-  privileges: string;
+  privilegios: string;
 
   constructor(
     rfc: string,
@@ -31,12 +31,12 @@ class Employee {
     privileges: string
   ) {
     this.rfc = rfc;
-    this.name = name;
-    this.firstLastName = firstLastName;
-    this.secondLastName = secondLastName;
+    this.nombre = name;
+    this.primer_apellido = firstLastName;
+    this.segundo_apellido = secondLastName;
     this.username = username;
     this.password = password;
-    this.privileges = privileges;
+    this.privilegios = privileges;
   }
 }
 class EmployeeController {

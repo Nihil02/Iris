@@ -171,6 +171,10 @@ ipcMain.handle(K.Exam.addExam, async (event, exam) => {
   return await ExamService.createExam(exam);
 });
 
+ipcMain.handle(K.Exam.deleteExam, async (event, curp) => {
+  return await ExamService.deleteExam(curp);
+});
+
 ipcMain.handle(K.Exam.updateExam, async (event, exam) => {
   return await ExamService.updateExam(exam);
 });

@@ -1,23 +1,26 @@
 const Employee = require("../model/employee");
-
+const { EmployeeDTO } = require("../types.js");
 class EmployeeDAO {
   /**
    * Returns all emplooyes in the database.
-   * @returns Array of Emplooyee's
+   * @returns {Promise<[EmployeeDTO]>}
    */
   static async getAllEmployees() {
     const res = await Employee.findAll();
-    return res;
+    /**@type {[EmployeeDTO]}*/
+    const employees = res.map(employee => employee.dataValues);
+    return employees;
   }
 
   /**
    * Finds an employee by his RFC.
-   * @returns An Employee (Object)
+   * @param {string} rfc
+   * @returns {Promise<EmployeeDTO>}
    */
   static async getEmployeeByRFC(rfc) {
     try {
       const res = await Employee.findByPk(rfc);
-      return res;
+      return res.dataValues;
     } catch (error) {
       console.error(error);
       return false;
@@ -26,12 +29,13 @@ class EmployeeDAO {
 
   /**
    * Finds an employee by his username
-   * @returns An array of objects representing with the coincidences (in this case only 1).
+   * @param {string} user - The user name of the `Employee`.
+   * @returns {Promise<EmployeeDTO>}
    */
   static async getEmployeeByUsername(user) {
     try {
       const res = await Employee.findAll({ where: { usuario: user } });
-      return res;
+      return res.shift().dataValues;
     } catch (error) {
       console.error(error);
     }
@@ -39,27 +43,19 @@ class EmployeeDAO {
 
   /**
    * Creates an Employee in the database
+   * @param {EmployeeDTO} emplooye
    * @returns true if the emplooye was created.
    */
   static async createEmployee(emplooye) {
     try {
-      const [
-        rfc,
-        name,
-        firstLastName,
-        secondLastName,
-        privileges,
-        user,
-        password,
-      ] = Object.values(emplooye);
       await Employee.create({
-        rfc: rfc,
-        nombre: name,
-        primer_apellido: firstLastName,
-        segundo_apellido: secondLastName,
-        privilegios: privileges,
-        usuario: user,
-        contrasenna: password,
+        rfc: emplooye.rfc,
+        nombre: emplooye.nombre,
+        primer_apellido: emplooye.primer_apellido,
+        segundo_apellido: emplooye.segundo_apellido,
+        privilegios: emplooye.privilegios,
+        usuario: emplooye.username,
+        contrasenna: emplooye.password,
       });
       return true;
     } catch (error) {
@@ -69,28 +65,32 @@ class EmployeeDAO {
   }
 
   /**
-   * Update employee information
+   * @param {EmployeeDTO} emplooye
    */
   static async updateEmployee(emplooye) {
-    const [rfc, name, firstLastName, secondLastName, privileges, user] =
-      Object.values(emplooye);
     await Employee.update(
       {
-        nombre: name,
-        primer_apellido: firstLastName,
-        segundo_apellido: secondLastName,
-        privilegios: privileges,
-        usuario: user,
+        nombre: emplooye.nombre,
+        primer_apellido: emplooye.primer_apellido,
+        segundo_apellido: emplooye.segundo_apellido,
+        privilegios: emplooye.privlegios,
+        usuario: emplooye.username,
       },
       {
         where: {
-          rfc: rfc,
+          rfc: emplooye.rfc,
         },
       }
     );
     return true;
   }
 
+  /**
+   * @param {Object} params
+   * @param {string} params.username
+   * @param {string} params.password
+   * @returns 
+   */
   static async updatePassword({ username, password }) {
     try {
       await Employee.update(
@@ -106,6 +106,7 @@ class EmployeeDAO {
 
   /**
    * Finds an employee by his rfc and deletes him.
+   * @param {string} rfc
    */
   static async deleteEmployee(rfc) {
     const employee = await Employee.findByPk(rfc);

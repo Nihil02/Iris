@@ -1,24 +1,24 @@
 const ExamDAO = require("../DAO/examDAO.js");
 const Validator = require("../validation/validator.js");
+const { ExamDTO } = require("../types.js");
 
 class ExamService {
+  /**
+   * 
+   * @param {string} curp 
+   * @returns {Promise<[ExamDTO]>}
+   */
   static async getAllExam(curp = "") {
-    /*const res = await ExamDAO.getAllExams();
-    const exams = res.map((exam) => {
-      return exam.dataValues;
-    });*/
-    const res = await this.getExamById(curp);
-
-    const exams = res.map((exam) => exam.dataValues);
-
+    /**@type {[ExamDTO]} */
+    const exams = await this.getExamById(curp);
     return exams;
   }
 
   /**
    * Finds all exam by the customer CURP and returns them if exists.
-   * If @param Date is found, returns an specific exam
-   * @param RFC - The RFC of the Employee.
-   * @returns An object with the employee data.
+   * @param {string} Date is found, returns an specific exam
+   * @param {string} RFC The RFC of the Employee.
+   * @returns {Promise<ExamDTO | [ExamDTO]>}
    */
   static async getExamById(curp = "", date = "") {
     try {
@@ -42,16 +42,18 @@ class ExamService {
 
   /**
    * Recives an object with the data of the exam and creates him in the database.
-   * @returns True if the user has been created in other case throws an error.
+   * @param {ExamDTO} exam
+   * @returns {Promise<Boolean>}
    */
   static async createExam(exam) {
     try {
       //const sanitizedExam = this.sanitizeExam(exam);
-      //const validation = this.isValidExam(sanitizedExam);
+      const isValidExam = this.validateExam(exam);
 
-      /*if (typeof validation === "object") {
-        throw validation;
-      }*/
+      if(isValidExam) {
+        
+      }
+
       const findExam = await this.getExamById(exam.cliente, exam.fecha);
       if (findExam) {
         throw new Error("Exam already exists");
@@ -62,6 +64,10 @@ class ExamService {
     }
   }
 
+  /**
+   * @param {ExamDTO} exam 
+   * @returns 
+   */
   static async updateExam(exam) {
     try {
       /* Validations goes here */
@@ -73,9 +79,12 @@ class ExamService {
     }
   }
 
-  static async deleteExam(exam) {
+  /**
+   * @param {string} curp
+   */
+  static async deleteExam(curp) {
     try {
-      await ExamDAO.deleteExam(exam);
+      await ExamDAO.deleteExam(curp);
       return true;
     } catch (error) {
       console.error(error);
@@ -83,82 +92,22 @@ class ExamService {
     }
   }
 
-  static sanitizeExam(exam) {
-    let {
-      cliente,
-      fecha,
-      rx,
-      lejos_od_esferico,
-      lejos_od_cilindrico,
-      lejos_od_eje,
-      lejos_od_agudeza_visual,
-      lejos_oi_esferico,
-      lejos_oi_cilindrico,
-      lejos_oi_eje,
-      lejos_oi_agudeza_visual,
-      adicion_od_esferico,
-      adicion_oi_esferico,
-      tipo_lentes,
-      observaciones,
-    } = exam;
+  /**
+   * Formats and an exam.
+   * @param {ExamDTO} exam 
+   * @returns {ExamDTO}
+   */
+  static formatExam(exam) {
 
-    cliente = cliente.trim();
-    rx = rx.trim();
-    lejos_od_esferico = lejos_od_esferico.trim();
-    lejos_od_cilindrico = lejos_od_cilindrico.trim();
-    lejos_od_eje = lejos_od_eje.trim();
-    lejos_od_agudeza_visual = lejos_od_agudeza_visual.trim();
-    lejos_oi_esferico = lejos_oi_esferico.trim();
-    lejos_oi_cilindrico = lejos_oi_cilindrico.trim();
-    lejos_oi_eje = lejos_oi_eje.trim();
-    lejos_oi_agudeza_visual = lejos_oi_agudeza_visual.trim();
-    adicion_od_esferico = adicion_od_esferico.trim();
-    adicion_oi_esferico = adicion_oi_esferico.trim();
-    tipo_lentes = tipo_lentes.trim();
-    observaciones = observaciones.trim();
-
-    return {
-      cliente: cliente,
-      fecha: fecha,
-      rx: rx,
-      lejos_od_esferico: lejos_od_esferico,
-      lejos_od_cilindrico: lejos_od_cilindrico,
-      lejos_od_eje: lejos_od_eje,
-      lejos_od_agudeza_visual: lejos_od_agudeza_visual,
-      lejos_oi_esferico: lejos_oi_esferico,
-      lejos_oi_cilindrico: lejos_oi_cilindrico,
-      lejos_oi_eje: lejos_oi_eje,
-      lejos_oi_agudeza_visual: lejos_oi_agudeza_visual,
-      adicion_od_esferico: adicion_od_esferico,
-      adicion_oi_esferico: adicion_oi_esferico,
-      tipo_lentes: tipo_lentes,
-      observaciones: observaciones,
-    };
   }
 
-  static isValidExam(exam) {
-    const {
-      cliente,
-      fecha,
-      rx,
-      lejos_od_esferico,
-      lejos_od_cilindrico,
-      lejos_od_eje,
-      lejos_od_agudeza_visual,
-      lejos_oi_esferico,
-      lejos_oi_cilindrico,
-      lejos_oi_eje,
-      lejos_oi_agudeza_visual,
-      adicion_od_esferico,
-      adicion_oi_esferico,
-      tipo_lentes,
-      observaciones,
-    } = exam;
-
-    if (!Validator.isCURP(cliente)) {
-      return new Error("Invalid CURP");
-    }
-    return true;
+  /**
+   * Validates the properties of an Exam.
+   * @param {ExamDTO} exam 
+   * @returns 
+   */
+  static validateExam(exam) {
+    return Validator.isCURP(exam.cliente) && exam.adicion_od_esferico !== NaN;
   }
 }
 
