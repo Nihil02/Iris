@@ -1,8 +1,8 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { ChangeEvent, Fragment, useState } from "react";
-import { FaPlus } from "react-icons/fa";
 import { controller, regex, format, arrays, messages } from "../../util";
 import ErrorDialog from "../Dialogs/ErrorDialog";
+import { AddButton } from "../Buttons";
 
 function AddCliente() {
   let [cliente, setCliente] = useState({
@@ -80,9 +80,7 @@ function AddCliente() {
 
   return (
     <>
-      <div className="add-card" onClick={openModal}>
-        <FaPlus size={20} color="gray" />
-      </div>
+      <AddButton onClick={openModal} />
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -251,7 +249,11 @@ function AddCliente() {
                         onChange={(e) => handleChange(e)}
                       >
                         {arrays.states.map((s, i) => {
-                          return <option value={i + 1}>{s}</option>;
+                          return (
+                            <option key={i} value={i + 1}>
+                              {s}
+                            </option>
+                          );
                         })}
                       </select>
                     </div>

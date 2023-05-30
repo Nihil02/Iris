@@ -1,8 +1,8 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
-import { FaPen } from "react-icons/fa";
 import { controller, messages, regex } from "../../util";
 import ErrorDialog from "../Dialogs/ErrorDialog";
+import { UpdateButton } from "../Buttons";
 
 function UpdateProveedor({ id = "" }) {
   let [proveedor, setProveedor] = useState({
@@ -56,20 +56,14 @@ function UpdateProveedor({ id = "" }) {
         closeModal();
         window.location.reload();
       } else {
-        setIsError(true)
+        setIsError(true);
       }
     }
   };
 
   return (
     <>
-      {/* Button in the card */}
-      <button
-        className="card-button bg-green-600 hover:bg-green-500"
-        onClick={openModal}
-      >
-        <FaPen size={16} color="white" />
-      </button>
+      <UpdateButton onClick={openModal} />
 
       {/* Modal */}
       <Transition appear show={isOpen} as={Fragment}>

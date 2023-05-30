@@ -1,8 +1,8 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import { FaPlus } from "react-icons/fa";
 import { controller, messages, regex } from "../../util";
 import ErrorDialog from "../Dialogs/ErrorDialog";
+import { AddButton } from "../Buttons";
 
 function AddProveedor() {
   let [proveedor, setProveedor] = useState({
@@ -48,9 +48,7 @@ function AddProveedor() {
 
   return (
     <>
-      <div className="add-card" onClick={openModal}>
-        <FaPlus size={20} color="gray" />
-      </div>
+      <AddButton onClick={openModal} />
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -194,7 +192,6 @@ function AddProveedor() {
         </Dialog>
       </Transition>
 
-      
       <ErrorDialog
         isOpen={isError}
         setIsOpen={setIsError}

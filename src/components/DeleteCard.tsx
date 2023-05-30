@@ -3,6 +3,7 @@ import { useState, Fragment } from "react";
 import { FaTrash } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import { controller } from "../util";
+import { DeleteButton } from "./Buttons";
 
 function DeleteCard({ id = "" }) {
   /* Get current location */
@@ -62,12 +63,8 @@ function DeleteCard({ id = "" }) {
 
   return (
     <>
-      <button
-        className="card-button bg-red-600 hover:bg-red-500"
-        onClick={openModal}
-      >
-        <FaTrash size={16} color="white" />
-      </button>
+    <DeleteButton onClick={openModal}/>
+
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child

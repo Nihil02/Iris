@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { getAdmin, controller } from "../util";
 import { BackupDialog, InfoDialog } from "./Dialogs";
 import { useState } from "react";
+import * as Tooltip from "@radix-ui/react-tooltip";
 
 interface IMenuIcon {
   icon: JSX.Element;
@@ -50,25 +51,27 @@ function Menu() {
 
     return (
       <>
-        {redirect ? (
-          <Link to={route} className="menu-icon group">
-            <>
-              {icon}
-              <span className="menu-tooltip group-hover:scale-100">
+        <Tooltip.Provider delayDuration={0}>
+          <Tooltip.Root>
+            <Tooltip.Trigger asChild>
+              {redirect ? (
+                <Link to={route} className="menu-icon group">
+                  {icon}
+                </Link>
+              ) : (
+                <div className="menu-icon" onClick={menuClick}>
+                  {icon}
+                </div>
+              )}
+            </Tooltip.Trigger>
+            <Tooltip.Portal>
+              <Tooltip.Content side="left" className="tooltip" sideOffset={5}>
                 {tooltip}
-              </span>
-            </>
-          </Link>
-        ) : (
-          <div className="menu-icon group" onClick={menuClick}>
-            <>
-              {icon}
-              <span className="menu-tooltip group-hover:scale-100">
-                {tooltip}
-              </span>
-            </>
-          </div>
-        )}
+                <Tooltip.Arrow className="fill-white" />
+              </Tooltip.Content>
+            </Tooltip.Portal>
+          </Tooltip.Root>
+        </Tooltip.Provider>
       </>
     );
   };
@@ -105,7 +108,7 @@ function Menu() {
           <>
             <MenuIcon
               icon={<FaDatabase size="28" />}
-              tooltip="Exportar Base de Datos"
+              tooltip="Respaldar Base de Datos"
               route="Exportar"
               redirect={false}
             />

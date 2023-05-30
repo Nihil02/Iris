@@ -1,9 +1,9 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { ChangeEvent, Fragment, useState } from "react";
-import { FaPlus } from "react-icons/fa";
 import { controller, format, messages } from "../../util";
 import { useParams } from "react-router-dom";
 import ErrorDialog from "../Dialogs/ErrorDialog";
+import { AddButton } from "../Buttons";
 
 function AddExamen() {
   let param = useParams();
@@ -92,9 +92,7 @@ function AddExamen() {
 
   return (
     <>
-      <div className="add-card" onClick={openModal}>
-        <FaPlus size={20} color="gray" />
-      </div>
+      <AddButton onClick={openModal} />
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>

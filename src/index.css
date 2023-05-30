@@ -44,6 +44,20 @@ body {
 }
 
 @layer components {
+  .btn {
+    @apply relative flex w-full justify-center rounded-md py-2 px-3
+    text-white text-sm font-semibold;
+  }
+
+  .tooltip {
+    @apply px-4 py-3 
+    bg-white text-[15px]
+    select-none leading-none
+    rounded-md
+    shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] 
+    transition-all duration-100 will-change-[transform,opacity]; 
+  }
+
   .menu-icon {
     @apply relative flex items-center justify-center h-14 w-14 mt-2 mb-2 mx-auto 
     bg-gray-400 hover:bg-green-400 text-green-50 hover:text-white 
@@ -118,11 +132,6 @@ body {
     text-gray-900 text-sm text-center
     block w-20 p-2.5
     focus:z-10 focus:ring-2 focus:ring-inset focus:ring-green-600;
-  }
-
-  .btn {
-    @apply relative flex w-full justify-center rounded-md py-2 px-3
-    text-white text-sm font-semibold;
   }
 
   .btn-primary {

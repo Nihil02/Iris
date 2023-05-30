@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { FaPrint } from "react-icons/fa";
 import { controller, format, messages, printFormat } from "../../util";
 import { InfoDialog } from "../Dialogs";
-import { sleep } from "../../util/delay"
+import { sleep } from "../../util/delay";
+import { PrintButton } from "../Buttons";
 
 function PrintCliente({ id = "" }) {
   const [cliente, setCliente] = useState({
@@ -41,18 +41,14 @@ function PrintCliente({ id = "" }) {
     const pdf = printFormat.generateClientFormat(cliente);
     const a = controller.PrintController.printToPdf(pdf, "./public", "foo");
     console.log(a);
-    
+
     openModal();
   }
 
   return (
     <>
-      <button
-        className="card-button bg-yellow-600 hover:bg-yellow-500"
-        onClick={printCard}
-      >
-        <FaPrint size={16} color="white" />
-      </button>
+      <PrintButton onClick={printCard} />
+
       <InfoDialog
         isOpen={isOpen}
         setIsOpen={setIsOpen}

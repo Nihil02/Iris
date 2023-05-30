@@ -1,8 +1,8 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { ChangeEvent, Fragment, useEffect, useState } from "react";
-import { FaPen } from "react-icons/fa";
 import { arrays, controller, format, messages, regex } from "../../util";
 import ErrorDialog from "../Dialogs/ErrorDialog";
+import { UpdateButton } from "../Buttons";
 
 function UpdateCliente({ id = "" }) {
   let [cliente, setCliente] = useState({
@@ -99,13 +99,7 @@ function UpdateCliente({ id = "" }) {
 
   return (
     <>
-      {/* Button in the card */}
-      <button
-        className="card-button bg-green-600 hover:bg-green-500"
-        onClick={openModal}
-      >
-        <FaPen size={16} color="white" />
-      </button>
+      <UpdateButton onClick={openModal} />
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -278,7 +272,11 @@ function UpdateCliente({ id = "" }) {
                         onChange={(e) => handleChange(e)}
                       >
                         {arrays.states.map((s, i) => {
-                          return <option value={i + 1}>{s}</option>;
+                          return (
+                            <option key={i} value={i + 1}>
+                              {s}
+                            </option>
+                          );
                         })}
                       </select>
                     </div>

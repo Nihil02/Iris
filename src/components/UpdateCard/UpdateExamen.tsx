@@ -1,9 +1,9 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { ChangeEvent, Fragment, useEffect, useState } from "react";
-import { FaPen } from "react-icons/fa";
 import { controller, format, messages } from "../../util";
 import { useParams } from "react-router-dom";
 import ErrorDialog from "../Dialogs/ErrorDialog";
+import { UpdateButton } from "../Buttons";
 
 function UpdateExamen({ id = "" }) {
   let param = useParams();
@@ -131,12 +131,7 @@ function UpdateExamen({ id = "" }) {
 
   return (
     <>
-      <button
-        className="card-button bg-green-600 hover:bg-green-500"
-        onClick={openModal}
-      >
-        <FaPen size={16} color="white" />
-      </button>
+      <UpdateButton onClick={openModal} />
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -185,7 +180,7 @@ function UpdateExamen({ id = "" }) {
                         id=""
                         name=""
                         className="text-input"
-                        max={new Date().toLocaleDateString('fr-ca')}
+                        max={new Date().toLocaleDateString("fr-ca")}
                         min={"1900-01-01"}
                         value={format.dateHTMLFormat(examen.fecha)}
                         onChange={(e) => {

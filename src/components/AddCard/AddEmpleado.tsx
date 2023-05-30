@@ -1,8 +1,8 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import { FaPlus } from "react-icons/fa";
 import { controller, format, messages, regex } from "../../util";
 import ErrorDialog from "../Dialogs/ErrorDialog";
+import { AddButton } from "../Buttons";
 
 function AddEmpleado() {
   let [empleado, setEmpleado] = useState({
@@ -33,7 +33,7 @@ function AddEmpleado() {
         empleado.rfc,
         format.nameFormat(empleado.nombre),
         format.nameFormat(empleado.apellido1),
-          format.nameFormat(empleado.apellido2),
+        format.nameFormat(empleado.apellido2),
         empleado.usuario,
         empleado.pass,
         empleado.privilegios
@@ -50,9 +50,7 @@ function AddEmpleado() {
 
   return (
     <>
-      <div className="add-card" onClick={openModal}>
-        <FaPlus size={20} color="gray" />
-      </div>
+      <AddButton onClick={openModal} />
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
