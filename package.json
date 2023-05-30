@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "main": "core/electron/main.js",
+  "author": "Iris - Óptica Modelo",
   "authors": [
     {
       "name": "Samuel ALva Segundo"

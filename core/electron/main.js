@@ -18,7 +18,7 @@ const isDev = process.env.IS_DEV === "true";
 const createWindow = async () => {
   await sequelize.sync();
   const win = new BrowserWindow({
-    title: "Iris",
+    title: "Iris - Óptica Modelo",
     minWidth: 800,
     minHeight: 600,
     width: 1024,
@@ -41,7 +41,7 @@ const createWindow = async () => {
 
   win.webContents.setWindowOpenHandler(async ({ url }) => {
     const manual = new BrowserWindow({
-      title: "Iris",
+      title: "Iris - Óptica Modelo",
       minWidth: 800,
       minHeight: 600,
       icon: path.join(__dirname, "build", "logo.ico"),
@@ -55,7 +55,7 @@ const createWindow = async () => {
     }
     manual.setMenu(null);
     //shell.openExternal(url);
-    return { action: 'deny' };
+    return { action: "deny" };
   });
 };
 
