@@ -46,11 +46,11 @@ function AddExamen() {
     const name = e.target.name;
     let value = e.target.value;
     let aux = parseFloat(value);
-    if (aux > 15.0) {
+    /*if (aux > 15.0) {
       value = "15.00";
     } else if (aux < -15.0) {
       value = "-15.00";
-    }
+    }*/
     setExamen((values) => ({ ...values, [name]: value }));
     setExamen((values) => ({ ...values, [name]: value + "" }));
   };

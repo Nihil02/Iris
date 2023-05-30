@@ -65,6 +65,5 @@ export function nameFormat(txt: string) {
     var aux = element.charAt(0).toUpperCase();
     txt += aux + element.slice(1) + " ";
   }
-  txt = txt.slice(0, -1);
-  return txt;
+  return txt.trim();
 }
