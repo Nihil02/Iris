@@ -34,7 +34,9 @@ function Content({ title = "" }) {
           setData(exa);
           setAllData(exa);
           setAuxData(
-            await controller.CustomerController.getCustomerById(param.cliente + "")
+            await controller.CustomerController.getCustomerById(
+              param.cliente + ""
+            )
           );
           break;
 
@@ -101,7 +103,7 @@ function Content({ title = "" }) {
   }
 
   const search = (keyword: string) => {
-    let matches = matchSorter(data, keyword, { keys: ["res"] });    
+    let matches = matchSorter(data, keyword, { keys: ["res"] });
     setKeyword(keyword);
 
     if (keyword === "") {
@@ -117,47 +119,65 @@ function Content({ title = "" }) {
       <SearchBar keyword={keyword} onChange={search} />
       <h1 className="text-2xl m-5">{title}</h1>
       {location == "/examen/" + param.cliente ? (
-        <div className="panel">
-          <div className="mb-6">
-            <label htmlFor="nombre">Cliente</label>
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              className="text-input"
-              value={
-                auxData.nombre +
-                " " +
-                auxData.primer_apellido +
-                " " +
-                auxData.segundo_apellido
-              }
-              readOnly
-            />
+        <>
+          <div className="panel">
+            <table className="table-fixed w-full">
+              <tbody>
+                <tr>
+                  <td>
+                    <label htmlFor="nombre">Cliente</label>
+                  </td>
+                  <td colSpan={5}>
+                    <input
+                      type="text"
+                      id="nombre"
+                      name="nombre"
+                      className="text-input"
+                      value={
+                        auxData.nombre +
+                        " " +
+                        auxData.primer_apellido +
+                        " " +
+                        auxData.segundo_apellido
+                      }
+                      readOnly
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label htmlFor="dom">Domicilio</label>
+                  </td>
+                  <td colSpan={5}>
+                    <input
+                      type="text"
+                      id="nombre"
+                      name="nombre"
+                      className="text-input"
+                      value={auxData.domicilio}
+                      readOnly
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label htmlFor="tel">Teléfono</label>
+                  </td>
+                  <td colSpan={5}>
+                    <input
+                      type="text"
+                      id="nombre"
+                      name="nombre"
+                      className="text-input"
+                      value={format.phoneStringFormat(auxData.telefono + "")}
+                      readOnly
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div className="mb-6">
-            <label htmlFor="nombre">Domicilio</label>
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              className="text-input"
-              value={auxData.domicilio}
-              readOnly
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="nombre">Teléfono</label>
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              className="text-input"
-              value={format.phoneStringFormat(auxData.telefono + "")}
-              readOnly
-            />
-          </div>
-        </div>
+        </>
       ) : null}
       <AddCard />
       <CardRenderer data={data} />
