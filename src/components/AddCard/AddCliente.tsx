@@ -271,7 +271,13 @@ function AddCliente() {
                       >
                         {arrays.mun[parseInt(cliente.estado) - 1].map(
                           (s, i) => {
-                            return <option value={i + 1}>{s}</option>;
+                            if (s !== "") {
+                              return (
+                                <option key={i} value={i + 1}>
+                                  {s}
+                                </option>
+                              );
+                            }
                           }
                         )}
                       </select>
