@@ -1,8 +1,9 @@
 interface IExamAPI {
-  getAllExams: (curp: string) => Array<Exam>;
-  getExamById: (curp: string, date?: string) => Exam;
-  addExam: (exam: any) => Boolean;
-  updateExam: (exam: any) => Boolean;
+  getAllExams: (curp: string) => Promise<Array<Exam>>;
+  getExamById: (curp: string, date?: string) => Promise<Exam>;
+  addExam: (exam: Exam) => Promise<Boolean>;
+  updateExam: (exam: Exam) => Promise<Boolean>;
+  deleteExam: (curp: string) => Promise<Boolean>;
 }
 
 declare global {
@@ -71,16 +72,17 @@ class ExamController {
   static async getAllExams(curp: string): Promise<Array<Exam>> {
     return await window.examAPI.getAllExams(curp);
   }
-  
   static async getExamById(curp: string, date?: string): Promise<Exam> {
     return await window.examAPI.getExamById(curp, date);
   }
-
   static async addExam(exam: Exam): Promise<Boolean> {
     return await window.examAPI.addExam(exam);
   }
   static async updateExam(exam: Exam): Promise<Boolean> {
     return await window.examAPI.updateExam(exam);
+  }
+  static async deleteExam(curp: string): Promise<Boolean> {
+    return await window.examAPI.deleteExam(curp);
   }
 }
 

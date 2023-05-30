@@ -24,5 +24,19 @@ class Validator {
 
     return name !== "" && regex.test(name) && !junkCharsRegex.test(name);
   }
+
+  /**
+   * @param {string} phone
+   * @returns
+   */
+  static isPhone(phone) {
+    const invalidLadas = ["123", "111", "000", "101"];
+    for (const lada of invalidLadas) {
+      if (phone.slice(0, 3) === lada) {
+        return false;
+      }
+    }
+    return validator.isMobilePhone(phone, "es-MX");
+  }
 }
 module.exports = Validator;

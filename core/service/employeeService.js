@@ -1,23 +1,22 @@
 const EmployeeDAO = require("../DAO/employeeDAO.js");
 const Validator = require("../validation/validator.js");
+const { EmployeeDTO } = require("../types.js");
 const crypto = require("crypto");
 
 class EmployeeService {
   /**
    * Returns all employees in the database.
+   * @returns {Promise<[EmployeeDTO]>}
    */
   static async getAllEmployees() {
-    const res = await EmployeeDAO.getAllEmployees();
-    const employees = res.map((employee) => {
-      return employee.dataValues;
-    });
+    const employees = await EmployeeDAO.getAllEmployees();
     return employees;
   }
 
   /**
    * Finds an employee by his RFC and returns him if exists.
-   * @param RFC - The RFC of the Employee.
-   * @returns An object with the employee data.
+   * @param {string} rfc - The RFC of the Employee.
+   * @returns {Promise<EmployeeDTO | boolean>}
    */
   static async getEmployeeByRFC(rfc = "") {
     try {
@@ -29,7 +28,7 @@ class EmployeeService {
         throw Error("Invalid RFC");
       }*/
       const employee = await EmployeeDAO.getEmployeeByRFC(rfc);
-      return employee.dataValues;
+      return employee;
     } catch (error) {
       console.log(error);
       // If the employee don't exists
@@ -47,6 +46,7 @@ class EmployeeService {
 
   /**
    * Recives an object with the data of the employee and creates him in the database.
+   * @param {EmployeeDTO} employee
    * @returns True if the user has been created in other case throws an error.
    */
   static async createEmployee(employee) {
@@ -78,6 +78,7 @@ class EmployeeService {
 
   /**
    * Recives an existent employee with changes and valdiates the new data, thus saves the changes in db.
+   * @param {EmployeeDTO} employee
    * @returns Boolean in function of the results of the update operation.
    */
   static async updateEmployee(employee) {
@@ -102,6 +103,9 @@ class EmployeeService {
 
   /**
    * Updates the password of a user.
+   * @param {Object} params
+   * @param {string} params.username
+   * @param {string} params.password
    */
 
   static async updatePassword({ username, password }) {
@@ -145,32 +149,19 @@ class EmployeeService {
 
   /**
    * Recives an object and sanitizes his attributes and returns [true, employee] if has not problems, in other case
-   * returns [false, error].
-   * @returns [true, employee] | [false, error]
+   * @param {EmployeeDTO} employee
    */
   static sanitizeEmployee(employee) {
-    const {
-      rfc = "",
-      name = "",
-      firstLastName = "",
-      secondLastName = "",
-      username = "",
-      privileges = "",
-    } = employee;
-
-    for (const [key, value] of Object.entries(employee)) {
-      if (key !== "password" && value.trim() === "") {
-        return [false, new Error(`${key} is null`)];
-      }
-    }
+    /**@type {EmployeeDTO}*/
     const sanitizedEmployee = {
-      rfc: rfc.trim(),
-      name: name.trim(),
-      firstLastName: firstLastName.trim(),
-      secondLastName: secondLastName.trim(),
-      privileges: privileges.trim(),
-      user: username.trim(),
+      rfc: employee.rfc.trim(),
+      nombre: employee.nombre.trim(),
+      primer_apellido: employee.primer_apellido.trim(),
+      segundo_apellido: employee.segundo_apellido.trim(),
+      privilegios: employee.privilegios.trim(),
+      username: employee.username.trim(),
     };
+    console.log(sanitizedEmployee);
 
     return [true, sanitizedEmployee];
   }
@@ -182,7 +173,7 @@ class EmployeeService {
   }
   /**
    * Recives a password an hashes him.
-   * @param password - string.
+   * @param {string} password
    * @returns Hash of the password.
    */
   static hashPassword(password) {
@@ -203,9 +194,9 @@ class EmployeeService {
       return { isValid: false, error: result };
     }
     const validationRules = [
-      { field: "name", validator: Validator.isName },
-      { field: "firstLastName", validator: Validator.isName },
-      { field: "secondLastName", validator: Validator.isName },
+      { field: "nombre", validator: Validator.isName },
+      { field: "primer_apellido", validator: Validator.isName },
+      { field: "segundo_apellido", validator: Validator.isName },
       { field: "rfc", validator: Validator.isRFC },
     ];
 

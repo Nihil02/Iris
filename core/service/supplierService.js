@@ -57,7 +57,7 @@ class SupplierService {
 
       const sanitizedRFC = rfc.trim();
 
-      if(!sanitizedRFC) {
+      if (!sanitizedRFC) {
         throw new Error(MISSING_FIELD);
       }
 
@@ -169,6 +169,10 @@ class SupplierService {
 
     if (!Validator.isRFC(supplier.rfc)) {
       return INVALID_RFC;
+    }
+
+    if (!Validator.isPhone(supplier.telefono)) {
+      return INVALID_PHONE;
     }
     return VALID;
   }

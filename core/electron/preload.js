@@ -39,6 +39,7 @@ const examAPI = {
     ipcRenderer.invoke(K.Exam.getExamById, curp, date),
   addExam: (exam) => ipcRenderer.invoke(K.Exam.addExam, exam),
   updateExam: (exam) => ipcRenderer.invoke(K.Exam.updateExam, exam),
+  deleExam: (curp) => ipcRenderer.invoke(K.Exam.deleteExam, curp)
 };
 
 const backUpAPI = {
