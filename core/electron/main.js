@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+const { app, BrowserWindow, ipcMain, shell, dialog } = require("electron");
 const path = require("path");
 const K = require("./constants.js");
 const { sequelize } = require("../database/connection.js");
@@ -38,6 +38,25 @@ const createWindow = async () => {
     win.loadFile(path.join(__dirname, "build", "index.html"));
     win.setMenu(null);
   }
+
+  win.webContents.setWindowOpenHandler(async ({ url }) => {
+    const manual = new BrowserWindow({
+      title: "Iris",
+      minWidth: 800,
+      minHeight: 600,
+      icon: path.join(__dirname, "build", "logo.ico"),
+    });
+
+    if (isDev) {
+      await manual.loadURL(url);
+      manual.setIcon(path.join(__dirname, "..", "..", "public", "logo.ico"));
+    } else {
+      manual.loadFile(path.join(__dirname, "build", "ManualUsuario.pdf"));
+    }
+    manual.setMenu(null);
+    //shell.openExternal(url);
+    return { action: 'deny' };
+  });
 };
 
 app.whenReady().then(() => {
