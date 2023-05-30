@@ -344,9 +344,7 @@ function UpdateExamen({ id = "" }) {
                               />
                             </td>
                           </tr>
-                          <tr>
-                            <br />
-                          </tr>
+                          <br />
                         </tbody>
 
                         <thead className="text-center text-sm">
@@ -385,9 +383,7 @@ function UpdateExamen({ id = "" }) {
                               />
                             </td>
                           </tr>
-                          <tr>
-                            <br />
-                          </tr>
+                          <br />
                         </tbody>
 
                         <thead className="text-center text-sm">

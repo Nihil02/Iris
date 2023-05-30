@@ -50,12 +50,12 @@ const CardRenderer = ({ data = [{}] }) => {
 
             case "/examen/" + param.cliente:
               {
-                if (card.fecha !== null) {
+                if (card.fecha != null) {
                   id = card.fecha;
                   nombre = format.dateStringFormat(card.fecha + "");
                 }
               }
-              return <Card key={id} id={id} name={nombre} />;
+              return <Card key={id + param.cliente} id={id} name={nombre} />;
 
             default:
               return <h1 key={"wtf?"}>Error</h1>;

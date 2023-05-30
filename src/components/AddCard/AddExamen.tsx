@@ -304,9 +304,7 @@ function AddExamen() {
                               />
                             </td>
                           </tr>
-                          <tr>
-                            <br />
-                          </tr>
+                          <br />
                         </tbody>
 
                         <thead className="text-center text-sm">
@@ -345,9 +343,7 @@ function AddExamen() {
                               />
                             </td>
                           </tr>
-                          <tr>
-                            <br />
-                          </tr>
+                          <br />
                         </tbody>
 
                         <thead className="text-center text-sm">
@@ -399,6 +395,7 @@ function AddExamen() {
                         maxLength={50}
                         className="text-input"
                         placeholder="Tipo de Lentes"
+                        value={examen.tipo_lentes}
                         onChange={(e) =>
                           setExamen({ ...examen, tipo_lentes: e.target.value })
                         }
@@ -413,6 +410,7 @@ function AddExamen() {
                         className="text-input"
                         placeholder="Observaciones"
                         rows={3}
+                        value={examen.observaciones}
                         onChange={(e) =>
                           setExamen({
                             ...examen,
