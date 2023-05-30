@@ -3,6 +3,7 @@ import UpdateCard from "./UpdateCard";
 import ShowCard from "./ShowCard";
 import PrintCard from "./PrintCard";
 import { useLocation, useParams } from "react-router-dom";
+import { getAdmin } from "../util";
 
 interface IProps {
   id: string;
@@ -21,7 +22,7 @@ const Card = ({ id, name }: IProps) => {
         <div className="flex flex-wrap absolute items-center gap-y-2 gap-x-4 right-4">
           {location != "/usuario" ? <PrintCard id={id} /> : null}
           <UpdateCard id={id} />
-          {location != "/examen/" + param.cliente ? (
+          {location != "/examen/" + param.cliente || getAdmin() ? (
             <DeleteCard id={id} />
           ) : null}
         </div>
