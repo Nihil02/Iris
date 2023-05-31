@@ -65,8 +65,8 @@ function UpdateExamen({ id = "" }) {
         data.adicion_oi_esferico
       );
 
-      examen.dp_od = format.numberDecFormat(data.dp_od);
-      examen.dp_oi = format.numberDecFormat(data.dp_oi);
+      examen.dp_od = data.dp_od;
+      examen.dp_oi = data.dp_oi;
       examen.ob = format.numberDecFormat(data.oblea);
 
       examen.tipo_lentes = data.tipo_lentes;
@@ -102,8 +102,8 @@ function UpdateExamen({ id = "" }) {
       const exa = new controller.Exam(
         examen.cliente,
         examen.fecha,
-        parseFloat(examen.dp_od),
-        parseFloat(examen.dp_oi),
+        examen.dp_od,
+        examen.dp_oi,
         parseFloat(examen.ob),
         parseFloat(examen.lejos_od_esferico),
         parseFloat(examen.lejos_od_cilindrico),
@@ -363,9 +363,6 @@ function UpdateExamen({ id = "" }) {
                                 type="text"
                                 name="dp_od"
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
                                 value={examen.dp_od}
                                 onChange={handleChange}
                               />
@@ -375,9 +372,6 @@ function UpdateExamen({ id = "" }) {
                                 type="text"
                                 name="dp_oi"
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
                                 value={examen.dp_oi}
                                 onChange={handleChange}
                               />

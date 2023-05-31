@@ -37,23 +37,35 @@ function ShowExamen({ id = "", name = "" }) {
         examen.cliente,
         id
       );
-      
+
       examen.fecha = data.fecha;
 
       examen.lejos_od_esferico = format.numberDecFormat(data.lejos_od_esferico);
-      examen.lejos_od_cilindrico = format.numberDecFormat(data.lejos_od_cilindrico);
+      examen.lejos_od_cilindrico = format.numberDecFormat(
+        data.lejos_od_cilindrico
+      );
       examen.lejos_od_eje = format.numberDecFormat(data.lejos_od_eje);
-      examen.lejos_od_agudeza = format.numberDecFormat(data.lejos_od_agudeza_visual);
-      examen.adicion_od_esferico = format.numberDecFormat(data.adicion_od_esferico);
+      examen.lejos_od_agudeza = format.numberDecFormat(
+        data.lejos_od_agudeza_visual
+      );
+      examen.adicion_od_esferico = format.numberDecFormat(
+        data.adicion_od_esferico
+      );
 
       examen.lejos_oi_esferico = format.numberDecFormat(data.lejos_oi_esferico);
-      examen.lejos_oi_cilindrico = format.numberDecFormat(data.lejos_oi_cilindrico);
+      examen.lejos_oi_cilindrico = format.numberDecFormat(
+        data.lejos_oi_cilindrico
+      );
       examen.lejos_oi_eje = format.numberDecFormat(data.lejos_oi_eje);
-      examen.lejos_oi_agudeza = format.numberDecFormat(data.lejos_oi_agudeza_visual);
-      examen.adicion_oi_esferico = format.numberDecFormat(data.adicion_oi_esferico);
+      examen.lejos_oi_agudeza = format.numberDecFormat(
+        data.lejos_oi_agudeza_visual
+      );
+      examen.adicion_oi_esferico = format.numberDecFormat(
+        data.adicion_oi_esferico
+      );
 
-      examen.dp_od = format.numberDecFormat(data.dp_od);
-      examen.dp_oi = format.numberDecFormat(data.dp_oi);
+      examen.dp_od = data.dp_od;
+      examen.dp_oi = data.dp_oi;
       examen.ob_od = format.numberDecFormat(data.oblea);
 
       examen.tipo_lentes = data.tipo_lentes;
@@ -67,16 +79,25 @@ function ShowExamen({ id = "", name = "" }) {
   function closeModal() {
     setIsOpen(false);
   }
-  function openModal(e: { preventDefault: () => void }) {
-    e.preventDefault();
+  function openModal() {
     setIsOpen(true);
+  }
+
+  async function showCard(e: { preventDefault: () => void }) {
+    e.preventDefault();
+    openModal();
   }
 
   return (
     <>
-      <div className="flex flex-wrap items-center w-auto" onClick={openModal}>
-        <p className="text-sm leading-6  max-w-md">
-          <strong className="font-semibold truncate">{name}</strong>
+      <div
+        className="flex flex-wrap items-center w-3/4 m-0 p-0 cursor-pointer"
+        onClick={showCard}
+      >
+        <p className="text-sm leading-6 cursor-pointer">
+          <strong className="font-semibold truncate cursor-pointer">
+            {name}
+          </strong>
         </p>
       </div>
 
@@ -106,8 +127,7 @@ function ShowExamen({ id = "", name = "" }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="modal-panel">
-                  
-                <form className="m-4">
+                  <form className="m-4">
                     <div className="mb-6">
                       <label htmlFor="">Cliente</label>
                       <input
@@ -255,7 +275,9 @@ function ShowExamen({ id = "", name = "" }) {
                               />
                             </td>
                           </tr>
-                          <tr><br /></tr>
+                          <tr>
+                            <br />
+                          </tr>
                         </tbody>
 
                         <thead className="text-center text-sm">
@@ -271,7 +293,7 @@ function ShowExamen({ id = "", name = "" }) {
                             <td className="pr-12">DP</td>
                             <td>
                               <input
-                                type="number"
+                                type="text"
                                 name=""
                                 id=""
                                 className="table-input"
@@ -281,7 +303,7 @@ function ShowExamen({ id = "", name = "" }) {
                             </td>
                             <td>
                               <input
-                                type="number"
+                                type="text"
                                 name=""
                                 id=""
                                 className="table-input"
@@ -291,7 +313,9 @@ function ShowExamen({ id = "", name = "" }) {
                             </td>
                           </tr>
 
-                          <tr><br /></tr>
+                          <tr>
+                            <br />
+                          </tr>
                         </tbody>
 
                         <thead className="text-center text-sm">
@@ -301,7 +325,6 @@ function ShowExamen({ id = "", name = "" }) {
                           </tr>
                         </thead>
                         <tbody>
-
                           {/* Oblea */}
                           <tr>
                             <td className="pr-10">Oblea</td>
@@ -331,8 +354,7 @@ function ShowExamen({ id = "", name = "" }) {
                     </div>
                     <div className="mb-6">
                       {/* Otros datos */}
-                      <table className="table-fixed">
-                      </table>
+                      <table className="table-fixed"></table>
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Tipo de Lentes</label>
@@ -359,7 +381,7 @@ function ShowExamen({ id = "", name = "" }) {
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
                       <button className="btn-danger" onClick={closeModal}>
-                        Cancelar
+                        Salir
                       </button>
                     </div>
                   </form>

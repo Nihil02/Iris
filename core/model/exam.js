@@ -10,26 +10,26 @@ Exam.init(
       references: {
         model: Customer,
         key: "CURP",
-        allowNull: false
+        allowNull: false,
       },
       onDelete: "CASCADE",
-      primaryKey: true
+      primaryKey: true,
     },
     fecha: {
       type: DataTypes.STRING(10), // De acuerdo al protocolo ISO 8601
-      primaryKey: true
+      primaryKey: true,
     },
     dp_od: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.STRING(10),
       allowNull: true,
     },
     dp_oi: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.STRING(10),
       allowNull: true,
     },
     oblea: {
       type: DataTypes.NUMBER,
-      allowNull: true
+      allowNull: true,
     },
     lejos_od_esferico: {
       type: DataTypes.NUMBER,

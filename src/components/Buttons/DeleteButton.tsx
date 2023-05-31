@@ -12,7 +12,7 @@ function DeleteButton({ onClick }: HTMLAttributes<Element>) {
               className="card-button bg-red-600 hover:bg-red-500"
               onClick={onClick}
             >
-              <FaTrash size={16} color="white" />
+              <FaTrash size={16} color="white" className="cursor-pointer"/>
             </button>
           </Tooltip.Trigger>
           <Tooltip.Portal>

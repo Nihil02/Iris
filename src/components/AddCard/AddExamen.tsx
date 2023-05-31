@@ -63,8 +63,8 @@ function AddExamen() {
       const exa = new controller.Exam(
         examen.cliente,
         examen.fecha,
-        parseFloat(examen.dp_od),
-        parseFloat(examen.dp_oi),
+        examen.dp_od,
+        examen.dp_oi,
         parseFloat(examen.ob),
         parseFloat(examen.lejos_od_esferico),
         parseFloat(examen.lejos_od_cilindrico),
@@ -323,9 +323,6 @@ function AddExamen() {
                                 type="text"
                                 name="dp_od"
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
                                 value={examen.dp_od}
                                 onChange={handleChange}
                               />
@@ -335,9 +332,6 @@ function AddExamen() {
                                 type="text"
                                 name="dp_oi"
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
                                 value={examen.dp_oi}
                                 onChange={handleChange}
                               />
