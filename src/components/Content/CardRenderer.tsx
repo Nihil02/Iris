@@ -31,8 +31,9 @@ const CardRenderer = ({ data = [{}] }) => {
             case "/proveedor":
               {
                 id = card.rfc;
+                nombre = card.razon_social;
               }
-              return <Card key={nombre} id={id} name={card.razon_social} />;
+              return <Card key={id} id={id} name={nombre} />;
 
             case "/usuario":
               {
