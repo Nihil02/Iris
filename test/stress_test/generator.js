@@ -1,8 +1,5 @@
 const {faker} = require("@faker-js/faker/locale/es_MX");
 
-const curp = "GAMR020521HTSRNFA3";
-const rfc = "GOMP020121E52";
-
 const createEmployee = () => {
     return {
         rfc: faker.string.uuid(),
@@ -22,13 +19,13 @@ const createCustomer = () => {
         segundo_apellido: faker.person.lastName(),
         telefono: faker.phone.number(),
         domicilio: faker.location.streetAddress(),
-        fecnac: 12345678,
-        edonac: "TA",
+        fecnac: 19990123,
+        edonac: "0000",
         sexo: faker.helpers.arrayElement(["H", "M"]),
-        nacorigen: "NA",
-        edo: "TA",
-        mun: "TAM",
-        loc: "000",
+        nacorigen: "0000",
+        edo: "28",
+        mun: "9",
+        loc: "0000",
 
     }
 }

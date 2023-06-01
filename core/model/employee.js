@@ -24,7 +24,6 @@ Employee.init(
     usuario: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
     privilegios: {
       type: DataTypes.ENUM("Administrador", "Normal"),

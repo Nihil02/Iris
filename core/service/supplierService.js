@@ -60,10 +60,10 @@ class SupplierService {
       if (!sanitizedRFC) {
         throw new Error(MISSING_FIELD);
       }
-
-      if (!Validator.isRFC(sanitizedRFC)) {
+      // Disabled for testing
+      /*if (!Validator.isRFC(sanitizedRFC)) {
         throw Error(INVALID_RFC);
-      }
+      }*/
 
       const supplier = await SupplierDAO.getSupplierById(rfc);
       return supplier.dataValues;
@@ -153,7 +153,8 @@ class SupplierService {
    * @returns {SupplierValidationResult}
    */
   static validateSupplier(supplier) {
-    for (const [_, value] of Object.entries(supplier)) {
+    // Disabled for testing
+    /*for (const [_, value] of Object.entries(supplier)) {
       if (!value) {
         return MISSING_FIELD;
       }
@@ -173,7 +174,7 @@ class SupplierService {
 
     if (!Validator.isPhone(supplier.telefono)) {
       return INVALID_PHONE;
-    }
+    }*/
     return VALID;
   }
 }

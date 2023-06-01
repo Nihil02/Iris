@@ -17,7 +17,7 @@ const fs = require("fs");
   const customers = [];
   const exams = [];
 
-  for (let i = 0; i <= 1_0; i++) {
+  for (let i = 0; i <= 5_00; i++) {
     console.log(`i - ${i}`);
     employees.push(createEmployee());
     suppliers.push(createSupplier());
