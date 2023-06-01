@@ -15,7 +15,6 @@ Proyecto de sistema gestor de clientes de óptica modelo y agenda de proveedores
 ```bash
 ├── core                        # código backend
 │   ├── database                # conexión a la base de datos
-│   │   ├── models              # modelos de entidades de la base de datos
 │   │   ├── database.js         # manejador de la base de datos
 │   ├──electron                 # código necesario para el funcionamiento de electron
 │   │   ├── main.js             # punto de entrada de electron
