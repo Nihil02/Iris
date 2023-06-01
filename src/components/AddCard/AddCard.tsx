@@ -4,6 +4,7 @@ import AddCliente from "./AddCliente";
 import AddProveedor from "./AddProveedor";
 import AddEmpleado from "./AddEmpleado";
 import AddExamen from "./AddExamen";
+import { memo } from "react";
 
 function AddCard() {
   const path = useLocation().pathname;
@@ -27,4 +28,4 @@ function AddCard() {
   }
 }
 
-export default AddCard;
+export default memo(AddCard);

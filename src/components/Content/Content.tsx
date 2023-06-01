@@ -1,17 +1,22 @@
 import { useState, useEffect, Suspense, lazy } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { matchSorter } from "match-sorter";
+import InfiniteScroll from "react-infinite-scroller";
 import { controller, format } from "../../util";
 import SearchBar from "./SearchBar";
 import AddCard from "../AddCard";
 import Loading from "./Loading";
 const CardRenderer = lazy(() => import("./CardRenderer"));
+const ClientPanel = lazy(() => import("./ClientPanel"));
 
 function Content({ title = "" }) {
   const [data, setData] = useState([{}]);
   const [allData, setAllData] = useState([{}]);
   const [auxData, setAuxData] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [hasMore, setHasMore] = useState(true);
+  const cardAmount = 20;
+  const [records, setRecords] = useState(cardAmount);
 
   /* Get the current location and their params */
   const location = useLocation().pathname;
@@ -66,6 +71,15 @@ function Content({ title = "" }) {
     }
     getData();
   }, []);
+
+  function loadMore() {
+    records >= data.length
+      ? setHasMore(false)
+      : setTimeout(() => {
+          setRecords(records + cardAmount);
+        }, 10);
+          console.log(records);
+  }
 
   function formatData() {
     switch (location) {
@@ -124,68 +138,19 @@ function Content({ title = "" }) {
 
       <Suspense fallback={<Loading />}>
         {location == "/examen/" + param.cliente ? (
-          <>
-            <div className="panel">
-              <table className="table-fixed w-full">
-                <tbody>
-                  <tr>
-                    <td>
-                      <label htmlFor="nombre">Cliente</label>
-                    </td>
-                    <td colSpan={5}>
-                      <input
-                        type="text"
-                        id="nombre"
-                        name="nombre"
-                        className="text-input"
-                        value={
-                          auxData.nombre +
-                          " " +
-                          auxData.primer_apellido +
-                          " " +
-                          auxData.segundo_apellido
-                        }
-                        readOnly
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label htmlFor="dom">Domicilio</label>
-                    </td>
-                    <td colSpan={5}>
-                      <input
-                        type="text"
-                        id="nombre"
-                        name="nombre"
-                        className="text-input"
-                        value={auxData.domicilio}
-                        readOnly
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label htmlFor="tel">Teléfono</label>
-                    </td>
-                    <td colSpan={5}>
-                      <input
-                        type="text"
-                        id="nombre"
-                        name="nombre"
-                        className="text-input"
-                        value={format.phoneStringFormat(auxData.telefono + "")}
-                        readOnly
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </>
+          <ClientPanel data={auxData} />
         ) : null}
         <AddCard />
-        <CardRenderer data={data} />
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={loadMore}
+          hasMore={hasMore}
+          useWindow={false}
+          className="w-full ml-[14rem]"
+          loader={<h1>Hola</h1>}
+        >
+          <CardRenderer data={data} />
+        </InfiniteScroll>
       </Suspense>
     </>
   );
