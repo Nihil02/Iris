@@ -6,7 +6,7 @@ class Employee extends Model {}
 Employee.init(
   {
     rfc: {
-      type: DataTypes.STRING(13),
+      type: DataTypes.STRING,
       primaryKey: true,
     },
     nombre: {

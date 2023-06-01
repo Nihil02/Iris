@@ -6,7 +6,7 @@ class Customer extends Model {}
 Customer.init(
   {
     CURP: {
-      type: DataTypes.STRING(18),
+      type: DataTypes.STRING,
       primaryKey: true,
       allowNull: false,
     },
