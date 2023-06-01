@@ -6,7 +6,7 @@ class Exam extends Model {}
 Exam.init(
   {
     cliente: {
-      type: DataTypes.STRING(18),
+      type: DataTypes.STRING,
       references: {
         model: Customer,
         key: "CURP",

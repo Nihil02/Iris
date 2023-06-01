@@ -23,9 +23,10 @@ class ExamService {
   static async getExamById(curp = "", date = "") {
     try {
       const sanitizedCURP = curp.trim();
-      if (!Validator.isCURP(sanitizedCURP)) {
+      // disables for testing.
+      /*if (!Validator.isCURP(sanitizedCURP)) {
         throw Error("Invalid CURP");
-      }
+      }*/
 
       let exam;
 

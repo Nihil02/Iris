@@ -6,7 +6,7 @@ class Supplier extends Model {}
 Supplier.init(
   {
     rfc: {
-      type: DataTypes.STRING(13),
+      type: DataTypes.STRING,
       primaryKey: true,
     },
     razon_social: {
