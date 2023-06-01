@@ -96,7 +96,7 @@ body {
 
   .card {
     @apply relative isolate flex items-center overflow-hidden 
-    gap-x-6 py-2.5 px-6 h-10 min-h-10 w-3/4 m-1
+    gap-x-6 py-2.5 mb-2 px-6 h-10 min-h-10 w-3/4 m-1
     rounded-md hover:rounded-lg shadow-sm
     bg-gray-50 border-gray-100 border-2 hover:border-green-400
     transition-all duration-100 ease-in;

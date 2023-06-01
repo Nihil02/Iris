@@ -1,6 +1,7 @@
 import { useState, useEffect, Suspense, lazy } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { matchSorter } from "match-sorter";
+import InfiniteScroll from "react-infinite-scroller";
 import { controller, format } from "../../util";
 import SearchBar from "./SearchBar";
 import AddCard from "../AddCard";
@@ -12,6 +13,9 @@ function Content({ title = "" }) {
   const [allData, setAllData] = useState([{}]);
   const [auxData, setAuxData] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [hasMore, setHasMore] = useState(true);
+  const cardAmount = 2;
+  const [records, setRecords] = useState(cardAmount);
 
   /* Get the current location and their params */
   const location = useLocation().pathname;
@@ -66,6 +70,14 @@ function Content({ title = "" }) {
     }
     getData();
   }, []);
+
+  function loadMore() {
+    records <= data.length
+      ? setHasMore(true)
+      : setTimeout(() => {
+          setRecords(records + cardAmount);
+        }, 3000);
+  }
 
   function formatData() {
     switch (location) {
@@ -185,7 +197,15 @@ function Content({ title = "" }) {
           </>
         ) : null}
         <AddCard />
-        <CardRenderer data={data} />
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={loadMore}
+          hasMore={hasMore}
+          useWindow={true}
+          className="w-full ml-[14rem]"
+        >
+          <CardRenderer data={data} />
+        </InfiniteScroll>
       </Suspense>
     </>
   );
