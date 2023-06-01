@@ -16,14 +16,17 @@ const fs = require("fs");
   const suppliers = [];
   const customers = [];
   const exams = [];
+  
+  const rowInsertions =  5_00;
+  const examInsertions = 10;
 
-  for (let i = 0; i <= 5_00; i++) {
+  for (let i = 0; i <= rowInsertions; i++) {
     console.log(`i - ${i}`);
     employees.push(createEmployee());
     suppliers.push(createSupplier());
     const tmp = createCustomer();
     customers.push(tmp);
-    for (let j = 0; j <= 10; j++) {
+    for (let j = 0; j <= examInsertions; j++) {
       console.log(`j - ${j}`);
       exams.push(createExam(tmp.CURP));
     }
