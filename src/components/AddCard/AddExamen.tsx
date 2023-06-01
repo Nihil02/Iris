@@ -11,21 +11,21 @@ function AddExamen() {
     cliente: param.cliente + "", //Texto
     fecha: "", //Entero
 
-    lejos_od_esferico: "0.00", //Decimal
-    lejos_od_cilindrico: "0.00", //Decimal
-    lejos_od_eje: "0.00", //Decimal
-    lejos_od_agudeza: "0.00", //Decimal
-    adicion_od_esferico: "0.00", //Decimal
+    lejos_od_esferico: "", //Decimal
+    lejos_od_cilindrico: "", //Decimal
+    lejos_od_eje: "", //Decimal
+    lejos_od_agudeza: "", //Decimal
+    adicion_od_esferico: "", //Decimal
 
-    lejos_oi_esferico: "0.00", //Decimal
-    lejos_oi_cilindrico: "0.00", //Decimal
-    lejos_oi_eje: "0.00", //Decimal
-    lejos_oi_agudeza: "0.00", //Decimal
-    adicion_oi_esferico: "0.00", //Decimal
+    lejos_oi_esferico: "", //Decimal
+    lejos_oi_cilindrico: "", //Decimal
+    lejos_oi_eje: "", //Decimal
+    lejos_oi_agudeza: "", //Decimal
+    adicion_oi_esferico: "", //Decimal
 
-    dp_oi: "0.00", //Decimal
-    dp_od: "0.00", //Decimal
-    ob: "0.00", //Decimal
+    dp_oi: "", //Texto
+    dp_od: "", //Texto
+    ob: "", //Decimal
 
     tipo_lentes: "", //Texto
     observaciones: "", //Texto, opcional
@@ -45,8 +45,8 @@ function AddExamen() {
     e.preventDefault();
     const name = e.target.name;
     let value = e.target.value;
-    let aux = parseFloat(value);
-    /*if (aux > 15.0) {
+    /*let aux = parseFloat(value);
+    if (aux > 15.0) {
       value = "15.00";
     } else if (aux < -15.0) {
       value = "-15.00";
@@ -65,17 +65,36 @@ function AddExamen() {
         examen.fecha,
         examen.dp_od,
         examen.dp_oi,
-        parseFloat(examen.ob),
-        parseFloat(examen.lejos_od_esferico),
-        parseFloat(examen.lejos_od_cilindrico),
-        parseFloat(examen.lejos_od_eje),
-        parseFloat(examen.lejos_od_agudeza),
-        parseFloat(examen.lejos_oi_esferico),
-        parseFloat(examen.lejos_oi_cilindrico),
-        parseFloat(examen.lejos_oi_eje),
-        parseFloat(examen.lejos_od_agudeza),
-        parseFloat(examen.adicion_od_esferico),
-        parseFloat(examen.adicion_oi_esferico),
+        examen.ob == "" ? parseFloat(examen.ob) : 0.0,
+
+        examen.lejos_od_esferico == ""
+          ? parseFloat(examen.lejos_od_esferico)
+          : 0.0,
+        examen.lejos_od_cilindrico == ""
+          ? parseFloat(examen.lejos_od_cilindrico)
+          : 0.0,
+        examen.lejos_od_eje == "" ? parseFloat(examen.lejos_od_eje) : 0.0,
+        examen.lejos_od_agudeza == ""
+          ? parseFloat(examen.lejos_od_agudeza)
+          : 0.0,
+
+        examen.lejos_oi_esferico == ""
+          ? parseFloat(examen.lejos_oi_esferico)
+          : 0.0,
+        examen.lejos_oi_cilindrico == ""
+          ? parseFloat(examen.lejos_oi_cilindrico)
+          : 0.0,
+        examen.lejos_oi_eje == "" ? parseFloat(examen.lejos_oi_eje) : 0.0,
+        examen.lejos_oi_agudeza == ""
+          ? parseFloat(examen.lejos_oi_agudeza)
+          : 0.0,
+
+        examen.adicion_od_esferico == ""
+          ? parseFloat(examen.adicion_od_esferico)
+          : 0.0,
+        examen.adicion_oi_esferico == ""
+          ? parseFloat(examen.adicion_oi_esferico)
+          : 0.0,
         examen.tipo_lentes,
         examen.observaciones
       );
@@ -176,6 +195,7 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
+                                placeholder="0.00"
                                 value={examen.lejos_od_esferico}
                                 onChange={handleChange}
                               />
@@ -188,6 +208,7 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
+                                placeholder="0.00"
                                 value={examen.lejos_od_cilindrico}
                                 onChange={handleChange}
                               />
@@ -200,6 +221,7 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
+                                placeholder="0.00"
                                 value={examen.lejos_od_eje}
                                 onChange={handleChange}
                               />
@@ -212,6 +234,7 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
+                                placeholder="0.00"
                                 value={examen.lejos_od_agudeza}
                                 onChange={handleChange}
                               />
@@ -229,6 +252,7 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
+                                placeholder="0.00"
                                 value={examen.lejos_oi_esferico}
                                 onChange={handleChange}
                               />
@@ -241,6 +265,7 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
+                                placeholder="0.00"
                                 value={examen.lejos_oi_cilindrico}
                                 onChange={handleChange}
                               />
@@ -253,6 +278,7 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
+                                placeholder="0.00"
                                 value={examen.lejos_oi_eje}
                                 onChange={handleChange}
                               />
@@ -265,6 +291,7 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
+                                placeholder="0.00"
                                 value={examen.lejos_oi_agudeza}
                                 onChange={handleChange}
                               />
@@ -282,6 +309,7 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
+                                placeholder="0.00"
                                 value={examen.adicion_od_esferico}
                                 onChange={handleChange}
                               />
@@ -299,6 +327,7 @@ function AddExamen() {
                                 step={0.25}
                                 max={12.0}
                                 min={-12.0}
+                                placeholder="0.00"
                                 value={examen.adicion_oi_esferico}
                                 onChange={handleChange}
                               />
@@ -323,6 +352,7 @@ function AddExamen() {
                                 type="text"
                                 name="dp_od"
                                 className="table-input"
+                                placeholder="00/00"
                                 value={examen.dp_od}
                                 onChange={handleChange}
                               />
@@ -332,6 +362,7 @@ function AddExamen() {
                                 type="text"
                                 name="dp_oi"
                                 className="table-input"
+                                placeholder="00/00"
                                 value={examen.dp_oi}
                                 onChange={handleChange}
                               />
@@ -359,22 +390,10 @@ function AddExamen() {
                                 max={12.0}
                                 min={-12.0}
                                 value={examen.ob}
+                                placeholder="0.00"
                                 onChange={handleChange}
                               />
                             </td>
-                            {/*<td>
-                              <input
-                                type="text"
-                                name=""
-                                id=""
-                                className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
-                                value={examen.ob_oi}
-                                onChange={handleChange}
-                              />
-                            </td>*/}
                           </tr>
                         </tbody>
                       </table>

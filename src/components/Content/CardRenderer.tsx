@@ -1,6 +1,7 @@
 import { useLocation, useParams } from "react-router-dom";
 import { format } from "../../util";
 import Card from "../Card";
+import { useEffect } from "react";
 
 const CardRenderer = ({ data = [{}] }) => {
   const location = useLocation().pathname;
@@ -8,6 +9,19 @@ const CardRenderer = ({ data = [{}] }) => {
 
   let nombre: string;
   let id: string;
+
+  useEffect(() => {
+    return () => {
+      switch (location) {
+        case "/examen/" + param.cliente:
+
+          break;
+
+        default:
+          break;
+      }
+    };
+  }, []);
 
   return (
     <>

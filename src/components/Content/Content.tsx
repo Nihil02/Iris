@@ -9,7 +9,7 @@ import AddCard from "../AddCard";
 function Content({ title = "" }) {
   const [data, setData] = useState([{}]);
   const [allData, setAllData] = useState([{}]);
-  const [auxData, setAuxData] = useState([{}]);
+  const [auxData, setAuxData] = useState([]);
   const [keyword, setKeyword] = useState("");
 
   /* Get the current location and their params */
@@ -30,14 +30,13 @@ function Content({ title = "" }) {
           const exa = await controller.ExamController.getAllExams(
             param.cliente + ""
           );
-
-          setData(exa);
-          setAllData(exa);
-          setAuxData(
-            await controller.CustomerController.getCustomerById(
-              param.cliente + ""
-            )
+          const cliAux = await controller.CustomerController.getCustomerById(
+            param.cliente + ""
           );
+
+          setData(exa.sort((a, b) => (a.fecha < b.fecha ? 1 : -1)));
+          setAllData(exa.sort((a, b) => (a.fecha < b.fecha ? 1 : -1)));
+          setAuxData(cliAux);
           break;
 
         case "/proveedor":

@@ -83,8 +83,8 @@ function PrintExamen({ id = "" }) {
         data.adicion_oi_esferico
       );
 
-      examen.dp_od = format.numberDecFormat(data.dp_od);
-      examen.dp_oi = format.numberDecFormat(data.dp_oi);
+      examen.dp_od = data.dp_od;
+      examen.dp_oi = data.dp_oi;
       examen.ob = format.numberDecFormat(data.oblea);
 
       examen.tipo_lentes = data.tipo_lentes;

@@ -11,21 +11,21 @@ function UpdateExamen({ id = "" }) {
     cliente: param.cliente + "", //Texto
     fecha: "", //Entero
 
-    lejos_od_esferico: "0.00", //Decimal
-    lejos_od_cilindrico: "0.00", //Decimal
-    lejos_od_eje: "0.00", //Decimal
-    lejos_od_agudeza: "0.00", //Decimal
-    adicion_od_esferico: "0.00", //Decimal
+    lejos_od_esferico: "", //Decimal
+    lejos_od_cilindrico: "", //Decimal
+    lejos_od_eje: "", //Decimal
+    lejos_od_agudeza: "", //Decimal
+    adicion_od_esferico: "", //Decimal
 
-    lejos_oi_esferico: "0.00", //Decimal
-    lejos_oi_cilindrico: "0.00", //Decimal
-    lejos_oi_eje: "0.00", //Decimal
-    lejos_oi_agudeza: "0.00", //Decimal
-    adicion_oi_esferico: "0.00", //Decimal
+    lejos_oi_esferico: "", //Decimal
+    lejos_oi_cilindrico: "", //Decimal
+    lejos_oi_eje: "", //Decimal
+    lejos_oi_agudeza: "", //Decimal
+    adicion_oi_esferico: "", //Decimal
 
-    dp_oi: "0.00", //Decimal
-    dp_od: "0.00", //Decimal
-    ob: "0.00", //Decimal
+    dp_oi: "", //Decimal
+    dp_od: "", //Decimal
+    ob: "", //Decimal
 
     tipo_lentes: "", //Texto
     observaciones: "", //Texto, opcional
@@ -104,17 +104,36 @@ function UpdateExamen({ id = "" }) {
         examen.fecha,
         examen.dp_od,
         examen.dp_oi,
-        parseFloat(examen.ob),
-        parseFloat(examen.lejos_od_esferico),
-        parseFloat(examen.lejos_od_cilindrico),
-        parseFloat(examen.lejos_od_eje),
-        parseFloat(examen.lejos_od_agudeza),
-        parseFloat(examen.lejos_oi_esferico),
-        parseFloat(examen.lejos_oi_cilindrico),
-        parseFloat(examen.lejos_oi_eje),
-        parseFloat(examen.lejos_od_agudeza),
-        parseFloat(examen.adicion_od_esferico),
-        parseFloat(examen.adicion_oi_esferico),
+        examen.ob == "" ? parseFloat(examen.ob) : 0.0,
+
+        examen.lejos_od_esferico == ""
+          ? parseFloat(examen.lejos_od_esferico)
+          : 0.0,
+        examen.lejos_od_cilindrico == ""
+          ? parseFloat(examen.lejos_od_cilindrico)
+          : 0.0,
+        examen.lejos_od_eje == "" ? parseFloat(examen.lejos_od_eje) : 0.0,
+        examen.lejos_od_agudeza == ""
+          ? parseFloat(examen.lejos_od_agudeza)
+          : 0.0,
+
+        examen.lejos_oi_esferico == ""
+          ? parseFloat(examen.lejos_oi_esferico)
+          : 0.0,
+        examen.lejos_oi_cilindrico == ""
+          ? parseFloat(examen.lejos_oi_cilindrico)
+          : 0.0,
+        examen.lejos_oi_eje == "" ? parseFloat(examen.lejos_oi_eje) : 0.0,
+        examen.lejos_oi_agudeza == ""
+          ? parseFloat(examen.lejos_oi_agudeza)
+          : 0.0,
+
+        examen.adicion_od_esferico == ""
+          ? parseFloat(examen.adicion_od_esferico)
+          : 0.0,
+        examen.adicion_oi_esferico == ""
+          ? parseFloat(examen.adicion_oi_esferico)
+          : 0.0,
         examen.tipo_lentes,
         examen.observaciones
       );
