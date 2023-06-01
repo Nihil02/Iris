@@ -12,7 +12,7 @@ function PrintButton({ onClick }: HTMLAttributes<Element>) {
               className="card-button bg-yellow-600 hover:bg-yellow-500 group"
               onClick={onClick}
             >
-              <FaPrint size={16} color="white" />
+              <FaPrint size={16} color="white" className="cursor-pointer" />
             </button>
           </Tooltip.Trigger>
           <Tooltip.Portal>

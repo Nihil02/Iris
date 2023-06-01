@@ -1,3 +1,5 @@
+import { bgImage } from "./image";
+
 interface ISupplier {
   RFC: string;
   razonSocial: string;
@@ -37,6 +39,14 @@ const generateSupplierFormat = (supplier: ISupplier) => {
   const docDefinition = {
     pageSize: "A5",
     pageOrientation: "landscape",
+    background: [
+      { text: "\n\n\n\n" },
+      {
+        width: 250,
+        image: bgImage,
+        style: "background",
+      },
+    ],
     content: [
       { text: "DATOS DEL PROVEEDOR" + "\n", style: "header" },
       { text: supplier.razonSocial + "\n", style: "header" },
@@ -64,6 +74,9 @@ const generateSupplierFormat = (supplier: ISupplier) => {
         bold: true,
         alignment: "center",
         margin: [0, 0, 0, 10],
+      },
+      background: {
+        alignment: "center",
       },
     },
   };

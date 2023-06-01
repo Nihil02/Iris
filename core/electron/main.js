@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+const { app, BrowserWindow, ipcMain, shell, dialog } = require("electron");
 const path = require("path");
 const K = require("./constants.js");
 const { sequelize } = require("../database/connection.js");
@@ -18,7 +18,7 @@ const isDev = process.env.IS_DEV === "true";
 const createWindow = async () => {
   await sequelize.sync();
   const win = new BrowserWindow({
-    title: "Iris",
+    title: "Iris - Óptica Modelo",
     minWidth: 800,
     minHeight: 600,
     width: 1024,
@@ -38,6 +38,25 @@ const createWindow = async () => {
     win.loadFile(path.join(__dirname, "build", "index.html"));
     win.setMenu(null);
   }
+
+  win.webContents.setWindowOpenHandler(async ({ url }) => {
+    const manual = new BrowserWindow({
+      title: "Iris - Óptica Modelo",
+      minWidth: 800,
+      minHeight: 600,
+      icon: path.join(__dirname, "build", "logo.ico"),
+    });
+
+    if (isDev) {
+      await manual.loadURL(url);
+      manual.setIcon(path.join(__dirname, "..", "..", "public", "logo.ico"));
+    } else {
+      manual.loadFile(path.join(__dirname, "build", "ManualUsuario.pdf"));
+    }
+    manual.setMenu(null);
+    //shell.openExternal(url);
+    return { action: "deny" };
+  });
 };
 
 app.whenReady().then(() => {

@@ -1,13 +1,13 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { useState, Fragment } from "react";
-import { FaTrash } from "react-icons/fa";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { controller } from "../util";
 import { DeleteButton } from "./Buttons";
 
 function DeleteCard({ id = "" }) {
-  /* Get current location */
+  /* Get current location and their params */
   const path = useLocation().pathname;
+  let param = useParams();
 
   /* Controls modal state */
   let [isOpen, setIsOpen] = useState(false);
@@ -52,7 +52,19 @@ function DeleteCard({ id = "" }) {
           }
           break;
 
+        case "/examen/" + param.cliente:
+          condition = await controller.ExamController.deleteExam(
+            param.cliente + ""
+          );
+          if (condition) {
+            console.log("eliminado registro " + id);
+          } else {
+            console.log("error");
+          }
+          break;
+
         default:
+          console.log("Why");
           break;
       }
 
@@ -63,7 +75,7 @@ function DeleteCard({ id = "" }) {
 
   return (
     <>
-    <DeleteButton onClick={openModal}/>
+      <DeleteButton onClick={openModal} />
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>

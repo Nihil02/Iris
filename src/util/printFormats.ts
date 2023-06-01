@@ -1,5 +1,5 @@
-import generateExamFormat from "../../public/printFormat/examFormat";
-import generateSupplierFormat from "../../public/printFormat/supplierFormat";
-import generateClientFormat from "../../public/printFormat/clientFormat";
+import generateExamFormat from "../printFormat/examFormat";
+import generateSupplierFormat from "../printFormat/supplierFormat";
+import generateClientFormat from "../printFormat/clientFormat";
 
 export { generateExamFormat, generateSupplierFormat, generateClientFormat };

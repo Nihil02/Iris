@@ -14,8 +14,8 @@ declare global {
 class Exam {
   cliente: string;
   fecha: string;
-  dp_od: number;
-  dp_oi: number;
+  dp_od: string;
+  dp_oi: string;
   oblea: number;
   lejos_od_esferico: number;
   lejos_od_cilindrico: number;
@@ -32,8 +32,8 @@ class Exam {
   constructor(
     cliente: string,
     fecha: string,
-    dp_od: number,
-    dp_oi: number,
+    dp_od: string,
+    dp_oi: string,
     oblea: number,
     lejos_od_esferico: number,
     lejos_od_cilindrico: number,

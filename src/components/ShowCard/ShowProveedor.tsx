@@ -43,9 +43,14 @@ function ShowProveedor({ id = "", name = "" }) {
 
   return (
     <>
-      <div className="flex flex-wrap items-center w-auto" onClick={showCard}>
-        <p className="text-sm leading-6  max-w-md">
-          <strong className="font-semibold truncate">{name}</strong>
+      <div
+        className="flex flex-wrap items-center w-3/4 m-0 p-0 cursor-pointer"
+        onClick={showCard}
+      >
+        <p className="text-sm leading-6 cursor-pointer">
+          <strong className="font-semibold truncate cursor-pointer">
+            {name}
+          </strong>
         </p>
       </div>
 
@@ -151,7 +156,7 @@ function ShowProveedor({ id = "", name = "" }) {
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
                       <button className="btn-danger" onClick={closeModal}>
-                        Cancelar
+                        Salir
                       </button>
                     </div>
                   </form>

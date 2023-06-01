@@ -16,7 +16,7 @@ function PrintCliente({ id = "" }) {
 
   let [isOpen, setIsOpen] = useState(false);
   async function openModal() {
-    await sleep(100);
+    await sleep(200);
     setIsOpen(true);
   }
 

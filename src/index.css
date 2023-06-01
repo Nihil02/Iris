@@ -55,7 +55,7 @@ body {
     select-none leading-none
     rounded-md
     shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] 
-    transition-all duration-100 will-change-[transform,opacity]; 
+    transition-all duration-100 will-change-[transform,opacity];
   }
 
   .menu-icon {
@@ -99,7 +99,7 @@ body {
     gap-x-6 py-2.5 px-6 h-10 min-h-10 w-3/4 m-1
     rounded-md hover:rounded-lg shadow-sm
     bg-gray-50 border-gray-100 border-2 hover:border-green-400
-    transition-all duration-100 ease-in cursor-pointer;
+    transition-all duration-100 ease-in;
   }
 
   .add-card {
@@ -112,7 +112,7 @@ body {
 
   .card-button {
     @apply flex justify-center items-center w-8 h-8 rounded-md hover:rounded-lg
-    transition-all duration-100 ease-in;
+    transition-all duration-100 ease-in cursor-pointer;
   }
 
   .login-input {

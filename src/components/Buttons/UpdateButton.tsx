@@ -12,7 +12,7 @@ function UpdateButton({ onClick }: HTMLAttributes<Element>) {
               className="card-button bg-green-600 hover:bg-green-500"
               onClick={onClick}
             >
-              <FaPen size={16} color="white" />
+              <FaPen size={16} color="white" className="cursor-pointer" />
             </button>
           </Tooltip.Trigger>
           <Tooltip.Portal>

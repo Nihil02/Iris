@@ -4,6 +4,7 @@ import {
   FaBoxOpen,
   FaDatabase,
   FaDoorOpen,
+  FaQuestion,
   FaUndo,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -11,6 +12,7 @@ import { getAdmin, controller } from "../util";
 import { BackupDialog, InfoDialog } from "./Dialogs";
 import { useState } from "react";
 import * as Tooltip from "@radix-ui/react-tooltip";
+import ManualUsuario from "/ManualUsuario.pdf"
 
 interface IMenuIcon {
   icon: JSX.Element;
@@ -42,6 +44,15 @@ function Menu() {
           setTitle("Restaurar copia de seguridad");
           setMsg("¿Desea restaurar la copia de seguridad anterior?");
           setRestore(true);
+          break;
+
+        case "Ayuda":
+          const aTag = document.createElement("a");
+          aTag.href = ManualUsuario;
+          aTag.setAttribute("target", "_blank")
+          document.body.appendChild(aTag);
+          aTag.click();
+          aTag.remove();
           break;
 
         default:
@@ -77,10 +88,7 @@ function Menu() {
   };
 
   return (
-    <nav
-      className="fixed top-0 left-0 h-screen w-20 flex flex-col
-                  bg-gray-50 shadow-lg"
-    >
+    <nav className="fixed top-0 left-0 h-screen w-20 flex flex-col bg-gray-50 shadow-lg">
       <div className="content-start">
         <MenuIcon
           icon={<FaGlasses size="28" />}
@@ -120,6 +128,12 @@ function Menu() {
             />
           </>
         ) : null}
+        <MenuIcon
+          icon={<FaQuestion size="28" />}
+          tooltip="Ayuda"
+          route="Ayuda"
+          redirect={false}
+        />
         <MenuIcon icon={<FaDoorOpen size="28" />} tooltip="Salir" route="/" />
       </div>
 

@@ -3,6 +3,7 @@ import { ChangeEvent, Fragment, useState } from "react";
 import { controller, regex, format, arrays, messages } from "../../util";
 import ErrorDialog from "../Dialogs/ErrorDialog";
 import { AddButton } from "../Buttons";
+import { FormDialog } from "../Dialogs";
 
 function AddCliente() {
   let [cliente, setCliente] = useState({
@@ -82,240 +83,179 @@ function AddCliente() {
     <>
       <AddButton onClick={openModal} />
 
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+      <FormDialog isOpen={isOpen} setIsOpen={setIsOpen} onSubmit={addCard}>
+        <div className="mb-6">
+          <label htmlFor="">CURP</label>
+          <input
+            type="text"
+            id=""
+            name=""
+            className="text-input"
+            placeholder="CURP"
+            onChange={(e) =>
+              setCliente({
+                ...cliente,
+                curp: e.target.value.toUpperCase(),
+              })
+            }
+            pattern={regex.curp_rfc}
+            required
+          />
+        </div>
+        <div className="mb-6">
+          <label htmlFor="">Nombre</label>
+          <input
+            type="text"
+            id=""
+            name=""
+            maxLength={50}
+            className="text-input"
+            pattern={regex.name}
+            placeholder="Nombre"
+            onChange={(e) => setCliente({ ...cliente, nombre: e.target.value })}
+            required
+          />
+        </div>
+        <div className="mb-6">
+          <label htmlFor="">Primer Apellido</label>
+          <input
+            type="text"
+            id=""
+            name=""
+            maxLength={50}
+            className="text-input"
+            placeholder="Primer Apellido"
+            pattern={regex.name}
+            onChange={(e) =>
+              setCliente({ ...cliente, apellido1: e.target.value })
+            }
+            required
+          />
+        </div>
+        <div className="mb-6">
+          <label htmlFor="">Segundo Apellido</label>
+          <input
+            type="text"
+            id=""
+            name=""
+            maxLength={50}
+            className="text-input"
+            placeholder="Segundo Apellido"
+            pattern={regex.name}
+            onChange={(e) =>
+              setCliente({ ...cliente, apellido2: e.target.value })
+            }
+          />
+        </div>
+        <div className="mb-6">
+          <label htmlFor="">Fecha de Nacimiento</label>
+          <input
+            type="date"
+            id=""
+            name=""
+            className="text-input"
+            max={new Date().toLocaleDateString("fr-ca")}
+            min={"1900-01-01"}
+            onChange={(e) => {
+              let aux = e.target.value.replaceAll("-", "");
+              setCliente({ ...cliente, fecha: aux });
+            }}
+            required
+          />
+        </div>
+        <div className="mb-6">
+          <label htmlFor="sexo">Sexo</label>
+          <select
+            className="text-input"
+            name="sexo"
+            id="sexo"
+            onChange={(e) =>
+              setCliente({
+                ...cliente,
+                sexo: e.target.value,
+              })
+            }
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
-          </Transition.Child>
-
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="modal-panel">
-                  <form className="m-4" onSubmit={addCard}>
-                    <div className="mb-6">
-                      <label htmlFor="">CURP</label>
-                      <input
-                        type="text"
-                        id=""
-                        name=""
-                        className="text-input"
-                        placeholder="CURP"
-                        onChange={(e) =>
-                          setCliente({
-                            ...cliente,
-                            curp: e.target.value.toUpperCase(),
-                          })
-                        }
-                        pattern={regex.curp_rfc}
-                        required
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Nombre</label>
-                      <input
-                        type="text"
-                        id=""
-                        name=""
-                        maxLength={50}
-                        className="text-input"
-                        pattern={regex.name}
-                        placeholder="Nombre"
-                        onChange={(e) =>
-                          setCliente({ ...cliente, nombre: e.target.value })
-                        }
-                        required
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Primer Apellido</label>
-                      <input
-                        type="text"
-                        id=""
-                        name=""
-                        maxLength={50}
-                        className="text-input"
-                        placeholder="Primer Apellido"
-                        pattern={regex.name}
-                        onChange={(e) =>
-                          setCliente({ ...cliente, apellido1: e.target.value })
-                        }
-                        required
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Segundo Apellido</label>
-                      <input
-                        type="text"
-                        id=""
-                        name=""
-                        maxLength={50}
-                        className="text-input"
-                        placeholder="Segundo Apellido"
-                        pattern={regex.name}
-                        onChange={(e) =>
-                          setCliente({ ...cliente, apellido2: e.target.value })
-                        }
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Fecha de Nacimiento</label>
-                      <input
-                        type="date"
-                        id=""
-                        name=""
-                        className="text-input"
-                        max={new Date().toLocaleDateString("fr-ca")}
-                        min={"1900-01-01"}
-                        onChange={(e) => {
-                          let aux = e.target.value.replaceAll("-", "");
-                          setCliente({ ...cliente, fecha: aux });
-                        }}
-                        required
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="sexo">Sexo</label>
-                      <select
-                        className="text-input"
-                        name="sexo"
-                        id="sexo"
-                        onChange={(e) =>
-                          setCliente({
-                            ...cliente,
-                            sexo: e.target.value,
-                          })
-                        }
-                      >
-                        <option value="H">Hombre</option>
-                        <option value="M">Mujer</option>
-                      </select>
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Teléfono</label>
-                      <input
-                        type="tel"
-                        id="tel"
-                        name="tel"
-                        pattern="[\d]{10}$"
-                        className="text-input"
-                        placeholder="Telefono"
-                        onChange={(e) =>
-                          setCliente({
-                            ...cliente,
-                            telefono: e.target.value,
-                          })
-                        }
-                        required
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Domicilio</label>
-                      <input
-                        type="text"
-                        id=""
-                        name=""
-                        className="text-input"
-                        placeholder="Domicilio"
-                        onChange={(e) =>
-                          setCliente({ ...cliente, domicilio: e.target.value })
-                        }
-                        required
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Estado</label>
-                      <select
-                        className="text-input"
-                        name="estado"
-                        id="estado"
-                        value={cliente.estado}
-                        onChange={(e) => handleChange(e)}
-                      >
-                        {arrays.states.map((s, i) => {
-                          return (
-                            <option key={i} value={i + 1}>
-                              {s}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Municipio</label>
-                      <select
-                        className="text-input"
-                        name="municipio"
-                        id="municipio"
-                        value={cliente.municipio}
-                        onChange={(e) => {
-                          setCliente({
-                            ...cliente,
-                            municipio: e.target.value,
-                          });
-                        }}
-                      >
-                        {arrays.mun[parseInt(cliente.estado) - 1].map(
-                          (s, i) => {
-                            if (s !== "") {
-                              return (
-                                <option key={i} value={i + 1}>
-                                  {s}
-                                </option>
-                              );
-                            }
-                          }
-                        )}
-                      </select>
-                    </div>
-                    {/*<div className="mb-6">
-                      <label htmlFor="">Locación</label>
-                      <input
-                        type="number"
-                        id=""
-                        name=""
-                        className="text-input"
-                        placeholder="Locación"
-                        value={cliente.locacion}
-                        onChange={(e) =>
-                          setCliente({ ...cliente, locacion: e.target.value })
-                        }
-                        min={0}
-                        max={9999}
-                      />
-                    </div>*/}
-
-                    <div className="flex items-center justify-center gap-x-6 mt-4">
-                      <button type="submit" className="btn-primary">
-                        Agregar
-                      </button>
-                      <button className="btn-danger" onClick={closeModal}>
-                        Cancelar
-                      </button>
-                    </div>
-                  </form>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
+            <option value="H">Hombre</option>
+            <option value="M">Mujer</option>
+          </select>
+        </div>
+        <div className="mb-6">
+          <label htmlFor="">Teléfono</label>
+          <input
+            type="tel"
+            id="tel"
+            name="tel"
+            pattern="[\d]{10}$"
+            className="text-input"
+            placeholder="Telefono"
+            onChange={(e) =>
+              setCliente({
+                ...cliente,
+                telefono: e.target.value,
+              })
+            }
+            required
+          />
+        </div>
+        <div className="mb-6">
+          <label htmlFor="">Domicilio</label>
+          <input
+            type="text"
+            id=""
+            name=""
+            className="text-input"
+            placeholder="Domicilio"
+            onChange={(e) =>
+              setCliente({ ...cliente, domicilio: e.target.value })
+            }
+            required
+          />
+        </div>
+        <div className="mb-6">
+          <label htmlFor="">Estado</label>
+          <select
+            className="text-input"
+            name="estado"
+            id="estado"
+            value={cliente.estado}
+            onChange={(e) => handleChange(e)}
+          >
+            {arrays.states.map((s, i) => {
+              return (
+                <option key={i} value={i + 1}>
+                  {s}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        <div className="mb-6">
+          <label htmlFor="">Municipio</label>
+          <select
+            className="text-input"
+            name="municipio"
+            id="municipio"
+            value={cliente.municipio}
+            onChange={(e) => {
+              setCliente({
+                ...cliente,
+                municipio: e.target.value,
+              });
+            }}
+          >
+            {arrays.mun[parseInt(cliente.estado) - 1].map((s, i) => {
+              if (s !== "") {
+                return (
+                  <option key={i} value={i + 1}>
+                    {s}
+                  </option>
+                );
+              }
+            })}
+          </select>
+        </div>
+      </FormDialog>
 
       <ErrorDialog
         isOpen={isError}

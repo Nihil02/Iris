@@ -26,13 +26,14 @@ const CardRenderer = ({ data = [{}] }) => {
               {
                 id = card.CURP;
               }
-              return <Card key={id} id={id} name={nombre} />;
+              return <Card key={nombre + id} id={id} name={nombre} />;
 
             case "/proveedor":
               {
                 id = card.rfc;
+                nombre = card.razon_social;
               }
-              return <Card key={id} id={id} name={card.razon_social} />;
+              return <Card key={id} id={id} name={nombre} />;
 
             case "/usuario":
               {
@@ -46,19 +47,19 @@ const CardRenderer = ({ data = [{}] }) => {
               {
                 id = card.rfc;
               }
-              return <Card key={id} id={id} name={nombre} />;
+              return <Card key={nombre + id} id={id} name={nombre} />;
 
             case "/examen/" + param.cliente:
               {
-                if (card.fecha !== null) {
+                if (card.fecha != null) {
                   id = card.fecha;
                   nombre = format.dateStringFormat(card.fecha + "");
                 }
               }
-              return <Card key={id} id={id} name={nombre} />;
+              return <Card key={id + param.cliente} id={id} name={nombre} />;
 
             default:
-              return <h1>Error</h1>;
+              return <h1 key={"wtf?"}>Error</h1>;
           }
         })}
     </>

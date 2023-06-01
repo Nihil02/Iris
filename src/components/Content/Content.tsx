@@ -1,15 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense, lazy } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { matchSorter } from "match-sorter";
 import { controller, format } from "../../util";
-import CardRenderer from "./CardRenderer";
 import SearchBar from "./SearchBar";
 import AddCard from "../AddCard";
+import Loading from "./Loading";
+const CardRenderer = lazy(() => import("./CardRenderer"));
 
 function Content({ title = "" }) {
   const [data, setData] = useState([{}]);
   const [allData, setAllData] = useState([{}]);
-  const [auxData, setAuxData] = useState([{}]);
+  const [auxData, setAuxData] = useState([]);
   const [keyword, setKeyword] = useState("");
 
   /* Get the current location and their params */
@@ -30,12 +31,13 @@ function Content({ title = "" }) {
           const exa = await controller.ExamController.getAllExams(
             param.cliente + ""
           );
-
-          setData(exa);
-          setAllData(exa);
-          setAuxData(
-            await controller.CustomerController.getCustomerById(param.cliente + "")
+          const cliAux = await controller.CustomerController.getCustomerById(
+            param.cliente + ""
           );
+
+          setData(exa.sort((a, b) => (a.fecha < b.fecha ? 1 : -1)));
+          setAllData(exa.sort((a, b) => (a.fecha < b.fecha ? 1 : -1)));
+          setAuxData(cliAux);
           break;
 
         case "/proveedor":
@@ -101,13 +103,16 @@ function Content({ title = "" }) {
   }
 
   const search = (keyword: string) => {
-    let matches = matchSorter(data, keyword, { keys: ["res"] });    
+    let matches = matchSorter(allData, keyword, {
+      keys: ["res"],
+      threshold: matchSorter.rankings.CONTAINS,
+    });
     setKeyword(keyword);
 
     if (keyword === "") {
       setData(allData);
     } else {
-      setData(matches);
+      setData(matches.sort((a, b) => (a.id < b.id ? 1 : -1)));
     }
   };
 
@@ -116,51 +121,72 @@ function Content({ title = "" }) {
       {formatData()}
       <SearchBar keyword={keyword} onChange={search} />
       <h1 className="text-2xl m-5">{title}</h1>
-      {location == "/examen/" + param.cliente ? (
-        <div className="panel">
-          <div className="mb-6">
-            <label htmlFor="nombre">Cliente</label>
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              className="text-input"
-              value={
-                auxData.nombre +
-                " " +
-                auxData.primer_apellido +
-                " " +
-                auxData.segundo_apellido
-              }
-              readOnly
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="nombre">Domicilio</label>
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              className="text-input"
-              value={auxData.domicilio}
-              readOnly
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="nombre">Teléfono</label>
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              className="text-input"
-              value={format.phoneStringFormat(auxData.telefono + "")}
-              readOnly
-            />
-          </div>
-        </div>
-      ) : null}
-      <AddCard />
-      <CardRenderer data={data} />
+
+      <Suspense fallback={<Loading />}>
+        {location == "/examen/" + param.cliente ? (
+          <>
+            <div className="panel">
+              <table className="table-fixed w-full">
+                <tbody>
+                  <tr>
+                    <td>
+                      <label htmlFor="nombre">Cliente</label>
+                    </td>
+                    <td colSpan={5}>
+                      <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        className="text-input"
+                        value={
+                          auxData.nombre +
+                          " " +
+                          auxData.primer_apellido +
+                          " " +
+                          auxData.segundo_apellido
+                        }
+                        readOnly
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label htmlFor="dom">Domicilio</label>
+                    </td>
+                    <td colSpan={5}>
+                      <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        className="text-input"
+                        value={auxData.domicilio}
+                        readOnly
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label htmlFor="tel">Teléfono</label>
+                    </td>
+                    <td colSpan={5}>
+                      <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        className="text-input"
+                        value={format.phoneStringFormat(auxData.telefono + "")}
+                        readOnly
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </>
+        ) : null}
+        <AddCard />
+        <CardRenderer data={data} />
+      </Suspense>
     </>
   );
 }
