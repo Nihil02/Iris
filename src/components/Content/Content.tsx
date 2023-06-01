@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense, lazy } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { matchSorter } from "match-sorter";
 import { controller, format } from "../../util";
-import CardRenderer from "./CardRenderer";
 import SearchBar from "./SearchBar";
 import AddCard from "../AddCard";
+import Loading from "./Loading";
+const CardRenderer = lazy(() => import("./CardRenderer"));
 
 function Content({ title = "" }) {
   const [data, setData] = useState([{}]);
@@ -111,7 +112,7 @@ function Content({ title = "" }) {
     if (keyword === "") {
       setData(allData);
     } else {
-      setData(matches);
+      setData(matches.sort((a, b) => (a.id < b.id ? 1 : -1)));
     }
   };
 
@@ -120,69 +121,72 @@ function Content({ title = "" }) {
       {formatData()}
       <SearchBar keyword={keyword} onChange={search} />
       <h1 className="text-2xl m-5">{title}</h1>
-      {location == "/examen/" + param.cliente ? (
-        <>
-          <div className="panel">
-            <table className="table-fixed w-full">
-              <tbody>
-                <tr>
-                  <td>
-                    <label htmlFor="nombre">Cliente</label>
-                  </td>
-                  <td colSpan={5}>
-                    <input
-                      type="text"
-                      id="nombre"
-                      name="nombre"
-                      className="text-input"
-                      value={
-                        auxData.nombre +
-                        " " +
-                        auxData.primer_apellido +
-                        " " +
-                        auxData.segundo_apellido
-                      }
-                      readOnly
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label htmlFor="dom">Domicilio</label>
-                  </td>
-                  <td colSpan={5}>
-                    <input
-                      type="text"
-                      id="nombre"
-                      name="nombre"
-                      className="text-input"
-                      value={auxData.domicilio}
-                      readOnly
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label htmlFor="tel">Teléfono</label>
-                  </td>
-                  <td colSpan={5}>
-                    <input
-                      type="text"
-                      id="nombre"
-                      name="nombre"
-                      className="text-input"
-                      value={format.phoneStringFormat(auxData.telefono + "")}
-                      readOnly
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </>
-      ) : null}
-      <AddCard />
-      <CardRenderer data={data} />
+
+      <Suspense fallback={<Loading />}>
+        {location == "/examen/" + param.cliente ? (
+          <>
+            <div className="panel">
+              <table className="table-fixed w-full">
+                <tbody>
+                  <tr>
+                    <td>
+                      <label htmlFor="nombre">Cliente</label>
+                    </td>
+                    <td colSpan={5}>
+                      <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        className="text-input"
+                        value={
+                          auxData.nombre +
+                          " " +
+                          auxData.primer_apellido +
+                          " " +
+                          auxData.segundo_apellido
+                        }
+                        readOnly
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label htmlFor="dom">Domicilio</label>
+                    </td>
+                    <td colSpan={5}>
+                      <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        className="text-input"
+                        value={auxData.domicilio}
+                        readOnly
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label htmlFor="tel">Teléfono</label>
+                    </td>
+                    <td colSpan={5}>
+                      <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        className="text-input"
+                        value={format.phoneStringFormat(auxData.telefono + "")}
+                        readOnly
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </>
+        ) : null}
+        <AddCard />
+        <CardRenderer data={data} />
+      </Suspense>
     </>
   );
 }

@@ -1,7 +1,6 @@
 import { useLocation, useParams } from "react-router-dom";
 import { format } from "../../util";
 import Card from "../Card";
-import { useEffect } from "react";
 
 const CardRenderer = ({ data = [{}] }) => {
   const location = useLocation().pathname;
