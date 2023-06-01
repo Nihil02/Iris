@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import PrintExamen from "./PrintExamen";
 import PrintProveedor from "./PrintProveedor";
 import PrintCliente from "./PrintCliente";
+import { memo } from "react";
 
 interface IPrintCard {
   id: string;
@@ -27,4 +28,4 @@ function PrintCard({ id }: IPrintCard) {
   }
 }
 
-export default PrintCard;
+export default memo(PrintCard);

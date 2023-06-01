@@ -5,6 +5,7 @@ import UpdateEmpleado from "./UpdateEmpleado";
 import UpdateCliente from "./UpdateCliente";
 import UpdateProveedor from "./UpdateProveedor";
 import UpdateExamen from "./UpdateExamen";
+import { memo } from "react";
 
 function UpdateCard({ id = "" }) {
   const location = useLocation();
@@ -32,4 +33,4 @@ function UpdateCard({ id = "" }) {
   }
 }
 
-export default UpdateCard;
+export default memo(UpdateCard);
