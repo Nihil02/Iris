@@ -10,19 +10,6 @@ const CardRenderer = ({ data = [{}] }) => {
   let nombre: string;
   let id: string;
 
-  useEffect(() => {
-    return () => {
-      switch (location) {
-        case "/examen/" + param.cliente:
-
-          break;
-
-        default:
-          break;
-      }
-    };
-  }, []);
-
   return (
     <>
       {data &&

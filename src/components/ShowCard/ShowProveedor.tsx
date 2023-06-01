@@ -54,12 +54,6 @@ function ShowProveedor({ id = "", name = "" }) {
         </p>
       </div>
 
-      <div className="flex flex-wrap items-center w-auto" onClick={showCard}>
-        <p className="text-sm leading-6  max-w-md">
-          <strong className="font-semibold truncate">{name}</strong>
-        </p>
-      </div>
-
       {/* Modal */}
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
