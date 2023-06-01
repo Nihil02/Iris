@@ -99,39 +99,41 @@ function UpdateExamen({ id = "" }) {
     setExamen(examen);
 
     if (isOpen) {
+      console.log();
+      
       const exa = new controller.Exam(
         examen.cliente,
         examen.fecha,
         examen.dp_od,
         examen.dp_oi,
-        examen.ob == "" ? parseFloat(examen.ob) : 0.0,
+        examen.ob !== "" ? parseFloat(examen.ob) : 0.0,
 
-        examen.lejos_od_esferico == ""
+        examen.lejos_od_esferico !== ""
           ? parseFloat(examen.lejos_od_esferico)
           : 0.0,
-        examen.lejos_od_cilindrico == ""
+        examen.lejos_od_cilindrico !== ""
           ? parseFloat(examen.lejos_od_cilindrico)
           : 0.0,
-        examen.lejos_od_eje == "" ? parseFloat(examen.lejos_od_eje) : 0.0,
-        examen.lejos_od_agudeza == ""
+        examen.lejos_od_eje !== "" ? parseFloat(examen.lejos_od_eje) : 0.0,
+        examen.lejos_od_agudeza !== ""
           ? parseFloat(examen.lejos_od_agudeza)
           : 0.0,
 
-        examen.lejos_oi_esferico == ""
+        examen.lejos_oi_esferico !== ""
           ? parseFloat(examen.lejos_oi_esferico)
           : 0.0,
-        examen.lejos_oi_cilindrico == ""
+        examen.lejos_oi_cilindrico !== ""
           ? parseFloat(examen.lejos_oi_cilindrico)
           : 0.0,
-        examen.lejos_oi_eje == "" ? parseFloat(examen.lejos_oi_eje) : 0.0,
-        examen.lejos_oi_agudeza == ""
+        examen.lejos_oi_eje !== "" ? parseFloat(examen.lejos_oi_eje) : 0.0,
+        examen.lejos_oi_agudeza !== ""
           ? parseFloat(examen.lejos_oi_agudeza)
           : 0.0,
 
-        examen.adicion_od_esferico == ""
+        examen.adicion_od_esferico !== ""
           ? parseFloat(examen.adicion_od_esferico)
           : 0.0,
-        examen.adicion_oi_esferico == ""
+        examen.adicion_oi_esferico !== ""
           ? parseFloat(examen.adicion_oi_esferico)
           : 0.0,
         examen.tipo_lentes,
