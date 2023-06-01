@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { memo } from "react";
 import { FaSearch } from "react-icons/fa";
 
 interface IProps {
@@ -21,4 +21,4 @@ function SearchBar(props: IProps) {
   );
 }
 
-export default SearchBar;
+export default memo(SearchBar);

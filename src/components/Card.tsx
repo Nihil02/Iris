@@ -4,6 +4,7 @@ import ShowCard from "./ShowCard";
 import PrintCard from "./PrintCard";
 import { useLocation, useParams } from "react-router-dom";
 import { getAdmin } from "../util";
+import { memo } from "react";
 
 interface IProps {
   id: string;
@@ -31,4 +32,4 @@ const Card = ({ id, name }: IProps) => {
   );
 };
 
-export default Card;
+export default memo(Card);
