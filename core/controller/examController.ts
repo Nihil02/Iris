@@ -20,11 +20,11 @@ class Exam {
   lejos_od_esferico: number;
   lejos_od_cilindrico: number;
   lejos_od_eje: number;
-  lejos_od_agudeza_visual: number;
+  lejos_od_agudeza_visual: string;
   lejos_oi_esferico: number;
   lejos_oi_cilindrico: number;
   lejos_oi_eje: number;
-  lejos_oi_agudeza_visual: number;
+  lejos_oi_agudeza_visual: string;
   adicion_od_esferico: number;
   adicion_oi_esferico: number;
   tipo_lentes: string;
@@ -38,11 +38,11 @@ class Exam {
     lejos_od_esferico: number,
     lejos_od_cilindrico: number,
     lejos_od_eje: number,
-    lejos_od_agudeza_visual: number,
+    lejos_od_agudeza_visual: string,
     lejos_oi_esferico: number,
     lejos_oi_cilindrico: number,
     lejos_oi_eje: number,
-    lejos_oi_agudeza_visual: number,
+    lejos_oi_agudeza_visual: string,
     adicion_od_esferico: number,
     adicion_oi_esferico: number,
     tipo_lentes: string,

@@ -44,7 +44,7 @@ Exam.init(
       allowNull: false,
     },
     lejos_od_agudeza_visual: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.STRING(10),
       allowNull: false,
     },
     lejos_oi_esferico: {
@@ -60,7 +60,7 @@ Exam.init(
       allowNull: false,
     },
     lejos_oi_agudeza_visual: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.STRING(10),
       allowNull: false,
     },
     adicion_od_esferico: {
@@ -72,7 +72,7 @@ Exam.init(
       allowNull: false,
     },
     tipo_lentes: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     observaciones: {

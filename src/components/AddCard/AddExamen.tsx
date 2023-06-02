@@ -74,9 +74,7 @@ function AddExamen() {
           ? parseFloat(examen.lejos_od_cilindrico)
           : 0.0,
         examen.lejos_od_eje !== "" ? parseFloat(examen.lejos_od_eje) : 0.0,
-        examen.lejos_od_agudeza !== ""
-          ? parseFloat(examen.lejos_od_agudeza)
-          : 0.0,
+        examen.lejos_od_agudeza,
 
         examen.lejos_oi_esferico !== ""
           ? parseFloat(examen.lejos_oi_esferico)
@@ -85,9 +83,7 @@ function AddExamen() {
           ? parseFloat(examen.lejos_oi_cilindrico)
           : 0.0,
         examen.lejos_oi_eje !== "" ? parseFloat(examen.lejos_oi_eje) : 0.0,
-        examen.lejos_oi_agudeza !== ""
-          ? parseFloat(examen.lejos_oi_agudeza)
-          : 0.0,
+        examen.lejos_oi_agudeza,
 
         examen.adicion_od_esferico !== ""
           ? parseFloat(examen.adicion_od_esferico)
@@ -209,7 +205,7 @@ function AddExamen() {
                     step={0.25}
                     max={12.0}
                     min={-12.0}
-                    placeholder="0.00"
+                    placeholder="00/00"
                     value={examen.lejos_od_agudeza}
                     onChange={handleChange}
                   />
@@ -266,7 +262,7 @@ function AddExamen() {
                     step={0.25}
                     max={12.0}
                     min={-12.0}
-                    placeholder="0.00"
+                    placeholder="00/00"
                     value={examen.lejos_oi_agudeza}
                     onChange={handleChange}
                   />
@@ -382,7 +378,7 @@ function AddExamen() {
             type="text"
             id=""
             name=""
-            maxLength={50}
+            maxLength={100}
             className="text-input"
             placeholder="Tipo de Lentes"
             value={examen.tipo_lentes}

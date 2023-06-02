@@ -46,9 +46,7 @@ function UpdateExamen({ id = "" }) {
         data.lejos_od_cilindrico
       );
       examen.lejos_od_eje = format.numberDecFormat(data.lejos_od_eje);
-      examen.lejos_od_agudeza = format.numberDecFormat(
-        data.lejos_od_agudeza_visual
-      );
+      examen.lejos_od_agudeza = data.lejos_od_agudeza_visual;
       examen.adicion_od_esferico = format.numberDecFormat(
         data.adicion_od_esferico
       );
@@ -58,9 +56,7 @@ function UpdateExamen({ id = "" }) {
         data.lejos_oi_cilindrico
       );
       examen.lejos_oi_eje = format.numberDecFormat(data.lejos_oi_eje);
-      examen.lejos_oi_agudeza = format.numberDecFormat(
-        data.lejos_oi_agudeza_visual
-      );
+      examen.lejos_oi_agudeza = data.lejos_oi_agudeza_visual;
       examen.adicion_oi_esferico = format.numberDecFormat(
         data.adicion_oi_esferico
       );
@@ -100,7 +96,7 @@ function UpdateExamen({ id = "" }) {
 
     if (isOpen) {
       console.log();
-      
+
       const exa = new controller.Exam(
         examen.cliente,
         examen.fecha,
@@ -115,9 +111,7 @@ function UpdateExamen({ id = "" }) {
           ? parseFloat(examen.lejos_od_cilindrico)
           : 0.0,
         examen.lejos_od_eje !== "" ? parseFloat(examen.lejos_od_eje) : 0.0,
-        examen.lejos_od_agudeza !== ""
-          ? parseFloat(examen.lejos_od_agudeza)
-          : 0.0,
+        examen.lejos_od_agudeza,
 
         examen.lejos_oi_esferico !== ""
           ? parseFloat(examen.lejos_oi_esferico)
@@ -126,9 +120,7 @@ function UpdateExamen({ id = "" }) {
           ? parseFloat(examen.lejos_oi_cilindrico)
           : 0.0,
         examen.lejos_oi_eje !== "" ? parseFloat(examen.lejos_oi_eje) : 0.0,
-        examen.lejos_oi_agudeza !== ""
-          ? parseFloat(examen.lejos_oi_agudeza)
-          : 0.0,
+        examen.lejos_oi_agudeza,
 
         examen.adicion_od_esferico !== ""
           ? parseFloat(examen.adicion_od_esferico)
@@ -434,7 +426,7 @@ function UpdateExamen({ id = "" }) {
                         type="text"
                         id=""
                         name=""
-                        maxLength={50}
+                        maxLength={100}
                         className="text-input"
                         placeholder="Tipo de Lentes"
                         value={examen.tipo_lentes}
