@@ -1,67 +1,21 @@
-import { useLocation, useParams } from "react-router-dom";
-import { format } from "../../util";
 import Card from "../Card";
+import { useRef } from "react";
+import { ViewportList } from "react-viewport-list";
 
 const CardRenderer = ({ data = [{}] }) => {
-  const location = useLocation().pathname;
-  let param = useParams();
-
-  let nombre: string;
-  let id: string;
+  const ref = useRef<HTMLDivElement | null>(null);
 
   return (
     <>
-      {data &&
-        data.map((card) => {
-          switch (location) {
-            case "/cliente":
-              {
-                nombre =
-                  card.nombre +
-                  " " +
-                  card.primer_apellido +
-                  " " +
-                  card.segundo_apellido;
-              }
-              {
-                id = card.CURP;
-              }
-              return <Card key={nombre + id} id={id} name={nombre} />;
-
-            case "/proveedor":
-              {
-                id = card.rfc;
-                nombre = card.razon_social;
-              }
-              return <Card key={id} id={id} name={nombre} />;
-
-            case "/usuario":
-              {
-                nombre =
-                  card.nombre +
-                  " " +
-                  card.primer_apellido +
-                  " " +
-                  card.segundo_apellido;
-              }
-              {
-                id = card.rfc;
-              }
-              return <Card key={nombre + id} id={id} name={nombre} />;
-
-            case "/examen/" + param.cliente:
-              {
-                if (card.fecha != null) {
-                  id = card.fecha;
-                  nombre = format.dateStringFormat(card.fecha + "");
-                }
-              }
-              return <Card key={id + param.cliente} id={id} name={nombre} />;
-
-            default:
-              return <h1 key={"wtf?"}>Error</h1>;
-          }
-        })}
+      <div className="w-full ml-[14rem]" ref={ref}>
+        <ViewportList viewportRef={ref} items={data}>
+          {(item) => (
+            <>
+              <Card key={item.id} id={item.id} name={item.res} />
+            </>
+          )}
+        </ViewportList>
+      </div>
     </>
   );
 };

@@ -78,7 +78,7 @@ function Content({ title = "" }) {
       : setTimeout(() => {
           setRecords(records + cardAmount);
         }, 10);
-          console.log(records);
+    console.log(records);
   }
 
   function formatData() {
@@ -141,16 +141,7 @@ function Content({ title = "" }) {
           <ClientPanel data={auxData} />
         ) : null}
         <AddCard />
-        <InfiniteScroll
-          pageStart={0}
-          loadMore={loadMore}
-          hasMore={hasMore}
-          useWindow={false}
-          className="w-full ml-[14rem]"
-          loader={<h1>Hola</h1>}
-        >
-          <CardRenderer data={data} />
-        </InfiniteScroll>
+        <CardRenderer data={data} />
       </Suspense>
     </>
   );
