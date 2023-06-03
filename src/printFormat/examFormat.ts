@@ -35,8 +35,8 @@ interface IOjoInfo {
 const generateExamFormat = (
   fechaExamen: string,
   cliente: string,
-  ojoIzquierdoInfo: IOjoInfo,
   ojoDerechoInfo: IOjoInfo,
+  ojoIzquierdoInfo: IOjoInfo,
   oblea: string,
   tipoLente: string,
   observaciones: string
