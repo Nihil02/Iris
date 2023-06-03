@@ -48,7 +48,11 @@ export function phoneStringFormat(phone: string) {
  * @returns the number in format X.XX
  */
 export function numberDecFormat(num: number) {
-  return (Math.round(num * 100) / 100).toFixed(2);
+  const aux = (Math.round(num * 100) / 100).toFixed(2);
+  if (num >= 0) {
+    return "+" + aux;
+  }
+  return aux + "";
 }
 
 /* Text Format */

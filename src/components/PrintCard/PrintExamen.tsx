@@ -64,9 +64,7 @@ function PrintExamen({ id = "" }) {
         data.lejos_od_cilindrico
       );
       examen.lejos_od_eje = format.numberDecFormat(data.lejos_od_eje);
-      examen.lejos_od_agudeza = format.numberDecFormat(
-        data.lejos_od_agudeza_visual
-      );
+      examen.lejos_od_agudeza = data.lejos_od_agudeza_visual;
       examen.adicion_od_esferico = format.numberDecFormat(
         data.adicion_od_esferico
       );
@@ -76,9 +74,7 @@ function PrintExamen({ id = "" }) {
         data.lejos_oi_cilindrico
       );
       examen.lejos_oi_eje = format.numberDecFormat(data.lejos_oi_eje);
-      examen.lejos_oi_agudeza = format.numberDecFormat(
-        data.lejos_oi_agudeza_visual
-      );
+      examen.lejos_oi_agudeza = data.lejos_oi_agudeza_visual;
       examen.adicion_oi_esferico = format.numberDecFormat(
         data.adicion_oi_esferico
       );

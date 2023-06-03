@@ -167,7 +167,7 @@ function ShowExamen({ id = "", name = "" }) {
                             <td className="pr-6">Lejos</td>
                             <td>
                               <input
-                                type="number"
+                                type="text"
                                 name=""
                                 className="table-input"
                                 readOnly
@@ -176,7 +176,7 @@ function ShowExamen({ id = "", name = "" }) {
                             </td>
                             <td>
                               <input
-                                type="number"
+                                type="text"
                                 name=""
                                 className="table-input"
                                 readOnly
@@ -185,7 +185,7 @@ function ShowExamen({ id = "", name = "" }) {
                             </td>
                             <td>
                               <input
-                                type="number"
+                                type="text"
                                 name=""
                                 className="table-input"
                                 readOnly
@@ -208,7 +208,7 @@ function ShowExamen({ id = "", name = "" }) {
                             <td></td>
                             <td>
                               <input
-                                type="number"
+                                type="text"
                                 name=""
                                 className="table-input"
                                 readOnly
@@ -217,7 +217,7 @@ function ShowExamen({ id = "", name = "" }) {
                             </td>
                             <td>
                               <input
-                                type="number"
+                                type="text"
                                 name=""
                                 className="table-input"
                                 readOnly
@@ -226,7 +226,7 @@ function ShowExamen({ id = "", name = "" }) {
                             </td>
                             <td>
                               <input
-                                type="number"
+                                type="text"
                                 name=""
                                 className="table-input"
                                 readOnly
@@ -249,7 +249,7 @@ function ShowExamen({ id = "", name = "" }) {
                             <td className="pr-6">Adición</td>
                             <td>
                               <input
-                                type="number"
+                                type="text"
                                 name=""
                                 className="table-input"
                                 readOnly
@@ -263,7 +263,7 @@ function ShowExamen({ id = "", name = "" }) {
                             <td></td>
                             <td>
                               <input
-                                type="number"
+                                type="text"
                                 name=""
                                 className="table-input"
                                 readOnly
@@ -326,7 +326,7 @@ function ShowExamen({ id = "", name = "" }) {
                             <td className="pr-10">Oblea</td>
                             <td>
                               <input
-                                type="number"
+                                type="text"
                                 name=""
                                 id=""
                                 className="table-input"
@@ -336,7 +336,7 @@ function ShowExamen({ id = "", name = "" }) {
                             </td>
                             {/*<td>
                               <input
-                                type="number"
+                                type="text"
                                 name=""
                                 id=""
                                 className="table-input"
