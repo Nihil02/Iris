@@ -13,6 +13,20 @@ export const months = [
   "Diciembre",
 ];
 
+export const bancos = [
+  "Banamex",
+  "Banco Azteca",
+  "BanCoppel",
+  "Banregio",
+  "Banorte",
+  "BBVA",
+  "HSBC",
+  "Inbursa",
+  "Santander",
+  "Scotiabank",
+  "Otro",
+];
+
 export const states = [
   "AGUASCALIENTES",
   "BAJA CALIFORNIA",
