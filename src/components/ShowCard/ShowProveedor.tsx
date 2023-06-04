@@ -1,6 +1,6 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
-import { controller, format } from "../../util";
+import { arrays, controller, format } from "../../util";
 
 function ShowProveedor({ id = "", name = "" }) {
   let [proveedor, setProveedor] = useState({
@@ -9,6 +9,7 @@ function ShowProveedor({ id = "", name = "" }) {
     domicilio: "", //Text
     telefono: "", //Number
     correo: "", //Text
+    banco: 0,
     cuenta: 0, //Number
   });
 
@@ -21,6 +22,7 @@ function ShowProveedor({ id = "", name = "" }) {
       proveedor.razon = data.razon_social;
       proveedor.domicilio = data.domicilio;
       proveedor.correo = data.correo_electronico;
+      proveedor.banco = data.banco;
       proveedor.cuenta = data.cuenta_bancaria;
       proveedor.telefono = data.telefono;
     }
@@ -140,6 +142,24 @@ function ShowProveedor({ id = "", name = "" }) {
                       >
                         {proveedor.correo}
                       </a>
+                    </div>
+                    <div className="mb-6">
+                      <label htmlFor="">Banco</label>
+                      <select
+                        className="text-input"
+                        name="banco"
+                        id="banco"
+                        value={proveedor.banco}
+                        disabled
+                      >
+                        {arrays.bancos.map((b) => {
+                          return (
+                            <option key={b[0]} value={b[0]}>
+                              {b[1]}
+                            </option>
+                          );
+                        })}
+                      </select>
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Cuenta Bancaria</label>

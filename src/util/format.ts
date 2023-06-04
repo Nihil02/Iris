@@ -49,7 +49,7 @@ export function phoneStringFormat(phone: string) {
  */
 export function numberDecFormat(num: number) {
   const aux = (Math.round(num * 100) / 100).toFixed(2);
-  if (num >= 0) {
+  if (num > 0) {
     return "+" + aux;
   }
   return aux + "";

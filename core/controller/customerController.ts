@@ -25,7 +25,6 @@ class Customer {
   edo: string;
   mun: string;
   loc: string;
-  contpaq_id: number;
 
   constructor(
       CURP: string,
@@ -39,7 +38,6 @@ class Customer {
       edo: string,
       mun: string,
       loc: string,
-      contpaq_id: number,
       telefono?: string,
       domicilio?: string,
   ) {
@@ -56,7 +54,6 @@ class Customer {
   this.edo = edo;
   this.mun = mun;
   this.loc = loc;
-  this.contpaq_id = contpaq_id;
 
   }
 }

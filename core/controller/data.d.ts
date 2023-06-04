@@ -16,6 +16,7 @@ interface Supplier {
   domicilio: string;
   correo_electronico: string;
   telefono: string;
+  banco: number;
   cuenta_bancaria: string;
 }
 
@@ -31,7 +32,6 @@ interface Customer {
   edo: string;
   mun: string;
   loc: string;
-  compaqi_id: number;
 }
 
 interface Exam {

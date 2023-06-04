@@ -19,10 +19,14 @@ Supplier.init(
     },
     correo_electronico: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     telefono: {
       type: DataTypes.STRING,
+      allowNull: true,
+    },
+    banco: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     cuenta_bancaria: {

@@ -21,7 +21,7 @@ class SupplierDAO {
 
   static async createSupplier(supplier) {
     try {
-      const [rfc, razon_social, domicilio, correo, telefono, cuenta_bancaria] =
+      const [rfc, razon_social, domicilio, correo, telefono, banco, cuenta_bancaria] =
         Object.values(supplier);
 
       await Supplier.create({
@@ -30,6 +30,7 @@ class SupplierDAO {
         domicilio: domicilio,
         correo_electronico: correo,
         telefono: telefono,
+        banco: banco,
         cuenta_bancaria: cuenta_bancaria,
       });
       return true;
@@ -43,7 +44,7 @@ class SupplierDAO {
    * Update supplier information
    */
   static async updateSupplier(supplier) {
-    const [rfc, razon_social, domicilio, correo, telefono, cuenta_bancaria] =
+    const [rfc, razon_social, domicilio, correo, telefono, banco, cuenta_bancaria] =
       Object.values(supplier);
 
     await Supplier.update(
@@ -53,6 +54,7 @@ class SupplierDAO {
         domicilio: domicilio,
         correo_electronico: correo,
         telefono: telefono,
+        banco: banco,
         cuenta_bancaria: cuenta_bancaria,
       },
       {

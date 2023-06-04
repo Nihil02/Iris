@@ -65,11 +65,7 @@ Customer.init(
       type: DataTypes.STRING(4),
       allowNull: false,
       defaultValue: "0000",
-    },
-    contpaq_id: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
+    }
   },
   { sequelize, modelName: "Paciente", tableName: "PACIENTE", timestamps: false }
 );

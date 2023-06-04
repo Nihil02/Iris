@@ -17,6 +17,7 @@ class Supplier {
   domicilio: string;
   correo_electronico: string;
   telefono: string;
+  banco: number;
   cuenta_bancaria: string;
 
   constructor(
@@ -25,6 +26,7 @@ class Supplier {
       domicilio: string,
       correo_electronico: string,
       telefono: string,
+      banco: number,
       cuenta_bancaria: string
   ) {
   this.rfc = rfc;
@@ -32,6 +34,7 @@ class Supplier {
   this.domicilio = domicilio;
   this.correo_electronico = correo_electronico;
   this.telefono = telefono;
+  this.banco = banco;
   this.cuenta_bancaria = cuenta_bancaria;
   }
 }

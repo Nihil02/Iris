@@ -32,6 +32,7 @@ const {
  * @property {string} domicilio
  * @property {string} correo_electronico
  * @property {string} telefono
+ * @property {string} banco
  * @property {string} cuenta_bancaria
  */
 
@@ -141,6 +142,7 @@ class SupplierService {
       domicilio: supplier.domicilio.trim(),
       correo_electronico: supplier.correo_electronico.trim(),
       telefono: supplier.telefono.trim(),
+      banco: supplier.banco.trim(),
       cuenta_bancaria: supplier.cuenta_bancaria.trim(),
     };
     return formattedSupplier;

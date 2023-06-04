@@ -1,6 +1,6 @@
 import { Transition, Dialog } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react";
-import { controller, messages, regex } from "../../util";
+import { ChangeEvent, Fragment, useEffect, useState } from "react";
+import { arrays, controller, messages, regex } from "../../util";
 import ErrorDialog from "../Dialogs/ErrorDialog";
 import { UpdateButton } from "../Buttons";
 
@@ -11,6 +11,7 @@ function UpdateProveedor({ id = "" }) {
     domicilio: "", //Text
     telefono: "", //Number
     correo: "", //Text
+    banco: 0, //Number
     cuenta: 0, //Number
   });
 
@@ -22,6 +23,7 @@ function UpdateProveedor({ id = "" }) {
       proveedor.razon = data.razon_social;
       proveedor.domicilio = data.domicilio;
       proveedor.correo = data.correo_electronico;
+      proveedor.banco = data.banco;
       proveedor.cuenta = data.cuenta_bancaria;
       proveedor.telefono = data.telefono;
     }
@@ -39,6 +41,18 @@ function UpdateProveedor({ id = "" }) {
     setIsOpen(true);
   }
 
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    const name = e.target.name;
+    const value = e.target.value;
+    switch (name) {
+      default:
+        setProveedor((values) => ({ ...values, [name]: value }));
+        setProveedor((values) => ({ ...values, [name]: value }));
+        break;
+    }
+  };
+
   const updateCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
@@ -49,6 +63,7 @@ function UpdateProveedor({ id = "" }) {
         proveedor.domicilio,
         proveedor.correo,
         proveedor.telefono,
+        proveedor.banco,
         proveedor.cuenta.toString()
       );
       if (await controller.SupplierController.updateSupplier(sup)) {
@@ -173,6 +188,24 @@ function UpdateProveedor({ id = "" }) {
                         }
                         required
                       />
+                    </div>
+                    <div className="mb-6">
+                      <label htmlFor="">Banco</label>
+                      <select
+                        className="text-input"
+                        name="banco"
+                        id="banco"
+                        value={proveedor.banco}
+                        onChange={(e) => handleChange(e)}
+                      >
+                        {arrays.bancos.map((b) => {
+                          return (
+                            <option key={b[0]} value={b[0]}>
+                              {b[1]}
+                            </option>
+                          );
+                        })}
+                      </select>
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Cuenta Bancaria</label>

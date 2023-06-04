@@ -1,6 +1,5 @@
-import { Transition, Dialog } from "@headlessui/react";
-import { Fragment, useState } from "react";
-import { controller, messages, regex } from "../../util";
+import { ChangeEvent, useState } from "react";
+import { arrays, controller, messages, regex } from "../../util";
 import ErrorDialog from "../Dialogs/ErrorDialog";
 import { AddButton } from "../Buttons";
 import { FormDialog } from "../Dialogs";
@@ -12,6 +11,7 @@ function AddProveedor() {
     domicilio: "",
     telefono: "",
     correo: "",
+    banco: 0,
     cuenta: "",
   });
 
@@ -25,6 +25,18 @@ function AddProveedor() {
     setIsOpen(true);
   }
 
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    const name = e.target.name;
+    const value = e.target.value;
+    switch (name) {
+      default:
+        setProveedor((values) => ({ ...values, [name]: value }));
+        setProveedor((values) => ({ ...values, [name]: value }));
+        break;
+    }
+  };
+
   const addCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
@@ -35,6 +47,7 @@ function AddProveedor() {
         proveedor.domicilio,
         proveedor.correo,
         proveedor.telefono,
+        proveedor.banco,
         proveedor.cuenta
       );
       if (await controller.SupplierController.createSupplier(sup)) {
@@ -132,6 +145,24 @@ function AddProveedor() {
             }
             required
           />
+        </div>
+        <div className="mb-6">
+          <label htmlFor="">Banco</label>
+          <select
+            className="text-input"
+            name="banco"
+            id="banco"
+            value={proveedor.banco}
+            onChange={(e) => handleChange(e)}
+          >
+            {arrays.bancos.map((b) => {
+              return (
+                <option key={b[0]} value={b[0]}>
+                  {b[1]}
+                </option>
+              );
+            })}
+          </select>
         </div>
         <div className="mb-6">
           <label htmlFor="">Cuenta Bancaria</label>

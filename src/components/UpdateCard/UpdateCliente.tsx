@@ -83,7 +83,6 @@ function UpdateCliente({ id = "" }) {
         cliente.estado,
         cliente.municipio,
         cliente.locacion,
-        0,
         cliente.telefono,
         cliente.domicilio
       );
