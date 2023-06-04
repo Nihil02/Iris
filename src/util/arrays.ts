@@ -13,18 +13,18 @@ export const months = [
   "Diciembre",
 ];
 
-export const bancos = [
-  "Banamex",
-  "Banco Azteca",
-  "BanCoppel",
-  "Banregio",
-  "Banorte",
-  "BBVA",
-  "HSBC",
-  "Inbursa",
-  "Santander",
-  "Scotiabank",
-  "Otro",
+export const bancos: [number, string][] = [
+  [1, "Banamex"],
+  [2, "Banco Azteca"],
+  [3, "BanCoppel"],
+  [4, "Banregio"],
+  [5, "Banorte"],
+  [6, "BBVA"],
+  [7, "HSBC"],
+  [8, "Inbursa"],
+  [9, "Santander"],
+  [10, "Scotiabank"],
+  [0, "Otro"],
 ];
 
 export const states = [
