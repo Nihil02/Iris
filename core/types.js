@@ -11,7 +11,7 @@ const supplier = {};
 
 /**
  * @typedef CustomerDTO
- * @property {string} CURP - CURP del cliente.
+ * @property {string} id - id del cliente.
  * @property {string} nombre - Nombre del cliente.
  * @property {string} primer_apellido - Apellido paterno del cliente.
  * @property {string} [segundo_apellido] - Apellido materno del cliente.
@@ -30,7 +30,7 @@ const customer = {}
 
 /**
  * @typedef ExamDTO
- * @property {string} cliente - CURP del cliente.
+ * @property {string} cliente - id del cliente.
  * @property {string} fecha - Fecha del examen.
  * @property {number} dp_od - Valor de dioptrías del ojo derecho.
  * @property {number} dp_oi - Valor de dioptrías del ojo izquierdo.

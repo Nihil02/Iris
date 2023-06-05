@@ -6,11 +6,11 @@ class Exam extends Model {}
 Exam.init(
   {
     cliente: {
-      type: DataTypes.STRING(18),
+      type: DataTypes.STRING,
       references: {
         model: Customer,
-        key: "CURP",
-        allowNull: false,
+        key: "id",
+        allowNull: false
       },
       onDelete: "CASCADE",
       primaryKey: true,

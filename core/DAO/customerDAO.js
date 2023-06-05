@@ -14,10 +14,11 @@ class CustomerDAO {
   }
 
   /**
-   * Finds a customer by his CURP.
+   * Finds a customer by his id.
    * @returns {Promise<CustomerDTO>}
    */
   static async getCustomerByCURP(id) {
+    console.log("id:" +id);
     const res = await Customer.findByPk(id);
     return res.dataValues;
   }
@@ -40,7 +41,7 @@ class CustomerDAO {
       customer,
       {
         where: {
-          CURP: customer.CURP,
+          id: customer.id,
         },
       }
     );
@@ -48,11 +49,11 @@ class CustomerDAO {
   }
 
   /**
-   * Finds an customer by his curp and deletes him.
-   * @param {string} curp
+   * Finds an customer by his id and deletes him.
+   * @param {string} id
    */
-  static async deleteCustomer(curp) {
-    const customer = await Customer.findByPk(curp);
+  static async deleteCustomer(id) {
+    const customer = await Customer.findByPk(id);
     await customer.destroy();
     return true;
   }

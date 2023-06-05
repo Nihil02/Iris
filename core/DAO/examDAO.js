@@ -14,23 +14,23 @@ class ExamDAO {
   }
 
   /**
-   * Finds all exams of a Customer by his `CURP` or finds an specific exam of a Customer in function of the `Date` and `CURP`.
-   * @param {string} curp - The curp of a Customer
+   * Finds all exams of a Customer by his `id` or finds an specific exam of a Customer in function of the `Date` and `id`.
+   * @param {string} id - The id of a Customer
    * @param {string} [date] - The date of application of exam, this parameter is optional
    * @returns {Promise<ExamDTO | [ExamDTO]>}
    */
-  static async getExamOfCustomer(curp, date) {
+  static async getExamOfCustomer(id, date) {
     if (arguments.length == 0 || arguments.length > 2) {
       throw Error("Invalid arguments");
     }
     if (arguments.length == 1) {
-      const res = await Exam.findAll({ where: { cliente: curp } });
+      const res = await Exam.findAll({ where: { cliente: id } });
       /**@type {[ExamDTO]} */
       const exams = res.map(exam => exam.dataValues);
       return exams;
     }
 
-    const res = await Exam.findOne({ where: { cliente: curp, fecha: date } });
+    const res = await Exam.findOne({ where: { cliente: id, fecha: date } });
     /**@type {ExamDTO} */
     const exam = res.dataValues;
     return exam;
@@ -66,11 +66,11 @@ class ExamDAO {
   }
 
   /**
-   * Finds a customer exam by his curp and date and deletes him.
-   * @param {string} curp
+   * Finds a customer exam by his id and date and deletes him.
+   * @param {string} id
    */
-  static async deleteExam(curp) {
-    const exam = await Exam.findByPk(curp);
+  static async deleteExam(id) {
+    const exam = await Exam.findByPk(id);
     await exam.destroy();
     return true;
   }

@@ -1,7 +1,6 @@
 import { useState, useEffect, Suspense, lazy } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { matchSorter } from "match-sorter";
-import InfiniteScroll from "react-infinite-scroller";
 import { controller, format } from "../../util";
 import SearchBar from "./SearchBar";
 import AddCard from "../AddCard";
@@ -11,16 +10,13 @@ const ClientPanel = lazy(() => import("./ClientPanel"));
 
 function Content({ title = "" }) {
   const [data, setData] = useState([{}]);
-  const [allData, setAllData] = useState([{}]);
-  const [auxData, setAuxData] = useState([]);
+  let allData: any;
+  const [auxData, setAuxData] = useState({});
   const [keyword, setKeyword] = useState("");
-  const [hasMore, setHasMore] = useState(true);
-  const cardAmount = 20;
-  const [records, setRecords] = useState(cardAmount);
 
   /* Get the current location and their params */
   const location = useLocation().pathname;
-  let param = useParams();
+  let param = useParams().cliente + "";
 
   /* Fetch data from the api to the component */
   useEffect(() => {
@@ -29,32 +25,32 @@ function Content({ title = "" }) {
         case "/cliente":
           const cli = await controller.CustomerController.getAllCustomers();
           setData(cli);
-          setAllData(cli);
+          allData = cli;
+          console.log(cli);
+
           break;
 
-        case "/examen/" + param.cliente:
-          const exa = await controller.ExamController.getAllExams(
-            param.cliente + ""
-          );
+        case "/examen/" + param:
+          const exa = await controller.ExamController.getAllExams(param + "");
           const cliAux = await controller.CustomerController.getCustomerById(
-            param.cliente + ""
+            param + ""
           );
 
           setData(exa.sort((a, b) => (a.fecha < b.fecha ? 1 : -1)));
-          setAllData(exa.sort((a, b) => (a.fecha < b.fecha ? 1 : -1)));
+          allData = exa.sort((a, b) => (a.fecha < b.fecha ? 1 : -1));
           setAuxData(cliAux);
           break;
 
         case "/proveedor":
           const sup = await controller.SupplierController.getAllSuppliers();
           setData(sup);
-          setAllData(sup);
+          allData = sup;
           break;
 
         case "/usuario":
           const emp = await controller.EmployeeController.getAllEmployees();
           setData(emp);
-          setAllData(emp);
+          allData = emp;
           break;
 
         default:
@@ -72,25 +68,16 @@ function Content({ title = "" }) {
     getData();
   }, []);
 
-  function loadMore() {
-    records >= data.length
-      ? setHasMore(false)
-      : setTimeout(() => {
-          setRecords(records + cardAmount);
-        }, 10);
-    console.log(records);
-  }
-
   function formatData() {
     switch (location) {
       case "/cliente":
         data.map((d) => {
           d.res = d.nombre + " " + d.primer_apellido + " " + d.segundo_apellido;
-          d.id = d.CURP;
+          d.id = d.id;
         });
         break;
 
-      case "/examen/" + param.cliente:
+      case "/examen/" + param:
         data.map((d) => {
           d.res = format.dateStringFormat(d.fecha + "");
           d.id = d.fecha;
@@ -137,9 +124,7 @@ function Content({ title = "" }) {
       <h1 className="text-2xl m-5">{title}</h1>
 
       <Suspense fallback={<Loading />}>
-        {location == "/examen/" + param.cliente ? (
-          <ClientPanel data={auxData} />
-        ) : null}
+        {location == "/examen/" + param ? <ClientPanel data={auxData} /> : null}
         <AddCard />
         <CardRenderer data={data} />
       </Suspense>

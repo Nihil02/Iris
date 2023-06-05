@@ -132,6 +132,7 @@ ipcMain.handle(K.Customer.getAllCustomers, async () => {
 
 // get costumber by id
 ipcMain.handle(K.Customer.getCustomerById, async (event, id) => {
+  console.log("Handler id" + id);
   return await CustomerService.getCustomerByCURP(id);
 });
 
@@ -178,20 +179,20 @@ ipcMain.handle(K.Employee.deleteEmployee, async (event, employeeRFC) => {
 
 // Exam
 
-ipcMain.handle(K.Exam.getAllExams, async (event, curp) => {
-  return await ExamService.getAllExam(curp);
+ipcMain.handle(K.Exam.getAllExams, async (event, id) => {
+  return await ExamService.getAllExam(id);
 });
 
-ipcMain.handle(K.Exam.getExamById, async (event, curp, date) => {
-  return await ExamService.getExamById(curp, date);
+ipcMain.handle(K.Exam.getExamById, async (event, id, date) => {
+  return await ExamService.getExamById(id, date);
 });
 
 ipcMain.handle(K.Exam.addExam, async (event, exam) => {
   return await ExamService.createExam(exam);
 });
 
-ipcMain.handle(K.Exam.deleteExam, async (event, curp) => {
-  return await ExamService.deleteExam(curp);
+ipcMain.handle(K.Exam.deleteExam, async (event, id) => {
+  return await ExamService.deleteExam(id);
 });
 
 ipcMain.handle(K.Exam.updateExam, async (event, exam) => {

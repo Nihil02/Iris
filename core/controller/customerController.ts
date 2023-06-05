@@ -12,7 +12,7 @@ declare global {
   }
 }
 class Customer {
-  CURP: string;
+  id: string;
   nombre: string;
   primer_apellido: string;
   segundo_apellido: string;
@@ -27,7 +27,7 @@ class Customer {
   loc: string;
 
   constructor(
-      CURP: string,
+      id: string,
       nombre: string,
       primer_apellido: string,
       segundo_apellido: string,
@@ -41,7 +41,7 @@ class Customer {
       telefono?: string,
       domicilio?: string,
   ) {
-  this.CURP = CURP;
+  this.id = id;
   this.nombre = nombre;
   this.primer_apellido = primer_apellido;
   this.segundo_apellido = segundo_apellido;
@@ -63,8 +63,8 @@ class CustomerController {
     return res;
   }
 
-  static async getCustomerById(curp: string) {
-    const res: Customer = await window.customerAPI.getCustomerById(curp);
+  static async getCustomerById(id: string) {
+    const res: Customer = await window.customerAPI.getCustomerById(id);
     return res;
   }
 
@@ -73,8 +73,8 @@ class CustomerController {
     return res;
   }
 
-  static async deleteCustomer(curp: string) {
-    const res: Boolean = await window.customerAPI.deleteCustomer(curp);
+  static async deleteCustomer(id: string) {
+    const res: Boolean = await window.customerAPI.deleteCustomer(id);
     return res;
   }
 

@@ -5,34 +5,29 @@ const { ExamDTO } = require("../types.js");
 class ExamService {
   /**
    * 
-   * @param {string} curp 
+   * @param {string} id 
    * @returns {Promise<[ExamDTO]>}
    */
-  static async getAllExam(curp = "") {
+  static async getAllExam(id = "") {
     /**@type {[ExamDTO]} */
-    const exams = await this.getExamById(curp);
+    const exams = await this.getExamById(id);
     return exams;
   }
 
   /**
-   * Finds all exam by the customer CURP and returns them if exists.
+   * Finds all exam by the customer id and returns them if exists.
    * @param {string} Date is found, returns an specific exam
    * @param {string} RFC The RFC of the Employee.
    * @returns {Promise<ExamDTO | [ExamDTO]>}
    */
-  static async getExamById(curp = "", date = "") {
+  static async getExamById(id = "", date = "") {
     try {
-      const sanitizedCURP = curp.trim();
-      if (!Validator.isCURP(sanitizedCURP)) {
-        throw Error("Invalid CURP");
-      }
-
       let exam;
 
       if (date === "") {
-        exam = await ExamDAO.getExamOfCustomer(curp);
+        exam = await ExamDAO.getExamOfCustomer(id);
       } else {
-        exam = await ExamDAO.getExamOfCustomer(curp, date);
+        exam = await ExamDAO.getExamOfCustomer(id, date);
       }
       return exam;
     } catch (error) {
@@ -80,11 +75,11 @@ class ExamService {
   }
 
   /**
-   * @param {string} curp
+   * @param {string} id
    */
-  static async deleteExam(curp) {
+  static async deleteExam(id) {
     try {
-      await ExamDAO.deleteExam(curp);
+      await ExamDAO.deleteExam(id);
       return true;
     } catch (error) {
       console.error(error);
@@ -107,7 +102,7 @@ class ExamService {
    * @returns 
    */
   static validateExam(exam) {
-    return Validator.isCURP(exam.cliente) && exam.adicion_od_esferico !== NaN;
+    return true;
   }
 }
 

@@ -16,6 +16,9 @@ const Card = ({ id, name }: IProps) => {
   const location = useLocation().pathname;
   let param = useParams();
 
+  console.log(id);
+  
+
   return (
     <>
       <div className="card">

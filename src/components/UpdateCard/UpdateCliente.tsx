@@ -6,7 +6,7 @@ import { UpdateButton } from "../Buttons";
 
 function UpdateCliente({ id = "" }) {
   let [cliente, setCliente] = useState({
-    curp: "",
+    id: "",
     nombre: "",
     apellido1: "",
     apellido2: "",
@@ -23,8 +23,9 @@ function UpdateCliente({ id = "" }) {
   useEffect(() => {
     async function getData() {
       const data = await controller.CustomerController.getCustomerById(id);
-
-      cliente.curp = data.CURP;
+      console.log(data);
+      
+      cliente.id = data.id;
       cliente.nombre = data.nombre;
       cliente.apellido1 = data.primer_apellido;
       cliente.apellido2 = data.segundo_apellido;
@@ -72,7 +73,7 @@ function UpdateCliente({ id = "" }) {
 
     if (isOpen) {
       const cli = new controller.Customer(
-        cliente.curp,
+        cliente.id,
         format.nameFormat(cliente.nombre),
         format.nameFormat(cliente.apellido1),
         format.nameFormat(cliente.apellido2),
@@ -128,17 +129,17 @@ function UpdateCliente({ id = "" }) {
                 <Dialog.Panel className="modal-panel">
                   <form className="m-4" onSubmit={updateCard}>
                     <div className="mb-6">
-                      <label htmlFor="">CURP</label>
+                      <label htmlFor="">id</label>
                       <input
                         type="text"
                         id=""
                         name=""
                         className="text-input"
-                        value={cliente.curp}
+                        value={cliente.id}
                         onChange={(e) =>
                           setCliente({
                             ...cliente,
-                            curp: e.target.value.toUpperCase(),
+                            id: e.target.value.toUpperCase(),
                           })
                         }
                         pattern={regex.curp_rfc}

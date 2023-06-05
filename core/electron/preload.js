@@ -34,12 +34,12 @@ const customerAPI = {
 };
 
 const examAPI = {
-  getAllExams: (curp) => ipcRenderer.invoke(K.Exam.getAllExams, curp),
-  getExamById: (curp, date) =>
-    ipcRenderer.invoke(K.Exam.getExamById, curp, date),
+  getAllExams: (id) => ipcRenderer.invoke(K.Exam.getAllExams, id),
+  getExamById: (id, date) =>
+    ipcRenderer.invoke(K.Exam.getExamById, id, date),
   addExam: (exam) => ipcRenderer.invoke(K.Exam.addExam, exam),
   updateExam: (exam) => ipcRenderer.invoke(K.Exam.updateExam, exam),
-  deleteExam: (curp) => ipcRenderer.invoke(K.Exam.deleteExam, curp)
+  deleteExam: (id) => ipcRenderer.invoke(K.Exam.deleteExam, id)
 };
 
 const backUpAPI = {

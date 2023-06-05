@@ -7,7 +7,7 @@ import { FormDialog } from "../Dialogs";
 
 function AddCliente() {
   let [cliente, setCliente] = useState({
-    curp: "",
+    id: "",
     nombre: "",
     apellido1: "",
     apellido2: "",
@@ -53,7 +53,7 @@ function AddCliente() {
 
     if (isOpen) {
       const cli = new controller.Customer(
-        cliente.curp,
+        cliente.id,
         format.nameFormat(cliente.nombre),
         format.nameFormat(cliente.apellido1),
         format.nameFormat(cliente.apellido2),

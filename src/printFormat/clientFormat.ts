@@ -1,7 +1,7 @@
 import { bgImage } from "./image";
 
 interface ICliente {
-  CURP: string;
+  id: string;
   nombre: string;
   domicilio: string;
   telefono: string;
@@ -20,8 +20,8 @@ const generateSupplierFormat = (cliente: ICliente) => {
     widths: ["auto", "*"],
     body: [
       [
-        { text: "CURP", bold: true, fillColor: "#CCCCCC" },
-        { text: cliente.CURP, fillColor: "#CCCCCC" },
+        { text: "id", bold: true, fillColor: "#CCCCCC" },
+        { text: cliente.id, fillColor: "#CCCCCC" },
       ],
       [{ text: "Sexo", bold: true }, { text: cliente.sexo }],
       [

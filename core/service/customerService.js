@@ -12,17 +12,14 @@ class CustomerService {
   }
 
   /**
-   * Finds a customer by his CURP and returns him if exists.
-   * @param {string} curp - The CURP of the Customer.
+   * Finds a customer by his id and returns him if exists.
+   * @param {string} id - The id of the Customer.
    * @returns {Promise<CustomerDTO>} A customer.
    */
-  static async getCustomerByCURP(curp = "") {
+  static async getCustomerByCURP(id = "") {
     try {
-      /*const sanitizedCURP = curp.trim();
-      if (!Validator.isCURP(sanitizedCURP)) {
-        throw Error("Invalid CURP");
-      }*/
-      const customer = await CustomerDAO.getCustomerByCURP(curp);
+      console.log(id);
+      const customer = await CustomerDAO.getCustomerByCURP(id);
       return customer;
     } catch (error) {
       console.error(error);
@@ -43,7 +40,7 @@ class CustomerService {
       if (typeof validation === "object") {
         throw validation;
       }*/
-      const findCustomer = await this.getCustomerByCURP(customer.curp);
+      const findCustomer = await this.getCustomerByCURP(customer.id);
       if (findCustomer) {
         throw new Error("Customer already exists");
       }
@@ -71,12 +68,12 @@ class CustomerService {
   }
 
   /**
-   * @param {string} curp
+   * @param {string} id
    * @returns
    */
-  static async deleteCustomer(curp) {
+  static async deleteCustomer(id) {
     try {
-      return await CustomerDAO.deleteCustomer(curp);
+      return await CustomerDAO.deleteCustomer(id);
     } catch (error) {
       console.error(error);
       return false;
@@ -100,14 +97,9 @@ class CustomerService {
     if (!Validator.isName(customer.primer_apellido)) {
       return new Error("Invalid first last name");
     }
-
     if (!Validator.isName(customer.segundo_apellido)) {
       return new Error("Invalid second last name");
     }
-    if (!Validator.isCURP(customer.CURP)) {
-      return new Error("Invalid CURP");
-    }
-
     if (!Validator.isPhone(customer.telefono)) {
       return new Error("Invalid Phone Number");
     }
