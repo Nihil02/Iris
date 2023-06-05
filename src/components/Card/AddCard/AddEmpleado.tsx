@@ -1,9 +1,9 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import { controller, format, messages, regex } from "../../util";
-import ErrorDialog from "../Dialogs/ErrorDialog";
-import { AddButton } from "../Buttons";
-import { FormDialog } from "../Dialogs";
+import { controller, format, messages, regex } from "../../../util";
+import ErrorDialog from "../../Dialogs/ErrorDialog";
+import { AddButton } from "../../Buttons";
+import { FormDialog } from "../../Dialogs";
 
 function AddEmpleado() {
   let [empleado, setEmpleado] = useState({

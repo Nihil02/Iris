@@ -1,10 +1,8 @@
 import { Transition, Dialog } from "@headlessui/react";
-import { useState, Fragment, useEffect } from "react";
-import { controller, format, messages, regex } from "../../util";
-import ErrorDialog from "../Dialogs/ErrorDialog";
-import { UpdateButton } from "../Buttons";
+import { Fragment, useEffect, useState } from "react";
+import { controller } from "../../../util";
 
-function UpdateEmpleado({ id = "" }) {
+function ShowEmpleado({ id = "", name = "" }) {
   let [empleado, setEmpleado] = useState({
     rfc: "",
     nombre: "",
@@ -12,7 +10,6 @@ function UpdateEmpleado({ id = "" }) {
     apellido2: "",
     privilegios: "",
     usuario: "",
-    pass: "",
   });
 
   /* Fetch data from the api to the component */
@@ -23,21 +20,28 @@ function UpdateEmpleado({ id = "" }) {
       empleado.nombre = data.nombre;
       empleado.apellido1 = data.primer_apellido;
       empleado.apellido2 = data.segundo_apellido;
-      empleado.privilegios = data.privilegios;
       empleado.usuario = data.usuario;
+
+      switch (data.privilegios) {
+        case "1":
+          empleado.privilegios = "Común";
+          break;
+        case "2":
+          empleado.privilegios = "Administrador";
+          break;
+        default:
+          break;
+      }
     }
     getData();
   }, []);
-
-  let [isError, setIsError] = useState(false);
 
   /* Controls modal state */
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
     setIsOpen(false);
   }
-  function openModal(e: { preventDefault: () => void }) {
-    e.preventDefault();
+  function openModal() {
     setIsOpen(true);
   }
 
@@ -46,34 +50,24 @@ function UpdateEmpleado({ id = "" }) {
     closeModal();
   };
 
-  const updateCard = async (e: { preventDefault: () => void }) => {
+  async function showCard(e: { preventDefault: () => void }) {
     e.preventDefault();
-
-    if (isOpen) {
-      const emp = new controller.Employee(
-        empleado.rfc,
-        format.nameFormat(empleado.nombre),
-        format.nameFormat(empleado.apellido1),
-        format.nameFormat(empleado.apellido2),
-        empleado.usuario,
-        empleado.pass,
-        empleado.privilegios
-      );
-      if (await controller.EmployeeController.updateEmployee(emp)) {
-        console.log(emp);
-        closeModal();
-        window.location.reload();
-      } else {
-        setIsError(true);
-      }
-    }
-  };
+    openModal();
+  }
 
   return (
     <>
-      <UpdateButton onClick={openModal} />
+      <div
+        className="flex flex-wrap items-center w-3/4 m-0 p-0 cursor-pointer"
+        onClick={showCard}
+      >
+        <p className="text-sm leading-6 cursor-pointer">
+          <strong className="font-semibold truncate cursor-pointer">
+            {name}
+          </strong>
+        </p>
+      </div>
 
-      {/* Modal */}
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
@@ -100,7 +94,7 @@ function UpdateEmpleado({ id = "" }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="modal-panel">
-                  <form className="m-4" onSubmit={updateCard}>
+                  <form className="m-4">
                     <div className="mb-6">
                       <label htmlFor="">RFC</label>
                       <input
@@ -108,13 +102,8 @@ function UpdateEmpleado({ id = "" }) {
                         id=""
                         name=""
                         className="text-input"
-                        placeholder="RFC"
-                        onChange={(e) =>
-                          setEmpleado({ ...empleado, rfc: e.target.value })
-                        }
                         value={empleado.rfc}
-                        pattern={regex.rfc}
-                        required
+                        readOnly
                       />
                     </div>
                     <div className="mb-6">
@@ -123,15 +112,9 @@ function UpdateEmpleado({ id = "" }) {
                         type="text"
                         id=""
                         name=""
-                        maxLength={50}
                         className="text-input"
-                        placeholder="Nombre"
                         value={empleado.nombre}
-                        pattern={regex.name}
-                        onChange={(e) =>
-                          setEmpleado({ ...empleado, nombre: e.target.value })
-                        }
-                        required
+                        readOnly
                       />
                     </div>
                     <div className="mb-6">
@@ -140,18 +123,9 @@ function UpdateEmpleado({ id = "" }) {
                         type="text"
                         id=""
                         name=""
-                        maxLength={50}
                         className="text-input"
-                        placeholder="Primer Apellido"
                         value={empleado.apellido1}
-                        pattern={regex.name}
-                        onChange={(e) =>
-                          setEmpleado({
-                            ...empleado,
-                            apellido1: e.target.value,
-                          })
-                        }
-                        required
+                        readOnly
                       />
                     </div>
                     <div className="mb-6">
@@ -160,37 +134,22 @@ function UpdateEmpleado({ id = "" }) {
                         type="text"
                         id=""
                         name=""
-                        maxLength={50}
                         className="text-input"
-                        placeholder="Segundo Apellido"
                         value={empleado.apellido2}
-                        pattern={regex.name}
-                        onChange={(e) =>
-                          setEmpleado({
-                            ...empleado,
-                            apellido2: e.target.value,
-                          })
-                        }
+                        readOnly
                       />
                     </div>
 
                     <div className="mb-6">
                       <label htmlFor="priv">Privilegios</label>
-                      <select
+                      <input
+                        type="text"
+                        id=""
+                        name=""
                         className="text-input"
-                        name="priv"
-                        id="priv"
                         value={empleado.privilegios}
-                        onChange={(e) =>
-                          setEmpleado({
-                            ...empleado,
-                            privilegios: e.target.value,
-                          })
-                        }
-                      >
-                        <option value="1">Común</option>
-                        <option value="2">Administrador</option>
-                      </select>
+                        readOnly
+                      />
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Usuario</label>
@@ -198,37 +157,15 @@ function UpdateEmpleado({ id = "" }) {
                         type="text"
                         id=""
                         name=""
-                        maxLength={50}
                         className="text-input"
-                        placeholder="Usuario"
                         value={empleado.usuario}
-                        onChange={(e) =>
-                          setEmpleado({ ...empleado, usuario: e.target.value })
-                        }
-                        required
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Contraseña</label>
-                      <input
-                        type="text"
-                        id=""
-                        name=""
-                        maxLength={50}
-                        className="text-input"
-                        placeholder="Contraseña"
-                        onChange={(e) =>
-                          setEmpleado({ ...empleado, pass: e.target.value })
-                        }
+                        readOnly
                       />
                     </div>
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
-                      <button type="submit" className="btn-primary">
-                        Modificar
-                      </button>
                       <button className="btn-danger" onClick={cancel}>
-                        Cancelar
+                        Salir
                       </button>
                     </div>
                   </form>
@@ -238,14 +175,8 @@ function UpdateEmpleado({ id = "" }) {
           </div>
         </Dialog>
       </Transition>
-
-      <ErrorDialog
-        isOpen={isError}
-        setIsOpen={setIsError}
-        msg={messages.errorUpdate}
-      />
     </>
   );
 }
 
-export default UpdateEmpleado;
+export default ShowEmpleado;

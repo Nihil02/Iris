@@ -3,7 +3,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { matchSorter } from "match-sorter";
 import { controller, format } from "../../util";
 import SearchBar from "./SearchBar";
-import AddCard from "../AddCard";
+import AddCard from "../Card/AddCard";
 import Loading from "./Loading";
 const CardRenderer = lazy(() => import("./CardRenderer"));
 const ClientPanel = lazy(() => import("./ClientPanel"));

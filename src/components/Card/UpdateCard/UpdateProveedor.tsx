@@ -1,15 +1,17 @@
 import { Transition, Dialog } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react";
-import { arrays, controller, format } from "../../util";
+import { ChangeEvent, Fragment, useEffect, useState } from "react";
+import { arrays, controller, messages, regex } from "../../../util";
+import ErrorDialog from "../../Dialogs/ErrorDialog";
+import { UpdateButton } from "../../Buttons";
 
-function ShowProveedor({ id = "", name = "" }) {
+function UpdateProveedor({ id = "" }) {
   let [proveedor, setProveedor] = useState({
     rfc: "", //Text
     razon: "", //Text
     domicilio: "", //Text
     telefono: "", //Number
     correo: "", //Text
-    banco: 0,
+    banco: 0, //Number
     cuenta: 0, //Number
   });
 
@@ -17,7 +19,6 @@ function ShowProveedor({ id = "", name = "" }) {
   useEffect(() => {
     async function getData() {
       const data = await controller.SupplierController.getSupplierByRFC(id);
-
       proveedor.rfc = data.rfc;
       proveedor.razon = data.razon_social;
       proveedor.domicilio = data.domicilio;
@@ -29,6 +30,8 @@ function ShowProveedor({ id = "", name = "" }) {
     getData();
   }, []);
 
+  let [isError, setIsError] = useState(false);
+
   /* Controls modal state */
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
@@ -38,23 +41,44 @@ function ShowProveedor({ id = "", name = "" }) {
     setIsOpen(true);
   }
 
-  async function showCard(e: { preventDefault: () => void }) {
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
-    openModal();
-  }
+    const name = e.target.name;
+    const value = e.target.value;
+    switch (name) {
+      default:
+        setProveedor((values) => ({ ...values, [name]: value }));
+        setProveedor((values) => ({ ...values, [name]: value }));
+        break;
+    }
+  };
+
+  const updateCard = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    if (isOpen) {
+      const sup = new controller.Supplier(
+        proveedor.rfc,
+        proveedor.razon,
+        proveedor.domicilio,
+        proveedor.correo,
+        proveedor.telefono,
+        proveedor.banco,
+        proveedor.cuenta.toString()
+      );
+      if (await controller.SupplierController.updateSupplier(sup)) {
+        console.log(sup);
+        closeModal();
+        window.location.reload();
+      } else {
+        setIsError(true);
+      }
+    }
+  };
 
   return (
     <>
-      <div
-        className="flex flex-wrap items-center w-3/4 m-0 p-0 cursor-pointer"
-        onClick={showCard}
-      >
-        <p className="text-sm leading-6 cursor-pointer">
-          <strong className="font-semibold truncate cursor-pointer">
-            {name}
-          </strong>
-        </p>
-      </div>
+      <UpdateButton onClick={openModal} />
 
       {/* Modal */}
       <Transition appear show={isOpen} as={Fragment}>
@@ -83,7 +107,7 @@ function ShowProveedor({ id = "", name = "" }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="modal-panel">
-                  <form className="m-4">
+                  <form className="m-4" onSubmit={updateCard}>
                     <div className="mb-6">
                       <label htmlFor="">RFC</label>
                       <input
@@ -92,8 +116,11 @@ function ShowProveedor({ id = "", name = "" }) {
                         name=""
                         className="text-input"
                         value={proveedor.rfc}
-                        readOnly
-                        disabled
+                        pattern={regex.rfc}
+                        onChange={(e) =>
+                          setProveedor({ ...proveedor, rfc: e.target.value })
+                        }
+                        required
                       />
                     </div>
                     <div className="mb-6">
@@ -102,10 +129,13 @@ function ShowProveedor({ id = "", name = "" }) {
                         type="text"
                         id=""
                         name=""
+                        maxLength={250}
                         className="text-input"
                         value={proveedor.razon}
-                        readOnly
-                        disabled
+                        onChange={(e) =>
+                          setProveedor({ ...proveedor, razon: e.target.value })
+                        }
+                        required
                       />
                     </div>
                     <div className="mb-6">
@@ -114,34 +144,50 @@ function ShowProveedor({ id = "", name = "" }) {
                         type="text"
                         id=""
                         name=""
+                        maxLength={250}
                         className="text-input"
                         value={proveedor.domicilio}
-                        readOnly
-                        disabled
+                        onChange={(e) =>
+                          setProveedor({
+                            ...proveedor,
+                            domicilio: e.target.value,
+                          })
+                        }
+                        required
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Telefono</label>
+                      <label htmlFor="">Teléfono</label>
                       <input
-                        type="text"
-                        id=""
-                        name=""
+                        type="tel"
+                        id="tel"
+                        name="tel"
+                        pattern="[\d]{10}$"
                         className="text-input"
-                        value={format.phoneStringFormat(
-                          proveedor.telefono + ""
-                        )}
-                        readOnly
-                        disabled
+                        value={proveedor.telefono}
+                        onChange={(e) =>
+                          setProveedor({
+                            ...proveedor,
+                            telefono: e.target.value,
+                          })
+                        }
+                        required
                       />
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Correo</label>
-                      <a
-                        href={"mailto:" + proveedor.correo}
+                      <input
+                        type="email"
+                        id=""
+                        name=""
+                        maxLength={50}
                         className="text-input"
-                      >
-                        {proveedor.correo}
-                      </a>
+                        value={proveedor.correo}
+                        onChange={(e) =>
+                          setProveedor({ ...proveedor, correo: e.target.value })
+                        }
+                        required
+                      />
                     </div>
                     <div className="mb-6">
                       <label htmlFor="">Banco</label>
@@ -150,7 +196,7 @@ function ShowProveedor({ id = "", name = "" }) {
                         name="banco"
                         id="banco"
                         value={proveedor.banco}
-                        disabled
+                        onChange={(e) => handleChange(e)}
                       >
                         {arrays.bancos.map((b) => {
                           return (
@@ -164,19 +210,30 @@ function ShowProveedor({ id = "", name = "" }) {
                     <div className="mb-6">
                       <label htmlFor="">Cuenta Bancaria</label>
                       <input
-                        type="text"
+                        type="number"
                         id=""
                         name=""
+                        maxLength={50}
+                        minLength={16}
+                        min={0}
                         className="text-input"
                         value={proveedor.cuenta}
-                        readOnly
-                        disabled
+                        onChange={(e) =>
+                          setProveedor({
+                            ...proveedor,
+                            cuenta: parseInt(e.target.value),
+                          })
+                        }
+                        required
                       />
                     </div>
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
+                      <button type="submit" className="btn-primary">
+                        Modificar
+                      </button>
                       <button className="btn-danger" onClick={closeModal}>
-                        Salir
+                        Cancelar
                       </button>
                     </div>
                   </form>
@@ -186,8 +243,14 @@ function ShowProveedor({ id = "", name = "" }) {
           </div>
         </Dialog>
       </Transition>
+
+      <ErrorDialog
+        isOpen={isError}
+        setIsOpen={setIsError}
+        msg={messages.errorUpdate}
+      />
     </>
   );
 }
 
-export default ShowProveedor;
+export default UpdateProveedor;

@@ -1,4 +1,4 @@
-import Card from "../Card";
+import Card from "../Card/Card";
 import { useRef } from "react";
 import { ViewportList } from "react-viewport-list";
 

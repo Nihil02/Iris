@@ -6,7 +6,7 @@ import PrintCliente from "./PrintCliente";
 import { memo } from "react";
 
 interface IPrintCard {
-  id: string|number;
+  id: string | number;
 }
 
 function PrintCard({ id }: IPrintCard) {
@@ -15,13 +15,13 @@ function PrintCard({ id }: IPrintCard) {
 
   switch (path) {
     case "/cliente":
-      return <PrintCliente id={id} />;
+      return <PrintCliente id={parseInt(id + "")} />;
 
     case "/proveedor":
-      return <PrintProveedor id={id} />;
+      return <PrintProveedor id={id + ""} />;
 
     case "/examen/" + param.cliente:
-      return <PrintExamen id={id} />;
+      return <PrintExamen id={id + ""} />;
 
     default:
       return <h1>Fallo</h1>;

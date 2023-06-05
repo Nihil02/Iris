@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { controller, format, messages, printFormat } from "../../util";
-import { InfoDialog } from "../Dialogs";
-import { sleep } from "../../util/delay";
-import { PrintButton } from "../Buttons";
+import { controller, format, messages, printFormat } from "../../../util";
+import { InfoDialog } from "../../Dialogs";
+import { sleep } from "../../../util/delay";
+import { PrintButton } from "../../Buttons";
 
 function PrintProveedor({ id = "" }) {
   let [proveedor, setProveedor] = useState({

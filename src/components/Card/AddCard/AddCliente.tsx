@@ -1,8 +1,8 @@
 import { ChangeEvent, useState } from "react";
-import { controller, regex, format, arrays, messages } from "../../util";
-import ErrorDialog from "../Dialogs/ErrorDialog";
-import { AddButton } from "../Buttons";
-import { FormDialog } from "../Dialogs";
+import { controller, regex, format, arrays, messages } from "../../../util";
+import ErrorDialog from "../../Dialogs/ErrorDialog";
+import { AddButton } from "../../Buttons";
+import { FormDialog } from "../../Dialogs";
 
 function AddCliente() {
   let [cliente, setCliente] = useState({

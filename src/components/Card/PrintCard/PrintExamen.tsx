@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { controller, format, messages, printFormat } from "../../util";
+import { controller, format, messages, printFormat } from "../../../util";
 import { useParams } from "react-router-dom";
-import { InfoDialog } from "../Dialogs";
-import { sleep } from "../../util/delay";
-import { PrintButton } from "../Buttons";
+import { InfoDialog } from "../../Dialogs";
+import { sleep } from "../../../util/delay";
+import { PrintButton } from "../../Buttons";
 
 function PrintExamen({ id = "" }) {
   const param = useParams();
   const [cliente, setCliente] = useState("");
   const [examen, setExamen] = useState({
-    cliente: param.cliente + "", //Texto
+    cliente: parseInt(param.cliente + ""), //Texto
     fecha: "", //Entero
 
     lejos_od_esferico: "0.00", //Decimal

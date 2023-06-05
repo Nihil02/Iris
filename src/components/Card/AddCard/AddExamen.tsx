@@ -1,9 +1,9 @@
 import { ChangeEvent, useState } from "react";
-import { controller, format, messages } from "../../util";
+import { controller, format, messages } from "../../../util";
 import { useParams } from "react-router-dom";
-import ErrorDialog from "../Dialogs/ErrorDialog";
-import { AddButton } from "../Buttons";
-import { FormDialog } from "../Dialogs";
+import ErrorDialog from "../../Dialogs/ErrorDialog";
+import { AddButton } from "../../Buttons";
+import { FormDialog } from "../../Dialogs";
 
 function AddExamen() {
   let param = useParams();
@@ -61,7 +61,7 @@ function AddExamen() {
 
     if (isOpen) {
       const exa = new controller.Exam(
-        examen.cliente,
+        parseInt(examen.cliente),
         examen.fecha,
         examen.dp_od,
         examen.dp_oi,

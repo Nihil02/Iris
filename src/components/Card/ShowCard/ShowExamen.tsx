@@ -1,41 +1,40 @@
 import { Transition, Dialog } from "@headlessui/react";
-import { ChangeEvent, Fragment, useEffect, useState } from "react";
-import { controller, format, messages } from "../../util";
-import { useParams } from "react-router-dom";
-import ErrorDialog from "../Dialogs/ErrorDialog";
-import { UpdateButton } from "../Buttons";
+import { Fragment, useEffect, useState } from "react";
+import { controller, format } from "../../../util";
+import { useParams } from "react-router";
 
-function UpdateExamen({ id = "" }) {
+function ShowExamen({ id = "", name = "" }) {
   let param = useParams();
   let [examen, setExamen] = useState({
-    cliente: param.cliente + "", //Texto
-    fecha: "", //Entero
+    cliente: param.cliente + "",
+    fecha: "",
 
-    lejos_od_esferico: "", //Decimal
-    lejos_od_cilindrico: "", //Decimal
-    lejos_od_eje: "", //Decimal
-    lejos_od_agudeza: "", //Decimal
-    adicion_od_esferico: "", //Decimal
+    lejos_od_esferico: "",
+    lejos_od_cilindrico: "",
+    lejos_od_eje: "",
+    lejos_od_agudeza: "",
+    adicion_od_esferico: "",
 
-    lejos_oi_esferico: "", //Decimal
-    lejos_oi_cilindrico: "", //Decimal
-    lejos_oi_eje: "", //Decimal
-    lejos_oi_agudeza: "", //Decimal
-    adicion_oi_esferico: "", //Decimal
+    lejos_oi_esferico: "",
+    lejos_oi_cilindrico: "",
+    lejos_oi_eje: "",
+    lejos_oi_agudeza: "",
+    adicion_oi_esferico: "",
 
-    dp_oi: "", //Decimal
-    dp_od: "", //Decimal
-    ob: "", //Decimal
+    dp_oi: "",
+    dp_od: "",
+    ob_od: "",
+    ob_oi: "",
 
-    tipo_lentes: "", //Texto
-    observaciones: "", //Texto, opcional
+    tipo_lentes: "",
+    observaciones: "",
   });
 
   /* Fetch data from the api to the component */
   useEffect(() => {
     async function getData() {
       const data = await controller.ExamController.getExamById(
-        examen.cliente,
+        parseInt(examen.cliente),
         id
       );
 
@@ -63,15 +62,13 @@ function UpdateExamen({ id = "" }) {
 
       examen.dp_od = data.dp_od;
       examen.dp_oi = data.dp_oi;
-      examen.ob = format.numberDecFormat(data.oblea);
+      examen.ob_od = format.numberDecFormat(data.oblea);
 
       examen.tipo_lentes = data.tipo_lentes;
       examen.observaciones = data.observaciones;
     }
     getData();
   }, []);
-
-  let [isError, setIsError] = useState(false);
 
   /* Controls modal state */
   let [isOpen, setIsOpen] = useState(false);
@@ -82,69 +79,23 @@ function UpdateExamen({ id = "" }) {
     setIsOpen(true);
   }
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  async function showCard(e: { preventDefault: () => void }) {
     e.preventDefault();
-    const name = e.target.name;
-    const value = e.target.value;
-    setExamen((values) => ({ ...values, [name]: value }));
-    setExamen((values) => ({ ...values, [name]: value + "" }));
-  };
-
-  const updateCard = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    setExamen(examen);
-
-    if (isOpen) {
-      console.log();
-
-      const exa = new controller.Exam(
-        examen.cliente,
-        examen.fecha,
-        examen.dp_od,
-        examen.dp_oi,
-        examen.ob !== "" ? parseFloat(examen.ob) : 0.0,
-
-        examen.lejos_od_esferico !== ""
-          ? parseFloat(examen.lejos_od_esferico)
-          : 0.0,
-        examen.lejos_od_cilindrico !== ""
-          ? parseFloat(examen.lejos_od_cilindrico)
-          : 0.0,
-        examen.lejos_od_eje !== "" ? parseFloat(examen.lejos_od_eje) : 0.0,
-        examen.lejos_od_agudeza,
-
-        examen.lejos_oi_esferico !== ""
-          ? parseFloat(examen.lejos_oi_esferico)
-          : 0.0,
-        examen.lejos_oi_cilindrico !== ""
-          ? parseFloat(examen.lejos_oi_cilindrico)
-          : 0.0,
-        examen.lejos_oi_eje !== "" ? parseFloat(examen.lejos_oi_eje) : 0.0,
-        examen.lejos_oi_agudeza,
-
-        examen.adicion_od_esferico !== ""
-          ? parseFloat(examen.adicion_od_esferico)
-          : 0.0,
-        examen.adicion_oi_esferico !== ""
-          ? parseFloat(examen.adicion_oi_esferico)
-          : 0.0,
-        examen.tipo_lentes,
-        examen.observaciones
-      );
-
-      if (await controller.ExamController.updateExam(exa)) {
-        console.log(exa);
-        closeModal();
-        window.location.reload();
-      } else {
-        setIsError(true);
-      }
-    }
-  };
+    openModal();
+  }
 
   return (
     <>
-      <UpdateButton onClick={openModal} />
+      <div
+        className="flex flex-wrap items-center w-3/4 m-0 p-0 cursor-pointer"
+        onClick={showCard}
+      >
+        <p className="text-sm leading-6 cursor-pointer">
+          <strong className="font-semibold truncate cursor-pointer">
+            {name}
+          </strong>
+        </p>
+      </div>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -172,7 +123,7 @@ function UpdateExamen({ id = "" }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="modal-panel">
-                  <form className="m-4" onSubmit={updateCard}>
+                  <form className="m-4">
                     <div className="mb-6">
                       <label htmlFor="">Cliente</label>
                       <input
@@ -180,10 +131,9 @@ function UpdateExamen({ id = "" }) {
                         id=""
                         name=""
                         className="text-input"
-                        readOnly
                         placeholder="Cliente"
                         value={examen.cliente}
-                        required
+                        readOnly
                       />
                     </div>
                     <div className="mb-6">
@@ -193,14 +143,8 @@ function UpdateExamen({ id = "" }) {
                         id=""
                         name=""
                         className="text-input"
-                        max={new Date().toLocaleDateString("fr-ca")}
-                        min={"1900-01-01"}
                         value={format.dateHTMLFormat(examen.fecha)}
-                        onChange={(e) => {
-                          let aux = format.dateIntFormat(e.target.value);
-                          setExamen({ ...examen, fecha: aux });
-                        }}
-                        required
+                        readOnly
                       />
                     </div>
                     <div className="mb-6"></div>
@@ -224,49 +168,37 @@ function UpdateExamen({ id = "" }) {
                             <td>
                               <input
                                 type="text"
-                                name="lejos_od_esferico"
+                                name=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
+                                readOnly
                                 value={examen.lejos_od_esferico}
-                                onChange={handleChange}
                               />
                             </td>
                             <td>
                               <input
                                 type="text"
-                                name="lejos_od_cilindrico"
+                                name=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
+                                readOnly
                                 value={examen.lejos_od_cilindrico}
-                                onChange={handleChange}
                               />
                             </td>
                             <td>
                               <input
                                 type="text"
-                                name="lejos_od_eje"
+                                name=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
+                                readOnly
                                 value={examen.lejos_od_eje}
-                                onChange={handleChange}
                               />
                             </td>
                             <td>
                               <input
                                 type="text"
-                                name="lejos_od_agudeza"
+                                name=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
+                                readOnly
                                 value={examen.lejos_od_agudeza}
-                                onChange={handleChange}
                               />
                             </td>
                           </tr>
@@ -277,49 +209,37 @@ function UpdateExamen({ id = "" }) {
                             <td>
                               <input
                                 type="text"
-                                name="lejos_oi_esferico"
+                                name=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
+                                readOnly
                                 value={examen.lejos_oi_esferico}
-                                onChange={handleChange}
                               />
                             </td>
                             <td>
                               <input
                                 type="text"
-                                name="lejos_oi_cilindrico"
+                                name=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
+                                readOnly
                                 value={examen.lejos_oi_cilindrico}
-                                onChange={handleChange}
                               />
                             </td>
                             <td>
                               <input
                                 type="text"
-                                name="lejos_oi_eje"
+                                name=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
+                                readOnly
                                 value={examen.lejos_oi_eje}
-                                onChange={handleChange}
                               />
                             </td>
                             <td>
                               <input
                                 type="text"
-                                name="lejos_oi_agudeza"
+                                name=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
+                                readOnly
                                 value={examen.lejos_oi_agudeza}
-                                onChange={handleChange}
                               />
                             </td>
                           </tr>
@@ -330,13 +250,10 @@ function UpdateExamen({ id = "" }) {
                             <td>
                               <input
                                 type="text"
-                                name="adicion_od_esferico"
+                                name=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
+                                readOnly
                                 value={examen.adicion_od_esferico}
-                                onChange={handleChange}
                               />
                             </td>
                           </tr>
@@ -347,17 +264,16 @@ function UpdateExamen({ id = "" }) {
                             <td>
                               <input
                                 type="text"
-                                name="adicion_oi_esferico"
+                                name=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
+                                readOnly
                                 value={examen.adicion_oi_esferico}
-                                onChange={handleChange}
                               />
                             </td>
                           </tr>
-                          <br />
+                          <tr>
+                            <br />
+                          </tr>
                         </tbody>
 
                         <thead className="text-center text-sm">
@@ -374,23 +290,28 @@ function UpdateExamen({ id = "" }) {
                             <td>
                               <input
                                 type="text"
-                                name="dp_od"
+                                name=""
+                                id=""
                                 className="table-input"
+                                readOnly
                                 value={examen.dp_od}
-                                onChange={handleChange}
                               />
                             </td>
                             <td>
                               <input
                                 type="text"
-                                name="dp_oi"
+                                name=""
+                                id=""
                                 className="table-input"
+                                readOnly
                                 value={examen.dp_oi}
-                                onChange={handleChange}
                               />
                             </td>
                           </tr>
-                          <br />
+
+                          <tr>
+                            <br />
+                          </tr>
                         </tbody>
 
                         <thead className="text-center text-sm">
@@ -406,34 +327,40 @@ function UpdateExamen({ id = "" }) {
                             <td>
                               <input
                                 type="text"
-                                name="ob"
+                                name=""
+                                id=""
                                 className="table-input"
-                                step={0.25}
-                                max={12.0}
-                                min={-12.0}
-                                value={examen.ob}
-                                onChange={handleChange}
+                                readOnly
+                                value={examen.ob_od}
                               />
                             </td>
+                            {/*<td>
+                              <input
+                                type="text"
+                                name=""
+                                id=""
+                                className="table-input"
+                                readOnly
+                                value={examen.ob_oi}
+                              />
+                            </td>*/}
                           </tr>
                         </tbody>
                       </table>
                     </div>
-
+                    <div className="mb-6">
+                      {/* Otros datos */}
+                      <table className="table-fixed"></table>
+                    </div>
                     <div className="mb-6">
                       <label htmlFor="">Tipo de Lentes</label>
                       <input
                         type="text"
                         id=""
                         name=""
-                        maxLength={100}
                         className="text-input"
-                        placeholder="Tipo de Lentes"
                         value={examen.tipo_lentes}
-                        onChange={(e) =>
-                          setExamen({ ...examen, tipo_lentes: e.target.value })
-                        }
-                        required
+                        readOnly
                       />
                     </div>
                     <div className="mb-6">
@@ -445,21 +372,12 @@ function UpdateExamen({ id = "" }) {
                         placeholder="Observaciones"
                         rows={3}
                         value={examen.observaciones}
-                        onChange={(e) =>
-                          setExamen({
-                            ...examen,
-                            observaciones: e.target.value,
-                          })
-                        }
                       />
                     </div>
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
-                      <button type="submit" className="btn-primary">
-                        Modificar
-                      </button>
                       <button className="btn-danger" onClick={closeModal}>
-                        Cancelar
+                        Salir
                       </button>
                     </div>
                   </form>
@@ -469,14 +387,8 @@ function UpdateExamen({ id = "" }) {
           </div>
         </Dialog>
       </Transition>
-
-      <ErrorDialog
-        isOpen={isError}
-        setIsOpen={setIsError}
-        msg={messages.errorUpdate}
-      />
     </>
   );
 }
 
-export default UpdateExamen;
+export default ShowExamen;

@@ -1,31 +1,30 @@
 import { Transition, Dialog } from "@headlessui/react";
-import { ChangeEvent, Fragment, useEffect, useState } from "react";
-import { arrays, controller, messages, regex } from "../../util";
-import ErrorDialog from "../Dialogs/ErrorDialog";
-import { UpdateButton } from "../Buttons";
+import { useState, Fragment, useEffect } from "react";
+import { controller, format, messages, regex } from "../../../util";
+import ErrorDialog from "../../Dialogs/ErrorDialog";
+import { UpdateButton } from "../../Buttons";
 
-function UpdateProveedor({ id = "" }) {
-  let [proveedor, setProveedor] = useState({
-    rfc: "", //Text
-    razon: "", //Text
-    domicilio: "", //Text
-    telefono: "", //Number
-    correo: "", //Text
-    banco: 0, //Number
-    cuenta: 0, //Number
+function UpdateEmpleado({ id = "" }) {
+  let [empleado, setEmpleado] = useState({
+    rfc: "",
+    nombre: "",
+    apellido1: "",
+    apellido2: "",
+    privilegios: "",
+    usuario: "",
+    pass: "",
   });
 
   /* Fetch data from the api to the component */
   useEffect(() => {
     async function getData() {
-      const data = await controller.SupplierController.getSupplierByRFC(id);
-      proveedor.rfc = data.rfc;
-      proveedor.razon = data.razon_social;
-      proveedor.domicilio = data.domicilio;
-      proveedor.correo = data.correo_electronico;
-      proveedor.banco = data.banco;
-      proveedor.cuenta = data.cuenta_bancaria;
-      proveedor.telefono = data.telefono;
+      const data = await controller.EmployeeController.getEmployeeByRFC(id);
+      empleado.rfc = data.rfc;
+      empleado.nombre = data.nombre;
+      empleado.apellido1 = data.primer_apellido;
+      empleado.apellido2 = data.segundo_apellido;
+      empleado.privilegios = data.privilegios;
+      empleado.usuario = data.usuario;
     }
     getData();
   }, []);
@@ -37,37 +36,31 @@ function UpdateProveedor({ id = "" }) {
   function closeModal() {
     setIsOpen(false);
   }
-  function openModal() {
+  function openModal(e: { preventDefault: () => void }) {
+    e.preventDefault();
     setIsOpen(true);
   }
 
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const cancel = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    const name = e.target.name;
-    const value = e.target.value;
-    switch (name) {
-      default:
-        setProveedor((values) => ({ ...values, [name]: value }));
-        setProveedor((values) => ({ ...values, [name]: value }));
-        break;
-    }
+    closeModal();
   };
 
   const updateCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     if (isOpen) {
-      const sup = new controller.Supplier(
-        proveedor.rfc,
-        proveedor.razon,
-        proveedor.domicilio,
-        proveedor.correo,
-        proveedor.telefono,
-        proveedor.banco,
-        proveedor.cuenta.toString()
+      const emp = new controller.Employee(
+        empleado.rfc,
+        format.nameFormat(empleado.nombre),
+        format.nameFormat(empleado.apellido1),
+        format.nameFormat(empleado.apellido2),
+        empleado.usuario,
+        empleado.pass,
+        empleado.privilegios
       );
-      if (await controller.SupplierController.updateSupplier(sup)) {
-        console.log(sup);
+      if (await controller.EmployeeController.updateEmployee(emp)) {
+        console.log(emp);
         closeModal();
         window.location.reload();
       } else {
@@ -115,116 +108,118 @@ function UpdateProveedor({ id = "" }) {
                         id=""
                         name=""
                         className="text-input"
-                        value={proveedor.rfc}
+                        placeholder="RFC"
+                        onChange={(e) =>
+                          setEmpleado({ ...empleado, rfc: e.target.value })
+                        }
+                        value={empleado.rfc}
                         pattern={regex.rfc}
-                        onChange={(e) =>
-                          setProveedor({ ...proveedor, rfc: e.target.value })
-                        }
                         required
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Razon Social</label>
+                      <label htmlFor="">Nombre</label>
                       <input
                         type="text"
-                        id=""
-                        name=""
-                        maxLength={250}
-                        className="text-input"
-                        value={proveedor.razon}
-                        onChange={(e) =>
-                          setProveedor({ ...proveedor, razon: e.target.value })
-                        }
-                        required
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Domicilio</label>
-                      <input
-                        type="text"
-                        id=""
-                        name=""
-                        maxLength={250}
-                        className="text-input"
-                        value={proveedor.domicilio}
-                        onChange={(e) =>
-                          setProveedor({
-                            ...proveedor,
-                            domicilio: e.target.value,
-                          })
-                        }
-                        required
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Teléfono</label>
-                      <input
-                        type="tel"
-                        id="tel"
-                        name="tel"
-                        pattern="[\d]{10}$"
-                        className="text-input"
-                        value={proveedor.telefono}
-                        onChange={(e) =>
-                          setProveedor({
-                            ...proveedor,
-                            telefono: e.target.value,
-                          })
-                        }
-                        required
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Correo</label>
-                      <input
-                        type="email"
                         id=""
                         name=""
                         maxLength={50}
                         className="text-input"
-                        value={proveedor.correo}
+                        placeholder="Nombre"
+                        value={empleado.nombre}
+                        pattern={regex.name}
                         onChange={(e) =>
-                          setProveedor({ ...proveedor, correo: e.target.value })
+                          setEmpleado({ ...empleado, nombre: e.target.value })
                         }
                         required
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Banco</label>
+                      <label htmlFor="">Primer Apellido</label>
+                      <input
+                        type="text"
+                        id=""
+                        name=""
+                        maxLength={50}
+                        className="text-input"
+                        placeholder="Primer Apellido"
+                        value={empleado.apellido1}
+                        pattern={regex.name}
+                        onChange={(e) =>
+                          setEmpleado({
+                            ...empleado,
+                            apellido1: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                    <div className="mb-6">
+                      <label htmlFor="">Segundo Apellido</label>
+                      <input
+                        type="text"
+                        id=""
+                        name=""
+                        maxLength={50}
+                        className="text-input"
+                        placeholder="Segundo Apellido"
+                        value={empleado.apellido2}
+                        pattern={regex.name}
+                        onChange={(e) =>
+                          setEmpleado({
+                            ...empleado,
+                            apellido2: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+
+                    <div className="mb-6">
+                      <label htmlFor="priv">Privilegios</label>
                       <select
                         className="text-input"
-                        name="banco"
-                        id="banco"
-                        value={proveedor.banco}
-                        onChange={(e) => handleChange(e)}
+                        name="priv"
+                        id="priv"
+                        value={empleado.privilegios}
+                        onChange={(e) =>
+                          setEmpleado({
+                            ...empleado,
+                            privilegios: e.target.value,
+                          })
+                        }
                       >
-                        {arrays.bancos.map((b) => {
-                          return (
-                            <option key={b[0]} value={b[0]}>
-                              {b[1]}
-                            </option>
-                          );
-                        })}
+                        <option value="1">Común</option>
+                        <option value="2">Administrador</option>
                       </select>
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Cuenta Bancaria</label>
+                      <label htmlFor="">Usuario</label>
                       <input
-                        type="number"
+                        type="text"
                         id=""
                         name=""
                         maxLength={50}
-                        minLength={16}
-                        min={0}
                         className="text-input"
-                        value={proveedor.cuenta}
+                        placeholder="Usuario"
+                        value={empleado.usuario}
                         onChange={(e) =>
-                          setProveedor({
-                            ...proveedor,
-                            cuenta: parseInt(e.target.value),
-                          })
+                          setEmpleado({ ...empleado, usuario: e.target.value })
                         }
                         required
+                      />
+                    </div>
+                    <div className="mb-6">
+                      <label htmlFor="">Contraseña</label>
+                      <input
+                        type="text"
+                        id=""
+                        name=""
+                        maxLength={50}
+                        className="text-input"
+                        placeholder="Contraseña"
+                        onChange={(e) =>
+                          setEmpleado({ ...empleado, pass: e.target.value })
+                        }
                       />
                     </div>
 
@@ -232,7 +227,7 @@ function UpdateProveedor({ id = "" }) {
                       <button type="submit" className="btn-primary">
                         Modificar
                       </button>
-                      <button className="btn-danger" onClick={closeModal}>
+                      <button className="btn-danger" onClick={cancel}>
                         Cancelar
                       </button>
                     </div>
@@ -253,4 +248,4 @@ function UpdateProveedor({ id = "" }) {
   );
 }
 
-export default UpdateProveedor;
+export default UpdateEmpleado;

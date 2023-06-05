@@ -1,37 +1,30 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
-import { controller } from "../../util";
+import { arrays, controller, format } from "../../../util";
 
-function ShowEmpleado({ id = "", name = "" }) {
-  let [empleado, setEmpleado] = useState({
-    rfc: "",
-    nombre: "",
-    apellido1: "",
-    apellido2: "",
-    privilegios: "",
-    usuario: "",
+function ShowProveedor({ id = "", name = "" }) {
+  let [proveedor, setProveedor] = useState({
+    rfc: "", //Text
+    razon: "", //Text
+    domicilio: "", //Text
+    telefono: "", //Number
+    correo: "", //Text
+    banco: 0,
+    cuenta: "", //Number
   });
 
   /* Fetch data from the api to the component */
   useEffect(() => {
     async function getData() {
-      const data = await controller.EmployeeController.getEmployeeByRFC(id);
-      empleado.rfc = data.rfc;
-      empleado.nombre = data.nombre;
-      empleado.apellido1 = data.primer_apellido;
-      empleado.apellido2 = data.segundo_apellido;
-      empleado.usuario = data.usuario;
+      const data = await controller.SupplierController.getSupplierByRFC(id);
 
-      switch (data.privilegios) {
-        case "1":
-          empleado.privilegios = "Común";
-          break;
-        case "2":
-          empleado.privilegios = "Administrador";
-          break;
-        default:
-          break;
-      }
+      proveedor.rfc = data.rfc;
+      proveedor.razon = data.razon_social;
+      proveedor.domicilio = data.domicilio;
+      proveedor.correo = data.correo_electronico;
+      proveedor.banco = data.banco;
+      proveedor.cuenta = data.cuenta_bancaria;
+      proveedor.telefono = data.telefono;
     }
     getData();
   }, []);
@@ -44,11 +37,6 @@ function ShowEmpleado({ id = "", name = "" }) {
   function openModal() {
     setIsOpen(true);
   }
-
-  const cancel = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    closeModal();
-  };
 
   async function showCard(e: { preventDefault: () => void }) {
     e.preventDefault();
@@ -68,6 +56,7 @@ function ShowEmpleado({ id = "", name = "" }) {
         </p>
       </div>
 
+      {/* Modal */}
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
@@ -102,69 +91,91 @@ function ShowEmpleado({ id = "", name = "" }) {
                         id=""
                         name=""
                         className="text-input"
-                        value={empleado.rfc}
+                        value={proveedor.rfc}
                         readOnly
+                        disabled
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Nombre</label>
+                      <label htmlFor="">Razon Social</label>
                       <input
                         type="text"
                         id=""
                         name=""
                         className="text-input"
-                        value={empleado.nombre}
+                        value={proveedor.razon}
                         readOnly
+                        disabled
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Primer Apellido</label>
+                      <label htmlFor="">Domicilio</label>
                       <input
                         type="text"
                         id=""
                         name=""
                         className="text-input"
-                        value={empleado.apellido1}
+                        value={proveedor.domicilio}
                         readOnly
+                        disabled
                       />
                     </div>
                     <div className="mb-6">
-                      <label htmlFor="">Segundo Apellido</label>
+                      <label htmlFor="">Telefono</label>
                       <input
                         type="text"
                         id=""
                         name=""
                         className="text-input"
-                        value={empleado.apellido2}
+                        value={format.phoneStringFormat(
+                          proveedor.telefono + ""
+                        )}
                         readOnly
+                        disabled
                       />
                     </div>
-
                     <div className="mb-6">
-                      <label htmlFor="priv">Privilegios</label>
+                      <label htmlFor="">Correo</label>
+                      <a
+                        href={"mailto:" + proveedor.correo}
+                        className="text-input"
+                      >
+                        {proveedor.correo}
+                      </a>
+                    </div>
+                    <div className="mb-6">
+                      <label htmlFor="">Banco</label>
+                      <select
+                        className="text-input"
+                        name="banco"
+                        id="banco"
+                        value={proveedor.banco}
+                        disabled
+                      >
+                        {arrays.bancos.map((b) => {
+                          return (
+                            <option key={b[0]} value={b[0]}>
+                              {b[1]}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                    <div className="mb-6">
+                      <label htmlFor="">Cuenta Bancaria</label>
                       <input
                         type="text"
                         id=""
                         name=""
                         className="text-input"
-                        value={empleado.privilegios}
+                        value={proveedor.cuenta}
                         readOnly
-                      />
-                    </div>
-                    <div className="mb-6">
-                      <label htmlFor="">Usuario</label>
-                      <input
-                        type="text"
-                        id=""
-                        name=""
-                        className="text-input"
-                        value={empleado.usuario}
-                        readOnly
+                        disabled
                       />
                     </div>
 
                     <div className="flex items-center justify-center gap-x-6 mt-4">
-                      <button className="btn-danger" onClick={cancel}>
+                      <button className="btn-danger" onClick={closeModal}>
                         Salir
                       </button>
                     </div>
@@ -179,4 +190,4 @@ function ShowEmpleado({ id = "", name = "" }) {
   );
 }
 
-export default ShowEmpleado;
+export default ShowProveedor;

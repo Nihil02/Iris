@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { controller, format, messages, printFormat } from "../../util";
-import { InfoDialog } from "../Dialogs";
-import { sleep } from "../../util/delay";
-import { PrintButton } from "../Buttons";
+import { controller, format, messages, printFormat } from "../../../util";
+import { InfoDialog } from "../../Dialogs";
+import { sleep } from "../../../util/delay";
+import { PrintButton } from "../../Buttons";
 
-function PrintCliente({ id }) {
+function PrintCliente({ id = 0 }) {
   const [cliente, setCliente] = useState({
     nombre: "",
     domicilio: "",

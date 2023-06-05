@@ -1,10 +1,10 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { useState, Fragment } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import { controller } from "../util";
-import { DeleteButton } from "./Buttons";
+import { controller } from "../../util";
+import { DeleteButton } from "./../Buttons";
 
-function DeleteCard({ id }) {
+function DeleteCard({ id = "" }) {
   /* Get current location and their params */
   const path = useLocation().pathname;
   let param = useParams();
@@ -26,7 +26,9 @@ function DeleteCard({ id }) {
 
       switch (path) {
         case "/cliente":
-          condition = await controller.CustomerController.deleteCustomer(id);
+          condition = await controller.CustomerController.deleteCustomer(
+            parseInt(id)
+          );
           if (condition) {
             console.log("eliminado registro " + id);
           } else {
@@ -54,7 +56,7 @@ function DeleteCard({ id }) {
 
         case "/examen/" + param.cliente:
           condition = await controller.ExamController.deleteExam(
-            param.cliente + ""
+            parseInt(param.cliente + "")
           );
           if (condition) {
             console.log("eliminado registro " + id);

@@ -1,8 +1,8 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { ChangeEvent, Fragment, useEffect, useState } from "react";
-import { arrays, controller, format, messages, regex } from "../../util";
-import ErrorDialog from "../Dialogs/ErrorDialog";
-import { UpdateButton } from "../Buttons";
+import { arrays, controller, format, messages, regex } from "../../../util";
+import ErrorDialog from "../../Dialogs/ErrorDialog";
+import { UpdateButton } from "../../Buttons";
 
 function UpdateCliente({ id = 0 }) {
   let [cliente, setCliente] = useState({
@@ -22,7 +22,6 @@ function UpdateCliente({ id = 0 }) {
   useEffect(() => {
     async function getData() {
       const data = await controller.CustomerController.getCustomerById(id);
-      console.log(data);
 
       cliente.nombre = data.nombre;
       cliente.apellido1 = data.primer_apellido;

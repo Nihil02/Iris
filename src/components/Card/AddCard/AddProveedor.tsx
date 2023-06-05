@@ -1,8 +1,8 @@
 import { ChangeEvent, useState } from "react";
-import { arrays, controller, messages, regex } from "../../util";
-import ErrorDialog from "../Dialogs/ErrorDialog";
-import { AddButton } from "../Buttons";
-import { FormDialog } from "../Dialogs";
+import { arrays, controller, messages, regex } from "../../../util";
+import ErrorDialog from "../../Dialogs/ErrorDialog";
+import { AddButton } from "../../Buttons";
+import { FormDialog } from "../../Dialogs";
 
 function AddProveedor() {
   let [proveedor, setProveedor] = useState({
