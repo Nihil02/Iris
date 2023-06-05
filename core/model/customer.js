@@ -6,7 +6,8 @@ class Customer extends Model {}
 Customer.init(
   {
     id: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
       primaryKey: true,
       allowNull: false,
     },
@@ -60,14 +61,13 @@ Customer.init(
       defaultValue: "000",
     },
     // Clave de la localidad existente en el catálogo de la INGEGI
-    // El código postal, pues
     loc: {
       type: DataTypes.STRING(4),
       allowNull: false,
       defaultValue: "0000",
-    }
+    },
   },
-  { sequelize, modelName: "Paciente", tableName: "PACIENTE", timestamps: false }
+  { sequelize, modelName: "Cliente", tableName: "CLIENTE", timestamps: false }
 );
 
 module.exports = Customer;

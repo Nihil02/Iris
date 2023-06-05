@@ -4,8 +4,9 @@ import ShowCliente from "./ShowCliente";
 import ShowProveedor from "./ShowProveedor";
 import ShowEmpleado from "./ShowEmpleado";
 import ShowExamen from "./ShowExamen";
+import { IProps } from "../Card";
 
-function ShowCard({ name = "", id = "" }) {
+function ShowCard({ name, id  }: IProps) {
   const location = useLocation();
   let param = useParams();
 

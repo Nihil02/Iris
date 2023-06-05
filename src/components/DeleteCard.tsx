@@ -4,7 +4,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { controller } from "../util";
 import { DeleteButton } from "./Buttons";
 
-function DeleteCard({ id = "" }) {
+function DeleteCard({ id }) {
   /* Get current location and their params */
   const path = useLocation().pathname;
   let param = useParams();

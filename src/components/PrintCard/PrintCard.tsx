@@ -6,7 +6,7 @@ import PrintCliente from "./PrintCliente";
 import { memo } from "react";
 
 interface IPrintCard {
-  id: string;
+  id: string|number;
 }
 
 function PrintCard({ id }: IPrintCard) {

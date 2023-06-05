@@ -13,10 +13,10 @@ class CustomerService {
 
   /**
    * Finds a customer by his id and returns him if exists.
-   * @param {string} id - The id of the Customer.
+   * @param {number} id - The id of the Customer.
    * @returns {Promise<CustomerDTO>} A customer.
    */
-  static async getCustomerByCURP(id = "") {
+  static async getCustomerByCURP(id) {
     try {
       console.log(id);
       const customer = await CustomerDAO.getCustomerByCURP(id);
@@ -68,7 +68,7 @@ class CustomerService {
   }
 
   /**
-   * @param {string} id
+   * @param {number} id
    * @returns
    */
   static async deleteCustomer(id) {

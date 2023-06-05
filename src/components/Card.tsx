@@ -6,8 +6,8 @@ import { useLocation, useParams } from "react-router-dom";
 import { getAdmin } from "../util";
 import { memo } from "react";
 
-interface IProps {
-  id: string;
+export interface IProps {
+  id: string|number;
   name: string;
 }
 

@@ -1,5 +1,4 @@
-import { Transition, Dialog } from "@headlessui/react";
-import { ChangeEvent, Fragment, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { controller, regex, format, arrays, messages } from "../../util";
 import ErrorDialog from "../Dialogs/ErrorDialog";
 import { AddButton } from "../Buttons";
@@ -7,7 +6,6 @@ import { FormDialog } from "../Dialogs";
 
 function AddCliente() {
   let [cliente, setCliente] = useState({
-    id: "",
     nombre: "",
     apellido1: "",
     apellido2: "",
@@ -53,7 +51,6 @@ function AddCliente() {
 
     if (isOpen) {
       const cli = new controller.Customer(
-        cliente.id,
         format.nameFormat(cliente.nombre),
         format.nameFormat(cliente.apellido1),
         format.nameFormat(cliente.apellido2),
@@ -83,24 +80,6 @@ function AddCliente() {
       <AddButton onClick={openModal} />
 
       <FormDialog isOpen={isOpen} setIsOpen={setIsOpen} onSubmit={addCard}>
-        <div className="mb-6">
-          <label htmlFor="">CURP</label>
-          <input
-            type="text"
-            id=""
-            name=""
-            className="text-input"
-            placeholder="CURP"
-            onChange={(e) =>
-              setCliente({
-                ...cliente,
-                curp: e.target.value.toUpperCase(),
-              })
-            }
-            pattern={regex.curp_rfc}
-            required
-          />
-        </div>
         <div className="mb-6">
           <label htmlFor="">Nombre</label>
           <input

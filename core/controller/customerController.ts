@@ -1,18 +1,18 @@
 interface ICustomerAPI {
-  getAllCustomers: () => Array<Customer>,
-  getCustomerById: (id: any) => Customer,
-  createCustomer: (customer: any) => Boolean,
-  updateCustomer: (customer: any) => Boolean,
-  deleteCustomer: (id: any) => Boolean
+  getAllCustomers: () => Array<Customer>;
+  getCustomerById: (id: any) => Customer;
+  createCustomer: (customer: any) => Boolean;
+  updateCustomer: (customer: any) => Boolean;
+  deleteCustomer: (id: any) => Boolean;
 }
 
 declare global {
   interface Window {
-    customerAPI: ICustomerAPI
+    customerAPI: ICustomerAPI;
   }
 }
 class Customer {
-  id: string;
+  id?: number;
   nombre: string;
   primer_apellido: string;
   segundo_apellido: string;
@@ -27,34 +27,33 @@ class Customer {
   loc: string;
 
   constructor(
-      id: string,
-      nombre: string,
-      primer_apellido: string,
-      segundo_apellido: string,
-      fecnac: number,
-      edonac: string,
-      sexo: string,
-      nacorigen: string,
-      edo: string,
-      mun: string,
-      loc: string,
-      telefono?: string,
-      domicilio?: string,
+    nombre: string,
+    primer_apellido: string,
+    segundo_apellido: string,
+    fecnac: number,
+    edonac: string,
+    sexo: string,
+    nacorigen: string,
+    edo: string,
+    mun: string,
+    loc: string,
+    telefono?: string,
+    domicilio?: string,
+    id?: number
   ) {
-  this.id = id;
-  this.nombre = nombre;
-  this.primer_apellido = primer_apellido;
-  this.segundo_apellido = segundo_apellido;
-  this.domicilio = domicilio;
-  this.telefono = telefono;
-  this.fecnac = fecnac;
-  this.edonac = edonac;
-  this.sexo = sexo;
-  this.nacorigen = nacorigen;
-  this.edo = edo;
-  this.mun = mun;
-  this.loc = loc;
-
+    this.nombre = nombre;
+    this.primer_apellido = primer_apellido;
+    this.segundo_apellido = segundo_apellido;
+    this.domicilio = domicilio;
+    this.telefono = telefono;
+    this.fecnac = fecnac;
+    this.edonac = edonac;
+    this.sexo = sexo;
+    this.nacorigen = nacorigen;
+    this.edo = edo;
+    this.mun = mun;
+    this.loc = loc;
+    this.id = id;
   }
 }
 class CustomerController {
@@ -63,7 +62,7 @@ class CustomerController {
     return res;
   }
 
-  static async getCustomerById(id: string) {
+  static async getCustomerById(id: number) {
     const res: Customer = await window.customerAPI.getCustomerById(id);
     return res;
   }
@@ -73,7 +72,7 @@ class CustomerController {
     return res;
   }
 
-  static async deleteCustomer(id: string) {
+  static async deleteCustomer(id: number) {
     const res: Boolean = await window.customerAPI.deleteCustomer(id);
     return res;
   }

@@ -4,9 +4,8 @@ import { arrays, controller, format, messages, regex } from "../../util";
 import ErrorDialog from "../Dialogs/ErrorDialog";
 import { UpdateButton } from "../Buttons";
 
-function UpdateCliente({ id = "" }) {
+function UpdateCliente({ id = 0 }) {
   let [cliente, setCliente] = useState({
-    id: "",
     nombre: "",
     apellido1: "",
     apellido2: "",
@@ -24,8 +23,7 @@ function UpdateCliente({ id = "" }) {
     async function getData() {
       const data = await controller.CustomerController.getCustomerById(id);
       console.log(data);
-      
-      cliente.id = data.id;
+
       cliente.nombre = data.nombre;
       cliente.apellido1 = data.primer_apellido;
       cliente.apellido2 = data.segundo_apellido;
@@ -73,7 +71,6 @@ function UpdateCliente({ id = "" }) {
 
     if (isOpen) {
       const cli = new controller.Customer(
-        cliente.id,
         format.nameFormat(cliente.nombre),
         format.nameFormat(cliente.apellido1),
         format.nameFormat(cliente.apellido2),
@@ -85,7 +82,8 @@ function UpdateCliente({ id = "" }) {
         cliente.municipio,
         cliente.locacion,
         cliente.telefono,
-        cliente.domicilio
+        cliente.domicilio,
+        id
       );
       if (await controller.CustomerController.updateCustomer(cli)) {
         console.log(cli);
@@ -128,24 +126,6 @@ function UpdateCliente({ id = "" }) {
               >
                 <Dialog.Panel className="modal-panel">
                   <form className="m-4" onSubmit={updateCard}>
-                    <div className="mb-6">
-                      <label htmlFor="">id</label>
-                      <input
-                        type="text"
-                        id=""
-                        name=""
-                        className="text-input"
-                        value={cliente.id}
-                        onChange={(e) =>
-                          setCliente({
-                            ...cliente,
-                            id: e.target.value.toUpperCase(),
-                          })
-                        }
-                        pattern={regex.curp_rfc}
-                        required
-                      />
-                    </div>
                     <div className="mb-6">
                       <label htmlFor="">Nombre</label>
                       <input

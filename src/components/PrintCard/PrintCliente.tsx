@@ -4,9 +4,8 @@ import { InfoDialog } from "../Dialogs";
 import { sleep } from "../../util/delay";
 import { PrintButton } from "../Buttons";
 
-function PrintCliente({ id = "" }) {
+function PrintCliente({ id }) {
   const [cliente, setCliente] = useState({
-    id: "",
     nombre: "",
     domicilio: "",
     telefono: "",
@@ -24,7 +23,6 @@ function PrintCliente({ id = "" }) {
   useEffect(() => {
     async function getData() {
       const data = await controller.CustomerController.getCustomerById(id);
-      cliente.id = data.id;
       cliente.nombre =
         data.nombre + " " + data.primer_apellido + " " + data.segundo_apellido;
       cliente.domicilio = data.domicilio + "";
@@ -37,7 +35,7 @@ function PrintCliente({ id = "" }) {
 
   function printCard(e: { preventDefault: () => void }) {
     e.preventDefault();
-    const filename = cliente.id;
+    const filename = cliente;
     const pdf = printFormat.generateClientFormat(cliente);
     const a = controller.PrintController.printToPdf(pdf, "./public", "foo");
     console.log(a);

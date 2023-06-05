@@ -1,7 +1,6 @@
 import { bgImage } from "./image";
 
 interface ICliente {
-  id: string;
   nombre: string;
   domicilio: string;
   telefono: string;
@@ -19,10 +18,6 @@ const generateSupplierFormat = (cliente: ICliente) => {
   const clientTable = {
     widths: ["auto", "*"],
     body: [
-      [
-        { text: "id", bold: true, fillColor: "#CCCCCC" },
-        { text: cliente.id, fillColor: "#CCCCCC" },
-      ],
       [{ text: "Sexo", bold: true }, { text: cliente.sexo }],
       [
         { text: "Fecha de Nacimiento", bold: true, fillColor: "#CCCCCC" },

@@ -1,5 +1,4 @@
 const ExamDAO = require("../DAO/examDAO.js");
-const Validator = require("../validation/validator.js");
 const { ExamDTO } = require("../types.js");
 
 class ExamService {
@@ -8,7 +7,7 @@ class ExamService {
    * @param {string} id 
    * @returns {Promise<[ExamDTO]>}
    */
-  static async getAllExam(id = "") {
+  static async getAllExam(id) {
     /**@type {[ExamDTO]} */
     const exams = await this.getExamById(id);
     return exams;
@@ -20,7 +19,7 @@ class ExamService {
    * @param {string} RFC The RFC of the Employee.
    * @returns {Promise<ExamDTO | [ExamDTO]>}
    */
-  static async getExamById(id = "", date = "") {
+  static async getExamById(id, date = "") {
     try {
       let exam;
 
@@ -42,13 +41,6 @@ class ExamService {
    */
   static async createExam(exam) {
     try {
-      //const sanitizedExam = this.sanitizeExam(exam);
-      const isValidExam = this.validateExam(exam);
-
-      if(isValidExam) {
-        
-      }
-
       const findExam = await this.getExamById(exam.cliente, exam.fecha);
       if (findExam) {
         throw new Error("Exam already exists");

@@ -13,7 +13,7 @@ function UpdateCard({ id = "" }) {
 
   switch (location.pathname) {
     case "/cliente":
-      return <UpdateCliente id={id} />;
+      return <UpdateCliente id={parseInt(id)} />;
 
     case "/proveedor":
       return <UpdateProveedor id={id} />;

@@ -1,6 +1,6 @@
 interface ISupplierAPI {
-  getAllSuppliers: () => Array<Data>,
-  getSupplierByRFC: (rfc: any) => Data,
+  getAllSuppliers: () => Array<Supplier>,
+  getSupplierByRFC: (rfc: any) => Supplier,
   createSupplier: (supplier: any) => Boolean,
   updateSupplier: (supplier: any) => Boolean,
   deleteSupplier: (rfc: any) => Boolean
@@ -40,12 +40,12 @@ class Supplier {
 }
 class SupplierController {
   static async getAllSuppliers() {
-    const res: Array<Data> = await window.supplierAPI.getAllSuppliers();
+    const res: Array<Supplier> = await window.supplierAPI.getAllSuppliers();
     return res;
   }
 
   static async getSupplierByRFC(rfc: string) {
-    const res: Data = await window.supplierAPI.getSupplierByRFC(rfc);
+    const res: Supplier = await window.supplierAPI.getSupplierByRFC(rfc);
     return res;
   }
 
