@@ -10,7 +10,7 @@ const ClientPanel = lazy(() => import("./ClientPanel"));
 
 function Content({ title = "" }) {
   const [data, setData] = useState([{}]);
-  let allData: any;
+  const [allData, setAllData] = useState([{}]);
   const [auxData, setAuxData] = useState({});
   const [keyword, setKeyword] = useState("");
 
@@ -25,32 +25,35 @@ function Content({ title = "" }) {
         case "/cliente":
           const cli = await controller.CustomerController.getAllCustomers();
           setData(cli);
-          allData = cli;
+          setAllData(cli);
           console.log(cli);
 
           break;
 
         case "/examen/" + param:
-          const exa = await controller.ExamController.getAllExams(param + "");
+          let exa = await controller.ExamController.getAllExams(
+            parseInt(param)
+          );
+          exa = exa.sort((a, b) => (a.fecha < b.fecha ? 1 : -1));
           const cliAux = await controller.CustomerController.getCustomerById(
-            param + ""
+            parseInt(param)
           );
 
-          setData(exa.sort((a, b) => (a.fecha < b.fecha ? 1 : -1)));
-          allData = exa.sort((a, b) => (a.fecha < b.fecha ? 1 : -1));
+          setData(exa);
+          setAllData(exa);
           setAuxData(cliAux);
           break;
 
         case "/proveedor":
           const sup = await controller.SupplierController.getAllSuppliers();
           setData(sup);
-          allData = sup;
+          setAllData(sup);
           break;
 
         case "/usuario":
           const emp = await controller.EmployeeController.getAllEmployees();
           setData(emp);
-          allData = emp;
+          setAllData(emp);
           break;
 
         default:
