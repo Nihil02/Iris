@@ -1,7 +1,7 @@
 {
   "name": "iris",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "core/electron/main.js",
   "author": "Iris - Óptica Modelo",
   "authors": [

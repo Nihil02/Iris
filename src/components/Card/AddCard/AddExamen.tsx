@@ -149,6 +149,7 @@ function AddExamen() {
             className="text-input"
             max={new Date().toLocaleDateString("fr-ca")}
             min={"1900-01-01"}
+            defaultValue={new Date().toLocaleDateString("fr-ca")}
             onChange={(e) => {
               let aux = format.dateIntFormat(e.target.value);
               setExamen({ ...examen, fecha: aux });
