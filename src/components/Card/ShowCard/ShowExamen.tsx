@@ -4,39 +4,48 @@ import { controller, format } from "../../../util";
 import { useParams } from "react-router";
 
 function ShowExamen({ id = "", name = "" }) {
-  let param = useParams();
-  let [examen, setExamen] = useState({
-    cliente: param.cliente + "",
-    fecha: "",
+  let param = useParams().cliente + "";
+  const [examen, setExamen] = useState({
+    cliente: param, //Texto
+    nombre_cliente: "",
+    fecha: "", //Entero
 
-    lejos_od_esferico: "",
-    lejos_od_cilindrico: "",
-    lejos_od_eje: "",
-    lejos_od_agudeza: "",
-    adicion_od_esferico: "",
+    lejos_od_esferico: "", //Decimal
+    lejos_od_cilindrico: "", //Decimal
+    lejos_od_eje: "", //Decimal
+    lejos_od_agudeza: "", //Decimal
+    adicion_od_esferico: "", //Decimal
 
-    lejos_oi_esferico: "",
-    lejos_oi_cilindrico: "",
-    lejos_oi_eje: "",
-    lejos_oi_agudeza: "",
-    adicion_oi_esferico: "",
+    lejos_oi_esferico: "", //Decimal
+    lejos_oi_cilindrico: "", //Decimal
+    lejos_oi_eje: "", //Decimal
+    lejos_oi_agudeza: "", //Decimal
+    adicion_oi_esferico: "", //Decimal
 
-    dp_oi: "",
-    dp_od: "",
-    ob_od: "",
-    ob_oi: "",
+    dp_oi: "", //Decimal
+    dp_od: "", //Decimal
+    ob: "", //Decimal
 
-    tipo_lentes: "",
-    observaciones: "",
+    tipo_lentes: "", //Texto
+    observaciones: "", //Texto, opcional
   });
 
   /* Fetch data from the api to the component */
   useEffect(() => {
     async function getData() {
       const data = await controller.ExamController.getExamById(
-        parseInt(examen.cliente),
+        parseInt(param),
         id
       );
+      const auxData = await controller.CustomerController.getCustomerById(
+        parseInt(param)
+      );
+      examen.nombre_cliente =
+        auxData.nombre +
+        " " +
+        auxData.primer_apellido +
+        " " +
+        auxData.segundo_apellido;
 
       examen.fecha = data.fecha;
 
@@ -62,13 +71,15 @@ function ShowExamen({ id = "", name = "" }) {
 
       examen.dp_od = data.dp_od;
       examen.dp_oi = data.dp_oi;
-      examen.ob_od = format.numberDecFormat(data.oblea);
+      examen.ob = format.numberDecFormat(data.oblea);
 
       examen.tipo_lentes = data.tipo_lentes;
       examen.observaciones = data.observaciones;
     }
     getData();
+    console.log("Hola" + param);
   }, []);
+
 
   /* Controls modal state */
   let [isOpen, setIsOpen] = useState(false);
@@ -132,7 +143,7 @@ function ShowExamen({ id = "", name = "" }) {
                         name=""
                         className="text-input"
                         placeholder="Cliente"
-                        value={examen.cliente}
+                        value={examen.nombre_cliente}
                         readOnly
                       />
                     </div>
@@ -331,19 +342,9 @@ function ShowExamen({ id = "", name = "" }) {
                                 id=""
                                 className="table-input"
                                 readOnly
-                                value={examen.ob_od}
+                                value={examen.ob}
                               />
                             </td>
-                            {/*<td>
-                              <input
-                                type="text"
-                                name=""
-                                id=""
-                                className="table-input"
-                                readOnly
-                                value={examen.ob_oi}
-                              />
-                            </td>*/}
                           </tr>
                         </tbody>
                       </table>

@@ -6,9 +6,10 @@ import ErrorDialog from "../../Dialogs/ErrorDialog";
 import { UpdateButton } from "../../Buttons";
 
 function UpdateExamen({ id = "" }) {
-  let param = useParams();
-  let [examen, setExamen] = useState({
-    cliente: param.cliente + "", //Texto
+  let param = useParams().cliente + "";
+  const [examen, setExamen] = useState({
+    cliente: param, //Texto
+    nombre_cliente: "",
     fecha: "", //Entero
 
     lejos_od_esferico: "", //Decimal
@@ -35,9 +36,18 @@ function UpdateExamen({ id = "" }) {
   useEffect(() => {
     async function getData() {
       const data = await controller.ExamController.getExamById(
-        parseInt(examen.cliente),
+        parseInt(param),
         id
       );
+      const auxData = await controller.CustomerController.getCustomerById(
+        parseInt(param)
+      );
+      examen.nombre_cliente =
+        auxData.nombre +
+        " " +
+        auxData.primer_apellido +
+        " " +
+        auxData.segundo_apellido;
 
       examen.fecha = data.fecha;
 
@@ -69,6 +79,7 @@ function UpdateExamen({ id = "" }) {
       examen.observaciones = data.observaciones;
     }
     getData();
+    console.log("Hola" + param);
   }, []);
 
   let [isError, setIsError] = useState(false);
@@ -93,9 +104,10 @@ function UpdateExamen({ id = "" }) {
   const updateCard = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setExamen(examen);
+    
 
     if (isOpen) {
-      console.log();
+    console.log(examen.cliente);
 
       const exa = new controller.Exam(
         parseInt(examen.cliente),
@@ -182,8 +194,7 @@ function UpdateExamen({ id = "" }) {
                         className="text-input"
                         readOnly
                         placeholder="Cliente"
-                        value={examen.cliente}
-                        required
+                        value={examen.nombre_cliente}
                       />
                     </div>
                     <div className="mb-6">

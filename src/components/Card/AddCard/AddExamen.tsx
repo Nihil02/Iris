@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { controller, format, messages } from "../../../util";
 import { useParams } from "react-router-dom";
 import ErrorDialog from "../../Dialogs/ErrorDialog";
@@ -6,9 +6,9 @@ import { AddButton } from "../../Buttons";
 import { FormDialog } from "../../Dialogs";
 
 function AddExamen() {
-  let param = useParams();
+  let param = useParams().cliente + "";
   let [examen, setExamen] = useState({
-    cliente: param.cliente + "", //Texto
+    cliente: "", //Texto
     fecha: "", //Entero
 
     lejos_od_esferico: "", //Decimal
@@ -30,6 +30,22 @@ function AddExamen() {
     tipo_lentes: "", //Texto
     observaciones: "", //Texto, opcional
   });
+
+  useEffect(() => {
+    async function getData() {
+      const auxData = await controller.CustomerController.getCustomerById(
+        parseInt(param)
+      );
+      const value =
+        auxData.nombre +
+        " " +
+        auxData.primer_apellido +
+        " " +
+        auxData.segundo_apellido;
+      setExamen((examen) => ({ ...examen, cliente: value }));
+    }
+    getData();
+  }, []);
 
   let [isError, setIsError] = useState(false);
 
@@ -61,7 +77,7 @@ function AddExamen() {
 
     if (isOpen) {
       const exa = new controller.Exam(
-        parseInt(examen.cliente),
+        parseInt(param),
         examen.fecha,
         examen.dp_od,
         examen.dp_oi,
